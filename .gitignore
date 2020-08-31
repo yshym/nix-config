@@ -1,0 +1,13 @@
+host-configuration.nix
+overrides.nix
+
+# SASS
+*.css.map
+*.sass-cache
+
+# Emacs
+*.elc
+
+# Nix builds
+result
+result-*
