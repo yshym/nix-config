@@ -3,10 +3,6 @@
 {
   home.packages = with pkgs;
     let
-      myEmacs = (emacs.override {
-        withGTK3 = true;
-        withGTK2 = false;
-      });
       myNodePackages = with nodePackages; [ deno prettier serverless ];
       comma = (import (builtins.fetchTarball
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
@@ -86,6 +82,7 @@
       just
       lsd
       pastel
+      ripgrep
       ruplacer
       sd
       tealdeer

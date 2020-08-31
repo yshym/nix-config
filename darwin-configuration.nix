@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 
 with pkgs;
-{
+let me = "yevhenshymotiuk";
+in {
   imports = [
     <home-manager/nix-darwin>
     ./home
@@ -14,6 +15,16 @@ with pkgs;
       bat
       vim
     ];
+
+  fonts.fonts = with pkgs; [
+    dejavu_fonts
+    fira-code
+    fira-code-symbols
+    font-awesome_5
+    iosevka
+    material-icons
+    powerline-fonts
+  ];
 
   # Use a custom configuration.nix location.
   # $ darwin-rebuild switch -I darwin-config=$HOME/.config/nixpkgs/darwin/configuration.nix
