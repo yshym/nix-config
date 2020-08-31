@@ -9,7 +9,7 @@
   home-manager = {
     useUserPackages = false;
     users.yevhenshymotiuk = {pkgs, ...}: {
-      imports = [ ./packages.nix ];
+      imports = [ ./packages.nix ./programs ];
     };
   };
 }
