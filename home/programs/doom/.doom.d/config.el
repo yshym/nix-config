@@ -8,11 +8,12 @@
 ;;; Code:
 
 ;; Font
-(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'normal))
+;; (setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'normal))
 
 
 ;; Theme
-(setq doom-theme 'doom-peacock)
+(setq doom-theme (load-theme 'doom-peacock t))
+
 
 (after! doom-themes
   (setq doom-modeline-major-mode-icon t))
