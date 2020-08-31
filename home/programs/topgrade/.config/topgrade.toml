@@ -1,0 +1,11 @@
+disable = [
+    "emacs",
+    "gem",
+    "go",
+    "node",
+    "flutter",
+    "rustup",
+]
+
+[git]
+repos = [ "~/.emacs.d" ]

@@ -82,7 +82,6 @@
       just
       lsd
       pastel
-      ripgrep
       ruplacer
       sd
       tealdeer

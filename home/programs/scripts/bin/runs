@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+while getopts l opt; do
+    case "$opt" in
+        l)
+            python manage.py runserver 0.0.0.0:8000
+    esac
+done
+
+if [ "$#" == 0 ]; then
+    python manage.py runserver
+fi
