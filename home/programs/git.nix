@@ -31,7 +31,7 @@ in {
         up = "pull --rebase --autostash";
       };
       signing = {
-        key = "E3285766711DB4BC";
+        key = "F79099398148756F";
         signByDefault = true;
       };
       userName = "Yevhen Shymotiuk";

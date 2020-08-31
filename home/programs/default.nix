@@ -4,6 +4,7 @@
     ./crystal.nix
     ./direnv
     ./doom
+    ./git.nix
     ./nodejs.nix
     ./prettier
     ./python
@@ -23,6 +24,10 @@
     emacs = { 
       enable = true;
       # package = pkgs.emacsMacport;
+    };
+    git = {
+      enable = true;
+      pager = "diff-so-fancy";
     };
     go.enable = true;
     nodejs = {
