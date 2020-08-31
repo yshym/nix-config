@@ -13,10 +13,10 @@
     enable = true;
     enableCompletion = true;
     autocd = true;
-    loginExtra = ''
-      ssh-add -D
-      ssh-add $HOME/.ssh/id_rsa
-    '';
+    # loginExtra = ''
+    #   ssh-add -D
+    #   ssh-add $HOME/.ssh/id_rsa
+    # '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
 
