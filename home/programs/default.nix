@@ -13,7 +13,6 @@
     ./rust
     ./scripts
     ./topgrade
-    ./zathura.nix
     ./zsh
   ];
 
