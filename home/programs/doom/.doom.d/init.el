@@ -164,16 +164,6 @@
        ;; +wordnut         ; wordnet (wn) search
        ;; +langtool)       ; a proofreader (grammar/style check) for Emacs
 
-       :collab
-       ;;floobits          ; peer programming for a price
-       ;;impatient-mode    ; show off code over HTTP
-
        :config
-       ;; For literate config users. This will tangle+compile a config.org
-       ;; literate config in your `doom-private-dir' whenever it changes.
        ;;literate
-
-       ;; The default module sets reasonable defaults for Emacs. It also
-       ;; provides a Spacemacs-inspired keybinding scheme and a smartparens
-       ;; config. Use it as a reference for your own modules.
        (default +bindings +smartparens))
