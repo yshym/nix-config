@@ -112,6 +112,10 @@
       :desc "Open mu4e" "m" 'mu4e)
 
 
+;; prog
+(add-hook 'prog-mode-hook 'smartparens-mode)
+
+
 ;; python
 (add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
 ;; (setq pylint-options '("--rcfile=~/.config/pylint/pylintrc"))
