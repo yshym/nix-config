@@ -1,5 +1,5 @@
 ;; Font
-(setq doom-font (font-spec :family "Fira Code" :size 15 :weight 'normal))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 15 :weight 'normal))
 
 
 ;; Theme
