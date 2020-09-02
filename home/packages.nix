@@ -8,7 +8,6 @@
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
-      ameba
       asciinema
       awscli
       caddy2
