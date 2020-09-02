@@ -16,22 +16,16 @@
       chromedriver
       clang-tools
       crystal
-      # dart
       editorconfig-core-c
       elixir
-      elmPackages.elm
-      elmPackages.elm-language-server
       erlang
       exercism
       fd
-      # flutter
       gdb
       gitAndTools.git-hub
       ghc
       glib
-      # gnome3.glade
       gobject-introspection
-      # inotify-tools
       ix
       kubectl
       litecli
@@ -41,7 +35,6 @@
       nasm
       nim
       openmpi
-      # playerctl
       protobuf
       pkg-config
       redis
@@ -49,12 +42,9 @@
       sass
       shellcheck
       shfmt
-      # tinygo
       texlive.combined.scheme-basic
       wakatime
-      # wasilibc
       openjdk8
-      # zig
 
       # nix stuff
       comma
@@ -65,10 +55,7 @@
       patchelf
 
       # documents
-      # gimp
-      # gimp-with-plugins (broken)
       graphviz
-      # libreoffice-fresh
       pandoc
 
       # other ART (Awesome Rust Tools)
@@ -91,11 +78,7 @@
       zola
 
       # communication
-      # discord
       slack
-      # tdesktop
-      # teams
-      # zoom-us
 
       # monitoring
       neofetch
@@ -110,8 +93,6 @@
       ddgr
       doctl
       httpie
-      # insomnia
-      miniserve
       netcat
       rclone
       telnet
@@ -119,7 +100,6 @@
 
       # synchronization
       borgbackup
-      # syncthing-gtk
 
       # entertainment
       epr
@@ -128,6 +108,5 @@
       # my stuff
       # swaylayout
       translate-shell
-      blender
     ] ++ myNodePackages;
 }
