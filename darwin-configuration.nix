@@ -33,7 +33,7 @@ in {
   };
 
   services = {
-    emacs.enable = true;
+    emacs.enable = false;
     postgresql.enable = true;
   };
 
