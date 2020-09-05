@@ -59,6 +59,7 @@
 
 ;; python
 (add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
+(add-hook 'python-mode-hook 'lsp)
 ;; (setq pylint-options '("--rcfile=~/.config/pylint/pylintrc"))
 (setq flycheck-pylintrc "~/.config/pylint/pylintrc")
 
@@ -78,6 +79,8 @@
 (add-to-list
    'exec-path
    (concat (getenv "HOME") "/go/bin"))
+
+(add-hook 'go-mode-hook 'lsp)
 
 (defun golinesfmt ()
   "Format current file using golines formatter."
