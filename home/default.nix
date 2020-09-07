@@ -9,7 +9,8 @@ in {
 
   system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
     name = "applications";
-    paths = config.environment.systemPackages ++ config.home-manager.users.yevhenshymotiuk.home.packages;
+    paths = config.environment.systemPackages
+      ++ config.home-manager.users.yevhenshymotiuk.home.packages;
     pathsToLink = "/Applications";
   });
 
@@ -25,10 +26,9 @@ in {
     done
   '');
 
-
   home-manager = {
     useUserPackages = false;
-    users.yevhenshymotiuk = {pkgs, ...}: {
+    users.yevhenshymotiuk = { pkgs, ... }: {
       imports = [ ./packages.nix ./programs ];
     };
   };
