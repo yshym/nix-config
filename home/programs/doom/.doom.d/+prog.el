@@ -101,6 +101,10 @@
   (revert-buffer))
 
 
+;; js
+(add-hook 'js2-mode-hook 'lsp)
+
+
 ;; protobuf
 (add-hook 'protobuf-mode-hook 'display-line-numbers-mode)
 (add-hook 'protobuf-mode-hook 'hl-line-mode)
