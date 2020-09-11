@@ -38,10 +38,6 @@
 (doom-snippets-initialize)
 
 
-;; prog
-(add-hook 'prog-mode-hook 'smartparens-mode)
-
-
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
 
