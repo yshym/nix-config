@@ -45,7 +45,7 @@
       sass
       shellcheck
       shfmt
-      texlive.combined.scheme-basic
+      texlive.combined.scheme-full
       wakatime
       openjdk8
 
