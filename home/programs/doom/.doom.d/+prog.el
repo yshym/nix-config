@@ -32,10 +32,20 @@
 
 (setq lsp-gopls-codelens nil)
 
+(defun python-flycheck-setup ()
+  "Setup Flycheck checkers for Python"
+  (flycheck-add-next-checker 'lsp 'python-pylint))
+
+(add-hook 'flycheck-mode-hook 'python-flycheck-setup)
+
 
 ;; snippets
 (require 'yasnippet)
 (doom-snippets-initialize)
+
+
+;; prog
+(add-hook 'prog-mode-hook 'smartparens-mode)
 
 
 ;; web-mode
@@ -47,6 +57,10 @@
 (sp-with-modes '(web-mode)
   (sp-local-pair "%" "%" :post-handlers '(("| " "SPC")))
   (sp-local-pair "=" "" :post-handlers '(("| " "SPC"))))
+
+(sp-with-modes '(python-mode)
+  (sp-local-pair "f\"" "\"" :post-handlers '(("| " "SPC")))
+  (sp-local-pair "b\"" "\"" :post-handlers '(("| " "SPC"))))
 
 (sp-local-pair 'web-mode "<" ">" :actions nil)
 
