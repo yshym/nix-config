@@ -68,8 +68,6 @@
 
 
 ;; python
-(add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
-(add-hook 'python-mode-hook 'lsp)
 ;; (setq pylint-options '("--rcfile=~/.config/pylint/pylintrc"))
 (setq flycheck-pylintrc "~/.config/pylint/pylintrc")
 
@@ -83,6 +81,15 @@
       "/.config/black/pyproject.toml "
       (buffer-file-name)))
   (revert-buffer))
+
+(defun poetry-set-pylint-executable ()
+  (interactive)
+  (setq flycheck-python-pylint-executable (concat (car poetry-venv-list) "/bin/pylint")))
+
+(add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
+(add-hook 'python-mode-hook 'lsp)
+(add-hook 'python-mode-hook 'poetry-tracking-mode)
+(add-hook 'poetry-tracking-mode 'poetry-set-pylint-executable)
 
 
 ;; go
