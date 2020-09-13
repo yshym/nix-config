@@ -82,14 +82,13 @@
       (buffer-file-name)))
   (revert-buffer))
 
-(defun poetry-set-pylint-executable ()
-  (interactive)
-  (setq flycheck-python-pylint-executable (concat (car poetry-venv-list) "/bin/pylint")))
+(defun set-pylint-executable ()
+  "Set pylint executable based on venv path"
+  (setq flycheck-python-pylint-executable (concat (getenv "VIRTUAL_ENV") "/bin/pylint")))
 
 (add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
 (add-hook 'python-mode-hook 'lsp)
-(add-hook 'python-mode-hook 'poetry-tracking-mode)
-(add-hook 'poetry-tracking-mode 'poetry-set-pylint-executable)
+(add-hook 'python-mode-hook 'set-pylint-executable)
 
 
 ;; go
