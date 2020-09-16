@@ -12,8 +12,7 @@
 ;; flycheck
 (setq-default flycheck-disabled-checkers
               '(python-flake8
-                python-pycompile
-                python-mypy))
+                python-pycompile))
 
 
 ;; lsp
@@ -34,7 +33,7 @@
 
 (defun python-flycheck-setup ()
   "Setup Flycheck checkers for Python"
-  (flycheck-add-next-checker 'lsp 'python-pylint))
+  (flycheck-add-next-checker 'lsp 'python-pylint 'python-mypy))
 
 (add-hook 'flycheck-mode-hook 'python-flycheck-setup)
 
