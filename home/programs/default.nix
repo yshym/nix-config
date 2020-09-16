@@ -39,12 +39,10 @@
       extraPackages = with pkgs.python3Packages; [
         codecov
         grip
-        mypy
-        # nvchecker
         poetry
-        # python-language-server
       ];
       black.enable = true;
+      mypy.enable = true;
       pipx.enable = true;
       pylint.enable = true;
     };
