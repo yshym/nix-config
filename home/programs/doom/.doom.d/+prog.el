@@ -83,7 +83,11 @@
 
 (defun set-pylint-executable ()
   "Set pylint executable based on venv path"
-  (setq flycheck-python-pylint-executable (concat (getenv "VIRTUAL_ENV") "/bin/pylint")))
+  (setq venv-path (getenv "VIRTUAL_ENV"))
+  (setq flycheck-python-pylint-executable
+        (if venv-path
+            (concat venv-path "/bin/pylint")
+            "pylint")))
 
 (add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
 (add-hook 'python-mode-hook 'lsp)
