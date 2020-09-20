@@ -1,3 +1,9 @@
+;; direnv
+(use-package! direnv
+ :config
+ (direnv-mode))
+
+
 ;; term
 (defun current-directory()
   "Return current directory."

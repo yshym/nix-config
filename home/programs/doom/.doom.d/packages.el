@@ -1,8 +1,9 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; ~/.doom.d/packages.el
 
-(package! org-trello)
-(package! mu4e-alert)
+(package! direnv)
 (package! emojify)
+(package! mu4e-alert)
+(package! org-trello)
 (package! protobuf-mode)
 (package! poetry)
