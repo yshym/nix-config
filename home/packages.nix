@@ -14,7 +14,7 @@
       # development
       asciinema
       awscli
-      caddy2
+      caddy
       ccls
       chromedriver
       clang-tools
