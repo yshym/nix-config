@@ -7,11 +7,9 @@
     cargo-bloat
     cargo-deb
     cargo-deps
-    # cargo-download
     cargo-edit
     cargo-expand
     cargo-flamegraph
-    # cargo-fuzz
     cargo-geiger
     cargo-generate
     cargo-graph
@@ -21,8 +19,6 @@
     cargo-outdated
     cargo-release
     cargo-sweep
-    cargo-udeps
-    # cargo-update
     cargo-watch
     cargo-web
     cargo-xbuild
