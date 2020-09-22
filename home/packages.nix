@@ -37,6 +37,7 @@
       minikube
       nasm
       nim
+      octave
       openmpi
       protobuf
       pkg-config
