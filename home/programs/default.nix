@@ -23,7 +23,7 @@
     doom.enable = true;
     emacs = { 
       enable = true;
-      # package = pkgs.emacsMacport;
+      package = pkgs.emacsMacport;
     };
     git = {
       enable = true;

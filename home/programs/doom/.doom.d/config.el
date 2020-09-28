@@ -7,12 +7,12 @@
 ;;;
 ;;; Code:
 
-
-(load! "+misc")
-(load! "+text")
-(load! "+prog")
-(load! "+ui")
+(load! "+animations")
 (load! "+bindings")
+(load! "+misc")
+(load! "+prog")
+(load! "+text")
+(load! "+ui")
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars)
