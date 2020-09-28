@@ -11,5 +11,6 @@ in {
     home.packages = with pythonPackages; [ pylint pylint-django ];
 
     xdg.configFile."pylint/pylintrc".source = ./.config/pylint/pylintrc;
+    xdg.configFile."pylint/init_hook.py".source = ./.config/pylint/init_hook.py;
   };
 }
