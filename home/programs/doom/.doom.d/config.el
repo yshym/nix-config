@@ -7,7 +7,7 @@
 ;;;
 ;;; Code:
 
-(load! "+animations")
+;; (load! "+animations")
 (load! "+bindings")
 (load! "+misc")
 (load! "+prog")
