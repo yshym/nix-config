@@ -26,6 +26,7 @@
       fd
       gdb
       gitAndTools.git-hub
+      gitAndTools.gh
       ghc
       glib
       gobject-introspection
