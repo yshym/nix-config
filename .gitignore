@@ -11,3 +11,5 @@ overrides.nix
 # Nix builds
 result
 result-*
+
+.DS_Store
