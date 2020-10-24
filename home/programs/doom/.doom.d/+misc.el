@@ -58,7 +58,7 @@
 
 ;; plantuml
 (setq org-plantuml-jar-path
-      (expand-file-name "/usr/share/java/plantuml/plantuml.jar"))
+      (expand-file-name "/Users/yevhenshymotiuk/dev/plantuml/plantuml.jar"))
 
 
 ;; mu4e
