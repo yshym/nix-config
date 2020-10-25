@@ -66,10 +66,10 @@
       }
     ];
     shellAliases = {
-      black = "black --config=$HOME/.config/black/pyproject.toml";
+      # black = "black --config=$HOME/.config/black/pyproject.toml";
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
-      # git = "hub";
+      git = "hub";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
       grep = "rg";
