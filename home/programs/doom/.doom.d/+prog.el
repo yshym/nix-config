@@ -32,7 +32,7 @@
 (setq lsp-gopls-codelens nil)
 
 (defun python-flycheck-setup ()
-  "Setup Flycheck checkers for Python"
+  "Setup Flycheck checkers for Python."
   (flycheck-add-next-checker 'lsp 'python-pylint 'python-mypy))
 
 (add-hook 'flycheck-mode-hook 'python-flycheck-setup)
@@ -82,7 +82,7 @@
   (revert-buffer))
 
 (defun set-pylint-executable ()
-  "Set pylint executable based on venv path"
+  "Set pylint executable based on venv path."
   (setq venv-path (getenv "VIRTUAL_ENV"))
   (setq flycheck-python-pylint-executable
         (if venv-path
@@ -90,7 +90,6 @@
             "pylint")))
 
 (add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
-(add-hook 'python-mode-hook 'lsp)
 (add-hook 'python-mode-hook 'set-pylint-executable)
 
 
@@ -98,8 +97,6 @@
 (add-to-list
    'exec-path
    (concat (getenv "HOME") "/go/bin"))
-
-(add-hook 'go-mode-hook 'lsp)
 
 (defun golinesfmt ()
   "Format current file using golines formatter."
