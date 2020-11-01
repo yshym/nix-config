@@ -8,7 +8,7 @@ in {
   options.programs.python.pylint = { enable = mkEnableOption "Pylint"; };
 
   config = mkIf cfg.enable {
-    home.packages = with pythonPackages; [ pylint pylint-django ];
+    home.packages = with pythonPackages; [ pylint ];
 
     xdg.configFile."pylint/pylintrc".source = ./.config/pylint/pylintrc;
     xdg.configFile."pylint/init_hook.py".source = ./.config/pylint/init_hook.py;
