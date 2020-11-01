@@ -7,11 +7,9 @@
     cargo-bloat
     cargo-deb
     cargo-deps
-    cargo-edit
     cargo-expand
     cargo-flamegraph
     cargo-geiger
-    cargo-generate
     cargo-graph
     cargo-inspect
     cargo-license
@@ -21,7 +19,6 @@
     cargo-sweep
     cargo-watch
     cargo-web
-    cargo-xbuild
     rustup
     sccache
     wasm-pack
