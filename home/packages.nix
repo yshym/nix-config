@@ -6,30 +6,33 @@
       myNodePackages = with nodePackages; [
         # deno
         prettier
-        serverless
+        # serverless
       ];
       comma = (import (builtins.fetchTarball
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
       asciinema
-      awscli
+      # awscli
       caddy
       ccls
       chromedriver
       clang-tools
-      crystal
+      cmake
       editorconfig-core-c
       elixir
       erlang
       exercism
       fd
       gdb
+      ghc
       gitAndTools.git-hub
       gitAndTools.gh
-      ghc
+      gitlab-runner
       glib
+      gnupg
       gobject-introspection
+      gofumpt
       ix
       kubectl
       litecli
@@ -42,6 +45,7 @@
       openmpi
       protobuf
       pkg-config
+      R
       redis
       ruby
       sass
@@ -49,7 +53,6 @@
       shfmt
       texlive.combined.scheme-full
       wakatime
-      openjdk8
 
       # nix stuff
       comma
@@ -108,6 +111,7 @@
 
       # entertainment
       epr
+      mpv
       youtube-dl
 
       # my stuff
