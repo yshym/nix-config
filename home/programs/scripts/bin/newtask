@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DIR=$1
+PYFILE="__main__.py"
+
+mkdir $DIR
+cd $DIR
+
+touch $PYFILE
+echo -e "def $2():\n    pass" > $PYFILE
