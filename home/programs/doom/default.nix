@@ -12,7 +12,7 @@ in {
         envExtra = ''
           export PATH="$HOME/.emacs.d/bin:$PATH"
         '';
-        sessionVariables.EDITOR = "emacs";
+        sessionVariables.EDITOR = "emacsclient";
       };
     };
 
