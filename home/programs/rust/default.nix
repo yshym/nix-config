@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+ { pkgs, ... }:
 
 {
   home.packages = with pkgs; [
@@ -9,7 +9,7 @@
     cargo-deps
     cargo-expand
     cargo-flamegraph
-    cargo-geiger
+    # cargo-geiger
     cargo-graph
     cargo-inspect
     cargo-license
