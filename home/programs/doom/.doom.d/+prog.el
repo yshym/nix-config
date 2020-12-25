@@ -31,12 +31,14 @@
 
 (setq lsp-gopls-codelens nil)
 
+(add-hook! 'lsp-after-initialize-hook
+  (run-hooks (intern (format "%s-lsp-hook" major-mode))))
+
 (defun python-flycheck-setup ()
   "Setup Flycheck checkers for Python."
   (flycheck-add-next-checker 'lsp 'python-pylint 'python-mypy))
 
-(add-hook 'flycheck-mode-hook 'python-flycheck-setup)
-
+(add-hook 'python-mode-lsp-hook 'python-flycheck-setup)
 
 ;; snippets
 (require 'yasnippet)
@@ -98,13 +100,15 @@
    'exec-path
    (concat (getenv "HOME") "/go/bin"))
 
-(defun golinesfmt ()
-  "Format current file using golines formatter."
+(defun gofmt ()
+  "Format current file using golines and gofumpt formatters."
   (interactive)
   (shell-command-to-string
-    (concat
-      "golines -w -m 80 "
-      (buffer-file-name)))
+   (concat
+    "golines -w -m 80 "
+    (buffer-file-name)
+    "&& gofumpt -w "
+    (buffer-file-name)))
   (revert-buffer))
 
 (defun gomodifytags ()

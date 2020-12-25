@@ -7,3 +7,6 @@
 (package! org-trello)
 (package! protobuf-mode)
 (package! poetry)
+(package! atomic-chrome)
+(package! ansi-color)
+(package! highlight-indent-guides)
