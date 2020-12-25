@@ -35,7 +35,6 @@
       gofumpt
       ix
       kubectl
-      litecli
       lld_10
       lua
       minikube
@@ -112,6 +111,8 @@
       # entertainment
       epr
       mpv
+      spotifyd
+      spotify-tui
       youtube-dl
 
       # my stuff
