@@ -1,0 +1,18 @@
+FILE="/Users/yevhenshymotiuk/screen.png"
+
+while getopts "s" opt; do
+    case "$opt" in
+        s)
+            SELECT=true
+    esac
+done
+
+# make screenshot
+if [ "$SELECT" == true ]; then
+    screencapture -i "$FILE"
+else
+    screencapture "$FILE"
+fi
+
+# copy to clipboard
+osascript -e "$(printf 'set the clipboard to (read (POSIX file "%s") as JPEG picture)' $FILE)"
