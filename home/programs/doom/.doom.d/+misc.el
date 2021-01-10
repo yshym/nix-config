@@ -1,3 +1,7 @@
+;; evil
+(global-undo-tree-mode)
+(evil-set-undo-system 'undo-tree)
+
 ;; direnv
 (use-package! direnv
  :config
