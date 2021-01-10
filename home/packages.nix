@@ -4,16 +4,16 @@
   home.packages = with pkgs;
     let
       myNodePackages = with nodePackages; [
-        # deno
+        deno
         prettier
-        # serverless
+        serverless
       ];
       comma = (import (builtins.fetchTarball
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
       asciinema
-      # awscli
+      awscli
       caddy
       ccls
       chromedriver
@@ -69,7 +69,7 @@
       # other ART (Awesome Rust Tools)
       exa
       diskus
-      # du-dust
+      du-dust
       fd
       ffsend
       hexyl
