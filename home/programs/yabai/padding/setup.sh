@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 yabai -m config top_padding 10
 yabai -m config bottom_padding 10

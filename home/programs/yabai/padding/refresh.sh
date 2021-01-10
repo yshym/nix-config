@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 space_info=$(yabai -m query --windows --space | jq)
 number_of_windows=$(yabai -m query --windows --space | jq "length")
