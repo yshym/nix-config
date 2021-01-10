@@ -34,6 +34,7 @@
       gobject-introspection
       gofumpt
       ix
+      jq
       kubectl
       lld_10
       lua
