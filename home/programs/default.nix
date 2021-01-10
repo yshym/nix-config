@@ -13,7 +13,9 @@
     ./ruby.nix
     ./rust
     ./scripts
+    ./skhd
     ./topgrade
+    ./yabai
     ./zsh
   ];
 
