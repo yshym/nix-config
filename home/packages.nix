@@ -33,6 +33,7 @@
       gnupg
       gobject-introspection
       gofumpt
+      iterm2
       ix
       jq
       kubectl
