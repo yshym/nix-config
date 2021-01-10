@@ -20,18 +20,21 @@
     envExtra = ''
       fpath+=$HOME/.zsh_completions
 
+      export ERL_AFLAGS="-kernel shell_history enabled"
       export PYENV_ROOT="$HOME/.pyenv"
+      export GOPATH="$HOME/go"
+      # export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
 
       export PATH="$PYENV_ROOT/bin:$PATH"
       export PATH="$HOME/.mix/escripts:$PATH"
-      export PATH="$(go env GOPATH)/bin:$PATH"
+      export PATH="$GOPATH/bin:$PATH"
       export PATH="$HOME/.local/bin:$PATH"
 
-      export GOPATH=$(go env GOPATH)
-
-      # export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
-
-      export ERL_AFLAGS="-kernel shell_history enabled"
+      # check nix-related paths
+      nix &> /dev/null
+      [ "$?" -ne 0 ] && \
+        export PATH="$HOME/.nix-profile/bin:$PATH" && \
+        export PATH="/nix/var/nix/profiles/default/bin:$PATH"
     '';
     initExtra = ''
       source ~/.p10k-pure.zsh
