@@ -66,6 +66,7 @@
       }
     ];
     shellAliases = {
+      drs = "darwin-rebuild switch";
       # black = "black --config=$HOME/.config/black/pyproject.toml";
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
