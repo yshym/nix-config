@@ -19,6 +19,7 @@
       chromedriver
       clang-tools
       cmake
+      dart
       editorconfig-core-c
       elixir
       erlang
