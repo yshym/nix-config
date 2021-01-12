@@ -7,8 +7,8 @@
 ;;;
 ;;; Code:
 
-;; (load! "+animations")
 (load! "+bindings")
+;; (load! "+macos")
 (load! "+misc")
 (load! "+prog")
 (load! "+text")
