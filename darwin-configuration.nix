@@ -24,6 +24,8 @@ in {
   # services.nix-daemon.enable = true;
   # nix.package = pkgs.nix;
 
+  # nix.useSandbox = true;
+
   programs = {
     zsh.enable = true;
     gnupg.agent = {
