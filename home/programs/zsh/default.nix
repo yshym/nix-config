@@ -17,39 +17,27 @@
     #   ssh-add -D
     #   ssh-add $HOME/.ssh/id_rsa
     # '';
+    initExtra = ''
+      export HISTSIZE=1000
+      export SAVEHIST=1000
+
+      source ~/.p10k-pure.zsh
+      if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+      fi
+    '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
 
       export ERL_AFLAGS="-kernel shell_history enabled"
       export PYENV_ROOT="$HOME/.pyenv"
       export GOPATH="$HOME/go"
-      # export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
+      export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
 
       export PATH="$PYENV_ROOT/bin:$PATH"
       export PATH="$HOME/.mix/escripts:$PATH"
       export PATH="$GOPATH/bin:$PATH"
       export PATH="$HOME/.local/bin:$PATH"
-
-      # check nix-related paths
-      which nix &> /dev/null
-      [ "$?" -ne 0 ] && \
-        export PATH="$HOME/.nix-profile/bin:$PATH" && \
-        export PATH="/nix/var/nix/profiles/default/bin:$PATH" && \
-        export PATH="/run/current-system/sw/bin:$PATH"
-
-      # check brew-related paths
-      which brew &> /dev/null
-      [ "$?" -ne 0 ] && export PATH="/usr/local/bin:$PATH"
-
-      # check system-related paths
-      which reboot &> /dev/null
-      [ "$?" -ne 0 ] && export PATH="/sbin:$PATH"
-    '';
-    initExtra = ''
-      source ~/.p10k-pure.zsh
-      if command -v pyenv 1>/dev/null 2>&1; then
-        eval "$(pyenv init -)"
-      fi
     '';
     oh-my-zsh = {
       enable = true;
