@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>AdjustWindowForFontSizeChange</key>
+	<true/>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -16,6 +18,8 @@
 	<dict/>
 	<key>Default Bookmark Guid</key>
 	<string>DF5B6F88-A131-4F3B-AB5F-73316BC8D895</string>
+	<key>DisableWindowSizeSnap</key>
+	<true/>
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>HapticFeedbackForEsc</key>
@@ -82,7 +86,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>586 522 620 398 0 0 1792 1095 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>899 18 874 1068 0 0 1792 1095 </string>
+	<string>899 10 883 1076 0 0 1792 1095 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -851,12 +855,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{674, 615}</string>
+		<string>{672, 616}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>742C03F0-D1DA-4281-B998-6F91FE1A4605</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>35</integer>
+	<integer>51</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1593,6 +1597,39 @@
 	<integer>0</integer>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>632006925.60796797</real>
+	<key>PointerActions</key>
+	<dict>
+		<key>Button,1,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kContextMenuPointerAction</string>
+		</dict>
+		<key>Button,2,1,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPasteFromClipboardPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeDown,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevWindowPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeLeft,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kPrevTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeRight,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextTabPointerAction</string>
+		</dict>
+		<key>Gesture,ThreeFingerSwipeUp,,</key>
+		<dict>
+			<key>Action</key>
+			<string>kNextWindowPointerAction</string>
+		</dict>
+	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>~/.nixpkgs/home/programs/iterm</string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
@@ -1611,6 +1648,10 @@
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
 	<integer>3704044895</integer>
+	<key>SeparateStatusBarsPerPane</key>
+	<false/>
+	<key>SeparateWindowTitlePerTab</key>
+	<true/>
 	<key>SmartPlacement</key>
 	<false/>
 	<key>SoundForEsc</key>
@@ -1619,6 +1660,10 @@
 	<true/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TerminalMargin</key>
+	<integer>5</integer>
+	<key>TerminalVMargin</key>
+	<integer>2</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>UseLionStyleFullscreen</key>
