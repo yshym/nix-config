@@ -60,6 +60,5 @@
       provider = "nixpkgs";
       enableSolargraph = true;
     };
-    zsh.enable = true;
   };
 }
