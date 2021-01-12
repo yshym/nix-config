@@ -1,10 +1,5 @@
 #!/usr/bin/env sh
 
-yabai -m config top_padding 10
-yabai -m config bottom_padding 10
-yabai -m config left_padding 10
-yabai -m config right_padding 10
-
 # window_numbers=$(yabai -m query --spaces \
 #     | jq ".[].index"  \
 #     | xargs -I{} yabai -m query --windows --space {} \
@@ -22,4 +17,4 @@ yabai -m config right_padding 10
 #     di=$((di+1))
 # done
 
-# "$HOME/.config/yabai/padding/signals.sh"
+"$HOME/.config/yabai/padding/signals.sh"
