@@ -58,9 +58,9 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;;eshell            ; a consistent, cross-platform shell (WIP)
+       ;; eshell            ; a consistent, cross-platform shell (WIP)
        term              ; terminals in Emacs
-       ;;vterm             ; another terminals in Emacs
+       ;; vterm             ; another terminals in Emacs
 
        :tools
        ansible
@@ -78,13 +78,13 @@
        lsp
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       ;;password-store    ; password manager for nerds
+       password-store    ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;;rgb               ; creating color strings
+       rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
-       ;;tmux              ; an API for interacting with tmux
-       ;;upload            ; map local to remote projects via ssh/ftp
+       tmux              ; an API for interacting with tmux
+       upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
 
        :os
@@ -110,7 +110,7 @@
        emacs-lisp        ; drown in parentheses
        ;;ess               ; emacs speaks statistics
        (go +lsp)                ; the hipster dialect
-       (haskell +dante) ; a language that's lazier than I am
+       ;; (haskell +dante) ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
