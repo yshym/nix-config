@@ -69,11 +69,8 @@
       # mirror tree x-axis
       alt - x : yabai -m space --mirror x-axis
 
-      # stack
-      alt - s : yabai -m config --space mouse layout stack
-
-      # tile
-      alt - t : yabai -m config --space mouse layout bsp
+      # toggle stack
+      alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # restart yabai
       shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.yabai"
