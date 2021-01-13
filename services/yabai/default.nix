@@ -9,6 +9,7 @@ in {
     config = {
       # mouse_follows_focus = "on";
       # focus_follows_mouse = "autoraise";
+      window_shadow = "off";
       window_placement = "second_child";
       # window_border = "on";
       # window_border_width = 5;
