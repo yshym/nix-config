@@ -30,8 +30,6 @@ in {
       sudo yabai --load-sa
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
-      "$HOME/.config/yabai/padding/setup.sh"
-
       # mission-control desktop labels
       yabai -m space 1 --label web
       yabai -m space 2 --label code
