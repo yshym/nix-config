@@ -86,7 +86,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>586 522 620 398 0 0 1792 1095 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>899 10 883 1076 0 0 1792 1095 </string>
+	<string>10 10 1772 1076 0 0 1792 1095 </string>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -490,7 +490,7 @@
 					<key>Text</key>
 					<string>0x7f</string>
 				</dict>
-				<key>0x61-0x80000</key>
+				<key>0x62-0x80000</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -844,6 +844,7 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
+		<string>3.3.20210111</string>
 		<string>3.3.20210110</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
@@ -855,20 +856,22 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{672, 616}</string>
+		<string>{672, 856}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>742C03F0-D1DA-4281-B998-6F91FE1A4605</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>51</integer>
+	<integer>207</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>632179725.60816896</real>
+	<real>632266185.35460603</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
 	<true/>
+	<key>NoSyncPermissionToShowTip</key>
+	<false/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
 		<key>0</key>
@@ -1675,7 +1678,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.20210110</string>
+	<string>3.3.20210111</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
