@@ -66,6 +66,7 @@
       }
     ];
     shellAliases = {
+      drel = "direnv reload";
       drs = "darwin-rebuild switch";
       # black = "black --config=$HOME/.config/black/pyproject.toml";
       cat = "bat";
