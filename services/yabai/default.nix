@@ -26,10 +26,6 @@ in {
       right_padding = padding;
     };
     extraConfig = ''
-      # load scripting-additions
-      sudo yabai --load-sa
-      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
-
       # mission-control desktop labels
       yabai -m space 1 --label web
       yabai -m space 2 --label code
@@ -46,6 +42,7 @@ in {
       yabai -m rule --add app="^Spark$" space=mail manage=on
       yabai -m rule --add app="^Transmission$" space=media
       yabai -m rule --add app="^Spotify$" space=media manage=on
+      yabai -m rule --add app="^mpv" space=media manage=on
       yabai -m rule --add app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add app="^Spotlight$" layer=above manage=off
       yabai -m rule --add app="^Stickies$" manage=off
