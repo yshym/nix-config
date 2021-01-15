@@ -50,8 +50,8 @@
 
        :emacs
        (dired            ; making dired pretty [functional]
-       ;;+ranger         ; bringing the goodness of ranger to dired
-       ;;+icons          ; colorful icons for dired-mode
+        +ranger         ; bringing the goodness of ranger to dired
+        ;; +icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
        imenu             ; an imenu sidebar and searchable code index
@@ -79,7 +79,7 @@
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        password-store    ; password manager for nerds
-       pdf               ; pdf enhancements
+       ;; pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
