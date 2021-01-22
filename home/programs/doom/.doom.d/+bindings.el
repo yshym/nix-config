@@ -15,9 +15,15 @@
           "TAB" 'company-complete-selection)))
 
 
+;; verb
+(map! (:after verb
+        (:map verb-mode-map
+          "C-c v" 'verb-send-request-on-point)))
+
+
 ;; <leader>
 (map! :leader
       :desc "Open swiper" "S" 'swiper
-      :desc "Toggle terminal in popup" "o t" 'open-popup-terminal
-      :desc "Open mu4e" "m" 'mu4e
+      :desc "Open terminal in popup" "o t" 'toggle-popup-terminal
+      :desc "Open mu4e" "M" 'mu4e
       :desc "Kill buffer" "b k" 'kill-this-buffer)

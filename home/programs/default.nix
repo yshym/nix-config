@@ -21,7 +21,7 @@
   programs = {
     crystal.enable = false;
     doom.enable = true;
-    emacs = { 
+    emacs = {
       enable = true;
       # package = pkgs.emacsMacport;
     };

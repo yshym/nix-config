@@ -24,12 +24,10 @@
       elixir
       erlang
       exercism
-      fd
       gdb
       ghc
       gitAndTools.git-hub
       gitAndTools.gh
-      gitlab-runner
       glib
       gnupg
       gobject-introspection
@@ -38,6 +36,7 @@
       ix
       jq
       kubectl
+      libpng
       lld_10
       lua
       minikube
@@ -49,15 +48,18 @@
       pkg-config
       R
       redis
+      rnix-lsp
       ruby
       sass
       shellcheck
       shfmt
+      terminal-notifier
       texlive.combined.scheme-full
       wakatime
 
       # nix stuff
       comma
+      fd
       nix-index
       nix-prefetch-github
       nixpkgs-review
@@ -88,6 +90,8 @@
       zola
 
       # communication
+      mu
+      offlineimap
       slack
 
       # monitoring
