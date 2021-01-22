@@ -32,7 +32,7 @@
       export ERL_AFLAGS="-kernel shell_history enabled"
       export PYENV_ROOT="$HOME/.pyenv"
       export GOPATH="$HOME/go"
-      export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
+      # export DARTPATH=$(dirname $(dirname $(readlink $(which dart))))
 
       export PATH="$PYENV_ROOT/bin:$PATH"
       export PATH="$HOME/.mix/escripts:$PATH"
