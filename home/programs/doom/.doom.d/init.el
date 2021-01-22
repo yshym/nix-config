@@ -58,9 +58,10 @@
        vc                ; version-control and Emacs, sitting in a tree
 
        :term
-       ;; eshell            ; a consistent, cross-platform shell (WIP)
-       term              ; terminals in Emacs
-       ;; vterm             ; another terminals in Emacs
+       ;;eshell            ; the elisp shell that works everywhere
+       ;;shell             ; simple shell REPL for Emacs
+       ;;term              ; basic terminal emulator for Emacs
+       vterm             ; the best terminal emulation in Emacs
 
        :tools
        ansible
@@ -79,7 +80,7 @@
        magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
        password-store    ; password manager for nerds
-       ;; pdf               ; pdf enhancements
+       ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
        ;;terraform         ; infrastructure as code
@@ -101,9 +102,9 @@
        ;;crystal           ; ruby at the speed of c
        ;;csharp            ; unity, .NET, and mono shenanigans
        data              ; config/data formats
-       (dart
-        +lsp
-        +flutter)   ; paint ui and not much else
+       ;; (dart
+       ;;  +lsp
+       ;;  +flutter)   ; paint ui and not much else
        ;;erlang            ; an elegant language for a more civilized age
        (elixir +lsp)            ; erlang done right
        (elm +lsp)               ; care for a cup of TEA?
@@ -122,7 +123,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        nim               ; python + lisp at the speed of c
-       nix               ; I hereby declare "nix geht mehr!"
+       (nix +lsp)               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
@@ -139,7 +140,7 @@
        (python +lsp)            ; beautiful is better than ugly
        ;;qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
-       ;;rest              ; Emacs as a REST client
+       rest              ; Emacs as a REST client
        ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
        (rust +lsp)         ; Fe2O3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
@@ -151,13 +152,10 @@
        ;;vala              ; GObjective-C
 
        :email
-       (mu4e +gmail)       ; WIP
-       ;;notmuch             ; WIP
-       ;;(wanderlust +gmail) ; WIP
+       (mu4e +gmail)
+       ;;notmuch
+       ;;(wanderlust +gmail)
 
-       ;; Applications are complex and opinionated modules that transform Emacs
-       ;; toward a specific purpose. They may have additional dependencies and
-       ;; should be loaded late.
        :app
        ;;calendar
        ;;irc              ; how neckbeards socialize
