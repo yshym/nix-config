@@ -4,16 +4,23 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
+      # open application launcher
+      alt - d : open -a "dmenu-mac"
+
       # open terminal
       alt - return : open -a "iTerm"
 
-      # focus window
+      # focus bsp windows
       alt - h : yabai -m window --focus west
       alt - j : yabai -m window --focus south
       alt - k : yabai -m window --focus north
       alt - l : yabai -m window --focus east
-      ctrl + alt - k : yabai -m window --focus stack.prev
-      ctrl + alt - j : yabai -m window --focus stack.next
+
+      # focus stack windows
+      ctrl + alt - j : yabai -m window --focus stack.next \
+            || yabai -m window --focus stack.first
+      ctrl + alt - k : yabai -m window --focus stack.prev \
+            || yabai -m window --focus stack.last
 
       # swap window
       shift + alt - h : yabai -m window --swap west
