@@ -79,6 +79,10 @@
    (shell-command-to-string
     (concat
      "black.sh "
+     (store-substring
+      (projectile-project-root)
+      (- (length (projectile-project-root)) 1)
+      " ")
      (buffer-file-name))))
   (revert-buffer))
 
