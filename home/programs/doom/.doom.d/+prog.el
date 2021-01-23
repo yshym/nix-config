@@ -75,12 +75,11 @@
 (defun black-format ()
   "Format current file using Black formatter."
   (interactive)
-  (shell-command-to-string
+  (print
+   (shell-command-to-string
     (concat
-      "black --config="
-      (getenv "HOME")
-      "/.config/black/pyproject.toml "
-      (buffer-file-name)))
+     "black.sh "
+     (buffer-file-name))))
   (revert-buffer))
 
 (defun set-pylint-executable ()

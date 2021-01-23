@@ -66,11 +66,10 @@
       }
     ];
     shellAliases = {
-      drel = "direnv reload";
-      drs = "darwin-rebuild switch";
-      # black = "black --config=$HOME/.config/black/pyproject.toml";
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
+      drel = "direnv reload";
+      drs = "darwin-rebuild switch";
       git = "hub";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
