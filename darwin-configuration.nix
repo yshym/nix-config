@@ -42,6 +42,7 @@ with pkgs;
   ];
 
   fonts.fonts = [
+    font-awesome
     jetbrains-mono
   ];
 
