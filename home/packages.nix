@@ -39,6 +39,7 @@
       libpng
       lld_10
       lua
+      luaPackages.lua-lsp
       minikube
       nasm
       nim
