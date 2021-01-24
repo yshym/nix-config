@@ -5,6 +5,7 @@
     ./direnv
     ./doom
     ./git.nix
+    ./hammerspoon
     ./nodejs.nix
     ./prettier
     ./python
