@@ -4,6 +4,11 @@ function keyboardLayout:init()
   self:draw()
   self:setLayoutChangedHook()
 
+  self.layoutIndexes = {}
+  for i, name in ipairs(hs.keycodes.layouts()) do
+    self.layoutIndexes[name] = i
+  end
+
   local function nextLayout()
     self:setNextLayout()
   end
@@ -32,7 +37,7 @@ function keyboardLayout:currentLayoutImageElement()
   text = kc.currentLayout()
 
   image = text == "ABC"
-    and hs.image.imageFromPath("~/.hammerspoon/keyboardLayout/uk.png")
+    and hs.image.imageFromPath("~/.hammerspoon/keyboardLayout/abc.png")
     or kc.currentLayoutIcon()
 
   return { type = "image", id = "klimage", image = image }
@@ -40,7 +45,7 @@ end
 
 function keyboardLayout:draw()
   canvas = hs.canvas
-  self.c = canvas.new{ x = 1550, y = 6.5, h = 18, w = 64 }:show()
+  self.c = canvas.new{ x = 1585, y = 8, h = 16, w = 16 }:show()
   self.c:behavior("canJoinAllSpaces")
   self.c:level("normal")
   self.c:insertElement({
@@ -64,11 +69,8 @@ function keyboardLayout:setNextLayout()
   kc = hs.keycodes
   layouts = kc.layouts()
 
-  for i, name in ipairs(layouts) do
-    if name == kc.currentLayout() then
-      nextIndex = i == #layouts and 1 or i + 1
-    end
-  end
+  index = self.layoutIndexes[kc.currentLayout()]
+  nextIndex = index == #layouts and 1 or index + 1
 
   kc.setLayout(layouts[nextIndex])
 end
