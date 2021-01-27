@@ -4,9 +4,6 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
-      # open application launcher
-      alt - d : open -a "dmenu-mac"
-
       # open terminal
       alt - return : open -a "iTerm"
 
@@ -80,7 +77,7 @@
       alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # restart yabai
-      shift + alt - r : launchctl kickstart -k "gui/$UID/homebrew.mxcl.spacebar" && \
+      shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.spacebar" && \
             launchctl kickstart -k "gui/$UID/org.nixos.yabai"
     '';
   };
