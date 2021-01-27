@@ -1,5 +1,5 @@
 ;; magit
-(add-hook 'magit-mode-hook 'magit-todos-mode)
+(add-hook! 'magit-mode-hook 'magit-todos-mode)
 
 
 ;; company
@@ -39,6 +39,7 @@
   (flycheck-add-next-checker 'lsp 'python-pylint 'python-mypy))
 
 (add-hook 'python-mode-lsp-hook 'python-flycheck-setup)
+
 
 ;; snippets
 (require 'yasnippet)

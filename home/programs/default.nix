@@ -3,7 +3,7 @@
     ./asdf.nix
     ./crystal.nix
     ./direnv
-    ./doom
+    ./emacs
     ./git.nix
     ./hammerspoon
     ./nodejs.nix
@@ -21,10 +21,9 @@
 
   programs = {
     crystal.enable = false;
-    doom.enable = true;
     emacs = {
       enable = true;
-      # package = pkgs.emacsMacport;
+      useHead = true;
     };
     git = {
       enable = true;
