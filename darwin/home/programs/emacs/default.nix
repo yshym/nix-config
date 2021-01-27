@@ -11,7 +11,7 @@ in {
     nixpkgs.overlays = mkIf cfg.useHead [
       (import (builtins.fetchTarball {
         url =
-          "https://github.com/nix-community/emacs-overlay/archive/08c01cc7b88f8564bd7ecb7cc387db922f19300e.tar.gz";
+          "https://github.com/nix-community/emacs-overlay/archive/f98b64c94f1302d444250f41442c63d1d16f0525.tar.gz";
       }))
     ];
 

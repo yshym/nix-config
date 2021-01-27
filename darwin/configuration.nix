@@ -3,20 +3,13 @@
 with pkgs;
 {
   imports = [
+    ./cachix.nix
     <home-manager/nix-darwin>
     ./home
     ./services
   ];
 
   nixpkgs.overlays = [
-    # (self: super: {
-    #   emacs = super.emacs.override {
-    #     withNS = false;
-    #     withX = true;
-    #     withGTK3 = true;
-    #     withXwidgets = true;
-    #   };
-    # })
     (self: super: {
       yabai = super.yabai.overrideAttrs (o: rec {
         version = "3.3.6";
@@ -37,7 +30,6 @@ with pkgs;
 
   environment.systemPackages = [
     bat
-    # emacs
     vim
   ];
 
@@ -47,7 +39,7 @@ with pkgs;
     nerdfonts
   ];
 
-  # environment.darwinConfig = "$HOME/.nixpkgs/darwin/configuration.nix";
+  environment.darwinConfig = "$HOME/.nixpkgs/darwin/configuration.nix";
 
   nix = {
     package = pkgs.nix;
