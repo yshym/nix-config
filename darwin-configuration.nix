@@ -44,6 +44,7 @@ with pkgs;
   fonts.fonts = [
     font-awesome
     jetbrains-mono
+    nerdfonts
   ];
 
   # environment.darwinConfig = "$HOME/.nixpkgs/darwin/configuration.nix";
@@ -54,11 +55,11 @@ with pkgs;
   };
 
   programs = {
-    zsh.enable = true;
     gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
     };
+    zsh.enable = true;
   };
 
   services = {

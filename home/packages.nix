@@ -14,6 +14,7 @@
       # development
       asciinema
       awscli
+      cachix
       caddy
       ccls
       chromedriver
@@ -42,6 +43,7 @@
       luaPackages.lua-lsp
       minikube
       nasm
+      neovim
       nim
       octave
       openmpi
@@ -56,6 +58,7 @@
       shfmt
       terminal-notifier
       texlive.combined.scheme-full
+      # spacevim
       wakatime
 
       # nix stuff
