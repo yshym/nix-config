@@ -24,6 +24,6 @@
 ;; <leader>
 (map! :leader
       :desc "Open swiper" "S" 'swiper
-      :desc "Open terminal in popup" "o t" 'toggle-popup-terminal
+      :desc "Open terminal in popup" "o t" 'open-popup-terminal
       :desc "Open mu4e" "M" 'mu4e
       :desc "Kill buffer" "b k" 'kill-this-buffer)

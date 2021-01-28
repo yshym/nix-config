@@ -11,12 +11,13 @@
 ;; terminal
 (setq evil-escape-excluded-major-modes (delete 'vterm-mode evil-escape-excluded-major-modes))
 
-(defun toggle-popup-terminal ()
+(defun open-popup-terminal ()
   "Toggle a terminal popup window."
   (interactive)
   (select-window (split-window-vertically))
-  (evil-window-set-height 15)
-  (+vterm/here t))
+  (+vterm/here t)
+  (+popup--init (selected-window))
+  (evil-window-set-height 15))
 
 
 ;; trello
