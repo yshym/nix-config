@@ -2,9 +2,9 @@ stackline = require "stackline.stackline.stackline"
 local stacklineConfig = {
     appearance = {
         color = {
-            white = 0,
+            white = 0.9,
         },
-        showIcons = true,
+        showIcons = false,
     },
     paths = {
         jq = "/Users/yevhenshymotiuk/.nix-profile/bin/jq",
