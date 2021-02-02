@@ -75,7 +75,6 @@
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
       grep = "rg";
       ls = "exa --group-directories-first";
-      vim = "nvim";
     };
   };
 }
