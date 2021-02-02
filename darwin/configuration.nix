@@ -1,43 +1,26 @@
 { config, pkgs, ... }:
 
-with pkgs;
-{
-  imports = [
-    ./cachix.nix
-    <home-manager/nix-darwin>
-    ./home
-    ./services
-  ];
+with pkgs; {
+  imports = [ ./cachix.nix <home-manager/nix-darwin> ./home ./services ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      yabai = super.yabai.overrideAttrs (o: rec {
-        version = "3.3.6";
-        src = builtins.fetchTarball {
-          url = "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-          sha256 = "00iblhdx89wyvasl3hm95w91z4mrwb7pbfdvg9cmpcnqphbfs5ld";
-        };
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      allowBroken = false;
+      allowUnsupportedSystem = false;
+    };
 
-        installPhase = ''
-          mkdir -p $out/bin
-          mkdir -p $out/share/man/man1/
-          cp ./archive/bin/yabai $out/bin/yabai
-          cp ./archive/doc/yabai.1 $out/share/man/man1/yabai.1
-        '';
-      });
-    })
-  ];
+    overlays = let path = ./overlays;
+    in with builtins;
+    map (n: import (path + ("/" + n))) (filter (n:
+      match ".*\\.nix" n != null
+      || pathExists (path + ("/" + n + "/default.nix")))
+      (attrNames (readDir path)));
+  };
 
-  environment.systemPackages = [
-    bat
-    vim
-  ];
+  environment.systemPackages = [ bat vim ];
 
-  fonts.fonts = [
-    font-awesome
-    jetbrains-mono
-    nerdfonts
-  ];
+  fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];
 
   environment.darwinConfig = "$HOME/.nixpkgs/darwin/configuration.nix";
 
