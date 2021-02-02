@@ -12,6 +12,7 @@
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
+      autoconf
       asciinema
       awscli
       cachix
@@ -43,7 +44,6 @@
       luaPackages.lua-lsp
       minikube
       nasm
-      neovim
       nim
       octave
       openmpi
@@ -96,7 +96,6 @@
       # communication
       mu
       offlineimap
-      slack
 
       # monitoring
       neofetch
