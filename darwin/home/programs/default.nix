@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+
+{
   imports = [
     ./asdf.nix
     ./crystal.nix
@@ -21,10 +23,7 @@
 
   programs = {
     crystal.enable = false;
-    emacs = {
-      enable = true;
-      useHead = true;
-    };
+    emacs = { enable = true; };
     git = {
       enable = true;
       pager = "diff-so-fancy";
@@ -36,11 +35,7 @@
     };
     python = {
       enable = true;
-      extraPackages = with pkgs.python3Packages; [
-        codecov
-        grip
-        poetry
-      ];
+      extraPackages = with pkgs.python3Packages; [ codecov grip jedi poetry ];
       black.enable = true;
       mypy.enable = true;
       pipx.enable = true;

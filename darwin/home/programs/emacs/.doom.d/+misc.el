@@ -46,6 +46,9 @@
       (expand-file-name "/Users/yevhenshymotiuk/dev/plantuml/plantuml.jar"))
 
 
+;; alert
+(setq alert-default-style 'notifier)
+
 ;; mu4e
 (setq user-mail-address "yevhenshymotiuk@gmail.com")
 (after! mu4e
