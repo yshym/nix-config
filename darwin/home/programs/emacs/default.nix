@@ -4,11 +4,12 @@ with lib;
 let
   cfg = config.programs.emacs;
   withPatches = pkg: patches: pkg.overrideAttrs (attrs: { inherit patches; });
+  patches = path: with builtins;
+    (map (n: path + ("/" + n)) (filter (n: match ".*\\.patch" n != null)
+      (attrNames (readDir path))));
 
-  patchesPath = ./patches;
-  myEmacs = with builtins;
-    withPatches pkgs.emacs
-      (map (n: patchesPath + ("/" + n)) (filter (n: match ".*\\.patch" n != null) (attrNames (readDir patchesPath))));
+  emacs = withPatches pkgs.emacs (patches ./patches/emacs27);
+  emacsGit = withPatches pkgs.emacsGit (patches ./patches/emacs28);
   myEmacsGcc = (pkgs.emacsGcc.overrideAttrs (old: {
     buildInputs = old.buildInputs ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
       pkgs.darwin.apple_sdk.frameworks.CoreFoundation
@@ -28,7 +29,7 @@ in {
 
     programs = {
       emacs = {
-        package = if cfg.useHead then pkgs.emacsGit else myEmacs;
+        package = if cfg.useHead then emacsGit else emacs;
         extraPackages = epkgs: [ epkgs.vterm ];
       };
       zsh = {
