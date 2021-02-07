@@ -10,3 +10,5 @@
 (package! undo-tree)
 (package! verb)
 (package! mu4e-alert)
+(package! emacs-everywhere
+  :recipe (:host github :repo "tecosaur/emacs-everywhere"))

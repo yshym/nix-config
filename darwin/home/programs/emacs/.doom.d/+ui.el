@@ -3,7 +3,7 @@
 
 
 ;; Theme
-(setq doom-theme (load-theme 'doom-peacock t))
+(setq doom-theme 'doom-dracula)
 
 (after! doom-themes
   (setq doom-modeline-major-mode-icon t))

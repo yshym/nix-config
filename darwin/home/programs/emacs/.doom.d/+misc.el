@@ -1,6 +1,9 @@
 ;; evil
 (global-undo-tree-mode)
 (evil-set-undo-system 'undo-tree)
+;; Switch to the new window after splitting
+(setq evil-split-window-below t
+      evil-vsplit-window-right t)
 
 ;; direnv
 (use-package! direnv
@@ -81,3 +84,7 @@
 (mu4e-alert-set-default-style 'notifier)
 (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
 (add-hook 'after-init-hook #'mu4e-alert-enable-mode-line-display)
+
+;; emacs-everywhere
+(when (daemonp)
+  (use-package! emacs-everywhere))
