@@ -13,5 +13,5 @@ local stacklineConfig = {
 }
 stackline:init(stacklineConfig)
 
-keyboardLayout = require "keyboardLayout"
-keyboardLayout:init()
+-- keyboardLayout = require "keyboardLayout"
+-- keyboardLayout:init()

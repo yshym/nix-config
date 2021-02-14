@@ -15,7 +15,7 @@ in {
       # window_border_width = 5;
       # active_window_border_color = "0xffa35763";
       # normal_window_border_color = "0xff353c54";
-      # insert_feedback_color = "0xaa7c5c9c";
+      insert_feedback_color = "0xaa7c5c9c";
       auto_balance = "off";
       split_ratio = 0.50;
       window_gap = 7;
@@ -27,8 +27,8 @@ in {
     };
     extraConfig = ''
       # external status bar
-      SPACEBAR_HEIGHT=$(spacebar -m config height)
-      yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
+      # SPACEBAR_HEIGHT=$(spacebar -m config height)
+      # yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
 
       # mission-control desktop labels
       yabai -m space 1 --label web
@@ -40,17 +40,17 @@ in {
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
       yabai -m rule --add app="^Emacs$" space=code manage=on
-      yabai -m rule --add app="^Telegram$" space=social
+      yabai -m rule --add app="^Telegram$" space=social manage=on
       yabai -m rule --add app="^Slack$" space=social
       yabai -m rule --add app="^Discord$" space=social
-      yabai -m rule --add app="^Spark$" space=mail manage=off
+      yabai -m rule --add app="^Spark$" space=mail
       yabai -m rule --add app="^Transmission$" space=media
       yabai -m rule --add app="^Spotify$" space=media manage=on
       yabai -m rule --add app="^mpv$" space=media manage=on
       yabai -m rule --add app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add app="^Spotlight$" layer=above manage=off
       yabai -m rule --add app="^Stickies$" manage=off
-      yabai -m rule --add app="^System Preferences$" layer=above manage=off
+      yabai -m rule --add app="^System Preferences$" manage=off
 
       # signals
       yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
