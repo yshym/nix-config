@@ -16,6 +16,7 @@
     ./ruby.nix
     ./rust
     ./scripts
+    ./telegram
     ./topgrade
     ./yabaiScripts
     ./zsh
