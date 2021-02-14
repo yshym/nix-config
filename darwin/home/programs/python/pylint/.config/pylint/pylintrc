@@ -63,6 +63,7 @@ disable=
     missing-docstring,
     no-name-in-module,
     protected-access,
+    relative-beyond-top-level,
     too-few-public-methods,
     # handled by black
     format
