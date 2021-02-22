@@ -77,7 +77,7 @@
       alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # restart yabai
-      shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.spacebar" && \
+      shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.skhd" && \
             launchctl kickstart -k "gui/$UID/org.nixos.yabai"
     '';
   };
