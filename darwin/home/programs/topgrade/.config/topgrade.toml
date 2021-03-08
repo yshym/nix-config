@@ -1,11 +1,12 @@
 disable = [
+    "deno",
     "emacs",
+    "flutter",
     "gem",
     "go",
     "node",
-    "flutter",
     "rustup",
-    "deno",
+    "system",
 ]
 
 [git]

@@ -42,13 +42,7 @@
       pipx.enable = true;
       pylint.enable = true;
     };
-    topgrade = {
-      enable = true;
-      config = {
-        disable = [ "emacs" "gem" ];
-        gitRepos = [ "~/.emacs.d" ];
-      };
-    };
+    topgrade.enable = true;
     ruby = {
       enable = false;
       enableBuildLibs = true;

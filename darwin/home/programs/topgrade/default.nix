@@ -5,7 +5,6 @@ let cfg = config.programs.topgrade;
 in {
   options.programs.topgrade = {
     enable = mkEnableOption "topgrade";
-
     config = mkOption {
       default = { };
       example = {
