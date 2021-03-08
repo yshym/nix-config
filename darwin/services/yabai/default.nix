@@ -26,6 +26,10 @@ in {
       right_padding = padding;
     };
     extraConfig = ''
+      # load scripting addition
+      sudo yabai --load-sa
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+
       # external status bar
       # SPACEBAR_HEIGHT=$(spacebar -m config height)
       # yabai -m config external_bar all:$SPACEBAR_HEIGHT:0
