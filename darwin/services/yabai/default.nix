@@ -47,6 +47,7 @@ in {
       yabai -m rule --add app="^Telegram$" space=social manage=on
       yabai -m rule --add app="^Slack$" space=social
       yabai -m rule --add app="^Discord$" space=social
+      yabai -m rule --add app="^Zoom$" space=social manage=on
       yabai -m rule --add app="^Spark$" space=mail
       yabai -m rule --add app="^Transmission$" space=media
       yabai -m rule --add app="^Spotify$" space=media manage=on
