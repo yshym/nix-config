@@ -1,10 +1,11 @@
 disable = [
+    "cargo",
     "deno",
     "emacs",
     "flutter",
     "gem",
-    "go",
     "node",
+    "pipx",
     "rustup",
     "system",
 ]
