@@ -2,10 +2,14 @@
 
 let me = "yevhenshymotiuk";
 in {
-  users.users.yevhenshymotiuk = {
-    name = me;
-    home = "/Users/${me}";
+  users = {
+    nix.configureBuildUsers = true;
+    users.yevhenshymotiuk = {
+      name = me;
+      home = "/Users/${me}";
+    };
   };
+
 
   system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
     name = "applications";
