@@ -1,12 +1,29 @@
 #!/usr/bin/env bash
 
-while getopts v opt; do
+while getopts ":v:" opt; do
     case "$opt" in
-        v)
-            trans :uk "$2"
+        v) VERBOSE=1 ;;
+        *) VERBOSE=0 ;;
     esac
 done
 
 if [ "$#" == 1 ]; then
-    trans -b :uk "$1"
+    STRING="$1"
+else
+    STRING="$2"
+fi
+
+PHRASE=$(echo "$STRING" | xargs | tr "[:upper:]" "[:lower:]")
+FIRST_CHARACTER=${PHRASE:0:1}
+if [[ "$FIRST_CHARACTER" =~ [a-z] ]]; then
+    LANGUAGES="en:uk"
+else
+    LANGUAGES="uk:en"
+fi
+
+
+if [ "$VERBOSE" ]; then
+    eval "trans $LANGUAGES $PHRASE"
+else
+    eval "trans -b $LANGUAGES $PHRASE"
 fi
