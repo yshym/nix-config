@@ -7,15 +7,20 @@ while getopts ":v:" opt; do
     esac
 done
 
-if [ "$#" == 1 ]; then
-    STRING="$1"
+if [ -p /dev/stdin ]; then
+    read -r STRING
 else
-    STRING="$2"
+    if [ "$#" == 1 ]; then
+        STRING="$1"
+    else
+        STRING="$2"
+    fi
 fi
 
-PHRASE=$(echo "$STRING" | xargs | tr "[:upper:]" "[:lower:]")
+
+PHRASE=$(echo "$STRING" | xargs)
 FIRST_CHARACTER=${PHRASE:0:1}
-if [[ "$FIRST_CHARACTER" =~ [a-z] ]]; then
+if [[ $(echo "$FIRST_CHARACTER" | tr "[:upper:]" "[:lower:]") =~ [a-z] ]]; then
     LANGUAGES="en:uk"
 else
     LANGUAGES="uk:en"
@@ -23,7 +28,7 @@ fi
 
 
 if [ "$VERBOSE" ]; then
-    eval "trans $LANGUAGES $PHRASE"
+    eval "trans $LANGUAGES '$PHRASE'"
 else
-    eval "trans -b $LANGUAGES $PHRASE"
+    eval "trans -b $LANGUAGES '$PHRASE'"
 fi
