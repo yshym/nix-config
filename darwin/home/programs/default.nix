@@ -8,6 +8,7 @@
     ./emacs
     ./git.nix
     ./hammerspoon
+    ./mbsync
     ./nodejs.nix
     ./prettier
     ./python
@@ -24,7 +25,10 @@
 
   programs = {
     crystal.enable = false;
-    emacs = { enable = true; };
+    emacs = {
+      enable = true;
+      useHead = false;
+    };
     git = {
       enable = true;
       pager = "diff-so-fancy";

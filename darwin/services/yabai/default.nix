@@ -38,8 +38,7 @@ in {
       yabai -m space 1 --label web
       yabai -m space 2 --label code
       yabai -m space 3 --label social
-      yabai -m space 4 --label mail
-      yabai -m space 5 --label media
+      yabai -m space 4 --label media
 
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
@@ -48,7 +47,6 @@ in {
       yabai -m rule --add app="^Slack$" space=social
       yabai -m rule --add app="^Discord$" space=social
       yabai -m rule --add app="^Zoom$" space=social manage=on
-      yabai -m rule --add app="^Spark$" space=mail
       yabai -m rule --add app="^Transmission$" space=media
       yabai -m rule --add app="^Spotify$" space=media manage=on
       yabai -m rule --add app="^mpv$" space=media manage=on

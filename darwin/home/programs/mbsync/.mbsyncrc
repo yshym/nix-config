@@ -1,0 +1,22 @@
+IMAPAccount gmail
+Host imap.gmail.com
+User yevhenshymotiuk@gmail.com
+PassCmd "pass Sites/Gmail/App/yevhenshymotiuk@gmail.com"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.mail/gmail/
+Inbox ~/.mail/gmail/Inbox
+Subfolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns * !"[Gmail]/All Mail" !"[Gmail]/Important" !"[Gmail]/Starred" !"[Gmail]/Bin"
+Create Both
+Expunge Both
+SyncState *

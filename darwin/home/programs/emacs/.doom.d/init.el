@@ -150,7 +150,7 @@
        ;;vala              ; GObjective-C
 
        :email
-       (mu4e +gmail)
+       (:if (executable-find "mu") (mu4e +org +gmail))
        ;;notmuch
        ;;(wanderlust +gmail)
 

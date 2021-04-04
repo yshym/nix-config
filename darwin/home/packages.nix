@@ -12,7 +12,6 @@
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
-      autoconf
       asciinema
       awscli
       cachix
@@ -34,6 +33,7 @@
       gnupg
       gobject-introspection
       gofumpt
+      imagemagick
       iterm2
       ix
       jq
@@ -47,9 +47,9 @@
       nim
       octave
       openmpi
+      pipenv
       protobuf
       pkg-config
-      R
       redis
       rnix-lsp
       ruby
@@ -94,8 +94,11 @@
       zola
 
       # communication
+      goimapnotify
+      isync
       mu
       offlineimap
+      teleconsole
 
       # monitoring
       neofetch
@@ -115,17 +118,16 @@
       telnet
       transmission-gtk
 
-      # synchronization
-      borgbackup
-
       # entertainment
       epr
       mpv
       spotifyd
       spotify-tui
+      streamlink
       youtube-dl
 
       # my stuff
+      navi
       translate-shell
     ] ++ myNodePackages;
 }
