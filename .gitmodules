@@ -1,6 +1,6 @@
-[submodule "darwin/home/programs/hammerspoon/.hammerspoon/stackline"]
-	path = darwin/home/programs/hammerspoon/.hammerspoon/stackline
-	url = git@github.com:AdamWagner/stackline.git
 [submodule "darwin/home/programs/iterm/themes/iterm"]
 	path = darwin/home/programs/iterm/themes/iterm
 	url = https://github.com/yevhenshymotiuk/iterm
+[submodule "darwin/home/programs/hammerspoon/.hammerspoon/stackline"]
+	path = darwin/home/programs/hammerspoon/.hammerspoon/stackline
+	url = https://github.com/yevhenshymotiuk/stackline
