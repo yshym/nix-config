@@ -97,7 +97,7 @@ def finaliseAccount():
         return
     except subprocess.TimeoutExpired as e:
         print(
-            f"\033[1;31mError:\033[0;31m failed to fetch mailboxes (skipping): "
+            "\033[1;31mError:\033[0;31m failed to fetch mailboxes (skipping): "
             + f"`{' '.join(e.cmd)}' timed out after {e.timeout:.2f} seconds\033[0;37m"
         )
         return
@@ -150,8 +150,17 @@ def getMailBoxes(account):
         stdout=subprocess.PIPE,
         timeout=10.0,
     )
-    return boxes.stdout.decode("utf-8").strip().split("\n")
 
+    resultBoxes = []
+    renameArrow = "<=>"
+    for b in boxes.stdout.decode("utf-8").strip().split("\n"):
+        if renameArrow in b:
+            rb, _ = b.split(" " + renameArrow, maxsplit=1)
+            resultBoxes.append(rb)
+        elif not b.endswith(":"):
+            resultBoxes.append(b)
+
+    return resultBoxes
 
 def applyPatternFilter(pattern, mailboxes):
     patternRegexs = getPatternRegexes(pattern)
@@ -168,7 +177,7 @@ def getPatternRegexes(pattern):
     blobs.extend(pattern.split(" "))
     blobs = [
         (-1, fnmatch.translate(b[1::]))
-        if b[0] == "!"
+        if b and b[0] == "!"
         else (1, fnmatch.translate(b))
         for b in blobs
     ]
