@@ -15,7 +15,6 @@
     cargo-release
     cargo-sweep
     cargo-update
-    cargo-watch
     cargo-web
     rustup
     wasm-pack
