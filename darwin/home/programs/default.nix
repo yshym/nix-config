@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./alacritty
     ./asdf.nix
     ./crystal.nix
     ./direnv
@@ -46,7 +47,7 @@
       pipx.enable = true;
       pylint.enable = true;
     };
-    topgrade.enable = true;
+    topgrade.enable = false;
     ruby = {
       enable = false;
       enableBuildLibs = true;

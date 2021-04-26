@@ -5,7 +5,7 @@
     enable = true;
     skhdConfig = ''
       # open terminal
-      alt - return : open -a "iTerm"
+      alt - return : open -a "Alacritty"
 
       # focus bsp windows
       alt - h : yabai -m window --focus west

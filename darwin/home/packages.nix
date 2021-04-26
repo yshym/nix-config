@@ -4,7 +4,7 @@
   home.packages = with pkgs;
     let
       myNodePackages = with nodePackages; [
-        deno
+        # deno
         prettier
         serverless
       ];
@@ -12,6 +12,7 @@
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
+      alacritty
       asciinema
       awscli
       cachix
@@ -98,7 +99,7 @@
       isync
       mu
       offlineimap
-      teleconsole
+      tmate
 
       # monitoring
       neofetch
