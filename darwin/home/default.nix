@@ -19,6 +19,7 @@ in {
   });
 
   system.activationScripts.applications.text = pkgs.lib.mkForce (''
+    # alias nix applications
     echo "setting up ~/Applications/Nix..."
     rm -rf ~/Applications/Nix
     mkdir -p ~/Applications/Nix
@@ -28,6 +29,9 @@ in {
       appname="$(basename $src)"
       osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/${me}/Applications/Nix/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
     done
+
+    # create icloud drive symlink
+    ln -snf ~/Library/Mobile\ Documents/com\~apple\~CloudDocs ~/icloud
   '');
 
   home-manager = {
