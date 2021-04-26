@@ -9,7 +9,7 @@ in {
   launchd.user.agents = {
     goimapnotify.serviceConfig = {
       ProgramArguments =
-        [ "${pkgs.goimapnotify}/bin/goimapnotify" "-conf" imapnotifyConfig ];
+        [ "${homeManagerPath}/bin/goimapnotify" "-conf" imapnotifyConfig ];
       RunAtLoad = true;
       EnvironmentVariables.PATH =
         "${homeManagerPath}/bin:${config.environment.systemPath}";
