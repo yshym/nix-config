@@ -7,9 +7,11 @@ overrides.nix
 
 # Emacs
 *.elc
+flycheck_*.py
 
 # Nix builds
 result
 result-*
 
+# Mac OS
 .DS_Store
