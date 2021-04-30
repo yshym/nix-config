@@ -3,6 +3,7 @@
     ./imap
     ./skhd
     ./spacebar
+    ./spotifyd
     ./yabai
   ];
 }

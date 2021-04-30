@@ -122,6 +122,7 @@
       # entertainment
       epr
       mpv
+      portaudio
       spotifyd
       spotify-tui
       streamlink

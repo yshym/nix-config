@@ -18,6 +18,7 @@
     ./ruby.nix
     ./rust
     ./scripts
+    ./spotifyd
     ./telegram
     ./topgrade
     ./yabaiScripts
