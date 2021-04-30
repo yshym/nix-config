@@ -79,7 +79,7 @@
           white = "0xe6e6d1";
         };
       };
-      mouse.url.launcher = "url-handler";
+      mouse.url.launcher = "open";
       key_bindings = [
         {
           key = "B";
