@@ -17,7 +17,7 @@
 
 ;; verb
 (map! (:after verb
-        (:map verb-mode-map
+       (:map verb-mode-map
           "C-c v" 'verb-send-request-on-point)))
 
 
@@ -26,4 +26,5 @@
       :desc "Open swiper" "S" 'swiper
       :desc "Open terminal in popup" "o t" 'open-popup-terminal
       :desc "Open mu4e" "M" 'mu4e
-      :desc "Kill buffer" "b k" 'kill-this-buffer)
+      :desc "Kill buffer" "b k" 'kill-this-buffer
+      :desc "Sort lines" "l" 'sort-lines)
