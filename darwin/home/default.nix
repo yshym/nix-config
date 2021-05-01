@@ -32,6 +32,9 @@ in {
 
     # create icloud drive symlink
     ln -snf ~/Library/Mobile\ Documents/com\~apple\~CloudDocs ~/icloud
+
+    # create password store symlink
+    ln -snf ~/icloud/.password-store ~/.password-store
   '');
 
   home-manager = {
