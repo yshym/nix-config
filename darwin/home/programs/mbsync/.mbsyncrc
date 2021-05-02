@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User yevhenshymotiuk@gmail.com
-PassCmd "pass Sites/Gmail/App/yevhenshymotiuk@gmail.com"
+PassCmd "pass Gmail/App/yevhenshymotiuk@gmail.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
