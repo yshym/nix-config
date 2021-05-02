@@ -1,24 +1,28 @@
 #!/usr/bin/env bash
 
-while getopts ":v:" opt; do
+while getopts "pv" opt; do
     case "$opt" in
+        p) PASTE=1 ;;
         v) VERBOSE=1 ;;
-        *) VERBOSE=0 ;;
+        *) VERBOSE=0; PASTE=0 ;;
     esac
 done
 
-if [ -p /dev/stdin ]; then
-    read -r STRING
+if [ "$PASTE" ]; then
+    STRING="$(pbpaste)"
 else
-    if [ "$#" == 1 ]; then
-        STRING="$1"
+    if [ -p /dev/stdin ]; then
+        read -r STRING
     else
-        STRING="$2"
+        if [ "$#" -gt 1 ]; then
+            STRING="$2"
+        else
+            STRING="$1"
+        fi
     fi
 fi
 
-
-PHRASE=$(echo "$STRING" | xargs)
+PHRASE=$(echo "$STRING" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//")
 FIRST_CHARACTER=${PHRASE:0:1}
 if [[ $(echo "$FIRST_CHARACTER" | tr "[:upper:]" "[:lower:]") =~ [a-z] ]]; then
     LANGUAGES="en:uk"
