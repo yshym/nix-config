@@ -1,6 +1,6 @@
 #+TITLE: darwin-home
 
-[[https://builtwithnix.org/badge.svg][https://builtwithnix.org/badge.svg]]
+[[https://builtwithnix.org][https://builtwithnix.org/badge.svg]]
 
 #+BEGIN_QUOTE
 Dotfiles for nix-darwin + home-manager
