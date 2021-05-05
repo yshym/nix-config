@@ -37,6 +37,9 @@ in {
 
     # create password store symlink
     ln -snf ~/icloud/.password-store ~/.password-store
+
+    # crate org directory symlink
+    ln -snf ~/Library/Mobile\ Documents/iCloud\~com\~appsonthemove\~beorg/Documents/org ~/dev/org
   '');
 
   home-manager = {
