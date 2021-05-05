@@ -18,7 +18,7 @@ with pkgs; {
       (attrNames (readDir path)));
   };
 
-  environment.systemPackages = [ bat vim ];
+  environment.systemPackages = [ bat vim wget ];
 
   fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];
 
@@ -27,6 +27,7 @@ with pkgs; {
   nix = {
     package = pkgs.nix;
     trustedUsers = [ "root" "yevhenshymotiuk" ];
+    gc.interval = { Weekday = 1; };
   };
 
   programs = {

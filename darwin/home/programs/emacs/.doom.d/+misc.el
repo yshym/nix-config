@@ -30,7 +30,7 @@
 
 
 ;; agenda
-(setq org-agenda-files '("~/dev/org/"))
+(setq org-agenda-files '("~/dev/org/" "~/dev/org/gcal/"))
 
 (setq org-agenda-custom-commands
       '(("c" "Custom agenda view"
@@ -50,6 +50,7 @@
 
 ;; alert
 (setq alert-default-style 'notifier)
+
 
 ;; mu4e
 (setq user-mail-address "yevhenshymotiuk@gmail.com")

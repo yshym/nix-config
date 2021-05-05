@@ -26,6 +26,7 @@
       elixir
       erlang
       exercism
+      gawk
       gdb
       ghc
       gitAndTools.git-hub
@@ -59,7 +60,6 @@
       shfmt
       terminal-notifier
       texlive.combined.scheme-full
-      # spacevim
       wakatime
 
       # nix stuff
