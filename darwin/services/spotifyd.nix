@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
-  home = config.home-manager.users.yevhenshymotiuk.home;
+  me = "yevhenshymotiuk";
+  home = config.home-manager.users."${me}".home;
   spotifydConfig = "${home.homeDirectory}/.config/spotifyd/spotifyd.conf";
 in {
   launchd.user.agents = {
@@ -9,7 +10,7 @@ in {
       Label = "rustlang.spotifyd";
       ProgramArguments =
         [ "${pkgs.spotifyd}/bin/spotifyd" "--config-path" spotifydConfig "--no-daemon" ];
-      UserName = "yevhenshymotiuk";
+      UserName = me;
       KeepAlive = true;
       ThrottleInterval = 30;
     };

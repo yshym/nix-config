@@ -1,9 +1,9 @@
 { config, pkgs, ... }: {
   imports = [
-    ./imap
-    ./skhd
-    ./spacebar
-    ./spotifyd
-    ./yabai
+    ./imap.nix
+    ./skhd.nix
+    ./spacebar.nix
+    ./spotifyd.nix
+    ./yabai.nix
   ];
 }
