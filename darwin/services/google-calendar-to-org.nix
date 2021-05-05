@@ -9,7 +9,6 @@ let
 in {
   launchd.user.agents = {
     google-calendar-to-org.serviceConfig = {
-      Label = "google-calendar-to-org";
       ProgramArguments = [ "${homeFiles}/.local/bin/ical2org_wrapper" ];
       UserName = "${me}";
       KeepAlive = true;

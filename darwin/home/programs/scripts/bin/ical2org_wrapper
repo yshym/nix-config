@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ORG_DIR="$HOME/dev/org"
-ICSFILE="$ORG_DIR/gcal/yevhenshymotiuk.ics"
+ICSFILE="/tmp/yevhenshymotiuk.ics"
 ORGFILE="$ORG_DIR/gcal/yevhenshymotiuk.org"
 URL=$(pass Calendar/Google/yevhenshymotiuk@gmail.com)
 
