@@ -4,21 +4,23 @@ let me = "yevhenshymotiuk";
 in {
   users = {
     nix.configureBuildUsers = true;
-    users.yevhenshymotiuk = {
+    users."${me}" = {
       name = me;
       home = "/Users/${me}";
     };
   };
 
-
   system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
     name = "applications";
     paths = config.environment.systemPackages
-      ++ config.home-manager.users.yevhenshymotiuk.home.packages;
+      ++ config.home-manager.users."${me}".home.packages;
     pathsToLink = "/Applications";
   });
 
   system.activationScripts.applications.text = pkgs.lib.mkForce (''
+    # disable the creation of desktop sevice store files
+    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+
     # alias nix applications
     echo "setting up ~/Applications/Nix..."
     rm -rf ~/Applications/Nix
@@ -39,7 +41,7 @@ in {
 
   home-manager = {
     useUserPackages = false;
-    users.yevhenshymotiuk = { pkgs, ... }: {
+    users."${me}" = { pkgs, ... }: {
       imports = [ ./packages.nix ./programs ];
     };
   };
