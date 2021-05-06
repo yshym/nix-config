@@ -7,6 +7,7 @@
     ./crystal.nix
     ./direnv
     ./emacs
+    ./firefox
     ./git.nix
     ./hammerspoon
     ./mbsync
