@@ -32,14 +32,11 @@ in {
       osascript -e "tell app \"Finder\" to make alias file at POSIX file \"/Users/${me}/Applications/Nix/\" to POSIX file \"$src\" with properties {name: \"$appname\"}";
     done
 
-    # create icloud drive symlink
-    ln -snf ~/Library/Mobile\ Documents/com\~apple\~CloudDocs ~/icloud
-
     # create password store symlink
-    ln -snf ~/icloud/.password-store ~/.password-store
+    ln -snf ~/Dropbox/.password-store ~/.password-store
 
     # crate org directory symlink
-    ln -snf ~/Library/Mobile\ Documents/iCloud\~com\~appsonthemove\~beorg/Documents/org ~/dev/org
+    ln -snf ~/Dropbox/org ~/dev/org
   '');
 
   home-manager = {
