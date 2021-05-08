@@ -19,10 +19,10 @@
     ./ruby.nix
     ./rust
     ./scripts
-    ./spotifyd
+    ./spotify
     ./telegram
     ./topgrade
-    ./yabaiScripts
+    ./yabai
     ./zsh
   ];
 
