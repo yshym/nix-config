@@ -2,7 +2,7 @@
 
 ORG_DIR="$HOME/dev/org"
 ICSFILE="/tmp/yevhenshymotiuk.ics"
-ORGFILE="$ORG_DIR/gcal/yevhenshymotiuk.org"
+ORGFILE="$ORG_DIR/google-calendar/yevhenshymotiuk.org"
 URL=$(pass Calendar/Google/yevhenshymotiuk@gmail.com)
 
 wget --no-check-certificate -O "$ICSFILE" "$URL"
