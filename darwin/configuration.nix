@@ -9,13 +9,7 @@ with pkgs; {
       allowBroken = false;
       allowUnsupportedSystem = false;
     };
-
-    overlays = let path = ./overlays;
-    in with builtins;
-    map (n: import (path + ("/" + n))) (filter (n:
-      match ".*\\.nix" n != null
-      || pathExists (path + ("/" + n + "/default.nix")))
-      (attrNames (readDir path)));
+    overlays = [ (import ./overlays/yabai.nix) ];
   };
 
   environment.systemPackages = [ bat vim wget ];
@@ -44,7 +38,12 @@ with pkgs; {
     postgresql.enable = true;
   };
 
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  system = {
+    defaults = {
+      finder.CreateDesktop = false;
+    };
+    # Used for backwards compatibility, please read the changelog before changing.
+    # $ darwin-rebuild changelog
+    stateVersion = 4;
+  };
 }
