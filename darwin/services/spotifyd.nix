@@ -7,7 +7,6 @@ let
 in {
   launchd.user.agents = {
     spotifyd.serviceConfig = {
-      Label = "rustlang.spotifyd";
       ProgramArguments =
         [ "${pkgs.spotifyd}/bin/spotifyd" "--config-path" spotifydConfig "--no-daemon" ];
       UserName = me;
