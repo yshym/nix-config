@@ -40,6 +40,12 @@ with pkgs; {
 
   system = {
     defaults = {
+      dock = {
+        autohide = true;
+        autohide-delay = "1000";
+        autohide-time-modifier = "0";
+        mineffect = "scale";
+      };
       finder = {
         CreateDesktop = false;
         QuitMenuItem = true;
