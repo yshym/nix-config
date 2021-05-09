@@ -49,7 +49,6 @@
       pipx.enable = true;
       pylint.enable = true;
     };
-    topgrade.enable = false;
     ruby = {
       enable = false;
       enableBuildLibs = true;
