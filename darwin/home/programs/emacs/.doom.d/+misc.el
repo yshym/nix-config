@@ -30,7 +30,7 @@
 
 
 ;; agenda
-(setq org-agenda-files '("~/dev/org/" "~/dev/org/gcal/"))
+(setq org-agenda-files '("~/dev/org/" "~/dev/org/google-calendar/"))
 
 (setq org-agenda-custom-commands
       '(("c" "Custom agenda view"
