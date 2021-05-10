@@ -403,7 +403,7 @@ BEGIN {
             }
             print ""
             if (!condense)
-                 print "SCHEDULED: <" date ">\n"
+                 print "<" date ">\n"
 
             if(length(entry)>1)
                 print gensub("^[ ]+", "", "g", unescape(entry, 1)) "\n"
