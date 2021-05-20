@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 with pkgs; {
-  imports = [ ./cachix.nix ./darwin ];
+  imports = [ ./cachix.nix ./host.nix ];
 
   nixpkgs = {
     config = {
