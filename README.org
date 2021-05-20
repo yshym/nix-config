@@ -1,7 +1,7 @@
-#+TITLE: darwin-home
+#+TITLE: Nix Config
 
 [[https://builtwithnix.org][https://builtwithnix.org/badge.svg]]
 
 #+BEGIN_QUOTE
-Dotfiles for nix-darwin + home-manager
+Configuration for my nix machines
 #+END_QUOTE

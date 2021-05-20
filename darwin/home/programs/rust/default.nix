@@ -5,7 +5,6 @@
     cargo-asm
     cargo-audit
     cargo-bloat
-    cargo-deb
     cargo-deps
     cargo-flamegraph
     cargo-graph

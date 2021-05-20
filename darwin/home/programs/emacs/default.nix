@@ -23,7 +23,7 @@ in {
     nixpkgs.overlays = mkIf cfg.enable [
       (import (builtins.fetchTarball {
         url =
-          "https://github.com/nix-community/emacs-overlay/archive/d9530a7048f4b1c0f65825202a0ce1d111a1d39a.tar.gz";
+          "https://github.com/nix-community/emacs-overlay/archive/729f35be8bf92c25c38f60d7d7281f0927b61f00.tar.gz";
       }))
     ];
 

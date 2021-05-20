@@ -1,10 +1,11 @@
 { pkgs, ... }:
 
 {
+  # nixpkgs.overlays = [ (import ../overlays/dropbox) ];
+
   home.packages = with pkgs;
     let
       myNodePackages = with nodePackages; [
-        # deno
         prettier
         serverless
       ];
@@ -22,6 +23,7 @@
       clang-tools
       cmake
       dart
+      # deno
       editorconfig-core-c
       elixir
       erlang
@@ -36,7 +38,6 @@
       gobject-introspection
       gofumpt
       imagemagick
-      iterm2
       ix
       jq
       kubectl
@@ -65,10 +66,11 @@
       # nix stuff
       comma
       fd
+      nixfmt
       nix-index
       nix-prefetch-github
+      nixpkgs-fmt
       nixpkgs-review
-      nixfmt
       patchelf
 
       # documents
@@ -90,7 +92,6 @@
       sd
       tealdeer
       tokei
-      websocat
       xsv
       zola
 
