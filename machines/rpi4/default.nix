@@ -18,7 +18,19 @@
     };
   };
 
-  networking.hostName = "rpi4";
+  networking = {
+    hostName = "rpi4";
+    interfaces = {
+      wlan0 = {
+        ipv4 = {
+          addresses = [{
+            address = "192.168.0.103";
+            prefixLength = 24;
+          }];
+        };
+      };
+    };
+  };
 
   systemd.services = {
     btattach = {
