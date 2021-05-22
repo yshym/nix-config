@@ -15,14 +15,6 @@ with pkgs; {
     firewall.enable = false;
   };
 
-  programs = {
-    gnupg.agent = {
-      enable = true;
-      enableSSHSupport = true;
-      pinentryFlavor = "curses";
-    };
-  };
-
   services = {
     openssh = {
       enable = true;
