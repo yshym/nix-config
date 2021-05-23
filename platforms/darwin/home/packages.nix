@@ -1,7 +1,10 @@
 { pkgs, ... }:
 
 {
-  # nixpkgs.overlays = [ (import ../overlays/dropbox) ];
+  nixpkgs.overlays = [
+    # (import ../overlays/dropbox)
+    (import ../overlays/spotify)
+  ];
 
   home.packages = with pkgs;
     let
@@ -114,6 +117,7 @@
       # net & cloud tools
       ddgr
       doctl
+      # Dropbox
       httpie
       netcat
       rclone
@@ -124,6 +128,7 @@
       epr
       mpv
       portaudio
+      Spotify
       spotifyd
       spotify-tui
       streamlink
