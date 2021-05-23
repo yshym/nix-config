@@ -40,6 +40,10 @@
     };
   };
 
+  programs = {
+    gnupg.agent.pinentryFlavor = "curses";
+  };
+
   systemd.services = {
     btattach = {
       before = [ "bluetooth.service" ];
