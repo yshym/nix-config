@@ -21,14 +21,6 @@
   networking = {
     hostName = "rpi4";
     interfaces = {
-      eth0 = {
-        ipv4 = {
-          addresses = [{
-            address = "192.168.0.103";
-            prefixLength = 24;
-          }];
-        };
-      };
       wlan0 = {
         ipv4 = {
           addresses = [{
