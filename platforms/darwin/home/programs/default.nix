@@ -8,7 +8,6 @@
     ./direnv
     ./emacs
     ./firefox
-    ./git.nix
     ./hammerspoon
     ./mbsync
     ./nodejs.nix
@@ -31,10 +30,6 @@
     emacs = {
       enable = true;
       useHead = false;
-    };
-    git = {
-      enable = true;
-      pager = "diff-so-fancy";
     };
     go.enable = true;
     nodejs = {

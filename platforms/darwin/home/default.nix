@@ -38,7 +38,6 @@ in {
   '');
 
   home-manager = {
-    useUserPackages = false;
     users."${me}" = { pkgs, ... }: {
       imports = [ ./packages.nix ./programs ];
     };

@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  home-manager.useUserPackages = false;
   environment.homeBinInPath = true;
 
   users = {
@@ -18,17 +17,19 @@
     };
   };
 
-  home-manager.users.yevhenshymotiuk = { pkgs, ... }: {
-    imports = [ ./packages.nix ./services ];
+  home-manager = {
+    users.yevhenshymotiuk = { pkgs, ... }: {
+      imports = [ ./packages.nix ./services ];
 
-    nixpkgs.config = {
-      allowUnfree = true;
-      pulseaudio = true;
-    };
+      nixpkgs.config = {
+        allowUnfree = true;
+        pulseaudio = true;
+      };
 
-    programs = {
-      git.enable = true;
-      gpg.enable = true;
+      programs = {
+        git.enable = true;
+        gpg.enable = true;
+      };
     };
   };
 }
