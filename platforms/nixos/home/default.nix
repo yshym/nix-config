@@ -19,7 +19,7 @@
   };
 
   home-manager.users.yevhenshymotiuk = { pkgs, ... }: {
-    imports = [ ./packages.nix ];
+    imports = [ ./packages.nix ./services ];
 
     nixpkgs.config = {
       allowUnfree = true;
