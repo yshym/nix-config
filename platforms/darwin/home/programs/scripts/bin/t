@@ -22,7 +22,7 @@ else
     fi
 fi
 
-PHRASE=$(echo "$STRING" | sed -e "s/^[ \t]*//" -e "s/[ \t]*$//")
+PHRASE=$(echo "$STRING" | sed -e "s/^ *//" -e "s/ *$//")
 FIRST_CHARACTER=${PHRASE:0:1}
 if [[ $(echo "$FIRST_CHARACTER" | tr "[:upper:]" "[:lower:]") =~ [a-z] ]]; then
     LANGUAGES="en:uk"
