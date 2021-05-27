@@ -2,7 +2,7 @@
 
 {
   nixpkgs.overlays = [
-    # (import ../overlays/dropbox)
+    (import ../overlays/dropbox)
     (import ../overlays/spotify)
   ];
 
@@ -117,7 +117,7 @@
       # net & cloud tools
       ddgr
       doctl
-      # Dropbox
+      Dropbox
       httpie
       netcat
       rclone

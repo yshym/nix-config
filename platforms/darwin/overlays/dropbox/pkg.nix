@@ -2,14 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "Dropbox";
-  version = "111.0.0";
+  version = "latest";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
   phases = [ "unpackPhase" "installPhase" ];
-  unpackPhase = ''
-    undmg ${src}
-  '';
   installPhase = ''
     mkdir -p "$out/Applications"
     cp -r Dropbox.app "$out/Applications/Dropbox.app"
@@ -17,8 +14,8 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     name = "Dropbox-${version}.dmg";
-    url = "https://www.dropbox.com/downloading";
-    sha256 = "0cp85hqsnld6dn0hqg8k9k7n6lvfi88hzdr404plca3fgpciicdp";
+    url = "https://www.dropbox.com/download?plat=mac&full=1";
+    sha256 = "15r0lcs7p4n5q67nq623rrhlqafan525xsz56ncndfib7fxqgj9g";
   };
 
   meta = with lib; {
