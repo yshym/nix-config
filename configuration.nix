@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 with pkgs; {
-  imports = [ ./cachix.nix ./host.nix ];
+  imports = [ ./cachix.nix ./home ./host.nix ];
 
   nixpkgs = {
     config = {
@@ -32,6 +32,5 @@ with pkgs; {
 
   services = {
     emacs.enable = false;
-    postgresql.enable = true;
   };
 }
