@@ -5,7 +5,6 @@
 
   home.packages = with pkgs; [ zsh-completions ];
 
-  home.file.".zpreztorc".source = ./zpreztorc;
   home.file.".zsh_completions".source = ./completions;
   home.file.".p10k-pure.zsh".source = ./p10k-pure.zsh;
 
@@ -43,28 +42,30 @@
       enable = true;
       plugins = [ "docker" "docker-compose" "wd" "z" ];
     };
-    plugins = with pkgs; [
-      {
-        name = "prezto";
-        src = fetchFromGitHub {
-          owner = "sorin-ionescu";
-          repo = "prezto";
-          rev = "2d6205e71404704eecc4f402e5b09d7cbd19bab7";
-          sha256 = "1ks4vzgh033aw7xr10q1cy6ikmhwz2qbqiqb7056sb0y8kmh86wh";
-          fetchSubmodules = true;
-        };
-        file = "init.zsh";
-      }
-      rec {
-        name = "fast-syntax-highlighting";
-        src = fetchFromGitHub {
-          owner = "zdharma";
-          repo = name;
-          rev = "d8e5bbe3dade87216d1a0dddb59a1c148b206e24";
-          sha256 = "1na4clk4lcv849gidfn72vp1ycww3pxl41fgkq453i55g9mx2say";
-        };
-      }
-    ];
+    prezto = {
+      enable = true;
+      pmodules = [
+        "editor"
+        "spectrum"
+        "utility"
+        "completion"
+        "history-substring-search"
+        "docker"
+        "git"
+        "prompt"
+      ];
+      editor.keymap = "emacs";
+      prompt.theme = "powerlevel10k";
+    };
+    plugins = with pkgs; [rec {
+      name = "fast-syntax-highlighting";
+      src = fetchFromGitHub {
+        owner = "zdharma";
+        repo = name;
+        rev = "5351bd907ea39d9000b7bd60b5bb5b0b1d5c8046";
+        sha256 = "0h7f27gz586xxw7cc0wyiv3bx0x3qih2wwh05ad85bh2h834ar8d";
+      };
+    }];
     shellAliases = {
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
