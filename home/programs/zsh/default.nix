@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # imports = [ ./forgit.nix ];
@@ -12,12 +12,15 @@
     enable = true;
     enableCompletion = true;
     autocd = true;
+    loginExtra = lib.optionalString pkgs.stdenv.isLinux ''
+      ssh-add $HOME/.ssh/id_ed25519 &> /dev/null
+    '';
     initExtra = ''
       export HISTSIZE=1000
       export SAVEHIST=1000
 
       source ~/.p10k-pure.zsh
-      if command -v pyenv 1>/dev/null 2>&1; then
+      if command -v pyenv 1> /dev/null 2>&1; then
         eval "$(pyenv init -)"
       fi
     '';
@@ -66,7 +69,10 @@
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
       drel = "direnv reload";
-      drs = "darwin-rebuild switch";
+      nrs = if pkgs.stdenv.isDarwin then
+        "darwin-rebuild switch"
+      else
+        "nixos-rebuild switch";
       git = "hub";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";

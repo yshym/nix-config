@@ -29,10 +29,6 @@
       programs = {
         git.enable = true;
         gpg.enable = true;
-        zsh.loginExtra = ''
-          ssh-add -D
-          ssh-add $HOME/.ssh/id_ed25519
-        '';
       };
     };
   };
