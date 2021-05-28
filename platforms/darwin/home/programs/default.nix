@@ -22,7 +22,6 @@
     ./telegram
     ./topgrade
     ./yabai
-    ./zsh
   ];
 
   programs = {
