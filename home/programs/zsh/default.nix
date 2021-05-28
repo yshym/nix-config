@@ -12,10 +12,6 @@
     enable = true;
     enableCompletion = true;
     autocd = true;
-    # loginExtra = ''
-    #   ssh-add -D
-    #   ssh-add $HOME/.ssh/id_rsa
-    # '';
     initExtra = ''
       export HISTSIZE=1000
       export SAVEHIST=1000
