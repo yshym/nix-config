@@ -12,7 +12,7 @@ with pkgs; {
   };
 
   environment = {
-    systemPackages = [ bat vim wget ];
+    systemPackages = [ bat exa vim wget ];
   };
 
   fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];

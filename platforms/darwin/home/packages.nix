@@ -81,7 +81,6 @@
       pandoc
 
       # other ART (Awesome Rust Tools)
-      exa
       diskus
       du-dust
       fd
