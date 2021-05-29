@@ -1,28 +1,36 @@
 { pkgs, lib, ... }:
 
-{
+with pkgs; {
   # imports = [ ./forgit.nix ];
 
-  home.packages = with pkgs; [ zsh-completions zsh-powerlevel10k ];
+  home.packages = [ zsh-completions zsh-powerlevel10k ];
 
   home.file.".zsh_completions".source = ./completions;
-  home.file.".p10k-pure.zsh".source = ./p10k-pure.zsh;
 
   programs.zsh = {
     enable = true;
     enableCompletion = true;
     autocd = true;
-    loginExtra = lib.optionalString pkgs.stdenv.isLinux ''
+    loginExtra = lib.optionalString stdenv.isLinux ''
       ssh-add $HOME/.ssh/id_ed25519 &> /dev/null
     '';
     initExtra = ''
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      source ~/.p10k-pure.zsh
+      source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+      source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
 
-      bindkey -M emacs '^K' history-substring-search-up
-      bindkey '^[[A' history-substring-search-up
-      bindkey -M emacs '^J' history-substring-search-down
-      bindkey '^[[B' history-substring-search-down
+      zstyle ":completion:*" \
+        matcher-list "" "m:{[:lower:][:upper:]}={[:upper:][:lower:]}" \
+        "+l:|?=** r:|?=**"
+
+      bindkey "^A"   beginning-of-line             # ctrl-a
+      bindkey "^E"   end-of-line                   # ctrl-e
+      bindkey "^[f"  forward-word                  # alt-f
+      bindkey "^[b"  backward-word                 # alt-b
+      bindkey "^[d"  kill-word                     # alt-d
+      bindkey "^K"   history-substring-search-up   # ctrl-k
+      bindkey "^J"   history-substring-search-down # ctrl-j
+      bindkey "^[[A" history-substring-search-up   # up arrow
+      bindkey "^[[B" history-substring-search-down # down arrow
     '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
@@ -39,7 +47,7 @@
       export PATH="$HOME/.local/bin:$PATH"
     '';
     history.size = 1000;
-    plugins = with pkgs; [
+    plugins = [
       rec {
         name = "fast-syntax-highlighting";
         src = fetchFromGitHub {
@@ -72,15 +80,13 @@
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
       drel = "direnv reload";
-      nrs = if pkgs.stdenv.isDarwin then
-        "darwin-rebuild switch"
-      else
-        "nixos-rebuild switch";
       git = "hub";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
       grep = "rg";
       ls = "exa --group-directories-first";
+      nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
+      o = lib.optionalString stdenv.isDarwin "open";
       tg = "topgrade -y";
     };
   };
