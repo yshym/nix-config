@@ -11,6 +11,7 @@
 
   nix = {
     gc = {
+      user = "yevhenshymotiuk";
       automatic = true;
       interval = { Weekday = 1; };
     };
