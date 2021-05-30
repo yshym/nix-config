@@ -1,15 +1,13 @@
 { pkgs, lib, ... }:
 
 with pkgs; {
-  # imports = [ ./forgit.nix ];
-
   home.packages = [ zsh-completions zsh-powerlevel10k ];
 
   home.file.".zsh_completions".source = ./completions;
 
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
+    enableCompletion = false;
     autocd = true;
     loginExtra = lib.optionalString stdenv.isLinux ''
       ssh-add $HOME/.ssh/id_ed25519 &> /dev/null
@@ -18,9 +16,21 @@ with pkgs; {
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
 
-      zstyle ":completion:*" \
-        matcher-list "" "m:{[:lower:][:upper:]}={[:upper:][:lower:]}" \
-        "+l:|?=** r:|?=**"
+      autoload -Uz compinit
+      if [${
+        if stdenv.isDarwin then
+          " $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) "
+        else
+          "[ -n $ZDOTDIR/.zcompdump(#qN.mh+24) ]"
+      }]; then
+        compinit -i
+      else
+        compinit -C
+      fi
+
+      zstyle ':completion:*' \
+        matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+      zstyle ':completion:*' menu select
 
       bindkey "^A"   beginning-of-line             # ctrl-a
       bindkey "^E"   end-of-line                   # ctrl-e
@@ -79,6 +89,7 @@ with pkgs; {
     shellAliases = {
       cat = "bat";
       cdr = "cd $(git rev-parse --show-toplevel)";
+      dhook = ''eval "$(direnv hook zsh)"'';
       drel = "direnv reload";
       git = "hub";
       golines = "golines -w -m 80";

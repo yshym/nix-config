@@ -5,6 +5,7 @@ let cfg = config.programs.direnv;
 in {
   programs.direnv = {
     enable = true;
+    enableZshIntegration = false;
     config = {
       whitelist = {
         prefix = [ "${config.home.homeDirectory}/dev" ];
