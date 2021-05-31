@@ -17,29 +17,32 @@ in {
     pathsToLink = "/Applications";
   });
 
-  system.activationScripts.applications.text = pkgs.lib.mkForce (''
-    # disable the creation of desktop sevice store files
-    defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-    # alias nix applications
-    echo "setting up ~/Applications/Nix..."
-    rm -rf ~/Applications/Nix
-    mkdir -p ~/Applications/Nix
-    for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
-      src="$(/usr/bin/stat -f%Y "$app")"
-      cp -r "$src" ~/Applications/Nix
-    done
+  system = {
+    activationScripts.applications.text = pkgs.lib.mkForce (''
+      # disable the creation of desktop sevice store files
+      defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
-    # create password store symlink
-    ln -snf ~/Dropbox/.password-store ~/.password-store
+      # Copy applications into ~/Applications/Nix Apps. This workaround
+      # allows you to find applications installed by nix through spotlight.
+      echo "setting up ~/Applications/Nix..."
+      rm -rf ~/Applications/Nix
+      mkdir -p ~/Applications/Nix
+      for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
+        src="$(/usr/bin/stat -f%Y "$app")"
+        cp -r "$src" ~/Applications/Nix
+      done
 
-    # crate org directory symlink
-    ln -snf ~/Dropbox/org ~/dev/org
-  '');
+      # create password store symlink
+      ln -snf ~/Dropbox/.password-store ~/.password-store
+
+      # crate org directory symlink
+      mkdir -p ~/dev
+      ln -snf ~/Dropbox/org ~/dev/org
+    '');
+  };
 
   home-manager = {
-    users."${me}" = { pkgs, ... }: {
-      imports = [ ./packages.nix ./programs ];
-    };
+    users."${me}" = { pkgs, ... }: { imports = [ ./packages.nix ./programs ]; };
   };
 }

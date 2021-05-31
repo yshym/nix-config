@@ -3,10 +3,11 @@
 if (! command -v darwin-rebuild); then
     echo "Installing nix-darwin..."
 
-    nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
-    nix-channel --update
-    export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"
+    echo "run\tprivate/var/run" | sudo tee -a /etc/synthetic.conf
+    /System/Library/Filesystems/apfs.fs/Contents/Resources/apfs.util -B
 
-    nix-build https://github.com/LnL7/nix-darwin/archive/master.tar.gz -A installer
-    ./result/bin/darwin-installer
+    export NIX_PATH="darwin-config=/Users/runner/work/nix-config/nix-config/configuration.nix:/nix/var/nix/profiles/per-user/root/channels:/Users/runner/.nix-defexpr/channels"
+
+    $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild build
+    $(nix-build '<darwin>' -A system --no-out-link)/sw/bin/darwin-rebuild switch
 fi

@@ -121,13 +121,13 @@
       netcat
       rclone
       telnet
-      transmission-gtk
+      transmission
 
       # entertainment
       epr
       mpv
       portaudio
-      Spotify
+      # Spotify
       spotifyd
       spotify-tui
       streamlink
