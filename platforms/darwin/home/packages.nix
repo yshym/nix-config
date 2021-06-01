@@ -16,7 +16,6 @@
         "https://github.com/Shopify/comma/archive/master.tar.gz") { });
     in [
       # development
-      alacritty
       asciinema
       awscli
       cachix
@@ -127,7 +126,7 @@
       epr
       mpv
       portaudio
-      # Spotify
+      Spotify
       spotifyd
       spotify-tui
       streamlink
