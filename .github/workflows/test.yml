@@ -20,6 +20,7 @@ jobs:
     - run: nix-channel --update
     - run: ln -s ./machines/mbp16 host.nix
     - run: sed -i "" -- "s/darwinConfig = \"\$HOME\/.nixpkgs\/configuration.nix\"/darwinConfig = \"\$HOME\/work\/nix-config\/nix-config\/configuration.nix\"/g" ./platforms/darwin/default.nix
-    - run: sed -i "" -- "/\s*cachix\s*$/d" ./platforms/darwin/home/packages.nix
+      # disable packages: cachix would be a duplicate, Spotify has a hash mismatch issue
+    - run: sed -i "" -e "/\s*cachix\s*$/d" -e "/\s*Spotify\s*$/d" ./platforms/darwin/home/packages.nix
     - run: find . -type f -path "*.nix" -exec sed -i "" -- "s/yevhenshymotiuk/runner/g" {} +
     - run: ./platforms/darwin/nix-darwin-install.sh
