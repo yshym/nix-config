@@ -14,13 +14,21 @@ jobs:
       with:
         name: yevhenshymotiuk
         authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-    - run: nix-channel --add https://github.com/yevhenshymotiuk/nixpkgs/archive/nixpkgs-unstable.tar.gz nixpkgs
-    - run: nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
-    - run: nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
-    - run: nix-channel --update
-    - run: ln -s ./machines/mbp16 host.nix
-    - run: sed -i "" -- "s/darwinConfig = \"\$HOME\/.nixpkgs\/configuration.nix\"/darwinConfig = \"\$HOME\/work\/nix-config\/nix-config\/configuration.nix\"/g" ./platforms/darwin/default.nix
-      # disable packages: cachix would be a duplicate, Spotify has a hash mismatch issue
-    - run: sed -i "" -e "/\s*cachix\s*$/d" -e "/\s*Spotify\s*$/d" ./platforms/darwin/home/packages.nix
-    - run: find . -type f -path "*.nix" -exec sed -i "" -- "s/yevhenshymotiuk/runner/g" {} +
-    - run: ./platforms/darwin/nix-darwin-install.sh
+    - name: Add nixpkgs channel
+      run: nix-channel --add https://github.com/yevhenshymotiuk/nixpkgs/archive/nixpkgs-unstable.tar.gz nixpkgs
+    - name: Add darwin channel
+      run: nix-channel --add https://github.com/LnL7/nix-darwin/archive/master.tar.gz darwin
+    - name: Add home-manager channel
+      run: nix-channel --add https://github.com/rycee/home-manager/archive/master.tar.gz home-manager
+    - name: Update channels
+      run: nix-channel --update
+    - name: Link host machine config
+      run: ln -s ./machines/mbp16 host.nix
+    - name: Replace config path
+      run: sed -i "" -- "s/darwinConfig = \"\$HOME\/.nixpkgs\/configuration.nix\"/darwinConfig = \"\$HOME\/work\/nix-config\/nix-config\/configuration.nix\"/g" ./platforms/darwin/default.nix
+    - name: Disable some packages
+      run: sed -i "" -e "/\s*cachix\s*$/d" -e "/\s*Spotify\s*$/d" ./platforms/darwin/home/packages.nix
+    - name: Replace username
+      run: find . -type f -path "*.nix" -exec sed -i "" -- "s/yevhenshymotiuk/runner/g" {} +
+    - name: Install nix-darwin
+      run: ./platforms/darwin/nix-darwin-install.sh
