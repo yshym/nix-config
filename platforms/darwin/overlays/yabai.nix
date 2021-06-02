@@ -3,11 +3,11 @@ self: super:
 {
   # TODO: Switch back to src build when issue is fixed
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "3.3.8";
+    version = "3.3.10";
     src = builtins.fetchTarball {
       url =
         "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "1b1xyyx3kvm9x81aarp5dx28nbd3m77z88m2yw6s6pd5myigc006";
+      sha256 = "025ww9kjpy72in3mbn23pwzf3fvw0r11ijn1h5pjqvsdlak91h9i";
     };
 
     installPhase = ''
