@@ -79,8 +79,22 @@
           white = "0xe6e6d1";
         };
       };
-      mouse.url.launcher = "open";
       key_bindings = [
+        {
+          key = "V";
+          mods = "Command";
+          action = "Paste";
+        }
+        {
+          key = "C";
+          mods = "Command";
+          action = "Copy";
+        }
+        {
+          key = "Q";
+          mods = "Command";
+          action = "Quit";
+        }
         {
           key = "B";
           mods = "Alt";
