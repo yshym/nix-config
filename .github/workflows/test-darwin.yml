@@ -1,7 +1,14 @@
-name: "Test"
+name: "Test Darwin"
 on:
   pull_request:
   push:
+    paths:
+      - "configuration.nix"
+      - "cachix/**"
+      - "home/**"
+      - "platforms/darwin/**"
+      - "machines/mbp16/**"
+
 jobs:
   test-mbp16:
     runs-on: macos-latest
@@ -25,9 +32,16 @@ jobs:
     - name: Link host machine config
       run: ln -s ./machines/mbp16 host.nix
     - name: Replace config path
-      run: sed -i "" -- "s/darwinConfig = \"\$HOME\/.nixpkgs\/configuration.nix\"/darwinConfig = \"\$HOME\/work\/nix-config\/nix-config\/configuration.nix\"/g" ./platforms/darwin/default.nix
+      run: |
+        sed -i "" -- \
+          "s/darwinConfig = \"\$HOME\/.nixpkgs\/configuration.nix\"/darwinConfig = \"\$HOME\/work\/nix-config\/nix-config\/configuration.nix\"/g" \
+          ./platforms/darwin/default.nix
     - name: Disable some packages
-      run: sed -i "" -e "/\s*cachix\s*$/d" -e "/\s*Spotify\s*$/d" ./platforms/darwin/home/packages.nix
+      run: |
+        sed -i "" \
+          -e "/\s*cachix\s*$/d" \
+          -e "/\s*Spotify\s*$/d" \
+          ./platforms/darwin/home/packages.nix
     - name: Replace username
       run: find . -type f -path "*.nix" -exec sed -i "" -- "s/yevhenshymotiuk/runner/g" {} +
     - name: Install nix-darwin
