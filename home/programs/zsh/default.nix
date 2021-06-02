@@ -42,7 +42,7 @@ with pkgs; {
       bindkey "^[[A" history-substring-search-up   # up arrow
       bindkey "^[[B" history-substring-search-down # down arrow
 
-      export NIX_PATH="/nix/var/nix/profiles/per-user/root/channels:$HOME/.nix-defexpr/channels"
+      export NIX_PATH="$HOME/.nix-defexpr/channels"
       ${lib.optionalString stdenv.isDarwin "export NIX_PATH=\"darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH\""}
     '';
     envExtra = ''
