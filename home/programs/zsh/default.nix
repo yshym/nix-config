@@ -17,12 +17,12 @@ with pkgs; {
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
 
       autoload -Uz compinit
-      if [${
+      if [[ ${
         if stdenv.isDarwin then
-          " $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) "
+          "$(date +'%j') != $(date -d $(stat -c '@%Y' ~/.zcompdump) +'%j')"
         else
-          "[ -n $ZDOTDIR/.zcompdump(#qN.mh+24) ]"
-      }]; then
+          "-n $ZDOTDIR/.zcompdump(#qN.mh+24)"
+      } ]]; then
         compinit -i
       else
         compinit -C
@@ -43,7 +43,8 @@ with pkgs; {
       bindkey "^[[B" history-substring-search-down # down arrow
 
       export NIX_PATH="$HOME/.nix-defexpr/channels"
-      ${lib.optionalString stdenv.isDarwin "export NIX_PATH=\"darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH\""}
+      ${lib.optionalString stdenv.isDarwin ''
+        export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
     '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
