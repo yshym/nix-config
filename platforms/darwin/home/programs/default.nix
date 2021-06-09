@@ -22,6 +22,7 @@
     ./telegram
     ./topgrade
     ./yabai
+    ./zathura.nix
   ];
 
   programs = {
