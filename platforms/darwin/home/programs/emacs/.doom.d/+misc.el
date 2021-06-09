@@ -11,6 +11,11 @@
   (direnv-mode))
 
 
+;; dired
+(when (string= system-type "darwin")
+  (setq dired-use-ls-dired nil))
+
+
 ;; terminal
 (setq evil-escape-excluded-major-modes
       (delete 'vterm-mode evil-escape-excluded-major-modes))
