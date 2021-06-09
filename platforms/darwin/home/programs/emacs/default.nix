@@ -4,18 +4,22 @@ with lib;
 let
   cfg = config.programs.emacs;
   withPatches = pkg: patches: pkg.overrideAttrs (attrs: { inherit patches; });
-  patches = path: with builtins;
-    (map (n: path + ("/" + n)) (filter (n: match ".*\\.patch" n != null)
-      (attrNames (readDir path))));
+  patches = path:
+    with builtins;
+    (map (n: path + ("/" + n))
+      (filter (n: match ".*\\.patch" n != null) (attrNames (readDir path))));
 
   emacs = withPatches pkgs.emacs (patches ./patches/emacs27);
   emacsGit = withPatches pkgs.emacsGit (patches ./patches/emacs28);
-  myEmacsGcc = (pkgs.emacsGcc.overrideAttrs (old: {
-    buildInputs = old.buildInputs ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
-      pkgs.darwin.apple_sdk.frameworks.CoreFoundation
-      pkgs.darwin.apple_sdk.frameworks.WebKit
-    ];
-  })).override { withXwidgets = true; };
+  myEmacsGcc =
+    ((withPatches pkgs.emacsGcc (patches ./patches/emacs28)).overrideAttrs
+      (old: {
+        buildInputs = old.buildInputs
+          ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
+            pkgs.darwin.apple_sdk.frameworks.CoreFoundation
+            pkgs.darwin.apple_sdk.frameworks.WebKit
+          ];
+      })).override { withXwidgets = true; };
 in {
   options.programs.emacs = { useHead = mkEnableOption "Build from source"; };
 
