@@ -2,6 +2,8 @@
 
 {
   home-manager.users.yevhenshymotiuk = { pkgs, ... }: {
+    home.packages = with pkgs; [ elixir erlang ];
+
     services = {
       spotifyd = {
         enable = true;
