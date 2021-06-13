@@ -10,6 +10,10 @@
     ./home.nix
   ];
 
+  boot.loader.raspberryPi.firmwareConfig = ''
+    dtparam=audio=on
+  '';
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-label/NIXOS_SD";
@@ -39,6 +43,8 @@
       };
     };
   };
+
+  sound.enable = true;
 
   hardware = {
     # Enable GPU acceleration
