@@ -11,7 +11,7 @@
       hashedPassword =
         "$6$i3YXp5DMdXqRt$WjzYcieb8JAzGyL19GSXjKZ80/8zvNnPaVjAnvxoz.6xJRrxMlQghBoJ37d4j2muwmuFjNXYf4nquYqOhlZUz/";
       isNormalUser = true;
-      extraGroups = [ "sudo" "wheel" ];
+      extraGroups = [ "audio" "sudo" "wheel" ];
       openssh.authorizedKeys.keyFiles = [ ./ssh/mbp16.pub ];
       shell = pkgs.zsh;
     };

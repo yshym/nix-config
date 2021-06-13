@@ -52,6 +52,7 @@
     enableRedistributableFirmware = true;
     pulseaudio = {
       enable = true;
+      systemWide = true;
       support32Bit = true;
       extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
