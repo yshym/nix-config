@@ -27,6 +27,8 @@
   };
 
   systemd.services = {
+    bluetooth.serviceConfig.ExecStart =
+      [ "" "${pkgs.bluez}/libexec/bluetooth/bluetoothd --noplugin=sap" ];
     btattach = {
       before = [ "bluetooth.service" ];
       after = [ "dev-ttyAMA0.device" ];
