@@ -77,6 +77,8 @@
       extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
       extraConfig = ''
+        unload-module module-native-protocol-unix
+        load-module module-native-protocol-unix auth-anonymous=1
         load-module module-switch-on-connect
       '';
     };
