@@ -74,7 +74,13 @@
       alt - x : yabai -m space --mirror x-axis
 
       # toggle stack
-      alt - s : "$HOME/.config/yabai/toggle_stack.sh"
+      shift + alt - s : "$HOME/.config/yabai/toggle_stack.sh"
+
+      # set horizontal splitting direction
+      alt - s : yabai -m window --insert west
+
+      # set vertical splitting direction
+      alt - v : yabai -m window --insert south
 
       # restart yabai
       shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.skhd" && \
