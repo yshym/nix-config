@@ -4,9 +4,12 @@
   programs.alacritty = {
     enable = true;
     settings = {
-      window.padding = {
-        x = 2;
-        y = 2;
+      window = {
+        decorations = "None";
+        padding = {
+          x = 2;
+          y = 2;
+        };
       };
       font = {
         normal.family = "Fira Code";
