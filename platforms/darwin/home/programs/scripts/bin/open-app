@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+CACHE_FILE="$HOME/.cache/open-app"
+if [ "$(date +'%j')" -ne "$(date -d "$(stat -c '@%Y' "$CACHE_FILE")" +'%j')" ]; then
+    echo "Reading from cache"
+else
+    rm $CACHE_FILE
+    ls -d \
+        /System/Applications/*.app \
+        /Applications/*.app \
+        $HOME/Applications/Nix/*.app \
+        > "$CACHE_FILE"
+fi
+
+APPLICATIONS="$(cat "$CACHE_FILE")"
+APPLICATION="$(echo "$APPLICATIONS" | choose -c bd93f9 -b 272832 -s 22 -f "Fira Code")"
+[ "$APPLICATION" ] && open "$APPLICATION"

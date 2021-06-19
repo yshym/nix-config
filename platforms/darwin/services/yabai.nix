@@ -50,6 +50,7 @@ in {
       yabai -m rule --add app="^Spotlight$" layer=above manage=off
       yabai -m rule --add app="^Stickies$" manage=off
       yabai -m rule --add app="^System Preferences$" manage=off
+      yabai -m rule --add app="^choose$" manage=off
 
       # signals
       yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"

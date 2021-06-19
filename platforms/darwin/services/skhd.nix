@@ -4,6 +4,9 @@
   services.skhd = {
     enable = true;
     skhdConfig = ''
+      # open application
+      cmd - space : open-app
+
       # open terminal
       alt - return : open -a "Alacritty"
 
