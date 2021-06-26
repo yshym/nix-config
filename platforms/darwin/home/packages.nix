@@ -3,6 +3,7 @@
 {
   nixpkgs.overlays = [
     (import ../overlays/dropbox)
+    (import ../overlays/sortdir)
     (import ../overlays/spotify)
   ];
 
@@ -134,6 +135,7 @@
 
       # my stuff
       navi
+      # sortdir
       translate-shell
     ] ++ myNodePackages;
 }
