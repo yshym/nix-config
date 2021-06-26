@@ -39,7 +39,7 @@ jobs:
     - name: Disable some darwin packages
       run: |
         sed -i "" \
-          -e "/\s*cachix\s*$/d" \
+          -e "/\s*Spotify\s*$/d" \
           ./platforms/darwin/home/packages.nix
     - name: Disable some general packages
       run: |
