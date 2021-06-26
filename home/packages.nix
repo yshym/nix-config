@@ -16,7 +16,6 @@
       cachix
       caddy
       ccls
-      chromedriver
       clang-tools
       cmake
       dart
@@ -56,7 +55,6 @@
       sass
       shellcheck
       shfmt
-      terminal-notifier
       texlive.combined.scheme-full
       wakatime
 

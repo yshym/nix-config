@@ -8,6 +8,10 @@
   ];
 
   home.packages = with pkgs; [
+    # development
+    chromedriver
+    terminal-notifier
+
     # net & cloud tools
     Dropbox
 
