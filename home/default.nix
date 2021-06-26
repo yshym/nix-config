@@ -4,7 +4,7 @@
   home-manager = {
     useUserPackages = false;
     users.yevhenshymotiuk = { pkgs, ... }: {
-      imports = [ ./programs ];
+      imports = [ ./packages.nix ./programs ];
     };
   };
 }
