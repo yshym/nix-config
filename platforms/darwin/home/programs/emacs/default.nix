@@ -12,7 +12,7 @@ let
   emacs = withPatches pkgs.emacs (patches ./patches/emacs27);
   emacsGit = withPatches pkgs.emacsGit (patches ./patches/emacs28);
   emacsMacport = withPatches pkgs.emacsMacport (patches ./patches/emacsMacport);
-  myEmacsGcc =
+  emacsGcc =
     ((withPatches pkgs.emacsGcc (patches ./patches/emacs28)).overrideAttrs
       (old: {
         buildInputs = old.buildInputs
