@@ -32,6 +32,7 @@ in {
         done | md5sum | cut -b-32
       }
       mkdir -p ~/Applications/Nix
+      export IFS=$'\n'
       for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
         name="$(basename "$app")"
         src="$(/usr/bin/stat -f%Y "$app")"
