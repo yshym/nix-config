@@ -38,13 +38,14 @@
       jq
       kubectl
       libpng
+      libpqxx
       lld_10
       lua
       luaPackages.lua-lsp
       minikube
       nasm
       nim
-      octave
+      # octave
       openmpi
       pipenv
       protobuf
@@ -87,7 +88,6 @@
       tealdeer
       tokei
       xsv
-      zola
 
       # communication
       goimapnotify
@@ -118,8 +118,8 @@
       # entertainment
       epr
       mpv
-      portaudio
-      spotifyd
+      # portaudio
+      # spotifyd
       spotify-tui
       streamlink
       youtube-dl
