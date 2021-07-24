@@ -12,7 +12,7 @@ with pkgs; {
   };
 
   environment = {
-    systemPackages = [ bat coreutils exa ripgrep vim wget ];
+    systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
   };
 
   fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];
