@@ -31,10 +31,6 @@
   };
 
   services = {
-    postgresql = {
-      enable = true;
-      package = pkgs.postgresql_12;
-    };
     spotifyd = {
       enable = true;
       config = ''
