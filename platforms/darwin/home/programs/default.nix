@@ -2,6 +2,7 @@
 
 {
   imports = [
+    # ./brave
     ./emacs
     ./firefox
     ./hammerspoon
