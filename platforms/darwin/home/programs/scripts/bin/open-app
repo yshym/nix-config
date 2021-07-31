@@ -8,7 +8,9 @@ else
     rm -f "$CACHE_FILE"
     ls -d \
         /System/Applications/*.app \
+        /System/Applications/Utilities/*.app \
         /Applications/*.app \
+        /Applications/Utilities/*.app \
         $HOME/Applications/Nix/*.app \
             | sed -e "s/.*\///g" -e "s/\.app//" \
             | sort > "$CACHE_FILE"
