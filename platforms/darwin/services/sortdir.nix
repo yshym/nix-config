@@ -8,10 +8,7 @@ let
 in {
   launchd.user.agents = {
     sortdir.serviceConfig = {
-      ProgramArguments = [
-        "${home.homeDirectory}/.local/bin/sortdir"
-        "${home.homeDirectory}/Downloads"
-      ];
+      ProgramArguments = [ "${home.homeDirectory}/.local/bin/sortdir" ];
       UserName = "${me}";
       KeepAlive = true;
       ThrottleInterval = 30;
