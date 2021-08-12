@@ -8,7 +8,6 @@
 ;;; Code:
 
 (load! "+bindings")
-;; (load! "+macos")
 (load! "+misc")
 (load! "+prog")
 (load! "+text")

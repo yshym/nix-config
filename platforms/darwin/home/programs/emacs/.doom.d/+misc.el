@@ -49,8 +49,7 @@
 
 
 ;; plantuml
-(setq org-plantuml-jar-path
-      (expand-file-name "/Users/yevhenshymotiuk/dev/plantuml/plantuml.jar"))
+(setq org-plantuml-jar-path plantuml-jar-path)
 
 
 ;; alert
@@ -61,7 +60,8 @@
 (setq user-mail-address "yevhenshymotiuk@gmail.com")
 (add-load-path! "~/.nix-profile/share/emacs/site-lisp/mu4e")
 (after! mu4e
-  (setq send-mail-function 'smtpmail-send-it
+  (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg" "~/.netrc")
+        send-mail-function 'smtpmail-send-it
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587
         mu4e-headers-fields '((:flags . 6)
