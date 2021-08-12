@@ -48,8 +48,9 @@
       # octave
       openmpi
       pipenv
-      protobuf
       pkg-config
+      plantuml
+      protobuf
       redis
       rnix-lsp
       ruby
