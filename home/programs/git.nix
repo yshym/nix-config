@@ -7,6 +7,10 @@ in {
       type = with types; (nullOr (enum [ "delta" "diff-so-fancy" ]));
       default = null;
     };
+    gpgKey = mkOption {
+      type = with types; nullOr str;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -31,7 +35,7 @@ in {
         up = "pull --rebase --autostash";
       };
       signing = {
-        key = "F79099398148756F";
+        key = cfg.gpgKey;
         signByDefault = true;
       };
       userName = "Yevhen Shymotiuk";
