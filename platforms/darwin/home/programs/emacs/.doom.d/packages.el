@@ -9,4 +9,3 @@
 (package! ansi-color)
 (package! undo-tree)
 (package! verb)
-(package! mu4e-alert)

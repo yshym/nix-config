@@ -20,7 +20,7 @@ imapnotifyDefault = {
     "tls": True,
     "tlsOptions": {"rejectUnauthorized": True},
     "onNewMail": "",
-    "onNewMailPost": "if mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm -f /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi",
+    "onNewMailPost": "if mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi",
 }
 
 
@@ -64,8 +64,8 @@ def processLine(line):
     elif parameter in mbsyncInotifyMapping.keys():
         parser, key = mbsyncInotifyMapping[parameter]
         currentAccountData[key] = parser(value)
-    elif parameter == "Channel":
-        currentAccountData["onNewMail"] = f"mbsync --pull --new {value}:'%s'"
+    elif parameter == "Group":
+        currentAccountData["onNewMail"] = f"mbsync --pull --new {value}"
 
 
 def newAccount(name):

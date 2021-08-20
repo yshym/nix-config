@@ -3,7 +3,7 @@
 {
   imports = [
     ./google-calendar-to-org.nix
-    ./imap.nix
+    # ./imap.nix
     ./skhd.nix
     # ./sortdir.nix
     ./spacebar.nix
