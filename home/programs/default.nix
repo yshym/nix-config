@@ -30,6 +30,7 @@
       enable = true;
       yarn.enable = true;
     };
+    prettier.enable = true;
     python = {
       enable = true;
       extraPackages = with pkgs.python3Packages; [ codecov grip jedi poetry ];
