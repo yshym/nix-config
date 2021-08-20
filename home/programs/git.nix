@@ -39,7 +39,7 @@ in {
         signByDefault = true;
       };
       userName = "Yevhen Shymotiuk";
-      userEmail = "yevhenshymotiuk@gmail.com";
+      userEmail = "yevhenshymotiuk@pm.me";
       extraConfig = {
         core.pager = if (cfg.pager == "delta") then
           "delta --dark"
