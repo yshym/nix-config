@@ -16,7 +16,7 @@
     Dropbox
 
     # entertainment
-    # Spotify
+    Spotify
 
     # my stuff
     # sortdir
