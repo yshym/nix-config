@@ -2,25 +2,25 @@
 
 ORG_DIR="$HOME/dev/org"
 
-ICSFILE_PERSONAL="/tmp/yevhenshymotiuk@gmail.com.ics"
-ORGFILE_PERSONAL="$ORG_DIR/google-calendar/personal.org"
-URL_PERSONAL=$(pass Calendar/Google/yevhenshymotiuk@gmail.com)
+ICSFILE_PERSONAL="/tmp/calendar-personal.ics"
+ORGFILE_PERSONAL="$ORG_DIR/calendar-personal.org"
+URL_PERSONAL=$(pass Proton/Calendar/yevhenshymotiuk@pm.me)
 
-ICSFILE_WORK="/tmp/yevhen.shymotiuk@gointeractive.co.ics"
-ORGFILE_WORK="$ORG_DIR/google-calendar/work.org"
-URL_WORK=$(pass Calendar/Google/yevhen.shymotiuk@gointeractive.co)
+# ICSFILE_WORK="/tmp/"
+# ORGFILE_WORK=""
+# URL_WORK=$()
 
 # get ics files
 wget --no-check-certificate -O "$ICSFILE_PERSONAL" "$URL_PERSONAL"
-wget --no-check-certificate -O "$ICSFILE_WORK" "$URL_WORK"
+# wget --no-check-certificate -O "$ICSFILE_WORK" "$URL_WORK"
 
 # generate org files
 AUTHOR="Yevhen Shymotiuk" \
-    EMAIL="yevhenshymotiuk@gmal.com" \
+    EMAIL="yevhenshymotiuk@pm.me" \
     CALENDAR="personal" \
     ical2org < "$ICSFILE_PERSONAL" > "$ORGFILE_PERSONAL"
 
-AUTHOR="Yevhen Shymotiuk" \
-    EMAIL="yevhen.shymotiuk@gointeractive.co" \
-    CALENDAR="work" \
-    ical2org < "$ICSFILE_WORK" > "$ORGFILE_WORK"
+# AUTHOR="Yevhen Shymotiuk" \
+#     EMAIL="" \
+#     CALENDAR="work" \
+#     ical2org < "$ICSFILE_WORK" > "$ORGFILE_WORK"

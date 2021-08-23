@@ -8,7 +8,7 @@ let
   homeManagerPath = home.path;
 in {
   launchd.user.agents = {
-    google-calendar-to-org.serviceConfig = {
+    calendar-to-org.serviceConfig = {
       ProgramArguments = [ "${homeFiles}/.local/bin/ical2org_wrapper" ];
       UserName = "${me}";
       KeepAlive = true;
