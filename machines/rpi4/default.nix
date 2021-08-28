@@ -53,10 +53,18 @@
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       virtualHosts."yevhen.space" =  {
-        enableACME = false;
-        forceSSL = false;
+        default = true;
+        enableACME = true;
+        forceSSL = true;
         locations."/" = {
-          proxyPass = "http://127.0.0.1:8000";
+          return = "404";
+        };
+      };
+      virtualHosts."invidious.yevhen.space" =  {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3000";
           proxyWebsockets = false;
         };
       };
