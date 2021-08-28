@@ -66,6 +66,10 @@
         locations."/" = {
           return = "404";
         };
+        extraConfig = ''
+          access_log /var/log/nginx/yevhen.space.access.log;
+          error_log /var/log/nginx/yevhen.space.error.log;
+        '';
       };
       virtualHosts."invidious.yevhen.space" =  {
         enableACME = true;
@@ -74,6 +78,10 @@
           proxyPass = "http://127.0.0.1:3000";
           proxyWebsockets = false;
         };
+        extraConfig = ''
+          access_log /var/log/nginx/invidious.yevhen.space.access.log;
+          error_log /var/log/nginx/invidious.yevhen.space.error.log;
+        '';
       };
     };
   };
