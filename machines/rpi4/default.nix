@@ -30,6 +30,13 @@
     gnupg.agent.pinentryFlavor = "curses";
   };
 
+  security = {
+    acme = {
+      acceptTerms = true;
+      email = "yevhenshymotiuk@pm.me";
+    };
+  };
+
   services = {
     spotifyd = {
       enable = true;
