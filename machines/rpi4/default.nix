@@ -63,6 +63,7 @@
         default = true;
         enableACME = true;
         forceSSL = true;
+        serverAliases = [ "www.yevhen.space" ];
         locations."/" = {
           return = "404";
         };
