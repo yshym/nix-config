@@ -63,7 +63,6 @@
         default = true;
         enableACME = true;
         forceSSL = true;
-        serverAliases = [ "www.yevhen.space" ];
         locations."/" = {
           return = "404";
         };
@@ -77,11 +76,22 @@
         forceSSL = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:3000";
-          proxyWebsockets = false;
         };
         extraConfig = ''
           access_log /var/log/nginx/invidious.yevhen.space.access.log;
           error_log /var/log/nginx/invidious.yevhen.space.error.log;
+        '';
+      };
+      virtualHosts."wwf.yevhen.space" =  {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:444";
+          proxyWebsockets = true;
+        };
+        extraConfig = ''
+          access_log /var/log/nginx/wwf.yevhen.space.access.log;
+          error_log /var/log/nginx/wwf.yevhen.space.error.log;
         '';
       };
     };
