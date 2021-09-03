@@ -22,13 +22,9 @@
     };
   };
 
-  networking = {
-    hostName = "rpi4";
-  };
+  networking = { hostName = "rpi4"; };
 
-  programs = {
-    gnupg.agent.pinentryFlavor = "curses";
-  };
+  programs = { gnupg.agent.pinentryFlavor = "curses"; };
 
   security = {
     acme = {
@@ -59,31 +55,40 @@
       enable = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
-      virtualHosts."yevhen.space" =  {
+      virtualHosts."yevhen.space" = {
         default = true;
         enableACME = true;
         forceSSL = true;
         serverAliases = [ "www.yevhen.space" ];
-        locations."/" = {
-          return = "404";
-        };
+        locations."/" = { return = "404"; };
         extraConfig = ''
           access_log /var/log/nginx/yevhen.space.access.log;
           error_log /var/log/nginx/yevhen.space.error.log;
         '';
       };
-      virtualHosts."invidious.yevhen.space" =  {
+      virtualHosts."invidious.yevhen.space" = {
         enableACME = true;
         forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:3000";
-        };
+        locations."/" = { proxyPass = "http://127.0.0.1:3000"; };
         extraConfig = ''
           access_log /var/log/nginx/invidious.yevhen.space.access.log;
           error_log /var/log/nginx/invidious.yevhen.space.error.log;
         '';
       };
-      virtualHosts."wwf.yevhen.space" =  {
+      virtualHosts."libretranslate.yevhen.space" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          # proxyPass = "http://127.0.0.1:8002";
+          # not compatible with arm64 yet
+          return = "404";
+        };
+        extraConfig = ''
+          access_log /var/log/nginx/libretranslate.yevhen.space.access.log;
+          error_log /var/log/nginx/libretranslate.yevhen.space.error.log;
+        '';
+      };
+      virtualHosts."wwf.yevhen.space" = {
         enableACME = true;
         forceSSL = true;
         locations."/" = {
