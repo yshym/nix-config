@@ -2,18 +2,11 @@
 
 {
   programs.topgrade = {
-    enable = false;
+    enable = true;
     settings = {
-      disable = [
-        "cargo"
-        "deno"
-        "emacs"
-        "flutter"
-        "gem"
-        "node"
-        "pipx"
-        "rustup"
-        "system"
+      only = [
+        "git_repos"
+        "tldr"
       ];
       git.repos = [ "~/.emacs.d" ];
     };
