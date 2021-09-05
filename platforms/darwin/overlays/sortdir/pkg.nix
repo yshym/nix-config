@@ -11,6 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0000000000000000000000000000000000000000000000000000";
   };
 
+  # watchdog is broken on darwin
   propagatedBuildInputs = [ watchdog ];
 
   meta = with lib; {
