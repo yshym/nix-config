@@ -1,0 +1,88 @@
+{
+  "nodes": {
+    "darwin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1622060422,
+        "narHash": "sha256-hPVlvrAyf6zL7tTx0lpK+tMxEfZeMiIZ/A2xaJ41WOY=",
+        "owner": "yevhenshymotiuk",
+        "repo": "nix-darwin",
+        "rev": "007d700e644ac588ad6668e6439950a5b6e2ff64",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yevhenshymotiuk",
+        "ref": "master",
+        "repo": "nix-darwin",
+        "type": "github"
+      }
+    },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1630428740,
+        "narHash": "sha256-394yJxkFjvg47vB0jK5WHCitLDilyGjO3HpuZkAM2GA=",
+        "owner": "yevhenshymotiuk",
+        "repo": "home-manager",
+        "rev": "21a2ff449620a9cb91802f9d1a9157b2ae8c6b39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yevhenshymotiuk",
+        "ref": "master",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixos": {
+      "locked": {
+        "lastModified": 1630600546,
+        "narHash": "sha256-RFqEv59bWpds9Ymo757GgHB9S3nJFra96ySW1YptNuQ=",
+        "owner": "yevhenshymotiuk",
+        "repo": "nixpkgs",
+        "rev": "4194d02deb6c3bd60dffe752b4b788570553a649",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yevhenshymotiuk",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1630756433,
+        "narHash": "sha256-Hq1KjqeF81uvRjL189p4jVwlJWUi05Mq4Qq6yENbD5s=",
+        "owner": "yevhenshymotiuk",
+        "repo": "nixpkgs",
+        "rev": "591de25b8fe15a23b64965cc76cf7c10ec8618bc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yevhenshymotiuk",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "darwin": "darwin",
+        "home-manager": "home-manager",
+        "nixos": "nixos",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

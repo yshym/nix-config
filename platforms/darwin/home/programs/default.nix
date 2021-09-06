@@ -5,7 +5,7 @@
     # ./brave
     ./emacs
     ./firefox
-    ./hammerspoon
+    # ./hammerspoon
     ./mbsync
     ./scripts
     ./spotify

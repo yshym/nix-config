@@ -5,6 +5,7 @@
     useUserPackages = false;
     users.yevhenshymotiuk = { pkgs, ... }: {
       imports = [ ./packages.nix ./programs ];
+      home.stateVersion = "21.05";
     };
   };
 }

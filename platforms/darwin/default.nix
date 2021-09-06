@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ <home-manager/nix-darwin> ./home ./services ];
+  imports = [ ./home ./services ];
 
   nixpkgs.overlays = [ (import ./overlays/yabai.nix) ];
 

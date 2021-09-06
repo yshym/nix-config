@@ -7,14 +7,14 @@ self: super:
     src = builtins.fetchTarball {
       url =
         "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "025ww9kjpy72in3mbn23pwzf3fvw0r11ijn1h5pjqvsdlak91h9i";
+      sha256 = "1z95njalhvyfs2xx6d91p9b013pc4ad846drhw0k5gipvl03pp92";
     };
 
     installPhase = ''
       mkdir -p $out/bin
       mkdir -p $out/share/man/man1/
-      cp ./archive/bin/yabai $out/bin/yabai
-      cp ./archive/doc/yabai.1 $out/share/man/man1/yabai.1
+      cp ./bin/yabai $out/bin/yabai
+      cp ./doc/yabai.1 $out/share/man/man1/yabai.1
     '';
   });
 }

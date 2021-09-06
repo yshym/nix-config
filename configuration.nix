@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 with pkgs; {
-  imports = [ ./cachix.nix ./home ./host.nix ];
+  imports = [ ./cachix.nix ./home ];
 
   nixpkgs = {
     config = {
@@ -18,7 +18,7 @@ with pkgs; {
   fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];
 
   nix = {
-    package = pkgs.nix;
+    package = pkgs.nixFlakes;
     trustedUsers = [ "root" "yevhenshymotiuk" ];
   };
 
