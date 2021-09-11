@@ -3,7 +3,7 @@
     name = "vim";
     vimrcConfig = {
       packages.myVimPackage = with pkgs.vimPlugins; {
-        start = [ gruvbox vim-airline vim-airline-themes vim-nix ];
+        start = [ gruvbox python-mode vim-airline vim-airline-themes vim-nix ];
         opt = [ ];
       };
       customRC = ''
