@@ -10,6 +10,7 @@
     ./scripts
     ./spotify
     ./telegram
+    ./vscode.nix
     ./yabai
   ];
 
