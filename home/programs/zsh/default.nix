@@ -91,7 +91,7 @@ with pkgs; {
       }
     ];
     shellAliases = {
-      cat = "bat";
+      cat = "bat --style plain";
       cdr = "cd $(git rev-parse --show-toplevel)";
       dhook = ''eval "$(direnv hook zsh)"'';
       drel = "direnv reload";
