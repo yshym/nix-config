@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "Dropbox-${version}.dmg";
     url = "https://www.dropbox.com/download?plat=mac&full=1";
-    sha256 = "15r0lcs7p4n5q67nq623rrhlqafan525xsz56ncndfib7fxqgj9g";
+    sha256 = "sha256-gWpEeZqlHZqFp4IrlmE16oqdyxrx3MuVuXAld8YBq7A=";
   };
 
   meta = with lib; {
