@@ -15,6 +15,7 @@
     ./ruby.nix
     ./rust
     ./topgrade
+    ./vim.nix
     ./zathura.nix
     ./zsh
   ];
