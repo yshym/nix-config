@@ -22,6 +22,7 @@ with pkgs; {
     trustedUsers = [ "root" "yevhenshymotiuk" ];
     extraOptions = ''
       experimental-features = nix-command flakes
+      sandbox = true
     '';
   };
 
