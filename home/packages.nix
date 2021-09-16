@@ -8,6 +8,10 @@
         url = "https://github.com/Shopify/comma/archive/master.tar.gz";
         sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
       }) { });
+      myTexlive = (texlive.combine {
+        inherit (texlive)
+          scheme-basic etoolbox fontawesome microtype siunitx xcolor;
+      });
     in [
       # development
       asciinema
@@ -56,7 +60,7 @@
       sass
       shellcheck
       shfmt
-      texlive.combined.scheme-full
+      myTexlive
       wakatime
 
       # nix stuff
