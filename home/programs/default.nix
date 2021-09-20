@@ -34,7 +34,13 @@
     prettier.enable = true;
     python = {
       enable = true;
-      extraPackages = with pkgs.python3Packages; [ codecov grip jedi poetry ];
+      extraPackages = with pkgs.python3Packages; [
+        codecov
+        grip
+        jedi
+        poetry
+        python-lsp-server
+      ];
       black.enable = true;
       mypy.enable = true;
       pipx.enable = true;
