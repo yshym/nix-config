@@ -1,12 +1,11 @@
 { config, pkgs, ... }:
 
 {
-  programs.vim = {
+  programs.neovim = {
     enable = true;
+    withPython3 = true;
     plugins = with pkgs.vimPlugins; [
       gruvbox
-      jedi-vim
-      python-mode
       supertab
       vim-airline
       vim-airline-themes
@@ -29,9 +28,10 @@
       match ErrorMsg '\s\+$'        "
 
       let g:airline_powerline_fonts = 1   " Use powerline fonts
-      let g:airline_theme='gruvbox'       " Set the airline theme
+      let g:airline_theme = 'gruvbox'     " Set the airline theme
 
       set laststatus=2   " Set up the status line so it's coloured and always on
+      inoremap fd <Esc>
     '';
   };
 }

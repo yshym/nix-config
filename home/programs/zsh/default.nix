@@ -103,6 +103,7 @@ with pkgs; {
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = lib.optionalString stdenv.isDarwin "open";
       tg = "topgrade -y";
+      vim = "nvim";
     };
   };
 }
