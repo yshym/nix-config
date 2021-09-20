@@ -20,9 +20,9 @@ with pkgs; {
   nix = {
     package = pkgs.nixFlakes;
     trustedUsers = [ "root" "yevhenshymotiuk" ];
+    useSandbox = true;
     extraOptions = ''
       experimental-features = nix-command flakes
-      sandbox = true
     '';
   };
 
