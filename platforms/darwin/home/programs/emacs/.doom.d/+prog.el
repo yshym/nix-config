@@ -69,6 +69,14 @@
 (add-hook 'web-mode-hook 'emmet-mode)
 
 
+;; c
+(setq flycheck-gcc-include-path '("/usr/local/include"))
+(defun c-flycheck-setup ()
+  "Setup Flycheck checkers for C."
+  (flycheck-select-checker 'c/c++-gcc))
+(add-hook 'c-mode-hook 'c-flycheck-setup)
+
+
 ;; python
 ;; (setq pylint-options '("--rcfile=~/.config/pylint/pylintrc"))
 (setq flycheck-pylintrc "~/.config/pylint/pylintrc")
