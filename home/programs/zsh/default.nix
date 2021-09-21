@@ -100,10 +100,19 @@ with pkgs; {
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
       grep = "rg";
       ls = "exa --group-directories-first";
+      lsa = "ls -a";
+      ll = "ls -l";
+      lla = "ls -al";
+      md = "mkdir -p";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = lib.optionalString stdenv.isDarwin "open";
+      rd = "rmdir";
       tg = "topgrade -y";
       vim = "nvim";
+      "..." = "../..";
+      "...." = "../../..";
+      "....." = "../../../..";
+      "......" = "../../../../..";
     };
   };
 }
