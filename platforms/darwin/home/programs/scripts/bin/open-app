@@ -9,6 +9,7 @@ else
     ls -d \
         /System/Applications/*.app \
         /System/Applications/Utilities/*.app \
+        /System/Library/CoreServices/*.app \
         /Applications/*.app \
         /Applications/Utilities/*.app \
         $HOME/Applications/Nix/*.app \
