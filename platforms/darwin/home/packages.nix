@@ -2,6 +2,7 @@
 
 {
   nixpkgs.overlays = [
+    (import ../overlays/choose)
     (import ../overlays/dropbox)
     (import ../overlays/sortdir)
     (import ../overlays/spotify)
@@ -19,6 +20,7 @@
     Spotify
 
     # my stuff
+    # choose
     # sortdir
   ];
 }
