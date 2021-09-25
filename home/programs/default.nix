@@ -39,7 +39,7 @@
         grip
         jedi
         poetry
-        python-lsp-server
+        # python-lsp-server
       ];
       black.enable = true;
       mypy.enable = true;

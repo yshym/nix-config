@@ -2,7 +2,7 @@
 
 {
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = pkgs.vscodium;
     userSettings = {
       security.workspace.trust.untrustedFiles = "open";

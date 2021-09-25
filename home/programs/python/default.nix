@@ -10,21 +10,11 @@ let
       # setup
       pip
       setuptools
+      wheel
 
       # ipython
       ipdb
       ipykernel
-
-      # ml
-      matplotlib
-      numpy
-      pandas
-      seaborn
-      scipy
-      scikitlearn
-
-      # other
-      pygobject3
     ];
   pythonWithMyPackages = python.withPackages myPythonPackages;
 in {

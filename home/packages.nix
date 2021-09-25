@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs;
     let
-      myNodePackages = with nodePackages; [ prettier serverless ];
       comma = (import (builtins.fetchTarball {
         url = "https://github.com/Shopify/comma/archive/master.tar.gz";
         sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
@@ -130,6 +129,7 @@
 
       # my stuff
       navi
+      termdown
       translate-shell
-    ] ++ myNodePackages;
+    ];
 }
