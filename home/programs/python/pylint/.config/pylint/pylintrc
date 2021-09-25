@@ -61,6 +61,8 @@ disable=
     import-outside-toplevel,
     invalid-name,
     missing-docstring,
+    missing-class-docstring,
+    missing-module-docstring,
     no-name-in-module,
     protected-access,
     relative-beyond-top-level,
