@@ -2,8 +2,8 @@ import os
 import sys
 
 
-python_dir = "/Users/yevhenshymotiuk/dev/python"
+dev_dir = "/Users/yevhenshymotiuk/dev"
 
-for p in os.listdir(python_dir):
+for p in os.listdir(dev_dir):
     if p not in sys.path:
-        sys.path.append(os.path.join(python_dir, p))
+        sys.path.append(os.path.join(dev_dir, p))
