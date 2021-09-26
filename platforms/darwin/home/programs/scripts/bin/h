@@ -1,0 +1,59 @@
+#!/usr/bin/env python
+
+"""Nix helper"""
+
+import argparse
+import os
+import platform
+import subprocess
+
+HOME = os.getenv("HOME")
+HOST = platform.node()
+OS = platform.system()
+FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
+NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
+
+
+def rebuild():
+    return subprocess.call(
+        [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
+    )
+
+
+def search(package):
+    return subprocess.call(["nix", "search", "nixpkgs", package])
+
+
+COMMANDS = {
+    "rebuild": rebuild,
+    "search": search,
+}
+
+
+def execute_command(command, args):
+    command_function = COMMANDS[command]
+    return command_function(**vars(args))
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Nix helper")
+    subparsers = parser.add_subparsers(
+        dest="command", help="command to execute", required=True
+    )
+    subparsers.add_parser("rebuild", help="rebuild the current system's flake")
+    subparser_search = subparsers.add_parser(
+        "search", help="search nixpkgs for a package"
+    )
+    subparser_search.add_argument("package", type=str, help="package name")
+    return parser.parse_args()
+
+
+def cli():
+    args = parse_args()
+    command = args.command
+    del args.command
+    return execute_command(command, args)
+
+
+if __name__ == "__main__":
+    cli()
