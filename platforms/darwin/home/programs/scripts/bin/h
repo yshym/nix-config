@@ -24,10 +24,19 @@ def search(package):
     return subprocess.call(["nix", "search", "nixpkgs", package])
 
 
-COMMANDS = {
-    "rebuild": rebuild,
-    "search": search,
-}
+def generations(action, **kwargs):
+    return globals()[f"generations_{action}"](**kwargs)
+
+
+def generations_list():
+    return subprocess.call(["nix-env", "--list-generations"])
+
+
+def generations_remove(generations):
+    return subprocess.call(["nix-env", "--delete-generations", generations])
+
+
+COMMANDS = {c: globals()[c] for c in ("rebuild", "search", "generations")}
 
 
 def execute_command(command, args):
@@ -37,14 +46,38 @@ def execute_command(command, args):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Nix helper")
+    # h <command>
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
     )
+    # h rebuild
     subparsers.add_parser("rebuild", help="rebuild the current system's flake")
+    # h search
     subparser_search = subparsers.add_parser(
         "search", help="search nixpkgs for a package"
     )
+    # h search <package>
     subparser_search.add_argument("package", type=str, help="package name")
+    # h generations
+    subparser_generations = subparsers.add_parser(
+        "generations", help="explore, manage generations"
+    )
+    # h generations <action>
+    subparser_generations_actions = subparser_generations.add_subparsers(
+        dest="action", help="action to do", required=True
+    )
+    # h generations list
+    subparser_generations_actions.add_parser("list", help="list generations")
+    # h generations remove
+    subparser_generations_actions_remove = (
+        subparser_generations_actions.add_parser(
+            "remove", help="remove generations"
+        )
+    )
+    # h generations remove <generations>
+    subparser_generations_actions_remove.add_argument(
+        "generations", help="generations to remove", type=str
+    )
     return parser.parse_args()
 
 
