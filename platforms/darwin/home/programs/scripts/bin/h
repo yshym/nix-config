@@ -15,30 +15,8 @@ FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
 COMMANDS = {"rebuild", "search", "generations"}
-ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
-
-
-class CommandNotExists(Exception):
-    pass
-
-
-def aliases_from_action(command, action):
-    return [al for al, ac in ALIASES[command].items() if ac == action]
-
-
-def follow_aliases(func):
-    """Substitute alias with action if alias is given"""
-
-    command = func.__name__
-    if command not in COMMANDS:
-        raise CommandNotExists("command does not exist")
-
-    @functools.wraps(func)
-    def wrapper(action, **kwargs):
-        action = ALIASES.get(command).get(action) or action
-        func(action, **kwargs)
-
-    return wrapper
+COMMAND_ALIASES = {"s": "search"}
+ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 
 
 def rebuild():
@@ -53,12 +31,6 @@ def search(package):
     return subprocess.call(["nix", "search", "nixpkgs", package])
 
 
-@follow_aliases
-def generations(action, **kwargs):
-    """Explore, manage generations"""
-    return globals()[f"generations_{action}"](**kwargs)
-
-
 def generations_list():
     """List generations"""
     return subprocess.call(["nix-env", "--list-generations"])
@@ -69,8 +41,45 @@ def generations_remove(generations):
     return subprocess.call(["nix-env", "--delete-generations", generations])
 
 
+class CommandNotExists(Exception):
+    pass
+
+
+def aliases_from_command(command):
+    return [al for al, com in COMMAND_ALIASES.items() if com == command]
+
+
+def aliases_from_action(command, action):
+    return [al for al, ac in ACTION_ALIASES[command].items() if ac == action]
+
+
+def follow_aliases(func):
+    """Substitute aliases with commands or actions"""
+
+    @functools.wraps(func)
+    def wrapper(command, args):
+        if command not in COMMANDS and command not in COMMAND_ALIASES:
+            raise CommandNotExists("command does not exist")
+        command = COMMAND_ALIASES.get(command) or command
+        if "action" in args:
+            args.action = (
+                ACTION_ALIASES.get(command).get(args.action) or args.action
+            )
+        return func(command, args)
+
+    return wrapper
+
+
+@follow_aliases
 def execute_command(command, args):
-    command_function = globals()[command] if command in COMMANDS else None
+    action = None
+    if "action" in args:
+        action = args.action
+        del args.action
+    function_name = f"{command}_{action}" if action else command
+    command_function = (
+        globals()[function_name] if command in COMMANDS else None
+    )
     return command_function(**vars(args))
 
 
@@ -83,12 +92,14 @@ def parse_args():
     # h rebuild
     subparsers.add_parser("rebuild", help=rebuild.__doc__)
     # h search
-    subparser_search = subparsers.add_parser("search", help=search.__doc__)
+    subparser_search = subparsers.add_parser(
+        "search", aliases=aliases_from_command("search"), help=search.__doc__
+    )
     # h search <package>
     subparser_search.add_argument("package", type=str, help="package name")
     # h generations
     subparser_generations = subparsers.add_parser(
-        "generations", help=generations.__doc__
+        "generations", help="Explore, manage generations"
     )
     # h generations <action>
     subparser_generations_actions = subparser_generations.add_subparsers(
