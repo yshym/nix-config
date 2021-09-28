@@ -1,0 +1,38 @@
+#compdef h
+
+_h_dispatch () {
+    local cmd="$@"
+    local offset=$#
+    CURRENT=$((CURRENT-$offset))
+    words=($cmd "${words[$((2 + offset)),-1]}")
+    _$cmd
+}
+
+_h_command_list () {
+    h -h \
+        | sed "1,/command to execute/d" \
+        | sed -n "1,/^$/p" \
+        | awk '{ print $1 }'
+}
+
+_h () {
+    local -a commands
+    IFS=$'\n' commands=($(_h_command_list))
+
+    if (( CURRENT == 2 )); then
+        _describe -t commands "h commands" commands
+        return
+    fi
+    unset IFS
+
+    integer ret=1
+    case ${words[2]} in
+        rebuild)     ;;
+        search)      ;;
+        generations) ;;
+        *)           _message "Command not found: ${words[2]}" ;;
+    esac
+    return ret
+}
+
+_h
