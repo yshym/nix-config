@@ -3,6 +3,7 @@
 """Nix helper"""
 
 import argparse
+import functools
 import os
 import platform
 import subprocess
@@ -13,34 +14,63 @@ OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
+COMMANDS = {"rebuild", "search", "generations"}
+ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
+
+
+class CommandNotExists(Exception):
+    pass
+
+
+def aliases_from_action(command, action):
+    return [al for al, ac in ALIASES[command].items() if ac == action]
+
+
+def follow_aliases(func):
+    """Substitute alias with action if alias is given"""
+
+    command = func.__name__
+    if command not in COMMANDS:
+        raise CommandNotExists("command does not exist")
+
+    @functools.wraps(func)
+    def wrapper(action, **kwargs):
+        action = ALIASES.get(command).get(action) or action
+        func(action, **kwargs)
+
+    return wrapper
+
 
 def rebuild():
+    """Rebuild the current system's flake"""
     return subprocess.call(
         [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
     )
 
 
 def search(package):
+    """Search nixpkgs for a package"""
     return subprocess.call(["nix", "search", "nixpkgs", package])
 
 
+@follow_aliases
 def generations(action, **kwargs):
+    """Explore, manage generations"""
     return globals()[f"generations_{action}"](**kwargs)
 
 
 def generations_list():
+    """List generations"""
     return subprocess.call(["nix-env", "--list-generations"])
 
 
 def generations_remove(generations):
+    """Remove generations"""
     return subprocess.call(["nix-env", "--delete-generations", generations])
 
 
-COMMANDS = {c: globals()[c] for c in ("rebuild", "search", "generations")}
-
-
 def execute_command(command, args):
-    command_function = COMMANDS[command]
+    command_function = globals()[command] if command in COMMANDS else None
     return command_function(**vars(args))
 
 
@@ -51,27 +81,31 @@ def parse_args():
         dest="command", help="command to execute", required=True
     )
     # h rebuild
-    subparsers.add_parser("rebuild", help="rebuild the current system's flake")
+    subparsers.add_parser("rebuild", help=rebuild.__doc__)
     # h search
-    subparser_search = subparsers.add_parser(
-        "search", help="search nixpkgs for a package"
-    )
+    subparser_search = subparsers.add_parser("search", help=search.__doc__)
     # h search <package>
     subparser_search.add_argument("package", type=str, help="package name")
     # h generations
     subparser_generations = subparsers.add_parser(
-        "generations", help="explore, manage generations"
+        "generations", help=generations.__doc__
     )
     # h generations <action>
     subparser_generations_actions = subparser_generations.add_subparsers(
         dest="action", help="action to do", required=True
     )
     # h generations list
-    subparser_generations_actions.add_parser("list", help="list generations")
+    subparser_generations_actions.add_parser(
+        "list",
+        aliases=aliases_from_action("generations", "list"),
+        help=generations_list.__doc__,
+    )
     # h generations remove
     subparser_generations_actions_remove = (
         subparser_generations_actions.add_parser(
-            "remove", help="remove generations"
+            "remove",
+            aliases=aliases_from_action("generations", "remove"),
+            help=generations_remove.__doc__,
         )
     )
     # h generations remove <generations>
