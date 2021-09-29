@@ -14,10 +14,15 @@ OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
-COMMANDS = {"build", "rebuild", "search", "generations"}
+COMMANDS = {"check", "build", "rebuild", "search", "generations"}
 COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build"}
-COMMAND_ALIASES = {"b": "build", "s": "search"}
+COMMAND_ALIASES = {"c": "check", "b": "build", "s": "search"}
 ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
+
+
+def check():
+    """Check whether the flake evaluates and run its tests"""
+    return subprocess.call(["nix", "flake", "check"])
 
 
 def build(*args):
@@ -96,6 +101,10 @@ def parse_args():
     # h <command>
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
+    )
+    # h check
+    subparsers.add_parser(
+        "check", aliases=aliases_from_command("check"), help=check.__doc__
     )
     # h build
     subparsers.add_parser(

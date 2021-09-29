@@ -27,6 +27,7 @@ _h () {
 
     integer ret=1
     case ${words[2]} in
+        check)       ;;
         b|build)     _h_dispatch nix-build ;;
         rebuild)     ;;
         search)      ;;
