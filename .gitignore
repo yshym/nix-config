@@ -4,7 +4,7 @@
 
 # Emacs
 *.elc
-flycheck_*.py
+flycheck_*
 
 # Nix builds
 result
