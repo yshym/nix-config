@@ -14,9 +14,16 @@ OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
-COMMANDS = {"rebuild", "search", "generations"}
-COMMAND_ALIASES = {"s": "search"}
+COMMANDS = {"build", "rebuild", "search", "generations"}
+COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build"}
+COMMAND_ALIASES = {"b": "build", "s": "search"}
 ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
+
+
+def build(*args):
+    """Build a Nix expression"""
+    options = list(args)
+    return subprocess.call(["nix-build"] + options)
 
 
 def rebuild():
@@ -57,7 +64,7 @@ def follow_aliases(func):
     """Substitute aliases with commands or actions"""
 
     @functools.wraps(func)
-    def wrapper(command, args):
+    def wrapper(command, args, *pargs):
         if command not in COMMANDS and command not in COMMAND_ALIASES:
             raise CommandNotExists("command does not exist")
         command = COMMAND_ALIASES.get(command) or command
@@ -65,13 +72,13 @@ def follow_aliases(func):
             args.action = (
                 ACTION_ALIASES.get(command).get(args.action) or args.action
             )
-        return func(command, args)
+        return func(command, args, *pargs)
 
     return wrapper
 
 
 @follow_aliases
-def execute_command(command, args):
+def execute_command(command, args, unknown):
     action = None
     if "action" in args:
         action = args.action
@@ -80,7 +87,8 @@ def execute_command(command, args):
     command_function = (
         globals()[function_name] if command in COMMANDS else None
     )
-    return command_function(**vars(args))
+    pargs = unknown if command in COMMANDS_WHICH_FORWARD_ARGUMENTS else []
+    return command_function(*pargs, **vars(args))
 
 
 def parse_args():
@@ -88,6 +96,10 @@ def parse_args():
     # h <command>
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
+    )
+    # h build
+    subparsers.add_parser(
+        "build", aliases=aliases_from_command("build"), help=build.__doc__
     )
     # h rebuild
     subparsers.add_parser("rebuild", help=rebuild.__doc__)
@@ -123,14 +135,14 @@ def parse_args():
     subparser_generations_actions_remove.add_argument(
         "generations", help="generations to remove", type=str
     )
-    return parser.parse_args()
+    return parser.parse_known_args()
 
 
 def cli():
-    args = parse_args()
+    args, unknown = parse_args()
     command = args.command
     del args.command
-    return execute_command(command, args)
+    return execute_command(command, args, unknown)
 
 
 if __name__ == "__main__":
