@@ -14,8 +14,8 @@ OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
-COMMANDS = {"check", "build", "rebuild", "search", "generations"}
-COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build"}
+COMMANDS = {"check", "build", "rebuild", "search", "shell", "generations"}
+COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell"}
 COMMAND_ALIASES = {"c": "check", "b": "build", "s": "search"}
 ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 
@@ -41,6 +41,12 @@ def rebuild():
 def search(package):
     """Search nixpkgs for a package"""
     return subprocess.call(["nix", "search", "nixpkgs", package])
+
+
+def shell(*args):
+    """Run a shell in which the specified packages are available"""
+    options = list(args)
+    return subprocess.call(["nix", "shell"] + options)
 
 
 def generations_list():
@@ -118,6 +124,7 @@ def parse_args():
     )
     # h search <package>
     subparser_search.add_argument("package", type=str, help="package name")
+    subparsers.add_parser("shell", help=shell.__doc__)
     # h generations
     subparser_generations = subparsers.add_parser(
         "generations", help="Explore, manage generations"
