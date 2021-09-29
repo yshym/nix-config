@@ -16,7 +16,14 @@ NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
 COMMANDS = {"check", "build", "rebuild", "search", "shell", "generations"}
 COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell"}
-COMMAND_ALIASES = {"c": "check", "b": "build", "s": "search"}
+COMMAND_ALIASES = {
+    "c": "check",
+    "b": "build",
+    "rb": "rebuild",
+    "s": "search",
+    "sh": "shell",
+    "g": "generations",
+}
 ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 
 
@@ -102,6 +109,20 @@ def execute_command(command, args, unknown):
     return command_function(*pargs, **vars(args))
 
 
+def add_parser(subparsers, name, command=None):
+    aliases = (
+        aliases_from_action(command, name)
+        if command
+        else aliases_from_command(name)
+    )
+    function_name = f"{command}_{name}" if command else name
+    if function_name not in globals():
+        raise NameError(f"function '{function_name}' is not defined")
+    return subparsers.add_parser(
+        name, aliases=aliases, help=globals()[function_name].__doc__
+    )
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Nix helper")
     # h <command>
@@ -109,43 +130,32 @@ def parse_args():
         dest="command", help="command to execute", required=True
     )
     # h check
-    subparsers.add_parser(
-        "check", aliases=aliases_from_command("check"), help=check.__doc__
-    )
+    add_parser(subparsers, "check")
     # h build
-    subparsers.add_parser(
-        "build", aliases=aliases_from_command("build"), help=build.__doc__
-    )
+    add_parser(subparsers, "build")
     # h rebuild
-    subparsers.add_parser("rebuild", help=rebuild.__doc__)
+    add_parser(subparsers, "rebuild")
     # h search
-    subparser_search = subparsers.add_parser(
-        "search", aliases=aliases_from_command("search"), help=search.__doc__
-    )
+    subparser_search = add_parser(subparsers, "search")
     # h search <package>
     subparser_search.add_argument("package", type=str, help="package name")
-    subparsers.add_parser("shell", help=shell.__doc__)
+    # h shell
+    add_parser(subparsers, "shell")
     # h generations
     subparser_generations = subparsers.add_parser(
-        "generations", help="Explore, manage generations"
+        "generations",
+        aliases=aliases_from_command("generations"),
+        help="Explore, manage generations",
     )
     # h generations <action>
-    subparser_generations_actions = subparser_generations.add_subparsers(
+    subparsers_generations_actions = subparser_generations.add_subparsers(
         dest="action", help="action to do", required=True
     )
     # h generations list
-    subparser_generations_actions.add_parser(
-        "list",
-        aliases=aliases_from_action("generations", "list"),
-        help=generations_list.__doc__,
-    )
+    add_parser(subparsers_generations_actions, "list", "generations")
     # h generations remove
-    subparser_generations_actions_remove = (
-        subparser_generations_actions.add_parser(
-            "remove",
-            aliases=aliases_from_action("generations", "remove"),
-            help=generations_remove.__doc__,
-        )
+    subparser_generations_actions_remove = add_parser(
+        subparsers_generations_actions, "remove", "generations"
     )
     # h generations remove <generations>
     subparser_generations_actions_remove.add_argument(
