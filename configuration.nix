@@ -15,7 +15,7 @@ with pkgs; {
     systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
   };
 
-  fonts.fonts = [ font-awesome jetbrains-mono nerdfonts ];
+  fonts.fonts = [ fira-code font-awesome jetbrains-mono ];
 
   nix = {
     package = pkgs.nixFlakes;
