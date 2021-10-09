@@ -10,6 +10,9 @@
       # open terminal
       alt - return : open -a "Alacritty"
 
+      # emacs-everywhere
+      alt - e : doom everywhere
+
       # focus bsp windows
       alt - h : yabai -m window --focus west
       alt - j : yabai -m window --focus south
@@ -65,7 +68,7 @@
       alt - w : yabai -m window --toggle zoom-fullscreen
 
       # toggle window split type
-      alt - e : yabai -m window --toggle split
+      alt - t : yabai -m window --toggle split
 
       # rotate tree
       alt - r : yabai -m space --rotate 90
