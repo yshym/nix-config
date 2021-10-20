@@ -27,12 +27,13 @@ _h () {
 
     integer ret=1
     case ${words[2]} in
-        c|check)       ;;
         b|build)       _h_dispatch nix-build ;;
+        c|check)       ;;
+        g|generations) ;;
         rb|rebuild)    ;;
         s|search)      ;;
         sh|shell)      ;;
-        g|generations) ;;
+        u|update)      ;;
         *)             _message "Command not found: ${words[2]}" ;;
     esac
     return ret

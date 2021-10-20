@@ -14,17 +14,32 @@ OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
-COMMANDS = {"check", "build", "rebuild", "search", "shell", "generations"}
-COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell"}
+COMMANDS = {
+    "build",
+    "check",
+    "generations",
+    "rebuild",
+    "search",
+    "shell",
+    "update",
+}
+COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell", "update"}
 COMMAND_ALIASES = {
-    "c": "check",
     "b": "build",
+    "c": "check",
+    "g": "generations",
     "rb": "rebuild",
     "s": "search",
     "sh": "shell",
-    "g": "generations",
+    "u": "update",
 }
 ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
+
+
+def build(*args):
+    """Build a Nix expression"""
+    options = list(args)
+    return subprocess.call(["nix-build"] + options)
 
 
 def check():
@@ -32,10 +47,14 @@ def check():
     return subprocess.call(["nix", "flake", "check"])
 
 
-def build(*args):
-    """Build a Nix expression"""
-    options = list(args)
-    return subprocess.call(["nix-build"] + options)
+def generations_list():
+    """List generations"""
+    return subprocess.call(["nix-env", "--list-generations"])
+
+
+def generations_remove(generations):
+    """Remove generations"""
+    return subprocess.call(["nix-env", "--delete-generations", generations])
 
 
 def rebuild():
@@ -56,14 +75,10 @@ def shell(*args):
     return subprocess.call(["nix", "shell"] + options)
 
 
-def generations_list():
-    """List generations"""
-    return subprocess.call(["nix-env", "--list-generations"])
-
-
-def generations_remove(generations):
-    """Remove generations"""
-    return subprocess.call(["nix-env", "--delete-generations", generations])
+def update(*args):
+    """Update flake lock file"""
+    options = list(args)
+    return subprocess.call(["nix", "flake", "update"] + options)
 
 
 class CommandNotExists(Exception):
@@ -129,18 +144,10 @@ def parse_args():
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
     )
-    # h check
-    add_parser(subparsers, "check")
     # h build
     add_parser(subparsers, "build")
-    # h rebuild
-    add_parser(subparsers, "rebuild")
-    # h search
-    subparser_search = add_parser(subparsers, "search")
-    # h search <package>
-    subparser_search.add_argument("package", type=str, help="package name")
-    # h shell
-    add_parser(subparsers, "shell")
+    # h check
+    add_parser(subparsers, "check")
     # h generations
     subparser_generations = subparsers.add_parser(
         "generations",
@@ -161,6 +168,16 @@ def parse_args():
     subparser_generations_actions_remove.add_argument(
         "generations", help="generations to remove", type=str
     )
+    # h rebuild
+    add_parser(subparsers, "rebuild")
+    # h search
+    subparser_search = add_parser(subparsers, "search")
+    # h search <package>
+    subparser_search.add_argument("package", type=str, help="package name")
+    # h shell
+    add_parser(subparsers, "shell")
+    # h update
+    add_parser(subparsers, "update")
     return parser.parse_known_args()
 
 
