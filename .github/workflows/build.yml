@@ -28,7 +28,6 @@ jobs:
       run: |
         sed -i "" \
           -e "/\s*Spotify\s*$/d" \
-          -e "/\s*Dropbox\s*$/d" \
           ./platforms/darwin/home/packages.nix
     - name: Build flake
       run: nix build .#darwinConfigurations.mbp16.system
