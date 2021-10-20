@@ -116,7 +116,6 @@
       netcat
       rclone
       telnet
-      transmission
 
       # entertainment
       epr
