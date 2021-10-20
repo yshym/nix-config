@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "Spotify-${version}.dmg";
     url = "http://download.spotify.com/Spotify.dmg";
-    sha256 = "sha256-wi7BG0/j7QjPM8GTaCnTpPTqHMJm8Swd6TTb3W+HOu8=";
+    sha256 = "sha256-zcKdcvkI7PpAOmU9b8mSEbtumsjXY5m2nm0ho0L0eT4=";
   };
 
   buildInputs = [ undmg ];
