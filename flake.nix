@@ -15,6 +15,7 @@
   outputs = { self, nixos, nixpkgs, darwin, home-manager, ... }: {
     darwinConfigurations = {
       mbp16 = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
         modules = [
           home-manager.darwinModules.home-manager
           ./configuration.nix
