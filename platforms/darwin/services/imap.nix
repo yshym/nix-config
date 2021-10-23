@@ -26,5 +26,14 @@ in {
       EnvironmentVariables.PATH =
         "${homeManagerPath}/bin:${config.environment.systemPath}";
     };
+    proton-bridge.serviceConfig = {
+      ProgramArguments = [ "${pkgs.protonmail-bridge}/bin/protonmail-bridge" "--no-window" ];
+      UserName = "${me}";
+      StartInterval = 300;
+      RunAtLoad = true;
+      ThrottleInterval = 30;
+      EnvironmentVariables.PATH =
+        "${homeManagerPath}/bin:${config.environment.systemPath}";
+    };
   };
 }

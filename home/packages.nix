@@ -97,6 +97,7 @@
       isync
       mu
       offlineimap
+      protonmail-bridge
       tmate
 
       # monitoring

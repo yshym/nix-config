@@ -5,45 +5,95 @@ PassCmd "pass Gmail/App/yevhenshymotiuk@gmail.com"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User yevhenshymotiuk@pm.me
+PassCmd "pass Proton/Mail/Bridge/yevhenshymotiuk@pm.me"
+SSLType STARTTLS
+SSLVersions TLSv1.2
+CertificateFile ~/.config/protonmail/bridge/cert.pem
+
 IMAPStore gmail-remote
 Account gmail
+
+IMAPStore protonmail-remote
+Account protonmail
 
 MaildirStore gmail-local
 Path ~/.mail/gmail/
 Inbox ~/.mail/gmail/Inbox
 Subfolders Verbatim
 
+MaildirStore protonmail-local
+Path ~/.mail/protonmail/
+Inbox ~/.mail/protonmail/Inbox
+Subfolders Verbatim
+
 Channel gmail-inbox
-Far :gmail-remote:
-Near :gmail-local:
-Patterns "INBOX"
+Far :gmail-remote:"INBOX"
+Near :gmail-local:"inbox"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-sent
 Far :gmail-remote:"[Gmail]/Sent Mail"
-Near :gmail-local:"Sent"
+Near :gmail-local:"sent"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-all
 Far :gmail-remote:"[Gmail]/All Mail"
-Near :gmail-local:"All"
+Near :gmail-local:"all"
 Create Both
 Expunge Both
 SyncState *
 
 Channel gmail-starred
 Far :gmail-remote:"[Gmail]/Starred"
-Near :gmail-local:"Starred"
+Near :gmail-local:"starred"
 Create Both
 Expunge Both
 SyncState *
+
+Channel protonmail-inbox
+Far :protonmail-remote:"INBOX"
+Near :protonmail-local:"inbox"
+Create Both
+Expunge Both
+SyncState *
+
+Channel protonmail-sent
+Far :protonmail-remote:"Sent"
+Near :protonmail-local:"sent"
+Create Both
+Expunge Both
+SyncState *
+
+Channel protonmail-all
+Far :protonmail-remote:"All Mail"
+Near :protonmail-local:"all"
+Create Both
+Expunge Both
+SyncState *
+
+# Channel protonmail-starred
+# Far :protonmail-remote:"Starred"
+# Near :protonmail-local:"Starred"
+# Create Both
+# Expunge Both
+# SyncState *
 
 Group gmail
 Channel gmail-inbox
 Channel gmail-sent
 Channel gmail-all
 Channel gmail-starred
+
+Group protonmail
+Channel protonmail-inbox
+Channel protonmail-sent
+Channel protonmail-all
+# Channel protonmail-starred
