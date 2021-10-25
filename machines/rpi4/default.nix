@@ -12,9 +12,11 @@ in {
     ./home.nix
   ];
 
-  boot.loader.raspberryPi.firmwareConfig = ''
-    dtparam=audio=on
-  '';
+  boot = {
+    loader.raspberryPi.firmwareConfig = ''
+      dtparam=audio=on
+    '';
+  };
 
   fileSystems = {
     "/" = {
