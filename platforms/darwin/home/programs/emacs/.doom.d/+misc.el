@@ -5,6 +5,7 @@
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
 
+
 ;; direnv
 (use-package! direnv
   :config
@@ -65,6 +66,8 @@
                         (mu4e-trash-folder      . "/gmail/trash")
                         (mu4e-refile-folder     . "/gmail/all")
                         (smtpmail-smtp-user     . "yevhenshymotiuk@gmail.com")
+                        (smtpmail-smtp-server   . "smtp.gmail.com")
+                        (smtpmail-smtp-service  . 587)
                         (user-mail-address      . "yevhenshymotiuk@gmail.com"))
                       t)
   (set-email-account! "protonmail"
@@ -72,13 +75,14 @@
                         (mu4e-drafts-folder     . "/protonmail/drafts")
                         (mu4e-trash-folder      . "/protonmail/trash")
                         (mu4e-refile-folder     . "/protonmail/all")
-                        (smtpmail-smtp-user     . "yevhenshymotiuk@pm.me")
+                        (smtpmail-smtp-user     . "yevhenshymotiuk@protonmail.com")
+                        (smtpmail-smtp-server   . "127.0.0.1")
+                        (smtpmail-smtp-service  . 1025)
                         (user-mail-address      . "yevhenshymotiuk@pm.me"))
                       t)
-  (setq auth-sources '("~/.authinfo" "~/.authinfo.gpg" "~/.netrc")
-        send-mail-function 'smtpmail-send-it
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587
+  (add-to-list 'gnutls-trustfiles "~/.config/protonmail/bridge/cert-imap.pem")
+  (add-to-list 'gnutls-trustfiles "~/.config/protonmail/bridge/cert-smtp.pem")
+  (setq send-mail-function 'smtpmail-send-it
         mu4e-headers-fields '((:flags . 6)
                               (:account-stripe . 2)
                               (:from-or-to . 25)

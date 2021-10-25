@@ -12,7 +12,7 @@ User yevhenshymotiuk@pm.me
 PassCmd "pass Proton/Mail/Bridge/yevhenshymotiuk@pm.me"
 SSLType STARTTLS
 SSLVersions TLSv1.2
-CertificateFile ~/.config/protonmail/bridge/cert.pem
+CertificateFile ~/.config/protonmail/bridge/cert-imap.pem
 
 IMAPStore gmail-remote
 Account gmail
