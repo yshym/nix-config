@@ -21,13 +21,13 @@
         "C-c v" 'verb-send-request-on-point)))
 
 
+;; eshell
 (defun eshell/clear-to-top ()
   "Clear contents of eshell window and move to top."
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)
     (eshell-send-input)))
-
 
 (map! (:after eshell
        (:map eshell-mode-map
