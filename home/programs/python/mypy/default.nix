@@ -12,6 +12,6 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pythonPackages; [ mypy ];
 
-    xdg.configFile."mypy/config".source = ./.config/mypy/config;
+    xdg.configFile."mypy/config".source = ./config;
   };
 }
