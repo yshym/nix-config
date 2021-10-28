@@ -47,8 +47,9 @@ in {
     };
 
     home.file = {
+      ".authinfo.gpg".source = ./authinfo.gpg;
       ".doom.d" = {
-        source = ./.doom.d;
+        source = ./doom.d;
         recursive = true;
       };
     };
