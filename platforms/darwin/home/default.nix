@@ -37,13 +37,24 @@ in {
         name="$(basename "$app")"
         src="$(/usr/bin/stat -f%Y "$app")"
         dst="$HOME/Applications/Nix/$name"
+        if [ -h "$src/Contents/MacOS" ]; then
+          src_tmp="/tmp/$name"
+          mkdir "$src_tmp"
+          cp -r $src/* "$src_tmp"
+          macos_dir="$src_tmp/Contents/MacOS"
+          rm "$macos_dir"
+          mkdir -p "$macos_dir"
+          cd "$src/Contents"
+          cp -r $(readlink "MacOS")/* "$macos_dir"
+          src="$src_tmp"
+        fi
         hash1="$(hash-app "$src")"
         hash2="$(hash-app "$dst")"
         if [ "$hash1" != "$hash2" ]; then
-          echo "Current hash of '$name' differs than the Nix store's. Overwriting..."
+          echo "Current hash of '$name' differs from the Nix store's"
           cp -R "$src" ~/Applications/Nix
-          echo "Done"
         fi
+        rm -rf "$src_tmp"
       done
 
       # create password store symlink
