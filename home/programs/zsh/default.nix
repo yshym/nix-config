@@ -58,7 +58,6 @@ with pkgs; {
       export PATH="$PYENV_ROOT/bin:$PATH"
       export PATH="$HOME/.mix/escripts:$PATH"
       export PATH="$GOPATH/bin:$PATH"
-      export PATH="$HOME/.local/bin:$PATH"
     '';
     history.size = 1000;
     plugins = [
