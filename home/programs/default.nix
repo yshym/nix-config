@@ -6,6 +6,7 @@
     ./asdf.nix
     ./crystal.nix
     ./direnv
+    ./firefox
     ./git.nix
     ./nodejs.nix
     ./prettier
