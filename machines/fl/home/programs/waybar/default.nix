@@ -14,7 +14,7 @@
         "custom/spotify"
         "backlight"
         "pulseaudio"
-        "custom/keyboard"
+        "sway/language"
         "network"
         "battery"
         "tray"
@@ -28,9 +28,8 @@
           tooltip = false;
           max-length = 50;
         };
-        "custom/keyboard" = {
-          exec =
-            "$HOME/.cargo/bin/swaylayout --listen 1:1:AT_Translated_Set_2_keyboard";
+        "sway/language" = {
+          format = "{}";
         };
         "custom/spotify" = {
           format = " {}";
