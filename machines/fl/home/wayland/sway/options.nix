@@ -38,7 +38,7 @@ in {
     smartGaps = true;
   };
 
-  menu = "rofi";
+  menu = "rofi -show drun";
 
   terminal = "alacritty";
 }

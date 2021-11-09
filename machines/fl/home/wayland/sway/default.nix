@@ -41,8 +41,16 @@ in {
       keybindings = {
         # start a terminal
         "${cfg.config.modifier}+Return" = "exec ${cfg.config.terminal}";
+
+        # kill focused window
         "${cfg.config.modifier}+Shift+q" = "kill";
+
+        # start a menu app
         "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
+
+        # make a screenshot
+        "${cfg.config.modifier}+Print" = "exec ~/.local/bin/maim.sh";
+        "${cfg.config.modifier}+Shift+Print" = "exec ~/.local/bin/maim.sh -s";
 
         # change focus
         "${cfg.config.modifier}+${cfg.config.left}" = "focus left";
