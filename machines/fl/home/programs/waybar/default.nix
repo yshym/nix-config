@@ -52,7 +52,7 @@
             warning = 30;
             critical = 15;
           };
-          format-icons = [ "" "" "" "" ];
+          format-icons = [ "" "" "" "" "" ];
         };
         backlight = {
           format = "{icon} {percent}";
@@ -61,17 +61,17 @@
         pulseaudio = {
           tooltip = false;
           format = "{icon} {volume}";
-          format-bluetooth = " {volume}";
-          format-bluetooth-muted = " muted";
+          format-bluetooth = " {volume}";
+          format-bluetooth-muted = " muted";
           format-muted = "muted";
-          format-source = "{volume} ";
+          format-source = " {volume}";
           format-source-muted = "";
           format-icons = {
-            headphones = "";
-            handsfree = "";
+            headphones = "";
+            handsfree = "";
             headset = "";
-            phone = "";
-            portable = "";
+            phone = "";
+            portable = "";
             car = "";
             default = [ "" "" "" ];
           };
