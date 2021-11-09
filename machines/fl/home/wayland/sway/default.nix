@@ -5,6 +5,16 @@ in {
   wayland.windowManager.sway = {
     enable = true;
     systemdIntegration = true;
+    xwayland = true;
+    extraSessionCommands = ''
+      export SDL_VIDEODRIVER=wayland
+      # needs qt5.qtwayland in systemPackages
+      export QT_QPA_PLATFORM=wayland
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+      # fix for some Java AWT applications (e.g. Android Studio),
+      # use this if they aren't displayed properly:
+      export _JAVA_AWT_WM_NONREPARENTING=1
+    '';
     config = {
       imports = [ ./options.nix ];
 
@@ -133,5 +143,25 @@ in {
         };
       };
     };
+  };
+
+  config = with lib; mkIf cfg.enable {
+    home.packages = [
+      # supporting libraries
+      libnotify
+      qt5.qtwayland
+
+      # sway components
+      swaybg # required by sway for controlling desktop wallpaper
+      swayidle # used for controlling idle timeouts and triggers (screen locking, etc)
+      swaylock # used for locking Wayland sessions
+
+      # wayland programs
+      gebaar-libinput # libinput gestures utility
+      grim # screen image capture
+      imv # image viewer
+      xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
+      ydotool # xdotool for wayland
+    ];
   };
 }
