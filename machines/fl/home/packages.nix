@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = [];
+  home.packages = with pkgs; [
+    # entertaiment
+    playerctl
+  ];
 }
