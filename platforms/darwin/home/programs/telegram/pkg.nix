@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "Telegram";
-  version = "3.2.2";
+  version = "3.2.3";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     name = "Telegram-${version}.dmg";
     url =
       "https://github.com/telegramdesktop/tdesktop/releases/download/v${version}/tsetup.${version}.dmg";
-    sha256 = "sha256-uYuHl4CGWvNVd4AC93qnRPmOhFvCOrrPF/GLDTSamRY=";
+    sha256 = "sha256-WJ5osJk9ItbrSPMTk0wZBnFOw+M/xk/jZQiVXkWcU3I=";
   };
 
   meta = with lib; {
