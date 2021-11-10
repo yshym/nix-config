@@ -7,10 +7,7 @@ in {
   programs.direnv = {
     enable = true;
     enableZshIntegration = false;
-    nix-direnv = {
-      enable = true;
-      enableFlakes = true;
-    };
+    nix-direnv.enable = true;
     config = {
       whitelist = {
         prefix = [ "${config.home.homeDirectory}/dev" ];

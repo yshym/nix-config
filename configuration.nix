@@ -31,7 +31,6 @@ with pkgs; {
       enable = true;
       enableSSHSupport = true;
     };
-    zsh.enable = true;
   };
 
   services = {
