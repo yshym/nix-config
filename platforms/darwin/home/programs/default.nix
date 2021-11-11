@@ -4,7 +4,6 @@
   imports = [
     # ./brave
     ./emacs
-    ./firefox
     # ./hammerspoon
     ./mbsync
     ./scripts
@@ -19,5 +18,6 @@
       enable = true;
       useHead = false;
     };
+    firefox.package = pkgs.Firefox;
   };
 }

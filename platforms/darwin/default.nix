@@ -3,11 +3,14 @@
 {
   imports = [ ./home ./services ];
 
-  nixpkgs.overlays = [ (import ./overlays/yabai.nix) ];
+  nixpkgs.overlays = let path = ./overlays;
+  in with builtins;
+  map (n: import (path + ("/" + n))) (filter (n:
+    match ".*\\.nix" n != null
+    || pathExists (path + ("/" + n + "/default.nix")))
+    (attrNames (readDir path)));
 
-  environment = {
-    darwinConfig = "$HOME/.nixpkgs/configuration.nix";
-  };
+  environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 
   nix = {
     gc = {
@@ -17,9 +20,7 @@
     };
   };
 
-  services = {
-    nix-daemon.enable = true;
-  };
+  services = { nix-daemon.enable = true; };
 
   system = {
     defaults = {

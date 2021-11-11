@@ -1,13 +1,6 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.overlays = [
-    (import ../overlays/choose)
-    (import ../overlays/dropbox)
-    (import ../overlays/sortdir)
-    (import ../overlays/spotify)
-  ];
-
   home.packages = with pkgs; [
     # development
     chromedriver
