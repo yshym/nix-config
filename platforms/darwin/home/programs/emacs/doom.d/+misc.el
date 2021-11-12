@@ -58,7 +58,6 @@
 
 
 ;; mu4e
-(add-load-path! "~/.nix-profile/share/emacs/site-lisp/mu4e")
 (after! mu4e
   (set-email-account! "gmail"
                       '((mu4e-sent-folder       . "/gmail/sent")
