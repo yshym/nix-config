@@ -1,14 +1,14 @@
 { ... }:
 
 {
-  home.file.".local/platform/bin" = {
+  home.file.".local/bin" = {
     source = ./bin;
     recursive = true;
   };
 
   programs.zsh = {
     envExtra = ''
-      export PATH="$HOME/.local/platform/bin:$PATH"
+      export PATH="$HOME/.local/bin:$PATH"
     '';
   };
 }

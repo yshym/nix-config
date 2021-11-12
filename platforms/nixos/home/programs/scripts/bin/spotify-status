@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+pkill playerctl
+playerctl \
+    --player spotify metadata \
+    --format "{{ artist }} - {{ title }}" \
+    --follow \
+    2> /dev/null

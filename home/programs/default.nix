@@ -15,6 +15,7 @@
     ./ripgrep.nix
     ./ruby.nix
     ./rust
+    ./scripts
     ./topgrade
     ./vim.nix
     ./zathura.nix
