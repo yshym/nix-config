@@ -45,6 +45,7 @@
       lua
       luaPackages.lua-lsp
       minikube
+      myTexlive
       nasm
       nim
       # octave
@@ -59,7 +60,7 @@
       sass
       shellcheck
       shfmt
-      myTexlive
+      unrar
       wakatime
 
       # nix stuff
