@@ -106,6 +106,7 @@ with pkgs; {
       md = "mkdir -p";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = lib.optionalString stdenv.isDarwin "open";
+      shfmt = "shfmt -bn -ci -sr -i 4 -w";
       rd = "rmdir";
       tg = "topgrade -y";
       vim = "nvim";

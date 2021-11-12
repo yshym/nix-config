@@ -1,8 +1,8 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 CACHE_FILE="$HOME/.cache/open-app"
-if [ -e "$CACHE_FILE" ] &&
-    [ "$(date +'%j')" -eq "$(date -d "$(stat -c '@%Y' "$CACHE_FILE")" +'%j')" ]; then
+if [ -e "$CACHE_FILE" ] \
+    && [ "$(date +'%j')" -eq "$(date -d "$(stat -c '@%Y' "$CACHE_FILE")" +'%j')" ]; then
     echo "Reading from cache"
 else
     rm -f "$CACHE_FILE"
@@ -13,8 +13,8 @@ else
         /Applications/*.app \
         /Applications/Utilities/*.app \
         $HOME/Applications/Nix/*.app \
-            | sed -e "s/.*\///g" -e "s/\.app//" \
-            | sort > "$CACHE_FILE"
+        | sed -e "s/.*\///g" -e "s/\.app//" \
+        | sort > "$CACHE_FILE"
 fi
 
 APPLICATIONS="$(cat "$CACHE_FILE")"

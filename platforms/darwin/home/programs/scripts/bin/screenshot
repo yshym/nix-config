@@ -1,9 +1,12 @@
+#!/usr/bin/env bash
+
 FILE="/Users/yevhenshymotiuk/screen.png"
 
 while getopts "s" opt; do
     case "$opt" in
         s)
             SELECT=true
+            ;;
     esac
 done
 

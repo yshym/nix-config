@@ -4,7 +4,10 @@ while getopts "pv" opt; do
     case "$opt" in
         p) PASTE=1 ;;
         v) VERBOSE=1 ;;
-        *) VERBOSE=0; PASTE=0 ;;
+        *)
+            VERBOSE=0
+            PASTE=0
+            ;;
     esac
 done
 
@@ -29,7 +32,6 @@ if [[ $(echo "$FIRST_CHARACTER" | tr "[:upper:]" "[:lower:]") =~ [a-z] ]]; then
 else
     LANGUAGES="uk:en"
 fi
-
 
 if [ "$VERBOSE" ]; then
     eval "trans $LANGUAGES '$PHRASE'"
