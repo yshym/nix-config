@@ -2,15 +2,13 @@
 
 let
   nixosHardware = fetchTarball {
-    url = "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz";
+    url =
+      "https://github.com/NixOS/nixos-hardware/archive/936e4649098d6a5e0762058cb7687be1b2d90550.tar.gz";
     sha256 = "06g0061xm48i5w7gz5sm5x5ps6cnipqv1m483f8i9mmhlz77hvlw";
   };
 in {
-  imports = [
-    "${nixosHardware}/raspberry-pi/4"
-    ../../platforms/nixos
-    ./home.nix
-  ];
+  imports =
+    [ "${nixosHardware}/raspberry-pi/4" ../../platforms/nixos ./home.nix ];
 
   boot = {
     loader.raspberryPi.firmwareConfig = ''
@@ -26,18 +24,50 @@ in {
     };
   };
 
-  networking = { hostName = "rpi4"; };
+  networking = {
+    hostName = "rpi4";
+    bridges.br0.interfaces =
+      lib.optionals config.services.hostapd.enable [ "eth0" "wlan0" ];
+    networkmanager.unmanaged = lib.optionals config.services.hostapd.enable [
+      "interface-name:wlan*"
+      "interface-name:${config.services.hostapd.interface}"
+    ];
+    interfaces.wlan0 = lib.optionalAttrs config.services.hostapd.enable {
+      ip4 = lib.mkOverride 0 [ ];
+      ipv4.addresses = [{
+        address = "192.168.0.1";
+        prefixLength = 24;
+      }];
+    };
+    firewall.allowedUDPPorts =
+      lib.optionals config.services.hostapd.enable [ 5367 ];
+  };
 
   programs = { gnupg.agent.pinentryFlavor = "curses"; };
 
   security = {
     acme = {
-      acceptTerms = true;
+      acceptTerms = false;
       email = "yevhenshymotiuk@pm.me";
     };
   };
 
   services = {
+    dnsmasq = lib.optionalAttrs config.services.hostapd.enable {
+      enable = true;
+      extraConfig = ''
+        interface=wlan0
+        dhcp-range=192.168.0.11,192.168.0.30,255.255.255.0,24h
+      '';
+    };
+    haveged.enable = config.services.hostapd.enable;
+    hostapd = {
+      enable = false;
+      interface = "wlan0";
+      hwMode = "g";
+      ssid = "piece-of-metal";
+      wpaPassphrase = "helloworld";
+    };
     spotifyd = {
       enable = true;
       config = ''
@@ -56,7 +86,7 @@ in {
       '';
     };
     nginx = {
-      enable = true;
+      enable = false;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       virtualHosts."yevhen.space" = {
