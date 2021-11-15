@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.wayland.windowManager.sway;
+let
+  cfg = config.wayland.windowManager.sway;
+  blue = "#3366CC";
 in {
-  wayland.windowManager.sway = {
+  config.wayland.windowManager.sway = {
     enable = true;
     systemdIntegration = true;
     xwayland = true;
@@ -16,7 +18,45 @@ in {
       export _JAVA_AWT_WM_NONREPARENTING=1
     '';
     config = {
-      imports = [ ./options.nix ];
+      fonts = {
+        names = [ "Fira Code" ];
+        size = 15;
+      };
+
+      window = {
+        titlebar = false;
+        border = 3;
+      };
+
+      focus = { followMouse = true; };
+
+      # TODO: Set up application to workspace assignments
+      # assigns = {};
+
+      modifier = "Mod4";
+
+      colors = {
+        focused = {
+          border = "#353439";
+          background = blue;
+          text = "#7B9F35";
+          indicator = blue;
+          childBorder = blue;
+        };
+      };
+
+      # TODO: Set up startup commands
+      # startup = {};
+
+      gaps = {
+        inner = 5;
+        outer = 3;
+        smartGaps = true;
+      };
+
+      menu = "rofi -show drun";
+
+      terminal = "alacritty";
 
       # TODO: Set up inputs
       # input = {
@@ -153,8 +193,8 @@ in {
     };
   };
 
-  config = with lib; mkIf cfg.enable {
-    home.packages = [
+  config.home.packages = with lib;
+    mkIf cfg.enable [
       # supporting libraries
       libnotify
       qt5.qtwayland
@@ -171,5 +211,4 @@ in {
       xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
       ydotool # xdotool for wayland
     ];
-  };
 }
