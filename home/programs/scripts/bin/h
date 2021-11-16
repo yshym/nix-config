@@ -23,7 +23,7 @@ COMMANDS = {
     "shell",
     "update",
 }
-COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell", "rebuild", "update"}
+COMMANDS_WITH_FORWARDED_ARGUMENTS = {"build", "shell", "rebuild", "update"}
 COMMAND_ALIASES = {
     "b": "build",
     "c": "check",
@@ -39,22 +39,24 @@ ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 def build(*args):
     """Build a Nix expression"""
     options = list(args)
-    return subprocess.run(["nix-build"] + options)
+    return subprocess.run(["nix-build"] + options, check=False)
 
 
 def check():
     """Check whether the flake evaluates and run its tests"""
-    return subprocess.run(["nix", "flake", "check"])
+    return subprocess.run(["nix", "flake", "check"], check=False)
 
 
 def generations_list():
     """List generations"""
-    return subprocess.run(["nix-env", "--list-generations"])
+    return subprocess.run(["nix-env", "--list-generations"], check=False)
 
 
 def generations_remove(generations):
     """Remove generations"""
-    return subprocess.run(["nix-env", "--delete-generations", generations])
+    return subprocess.run(
+        ["nix-env", "--delete-generations", generations], check=False
+    )
 
 
 def rebuild(*args):
@@ -63,25 +65,26 @@ def rebuild(*args):
     return subprocess.run(
         (["sudo"] if OS == "Linux" else [])
         + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
-        + options
+        + options,
+        check=False,
     )
 
 
 def search(package):
     """Search nixpkgs for a package"""
-    return subprocess.run(["nix", "search", "nixpkgs", package])
+    return subprocess.run(["nix", "search", "nixpkgs", package], check=False)
 
 
 def shell(*args):
     """Run a shell in which the specified packages are available"""
     options = list(args)
-    return subprocess.run(["nix", "shell"] + options)
+    return subprocess.run(["nix", "shell"] + options, check=False)
 
 
 def update(*args):
     """Update flake lock file"""
     options = list(args)
-    return subprocess.run(["nix", "flake", "update"] + options)
+    return subprocess.run(["nix", "flake", "update"] + options, check=False)
 
 
 class CommandNotExists(Exception):
@@ -123,7 +126,7 @@ def execute_command(command, args, unknown):
     command_function = (
         globals()[function_name] if command in COMMANDS else None
     )
-    pargs = unknown if command in COMMANDS_WHICH_FORWARD_ARGUMENTS else []
+    pargs = unknown if command in COMMANDS_WITH_FORWARDED_ARGUMENTS else []
     return command_function(*pargs, **vars(args))
 
 
