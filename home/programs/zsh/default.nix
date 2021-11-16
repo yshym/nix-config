@@ -11,6 +11,7 @@ with pkgs; {
     autocd = true;
     loginExtra = lib.optionalString stdenv.isLinux ''
       ssh-add $HOME/.ssh/id_ed25519 &> /dev/null
+      export GPG_TTY=$(tty)
     '';
     initExtra = ''
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
