@@ -4,7 +4,7 @@
   programs.waybar = {
     enable = true;
     systemd.enable = true;
-    settins = {
+    settings = [{
       layer = "top";
       position = "top";
       height = 30;
@@ -28,9 +28,7 @@
           tooltip = false;
           max-length = 50;
         };
-        "sway/language" = {
-          format = "{}";
-        };
+        "sway/language" = { format = "{}"; };
         "custom/spotify" = {
           format = " {}";
           exec = "spotify-status";
@@ -86,7 +84,7 @@
           spacing = 10;
         };
       };
-    };
+    }];
     style = builtins.readFile ./style.css;
   };
 }
