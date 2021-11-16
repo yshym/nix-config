@@ -20,7 +20,7 @@ in {
     config = {
       fonts = {
         names = [ "Fira Code" ];
-        size = 15;
+        size = 15.0;
       };
 
       window = {
@@ -45,6 +45,8 @@ in {
         };
       };
 
+      bars = [ ];
+
       # TODO: Set up startup commands
       # startup = {};
 
@@ -56,7 +58,7 @@ in {
 
       menu = "rofi -show drun";
 
-      terminal = "alacritty";
+      # terminal = "alacritty";
 
       # TODO: Set up inputs
       # input = {
@@ -194,6 +196,7 @@ in {
   };
 
   config.home.packages = with lib;
+    with pkgs;
     mkIf cfg.enable [
       # supporting libraries
       libnotify
