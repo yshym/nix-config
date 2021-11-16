@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./kanshi ./mako ./rofi ./waybar ];
+  imports = [ ./mako ./rofi ./waybar ];
 
   programs = {
     # TODO: Set up gpg key

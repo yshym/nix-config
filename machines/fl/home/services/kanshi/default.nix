@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  programs.kanshi = {
+  services.kanshi = {
     enable = true;
     # TODO: Set up kanshi profiles
     # profiles = {};
