@@ -4,7 +4,7 @@
   home-manager.users.yevhenshymotiuk = { pkgs, ... }: {
     home.packages = with pkgs; [ elixir erlang ];
     programs = {
-        git.gpgKey = "684AD74F3CE22ECC";
+        git.gpgKey = "1646BDE9047380DF";
     };
   };
 }
