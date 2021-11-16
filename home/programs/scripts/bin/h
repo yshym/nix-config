@@ -39,28 +39,28 @@ ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 def build(*args):
     """Build a Nix expression"""
     options = list(args)
-    return subprocess.call(["nix-build"] + options)
+    return subprocess.run(["nix-build"] + options)
 
 
 def check():
     """Check whether the flake evaluates and run its tests"""
-    return subprocess.call(["nix", "flake", "check"])
+    return subprocess.run(["nix", "flake", "check"])
 
 
 def generations_list():
     """List generations"""
-    return subprocess.call(["nix-env", "--list-generations"])
+    return subprocess.run(["nix-env", "--list-generations"])
 
 
 def generations_remove(generations):
     """Remove generations"""
-    return subprocess.call(["nix-env", "--delete-generations", generations])
+    return subprocess.run(["nix-env", "--delete-generations", generations])
 
 
 def rebuild(*args):
     """Rebuild the current system's flake"""
     options = list(args)
-    return subprocess.call(
+    return subprocess.run(
         (["sudo"] if OS == "Linux" else [])
         + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
         + options
@@ -69,19 +69,19 @@ def rebuild(*args):
 
 def search(package):
     """Search nixpkgs for a package"""
-    return subprocess.call(["nix", "search", "nixpkgs", package])
+    return subprocess.run(["nix", "search", "nixpkgs", package])
 
 
 def shell(*args):
     """Run a shell in which the specified packages are available"""
     options = list(args)
-    return subprocess.call(["nix", "shell"] + options)
+    return subprocess.run(["nix", "shell"] + options)
 
 
 def update(*args):
     """Update flake lock file"""
     options = list(args)
-    return subprocess.call(["nix", "flake", "update"] + options)
+    return subprocess.run(["nix", "flake", "update"] + options)
 
 
 class CommandNotExists(Exception):
