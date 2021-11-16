@@ -23,7 +23,7 @@ COMMANDS = {
     "shell",
     "update",
 }
-COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell", "update"}
+COMMANDS_WHICH_FORWARD_ARGUMENTS = {"build", "shell", "rebuild", "update"}
 COMMAND_ALIASES = {
     "b": "build",
     "c": "check",
@@ -57,10 +57,13 @@ def generations_remove(generations):
     return subprocess.call(["nix-env", "--delete-generations", generations])
 
 
-def rebuild():
+def rebuild(*args):
     """Rebuild the current system's flake"""
+    options = list(args)
     return subprocess.call(
-        [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
+        (["sudo"] if OS == "Linux" else [])
+        + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
+        + options
     )
 
 
