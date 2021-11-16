@@ -3,6 +3,8 @@
 {
   programs.rofi = {
     enable = true;
-    theme = builtins.readFile ./onedark.rasi;
+    theme = "onedark";
   };
+
+  xdg.dataFile."rofi/themes/onedark.rasi".source = ./onedark.rasi;
 }
