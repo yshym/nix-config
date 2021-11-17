@@ -14,7 +14,6 @@ let
 
       # ipython
       ipdb
-      ipykernel
     ];
   pythonWithMyPackages = python.withPackages myPythonPackages;
 in {
