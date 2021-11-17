@@ -33,6 +33,15 @@
           ./machines/rpi4
         ];
       };
+
+      fl = nixos.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          home-manager.nixosModules.home-manager
+          ./configuration.nix
+          ./machines/fl
+        ];
+      };
     };
   };
 }
