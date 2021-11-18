@@ -3,7 +3,6 @@
 {
   home.packages = with pkgs; [
     ffmpeg
-    pandoc
     poppler_utils
     ripgrep
     ripgrep-all

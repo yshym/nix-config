@@ -94,7 +94,6 @@
       xsv
 
       # communication
-      goimapnotify
       isync
       mu
       offlineimap
