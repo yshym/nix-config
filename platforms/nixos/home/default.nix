@@ -21,11 +21,6 @@
     users.yevhenshymotiuk = { pkgs, ... }: {
       imports = [ ./packages.nix ./services ./programs ];
 
-      nixpkgs.config = {
-        allowUnfree = true;
-        pulseaudio = true;
-      };
-
       programs = {
         git.enable = true;
         gpg.enable = true;
