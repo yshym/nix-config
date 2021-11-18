@@ -14,10 +14,7 @@
   ];
 
   programs = {
-    emacs = {
-      enable = true;
-      useHead = false;
-    };
+    emacs.enable = true;
     firefox.package = pkgs.Firefox;
   };
 }

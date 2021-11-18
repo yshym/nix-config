@@ -22,20 +22,10 @@ let
           ];
       })).override { withXwidgets = true; };
 in {
-  options.programs.emacs = { useHead = mkEnableOption "Build from source"; };
-
   config = mkIf cfg.enable {
-    nixpkgs.overlays = mkIf cfg.enable [
-      (import (builtins.fetchTarball {
-        url =
-          "https://github.com/nix-community/emacs-overlay/archive/729f35be8bf92c25c38f60d7d7281f0927b61f00.tar.gz";
-        sha256 = "19fmx995fy5fvm402rh65mfr6wmj7hibfpfi95i757lir4299mv5";
-      }))
-    ];
-
     programs = {
       emacs = {
-        package = if cfg.useHead then emacsGit else emacsMacport;
+        package = emacsMacport;
         extraPackages = epkgs: [ epkgs.vterm ];
       };
       zsh = {
