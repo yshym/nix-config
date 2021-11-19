@@ -3,7 +3,7 @@
 let padding = 10;
 in {
   services.yabai = {
-    enable = false;
+    enable = true;
     package = pkgs.yabai;
     enableScriptingAddition = false;
     config = {
