@@ -2,13 +2,13 @@
   description = "Yevhen's dotfiles";
 
   inputs = {
-    nixos.url = "github:yevhenshymotiuk/nixpkgs/nixos-21.05";
-    nixpkgs.url = "github:yevhenshymotiuk/nixpkgs/release-21.05";
+    nixos.url = "github:yevhenshymotiuk/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:yevhenshymotiuk/nixpkgs/release-21.11";
 
     darwin.url = "github:yevhenshymotiuk/nix-darwin/master";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    home-manager.url = "github:yevhenshymotiuk/home-manager/release-21.05";
+    home-manager.url = "github:yevhenshymotiuk/home-manager/release-21.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 

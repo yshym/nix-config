@@ -12,7 +12,15 @@ with pkgs; {
   };
 
   environment = {
-    systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
+    systemPackages = [
+      bat
+      coreutils
+      exa
+      gcc
+      # ripgrep
+      vim
+      wget
+    ];
   };
 
   fonts.fonts = [ fira-code font-awesome jetbrains-mono ];
@@ -33,7 +41,5 @@ with pkgs; {
     };
   };
 
-  services = {
-    emacs.enable = false;
-  };
+  services = { emacs.enable = false; };
 }

@@ -99,7 +99,7 @@ with pkgs; {
       git = "hub";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
-      grep = "rg";
+      # grep = "rg";
       ls = "exa --group-directories-first";
       lsa = "ls -a";
       ll = "ls -l";

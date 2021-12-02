@@ -17,8 +17,6 @@
       awscli
       cachix
       caddy
-      ccls
-      clang-tools
       cmake
       dart
       # deno
@@ -126,7 +124,7 @@
       spotify-tui
       streamlink
       youtube-dl
-      nodePackages.webtorrent-cli
+      # nodePackages.webtorrent-cli
 
       # my stuff
       navi

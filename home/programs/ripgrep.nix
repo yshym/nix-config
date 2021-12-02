@@ -1,12 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [
-    ffmpeg
-    poppler_utils
-    ripgrep
-    ripgrep-all
-  ];
+  home.packages = with pkgs; [ ripgrep ];
 
   xdg.configFile.ripgrep = {
     target = "ripgrep/config";
