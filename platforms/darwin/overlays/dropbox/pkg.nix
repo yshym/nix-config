@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "Dropbox";
-  version = "133.4.4089";
+  version = "135.4.4221";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "Dropbox-${version}.dmg";
     url = "https://www.dropbox.com/download?build=${version}&plat=mac&full=1";
-    sha256 = "sha256-KpryNbluzA6IMHlv4Sq52tRuboI2OlFaUf4ZkfVu5Xw=";
+    sha256 = "sha256-4NRKBBgSpzvnnLC+F69oF6zx73d/wBQKoseh2t5jeGI=";
   };
 
   meta = with lib; {
