@@ -126,6 +126,7 @@
       spotify-tui
       streamlink
       youtube-dl
+      nodePackages.webtorrent-cli
 
       # my stuff
       navi
