@@ -12,7 +12,7 @@
     ./prettier
     ./python
     ./ranger
-    # ./ripgrep.nix
+    ./ripgrep.nix
     ./ruby.nix
     ./rust
     ./scripts

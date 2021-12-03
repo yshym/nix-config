@@ -17,7 +17,7 @@ with pkgs; {
       coreutils
       exa
       gcc
-      # ripgrep
+      ripgrep
       vim
       wget
     ];
