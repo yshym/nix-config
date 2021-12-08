@@ -58,27 +58,28 @@ in {
 
       menu = "rofi -show drun";
 
-      # terminal = "alacritty";
+      terminal = "alacritty";
 
-      # TODO: Set up inputs
-      # input = {
-      #   "<keyboard-name>" = {
-      #     xkb_layout = "us,ru,ua";
-      #     xkb_options = "grp:alt_shift_toggle";
-      #   };
-      #   "<touchpad-name>" = {
-      #     dwt = "enabled";
-      #     tap = "enabled";
-      #     tap_button_map = "lrm";
-      #     pointer_accel = 0.5;
-      #   };
-      # };
+      input = {
+        "1:1:AT_Translated_Set_2_keyboard" = {
+          xkb_layout = "us,ru,ua";
+          xkb_options = "grp:alt_shift_toggle";
+        };
+        "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
+          dwt = "enabled";
+          natural_scroll = "enabled";
+          tap = "enabled";
+          tap_button_map = "lrm";
+          pointer_accel = "0.2";
+        };
+      };
 
       # TODO: Set up outputs
       # output = { "<display-name>" = { bg = "<path-to-background> stretch"; }; };
 
-      # TODO: Set up seat
-      # seat = { "<seat-name>" = { hide_cursor = "3000"; }; };
+      seat = {
+        "2362:628:PIXA3854:00_093A:0274_Touchpad" = { hide_cursor = "3000"; };
+      };
 
       keybindings = {
         # start a terminal
