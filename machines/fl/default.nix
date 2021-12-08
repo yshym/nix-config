@@ -1,10 +1,14 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ../../platforms/nixos ./home ];
+  imports = [ ../../platforms/nixos ./hardware.nix ./home ];
 
   boot = {
     cleanTmpDir = true;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
     kernelPackages = pkgs.linuxPackages_5_15;
   };
 
