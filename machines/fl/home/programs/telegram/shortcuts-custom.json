@@ -1,0 +1,42 @@
+[
+    {
+        "command": "previous_chat",
+        "keys": "ctrl+k"
+    },
+    {
+        "command": "next_chat",
+        "keys": "ctrl+j"
+    },
+    {
+        "command": "all_chats",
+        "keys": "ctrl+1"
+    },
+    {
+        "command": "folder1",
+        "keys": "ctrl+2"
+    },
+    {
+        "command": "folder2",
+        "keys": "ctrl+3"
+    },
+    {
+        "command": "folder3",
+        "keys": "ctrl+4"
+    },
+    {
+        "command": "folder4",
+        "keys": "ctrl+5"
+    },
+    {
+        "command": "folder5",
+        "keys": "ctrl+6"
+    },
+    {
+        "command": "folder6",
+        "keys": "ctrl+7"
+    },
+    {
+        "command": "last_folder",
+        "keys": "ctrl+8"
+    }
+]
