@@ -9,11 +9,11 @@ let
     (map (n: path + ("/" + n))
       (filter (n: match ".*\\.patch" n != null) (attrNames (readDir path))));
 
-  emacs = withPatches pkgs.emacs (patches ./patches/emacs27);
+  emacs = withPatches pkgs.emacsPgtk (patches ./patches/emacs27);
   emacsGit = withPatches pkgs.emacsGit (patches ./patches/emacs28);
   emacsMacport = withPatches pkgs.emacsMacport (patches ./patches/emacsMacport);
   emacsGcc =
-    ((withPatches pkgs.emacsGcc (patches ./patches/emacs28)).overrideAttrs
+    ((withPatches pkgs.emacsPgtkGcc (patches ./patches/emacs27)).overrideAttrs
       (old: {
         buildInputs = old.buildInputs
           ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
@@ -25,7 +25,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       emacs = {
-        package = if pkgs.stdenv.isDarwin then emacsMacport else emacs;
+        package = if pkgs.stdenv.isDarwin then emacsMacport else pkgs.emacsPgtk;
         extraPackages = epkgs: [ epkgs.vterm ];
       };
       zsh = {
