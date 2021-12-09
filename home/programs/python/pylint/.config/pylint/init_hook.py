@@ -2,7 +2,7 @@ import os
 import sys
 
 
-dev_dir = "/Users/yevhenshymotiuk/dev"
+dev_dir = os.path.expanduser("~/dev")
 
 for p in os.listdir(dev_dir):
     if p not in sys.path:
