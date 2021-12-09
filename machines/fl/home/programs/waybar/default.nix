@@ -87,4 +87,6 @@
     }];
     style = builtins.readFile ./style.css;
   };
+
+  home.packages = with pkgs; [ material-icons roboto-mono font-awesome ];
 }

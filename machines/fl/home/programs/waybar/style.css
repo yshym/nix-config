@@ -1,8 +1,8 @@
 #mode, #backlight, #network, #pulseaudio, #language, #custom-spotify {
   padding: 0 10px;
   margin: 0 4px;
-  color: #ffffff;
-  border-bottom: 3px solid #e57375; }
+  color: #f8f8f2;
+  border-bottom: 3px solid #bd93f9; }
 
 * {
   border: none;
@@ -12,9 +12,9 @@
   min-height: 0; }
 
 window#waybar {
-  background-color: #2b303b;
-  border-bottom: 3px solid #64727d;
-  color: #ffffff;
+  background-color: #282a36;
+  border-bottom: 3px solid #44475a;
+  color: #f8f8f2;
   transition-property: background-color;
   transition-duration: 0.5s; }
   window#waybar.hidden {
@@ -28,52 +28,52 @@ window#waybar {
 #workspaces button {
   padding: 0 10px;
   background-color: transparent;
-  color: #ffffff;
+  color: #f8f8f2;
   border-bottom: 3px solid transparent; }
   #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: inherit;
-    border-bottom: 3px solid #ffffff; }
+    border-bottom: 3px solid #f8f8f2; }
   #workspaces button.focused {
-    border-bottom: 3px solid #e57375; }
+    border-bottom: 3px solid #bd93f9; }
   #workspaces button.urgent {
     background-color: #eb4d4b; }
 
 #mode {
   background-color: #64727D;
-  border-bottom: 3px solid #ffffff; }
+  border-bottom: 3px solid #f8f8f2; }
 
 #clock {
   padding: 0 10px;
   margin: 0 4px;
-  color: #ffffff; }
+  color: #f8f8f2; }
 
 @keyframes blink {
   to {
-    background-color: #ffffff;
+    background-color: #f8f8f2;
     color: #000000; } }
 #battery {
   padding: 0 10px;
   margin: 0 4px;
-  color: #e57375; }
+  color: #bd93f9; }
   #battery.charging, #battery.plugged {
-    color: #ca00ff; }
+    color: #ff79c6; }
   #battery.good:not(.charging) {
     color: #3cb371; }
   #battery.warning:not(.charging) {
     color: #ffa500; }
   #battery.critical:not(.charging) {
-    color: #ffffff; }
+    color: #f8f8f2; }
 
 label:focus {
   background-color: #000000; }
 
 #network.disconnected {
-  color: #e57375;
+  color: #bd93f9;
   border-bottom: 0; }
 
 #pulseaudio.muted {
-  color: #e57375;
+  color: #bd93f9;
   border-bottom: 0; }
 
 #tray {

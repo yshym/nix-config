@@ -1,10 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./mako ./rofi ./waybar ];
+  imports = [ ./mako ./rofi ./telegram ./waybar ];
 
   programs = {
-    # TODO: Set up gpg key
-    # git.gpgKey = "";
+    git.gpgKey = "4B0D9393F36E588A";
   };
 }
