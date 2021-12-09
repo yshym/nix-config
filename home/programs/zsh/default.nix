@@ -94,6 +94,7 @@ with pkgs; {
     shellAliases = {
       cat = "bat --style plain";
       cdr = "cd $(git rev-parse --show-toplevel)";
+      connect-airpods = "bluetoothctl connect D0:65:44:A6:0B:64";
       dhook = ''eval "$(direnv hook zsh)"'';
       drel = "direnv reload";
       git = "hub";
