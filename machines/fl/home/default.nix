@@ -3,7 +3,7 @@
 {
   home-manager = {
     users.yevhenshymotiuk = { pkgs, ... }: {
-      imports = [ ./packages.nix ./wayland ./programs ];
+      imports = [ ./packages.nix ./themes.nix ./wayland ./programs ];
     };
   };
 }
