@@ -6,6 +6,7 @@
     ./asdf.nix
     ./crystal.nix
     ./direnv
+    ./emacs
     ./firefox
     ./git.nix
     ./nodejs.nix
@@ -24,6 +25,7 @@
 
   programs = {
     crystal.enable = false;
+    emacs.enable = true;
     git = {
       enable = true;
       pager = "diff-so-fancy";

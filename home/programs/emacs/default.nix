@@ -25,7 +25,7 @@ in {
   config = mkIf cfg.enable {
     programs = {
       emacs = {
-        package = emacsMacport;
+        package = if pkgs.stdenv.isDarwin then emacsMacport else emacs;
         extraPackages = epkgs: [ epkgs.vterm ];
       };
       zsh = {

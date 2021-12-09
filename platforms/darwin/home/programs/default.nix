@@ -3,7 +3,6 @@
 {
   imports = [
     # ./brave
-    ./emacs
     # ./hammerspoon
     ./mbsync
     ./scripts
@@ -14,7 +13,6 @@
   ];
 
   programs = {
-    emacs.enable = true;
     firefox.package = pkgs.Firefox;
   };
 }
