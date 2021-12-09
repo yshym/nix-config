@@ -8,19 +8,19 @@ with pkgs; {
       allowUnfree = true;
       allowBroken = false;
       allowUnsupportedSystem = false;
+      pulseaudio = true;
     };
+    overlays = [
+      (import (builtins.fetchTarball {
+        url =
+          "https://github.com/nix-community/emacs-overlay/archive/9578b9dbce95d9077c2c9b4e06391985670b059c.tar.gz";
+        sha256 = "0xw7c2sca0qw74faddq9q7289f98kc2yc51jnlk6nbgaddi7xscx";
+      }))
+    ];
   };
 
   environment = {
-    systemPackages = [
-      bat
-      coreutils
-      exa
-      gcc
-      ripgrep
-      vim
-      wget
-    ];
+    systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
   };
 
   fonts.fonts = [ fira-code font-awesome jetbrains-mono ];
@@ -42,4 +42,6 @@ with pkgs; {
   };
 
   services = { emacs.enable = false; };
+
+  time.timeZone = "Europe/Kiev";
 }
