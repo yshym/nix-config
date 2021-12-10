@@ -72,7 +72,7 @@ in {
             natural_scroll = "enabled";
             tap = "enabled";
             tap_button_map = "lrm";
-            pointer_accel = "0.1";
+            pointer_accel = "0";
           };
         };
 
