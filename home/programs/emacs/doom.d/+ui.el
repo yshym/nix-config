@@ -3,12 +3,15 @@
                  :family "JetBrains Mono"
                  :size 12
                  :weight 'normal))
-(set-face-attribute 'mode-line nil
-                    :family "JetBrains Mono"
-                    :height 100)
-(set-face-attribute 'mode-line-inactive nil
-                    :family "JetBrains Mono"
-                    :height 100)
+(use-package doom-modeline
+  :hook (after-init . doom-modeline-mode)
+  :config
+  (set-face-attribute 'mode-line nil
+                      :family "JetBrains Mono"
+                      :height 100)
+  (set-face-attribute 'mode-line-inactive nil
+                      :family "JetBrains Mono"
+                      :height 100))
 
 ;; Theme
 (setq doom-theme 'doom-dracula)
