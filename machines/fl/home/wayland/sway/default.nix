@@ -103,8 +103,8 @@ in {
           "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
 
           # make a screenshot
-          "${cfg.config.modifier}+Print" = "exec ~/.local/bin/maim.sh";
-          "${cfg.config.modifier}+Shift+Print" = "exec ~/.local/bin/maim.sh -s";
+          "${cfg.config.modifier}+F11" = "exec ~/.local/platform/bin/maim.sh";
+          "${cfg.config.modifier}+Shift+F11" = "exec ~/.local/platform/bin/maim.sh -s";
 
           # change focus
           "${cfg.config.modifier}+${cfg.config.left}" = "focus left";
@@ -225,6 +225,8 @@ in {
           gebaar-libinput # libinput gestures utility
           grim # screen image capture
           imv # image viewer
+          slurp # region selection utility
+          wl-clipboard # clipboard manipulation tool
           xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
           ydotool # xdotool for wayland
 
