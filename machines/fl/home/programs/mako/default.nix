@@ -5,11 +5,12 @@
     enable = true;
     sort = "+time";
     anchor = "top-right";
-    font = "Fira Code 15";
-    backgroundColor = "#000000";
-    textColor = "#ffffff";
+    width = 250;
+    font = "Fira Code 9";
+    backgroundColor = "#282a36";
+    textColor = "#f8f8f2";
     borderSize = 2;
-    borderColor = "#b2c312";
+    borderColor = "#44475a";
     defaultTimeout = 5000;
   };
 }
