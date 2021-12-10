@@ -15,7 +15,7 @@
   spacing: 0;
   background-color: rgba ( 0, 0, 0, 0 % );
 
-  font: "Knack Nerd Font 14";
+  font: "Knack Nerd Font 12";
   text-color: @text;
 }
 

@@ -11,6 +11,7 @@ with pkgs; {
       name = "Pop";
       package = pop-gtk-theme;
     };
+    font = { name = "Fira Mono"; size = 8; };
     gtk3.extraConfig.gtk-cursor-theme-name = "Bibata_Oil";
   };
   qt = {

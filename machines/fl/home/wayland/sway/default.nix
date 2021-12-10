@@ -8,7 +8,8 @@ in {
     wayland.windowManager.sway = {
       enable = true;
       systemdIntegration = true;
-      xwayland = true;
+      xwayland = false;
+      wrapperFeatures.gtk = true;
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
         # needs qt5.qtwayland in systemPackages
@@ -21,7 +22,7 @@ in {
       config = {
         fonts = {
           names = [ "Fira Code" ];
-          size = 15.0;
+          size = 12.0;
         };
 
         window = {

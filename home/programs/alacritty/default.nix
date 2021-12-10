@@ -13,7 +13,7 @@
       };
       font = {
         normal.family = "Fira Code";
-        size = if pkgs.stdenv.isDarwin then 15.0 else 11.0;
+        size = if pkgs.stdenv.isDarwin then 15.0 else 9.0;
       };
       background_opacity = 1;
       colors = {
