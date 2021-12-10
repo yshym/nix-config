@@ -12,13 +12,13 @@
     kernelPackages = pkgs.linuxPackages_5_15;
   };
 
-  services = {
-    fprintd.enable = true;
-  };
+  services = { fprintd.enable = true; };
 
   networking = { hostName = "fl"; };
 
   programs = { gnupg.agent.pinentryFlavor = "curses"; };
+
+  sound.enable = true;
 
   hardware = {
     bluetooth = {
@@ -27,13 +27,11 @@
     };
     pulseaudio = {
       enable = true;
-      systemWide = true;
+      systemWide = false;
       support32Bit = true;
       extraModules = [ pkgs.pulseaudio-modules-bt ];
       package = pkgs.pulseaudioFull;
       extraConfig = ''
-        unload-module module-native-protocol-unix
-        load-module module-native-protocol-unix auth-anonymous=1
         load-module module-switch-on-connect
       '';
     };
