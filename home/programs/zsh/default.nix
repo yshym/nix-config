@@ -17,6 +17,8 @@ with pkgs; {
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
 
+      setopt extendedglob
+      [ -z "$ZDOTDIR" ] && export ZDOTDIR="$HOME"
       autoload -Uz compinit
       if [[ ${
         if stdenv.isDarwin then
@@ -28,6 +30,7 @@ with pkgs; {
       else
         compinit -C
       fi
+      unsetopt extendedglob
 
       zstyle ':completion:*' \
         matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
