@@ -3,10 +3,5 @@
 {
   imports = [ ./kanshi ];
 
-  services = {
-    dropbox = {
-      enable = true;
-      path = "${config.home.homeDirectory}/dropbox";
-    };
-  };
+  services = { dropbox = { enable = true; }; };
 }
