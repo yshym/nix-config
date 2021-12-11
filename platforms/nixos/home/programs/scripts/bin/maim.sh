@@ -4,49 +4,40 @@ FILE="$HOME/screen.png"
 
 while getopts "s" opt; do
     case "$opt" in
-        s)
-            SELECT=true
+        s) SELECT=1 ;;
+        *) ;;
     esac
 done
 
 options=("Default" "Imgur")
-choice=$(printf "%s\n" "${options[@]}" | rofi -dmenu);
-[ $? = 0 ] || exit
+choice=$(printf "%s\n" "${options[@]}" | rofi -dmenu)
+[ $? = 0 ] || exit 1
 
-if [ "$SELECT" == true ]; then
+if [ "$SELECT" ]; then
     case "$XDG_SESSION_TYPE" in
-        x11)
-            maim --select "$FILE" --hidecursor;;
-        wayland)
-            grim -g "$(slurp)" "$FILE"
+        x11) maim --select "$FILE" --hidecursor ;;
+        wayland) grim -g "$(slurp)" "$FILE" ;;
+        *) ;;
     esac
 else
     case "$XDG_SESSION_TYPE" in
-        x11)
-            maim --capturebackground "$FILE" --hidecursor;;
-        wayland)
-            grim "$FILE"
+        x11) maim --capturebackground "$FILE" --hidecursor ;;
+        wayland) grim "$FILE" ;;
+        *) ;;
     esac
 fi
 
 case $choice in
     "Default")
         case "$XDG_SESSION_TYPE" in
-            x11)
-                cat "$FILE" | xclip -selection clipboard -target image/png;;
-            wayland)
-                cat "$FILE" | wl-copy --type image/png
+            x11) xclip -selection clipboard -target image/png < "$FILE" ;;
+            wayland) wl-copy --type image/png < "$FILE" ;;
+            *) ;;
         esac
-        notify-send "Screenshot was saved to" "$FILE"
+        notify-send "maim.sh" "Screenshot was saved to $FILE"
         ;;
     "Imgur")
-        notify-send "Uploading to imgur..."
-        IMGUR_LINK=$(imgur "$FILE" | head -n 1)
-        notify-send "Uploaded"
-        case "$XDG_SESSION_TYPE" in
-            x11)
-                echo "$IMGUR_LINK" | xclip -selection clipboard;;
-            wayland)
-                echo "$IMGUR_LINK" | wl-copy
-        esac
+        "$HOME/.local/platform/bin/imgur" "$FILE"
+        notify-send "maim.sh" "Screenshot was uploaded to imgur"
+        ;;
 esac

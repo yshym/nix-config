@@ -22,7 +22,7 @@ in {
       config = {
         fonts = {
           names = [ "Fira Code" ];
-          size = 12.0;
+          size = 8.0;
         };
 
         window = {
@@ -32,8 +32,11 @@ in {
 
         focus = { followMouse = true; };
 
-        # TODO: Set up application to workspace assignments
-        # assigns = {};
+        assigns = {
+          "1" = [{ app_id = "firefox"; }];
+          "2" = [{ app_id = "emacs"; }];
+          "3" = [{ app_id = "telegramdesktop"; }];
+        };
 
         modifier = "Mod4";
 
@@ -41,7 +44,7 @@ in {
           focused = {
             border = "#353439";
             background = darkBlue;
-            text = "#7B9F35";
+            text = "#f8f8f2";
             indicator = darkBlue;
             childBorder = darkBlue;
           };
@@ -76,7 +79,6 @@ in {
           };
         };
 
-        # TODO: Set up outputs
         output = {
           "eDP-1" = { bg = "~/.local/share/wallpaper.png stretch"; };
         };
@@ -88,8 +90,8 @@ in {
           "${cfg.config.modifier}+Return" = "exec ${cfg.config.terminal}";
 
           # control screen brightness
-          "XF86MonBrightnessUp" = "exec light -A 10";
-          "XF86MonBrightnessDown" = "exec light -U 10";
+          "XF86MonBrightnessUp" = "exec light -A 5";
+          "XF86MonBrightnessDown" = "exec light -U 5";
 
           # control media volume
           "XF86AudioMute" = "exec pamixer --toggle-mute";
@@ -104,7 +106,8 @@ in {
 
           # make a screenshot
           "${cfg.config.modifier}+F11" = "exec ~/.local/platform/bin/maim.sh";
-          "${cfg.config.modifier}+Shift+F11" = "exec ~/.local/platform/bin/maim.sh -s";
+          "${cfg.config.modifier}+Shift+F11" =
+            "exec ~/.local/platform/bin/maim.sh -s";
 
           # change focus
           "${cfg.config.modifier}+${cfg.config.left}" = "focus left";
@@ -148,35 +151,26 @@ in {
           "${cfg.config.modifier}+space" = "focus mode_toggle";
 
           # focus workspace
-          "${cfg.config.modifier}+1" = "workspace number 1";
-          "${cfg.config.modifier}+2" = "workspace number 2";
-          "${cfg.config.modifier}+3" = "workspace number 3";
-          "${cfg.config.modifier}+4" = "workspace number 4";
-          "${cfg.config.modifier}+5" = "workspace number 5";
-          "${cfg.config.modifier}+6" = "workspace number 6";
-          "${cfg.config.modifier}+7" = "workspace number 7";
-          "${cfg.config.modifier}+8" = "workspace number 8";
-          "${cfg.config.modifier}+9" = "workspace number 9";
+          "${cfg.config.modifier}+1" = "workspace 1";
+          "${cfg.config.modifier}+2" = "workspace 2";
+          "${cfg.config.modifier}+3" = "workspace 3";
+          "${cfg.config.modifier}+4" = "workspace 4";
+          "${cfg.config.modifier}+5" = "workspace 5";
+          "${cfg.config.modifier}+6" = "workspace 6";
+          "${cfg.config.modifier}+7" = "workspace 7";
+          "${cfg.config.modifier}+8" = "workspace 8";
+          "${cfg.config.modifier}+9" = "workspace 9";
 
           # move focused container to workspace
-          "${cfg.config.modifier}+Shift+1" =
-            "move container to workspace number 1";
-          "${cfg.config.modifier}+Shift+2" =
-            "move container to workspace number 2";
-          "${cfg.config.modifier}+Shift+3" =
-            "move container to workspace number 3";
-          "${cfg.config.modifier}+Shift+4" =
-            "move container to workspace number 4";
-          "${cfg.config.modifier}+Shift+5" =
-            "move container to workspace number 5";
-          "${cfg.config.modifier}+Shift+6" =
-            "move container to workspace number 6";
-          "${cfg.config.modifier}+Shift+7" =
-            "move container to workspace number 7";
-          "${cfg.config.modifier}+Shift+8" =
-            "move container to workspace number 8";
-          "${cfg.config.modifier}+Shift+9" =
-            "move container to workspace number 9";
+          "${cfg.config.modifier}+Shift+1" = "move container to workspace 1";
+          "${cfg.config.modifier}+Shift+2" = "move container to workspace 2";
+          "${cfg.config.modifier}+Shift+3" = "move container to workspace 3";
+          "${cfg.config.modifier}+Shift+4" = "move container to workspace 4";
+          "${cfg.config.modifier}+Shift+5" = "move container to workspace 5";
+          "${cfg.config.modifier}+Shift+6" = "move container to workspace 6";
+          "${cfg.config.modifier}+Shift+7" = "move container to workspace 7";
+          "${cfg.config.modifier}+Shift+8" = "move container to workspace 8";
+          "${cfg.config.modifier}+Shift+9" = "move container to workspace 9";
 
           # move the currently focused window to the scratchpad
           "${cfg.config.modifier}+Shift+minus" = "move scratchpad";
@@ -231,7 +225,6 @@ in {
           ydotool # xdotool for wayland
 
           pamixer # audio mixer
-          light # backlight control
         ];
     };
   };
