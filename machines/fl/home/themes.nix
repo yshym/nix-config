@@ -12,7 +12,10 @@ with pkgs; {
       package = pop-gtk-theme;
     };
     font = { name = "Fira Mono"; size = 8; };
-    gtk3.extraConfig.gtk-cursor-theme-name = "Bibata_Oil";
+    gtk3.extraConfig = {
+      gtk-cursor-theme-name = "Bibata_Oil";
+      gtk-cursor-theme-size = 20;
+    };
   };
   qt = {
     enable = true;

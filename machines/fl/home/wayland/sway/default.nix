@@ -52,8 +52,7 @@ in {
 
         bars = [ ];
 
-        # TODO: Set up startup commands
-        # startup = {};
+        startup = [{ command = "import-gsettings"; }];
 
         gaps = {
           inner = 5;
@@ -61,7 +60,7 @@ in {
           smartGaps = true;
         };
 
-        menu = "rofi -show drun";
+        menu = "wofi --show=drun --lines=15";
 
         terminal = "alacritty";
 
@@ -83,7 +82,12 @@ in {
           "eDP-1" = { bg = "~/.local/share/wallpaper.png stretch"; };
         };
 
-        seat = { "seat0" = { hide_cursor = "3000"; }; };
+        seat = {
+          "seat0" = {
+            hide_cursor = "3000";
+            xcursor_theme = "Bibata_Oil 20";
+          };
+        };
 
         keybindings = {
           # start a terminal
@@ -221,6 +225,7 @@ in {
           imv # image viewer
           slurp # region selection utility
           wl-clipboard # clipboard manipulation tool
+          wofi # launcher/menu program
           xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
           ydotool # xdotool for wayland
 
