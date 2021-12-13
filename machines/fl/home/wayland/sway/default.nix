@@ -60,7 +60,7 @@ in {
           smartGaps = true;
         };
 
-        menu = "wofi --show=drun --lines=15";
+        menu = "wofi --show=drun --lines=10";
 
         terminal = "alacritty";
 
@@ -225,7 +225,6 @@ in {
           imv # image viewer
           slurp # region selection utility
           wl-clipboard # clipboard manipulation tool
-          wofi # launcher/menu program
           xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
           ydotool # xdotool for wayland
 
