@@ -97,7 +97,6 @@ with pkgs; {
     shellAliases = {
       cat = "bat --style plain";
       cdr = "cd $(git rev-parse --show-toplevel)";
-      connect-airpods = "bluetoothctl connect D0:65:44:A6:0B:64";
       dhook = ''eval "$(direnv hook zsh)"'';
       drel = "direnv reload";
       git = "hub";
@@ -110,7 +109,7 @@ with pkgs; {
       lla = "ls -al";
       md = "mkdir -p";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
-      o = lib.optionalString stdenv.isDarwin "open";
+      o = if stdenv.isDarwin then "open" else "xdg-open";
       shfmt = "shfmt -bn -ci -sr -i 4 -w";
       rd = "rmdir";
       tg = "topgrade -y";
