@@ -9,8 +9,13 @@ while getopts "s" opt; do
     esac
 done
 
+case "$XDG_SESSION_TYPE" in
+    x11) dmenu="rofi -dmenu" ;;
+    wayland) dmenu="wofi --dmenu" ;;
+    *) ;;
+esac
 options=("Default" "Imgur")
-choice=$(printf "%s\n" "${options[@]}" | rofi -dmenu)
+choice=$(printf "%s\n" "${options[@]}" | eval "$dmenu")
 [ $? = 0 ] || exit 1
 
 if [ "$SELECT" ]; then
