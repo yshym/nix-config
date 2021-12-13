@@ -44,5 +44,4 @@ with pkgs; {
   services = { emacs.enable = false; };
 
   time.timeZone = "Europe/Kiev";
-  i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
 }

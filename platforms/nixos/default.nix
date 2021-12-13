@@ -15,9 +15,7 @@ with pkgs; {
     firewall.enable = false;
   };
 
-  services = {
-    openssh = {
-      enable = true;
-    };
-  };
+  services = { openssh = { enable = true; }; };
+
+  i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
 }
