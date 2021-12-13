@@ -4,36 +4,34 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+  boot.initrd.availableKernelModules =
+    [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/90743b97-0b54-45e5-8550-d0cbac218fe1";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/90743b97-0b54-45e5-8550-d0cbac218fe1";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3606-9FF7";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/3606-9FF7";
+    fsType = "vfat";
+  };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/a8db5131-8feb-4caf-8813-7cb7092d1858"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/a8db5131-8feb-4caf-8813-7cb7092d1858"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
-  hardware= {
+  hardware = {
     opengl = {
       enable = true;
       driSupport = true;
     };
     # high-resolution display
-    video.hidpi.enable = lib.mkDefault true;
+    video.hidpi.enable = true;
   };
 }
