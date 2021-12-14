@@ -27,10 +27,26 @@
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware = {
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
     opengl = {
       enable = true;
       driSupport = true;
+      extraPackages = [ pkgs.amdvlk ];
     };
+    pulseaudio = {
+      enable = true;
+      systemWide = false;
+      support32Bit = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
+      extraConfig = ''
+        load-module module-switch-on-connect
+      '';
+    };
+    sensor.iio.enable = true;
     # high-resolution display
     video.hidpi.enable = true;
   };

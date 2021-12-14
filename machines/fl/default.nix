@@ -12,6 +12,8 @@
     };
   };
 
+  nixpkgs.overlays = [ (import ./overlays/wluma) ];
+
   services = { fprintd.enable = true; };
 
   networking = { hostName = "fl"; };
@@ -22,21 +24,4 @@
   };
 
   sound.enable = true;
-
-  hardware = {
-    bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-    pulseaudio = {
-      enable = true;
-      systemWide = false;
-      support32Bit = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      package = pkgs.pulseaudioFull;
-      extraConfig = ''
-        load-module module-switch-on-connect
-      '';
-    };
-  };
 }
