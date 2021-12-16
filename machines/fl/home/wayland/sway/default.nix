@@ -72,9 +72,10 @@ in {
           "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
             dwt = "enabled";
             natural_scroll = "enabled";
+            pointer_accel = "0";
+            scroll_factor = "0.5";
             tap = "enabled";
             tap_button_map = "lrm";
-            pointer_accel = "0";
           };
         };
 
