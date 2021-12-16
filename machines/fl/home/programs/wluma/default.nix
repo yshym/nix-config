@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  home.packages = [ pkgs.wluma ];
-
-  xdg.configFile."wluma/config.toml".source = ./config.toml;
-
   systemd.user.services.wluma = let
     me = "yevhenshymotiuk";
     wlumaConfig = "${config.home.homeDirectory}/.config/wluma/config.toml";
@@ -22,4 +18,8 @@
     };
     Install = { WantedBy = [ "graphical-session.target" ]; };
   };
+
+  home.packages = [ pkgs.wluma ];
+
+  xdg.configFile."wluma/config.toml".source = ./config.toml;
 }

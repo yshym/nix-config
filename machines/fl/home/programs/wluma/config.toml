@@ -5,7 +5,7 @@ capturer = "none" # just use ALS to predict screen brightness
 
 [als.iio]
 path = "/sys/bus/iio/devices"
-thresholds = [ 15, 80, 250, 500, 800 ]
+thresholds = [ 10, 80, 250, 500, 800 ]
 
 # [als.time]
 # hour_to_lux = { 7 = 1, 9 = 2, 11 = 3, 13 = 4, 16 = 3, 18 = 1, 20 = 0 }
