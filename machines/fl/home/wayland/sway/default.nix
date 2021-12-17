@@ -9,7 +9,10 @@ in {
       enable = true;
       systemdIntegration = true;
       xwayland = false;
-      wrapperFeatures.gtk = true;
+      wrapperFeatures = {
+        base = true;
+        gtk = true;
+      };
       extraSessionCommands = ''
         export SDL_VIDEODRIVER=wayland
         # needs qt5.qtwayland in systemPackages
@@ -226,7 +229,6 @@ in {
           imv # image viewer
           slurp # region selection utility
           wl-clipboard # clipboard manipulation tool
-          xdg-desktop-portal-wlr # xdg-desktop-portal backend for wlroots
           ydotool # xdotool for wayland
 
           pamixer # audio mixer
