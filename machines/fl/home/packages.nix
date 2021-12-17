@@ -2,8 +2,8 @@
 
 {
   home.packages = with pkgs; [
-    # entertaiment
+    # media
+    pavucontrol
     playerctl
-    spotify
   ];
 }
