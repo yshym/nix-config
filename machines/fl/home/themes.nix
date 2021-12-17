@@ -4,11 +4,11 @@ with pkgs; {
   gtk = {
     enable = true;
     iconTheme = {
-      name = "Pop-dark";
+      name = "Pop";
       package = pop-icon-theme;
     };
     theme = {
-      name = "Pop";
+      name = "Pop-dark";
       package = pop-gtk-theme;
     };
     font = { name = "Fira Mono"; size = 8; };
