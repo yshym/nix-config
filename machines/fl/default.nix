@@ -14,8 +14,6 @@
 
   nixpkgs.overlays = [ (import ./overlays/wluma) ];
 
-  services = { fprintd.enable = true; };
-
   networking = { hostName = "fl"; };
 
   programs = {
@@ -23,5 +21,17 @@
     light.enable = true;
   };
 
+  services = {
+    fprintd.enable = true;
+    # pipewire.enable = true;
+  };
+
   sound.enable = true;
+
+  # xdg.portal = {
+  #   enable = true;
+  #   extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  #   gtkUsePortal = true;
+  #   wlr.enable = true;
+  # };
 }
