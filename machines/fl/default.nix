@@ -22,6 +22,7 @@
   };
 
   services = {
+    geoclue2.enable = true;
     fprintd.enable = true;
     # pipewire.enable = true;
   };
