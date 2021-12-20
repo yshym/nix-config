@@ -82,8 +82,10 @@ in {
           };
         };
 
-        output = {
-          "eDP-1" = { bg = "~/.local/share/wallpaper.png stretch"; };
+        output = let bg = "~/.local/share/wallpaper.png stretch";
+        in {
+          "eDP-1" = { bg = bg; };
+          "DP-4" = { bg = bg; };
         };
 
         seat = {
