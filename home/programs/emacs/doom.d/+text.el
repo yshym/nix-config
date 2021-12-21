@@ -8,9 +8,9 @@
 
 
 ;; ligatures
-(when (featurep! :ui pretty-code)
+(when (featurep! :ui ligatures)
   (after! org
-    (set-pretty-symbols! 'org-mode
+    (set-ligatures! 'org-mode
       :name "#+NAME:"
       :src_block "#+BEGIN_SRC"
       :src_block_end "#+END_SRC"
