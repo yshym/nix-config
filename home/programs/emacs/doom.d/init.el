@@ -47,10 +47,7 @@
        snippets            ; my elves. They type so I don't have to
 
        :emacs
-       (dired              ; making dired pretty [functional]
-        +ranger            ; bringing the goodness of ranger to dired
-        ;; +icons          ; colorful icons for dired-mode
-        )
+       dired               ; making dired pretty [functional]
        electric            ; smarter, keyword-based electric-indent
        imenu               ; an imenu sidebar and searchable code index
        vc                  ; version-control and Emacs, sitting in a tree
@@ -58,8 +55,8 @@
        :term
        eshell              ; the elisp shell that works everywhere
        ;; shell            ; simple shell REPL for Emacs
-       ;; term             ; basic terminal emulator for Emacs
-       vterm               ; the best terminal emulation in Emacs
+       term                ; basic terminal emulator for Emacs
+       ;; vterm               ; the best terminal emulation in Emacs
 
        :checkers
        syntax              ; tasing you for every semicolon you forget

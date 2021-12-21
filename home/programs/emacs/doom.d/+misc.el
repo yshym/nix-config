@@ -24,8 +24,8 @@
 (defun open-popup-terminal ()
   "Toggle a terminal popup window."
   (interactive)
-  (+vterm/toggle t)
-  (evil-window-set-height 15))
+  (+term/toggle t)
+  (evil-window-set-height 10))
 
 
 ;; trello
@@ -109,3 +109,7 @@
   (mu4e-alert-set-default-style 'notifier)
   (mu4e-alert-enable-mode-line-display)
   (mu4e-alert-enable-notifications))
+
+
+;; twitter
+(setq twittering-allow-insecure-server-cert t)
