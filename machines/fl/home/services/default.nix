@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./kanshi ./redshift.nix ];
+  imports = [ ./calendar-to-org.nix ./dropbox.nix ./kanshi ./redshift.nix ];
 
-  services = { dropbox = { enable = true; }; };
+  services = { };
 }
