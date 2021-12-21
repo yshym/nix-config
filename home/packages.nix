@@ -123,6 +123,7 @@
       # spotifyd
       spotify-tui
       streamlink
+      transmission
       youtube-dl
       # nodePackages.webtorrent-cli
 
