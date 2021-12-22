@@ -23,7 +23,8 @@ with pkgs; {
     systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
   };
 
-  fonts.fonts = [ fira-code font-awesome jetbrains-mono noto-fonts-cjk ];
+  fonts.fonts =
+    [ fira-code font-awesome jetbrains-mono noto-fonts-cjk noto-fonts-emoji ];
 
   nix = {
     package = pkgs.nixFlakes;
