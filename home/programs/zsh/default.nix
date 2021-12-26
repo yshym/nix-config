@@ -84,18 +84,10 @@ with pkgs; {
           sha256 = "0y8va5kc2ram38hbk2cibkk64ffrabfv1sh4xm7pjspsba9n5p1y";
         };
       }
-      rec {
-        name = "zsh-z";
-        src = fetchFromGitHub {
-          owner = "agkozak";
-          repo = name;
-          rev = "595c883abec4682929ffe05eb2d088dd18e97557";
-          sha256 = "sha256-HnwUWqzwavh/Qox+siOe5lwTp7PBdiYx+9M0NMNFx00=";
-        };
-      }
     ];
     shellAliases = {
       cat = "bat --style plain";
+      cd = "z";
       cdr = "cd $(git rev-parse --show-toplevel)";
       dhook = ''eval "$(direnv hook zsh)"'';
       drel = "direnv reload";

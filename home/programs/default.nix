@@ -56,5 +56,9 @@
       provider = "nixpkgs";
       enableSolargraph = true;
     };
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 }
