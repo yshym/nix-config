@@ -37,7 +37,7 @@
       extraPackages = [ pkgs.amdvlk ];
     };
     pulseaudio = {
-      enable = true;
+      enable = false;
       systemWide = false;
       support32Bit = true;
       extraModules = [ pkgs.pulseaudio-modules-bt ];
