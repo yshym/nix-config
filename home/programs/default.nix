@@ -42,7 +42,6 @@
         codecov
         grip
         jedi
-        poetry
         # python-lsp-server
       ];
       black.enable = true;
