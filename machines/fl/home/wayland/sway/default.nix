@@ -31,6 +31,10 @@ in {
         window = {
           titlebar = false;
           border = 3;
+          commands = [{
+            criteria = { title = "Firefox — Sharing Indicator"; };
+            command = "floating enable";
+          }];
         };
 
         focus = { followMouse = true; };
