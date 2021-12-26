@@ -12,10 +12,8 @@
     };
   };
 
-  nixpkgs.overlays = [
-    (import ./overlays/wluma)
-    (self: super: { nix-direnv = super.nix-direnv.override { enableFlakes = true; }; } )
-  ];
+  nixpkgs.overlays =
+    [ (import ./overlays/wluma) (import ./overlays/nix-direnv.nix) ];
 
   networking = { hostName = "fl"; };
 
