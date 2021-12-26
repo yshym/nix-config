@@ -125,7 +125,6 @@
       streamlink
       transmission
       youtube-dl
-      # nodePackages.webtorrent-cli
 
       # my stuff
       navi
