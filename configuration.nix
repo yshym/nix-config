@@ -19,9 +19,7 @@ with pkgs; {
     ];
   };
 
-  environment = {
-    systemPackages = [ bat coreutils exa gcc ripgrep vim wget ];
-  };
+  environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
 
   fonts.fonts =
     [ fira-code font-awesome jetbrains-mono noto-fonts-cjk noto-fonts-emoji ];

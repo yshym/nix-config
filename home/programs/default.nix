@@ -24,8 +24,10 @@
   ];
 
   programs = {
+    bat.enable = true;
     crystal.enable = false;
     emacs.enable = true;
+    exa.enable = true;
     git = {
       enable = true;
       pager = "diff-so-fancy";
