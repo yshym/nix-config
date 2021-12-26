@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+FILE="$1"
+BASENAME="${FILE%%.*}"
+EXTENSION="${FILE##*.}"
+DESTINATION="$BASENAME"
+
+if [ "$2" ]; then
+    DESTINATION="$2"
+fi
+
+case "$EXTENSION" in
+    "gz") tar xvf "$FILE" --directory "$DESTINATION" ;;
+    "zip") unzip "$FILE" -d "$DESTINATION" ;;
+    "rar") unrar x "$FILE" "$DESTINATION" ;;
+    *) tar cvzf "$FILE.tar.gz" "$FILE" ;;
+esac
