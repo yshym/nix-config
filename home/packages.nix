@@ -59,6 +59,7 @@
       shellcheck
       shfmt
       unrar
+      unzip
       wakatime
 
       # nix stuff
