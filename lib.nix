@@ -1,7 +1,7 @@
 { inputs, lib, pkgs, ... }:
 
 rec {
-  isDarwin = system: lib.strings.hasSuffix system "darwin";
+  isDarwin = system: lib.strings.hasSuffix "darwin" system;
   mkPkgs = system:
     import (if isDarwin system then inputs.nixpkgs else inputs.nixos) {
       inherit system;
