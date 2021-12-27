@@ -25,7 +25,7 @@
           pkgs = nixpkgs;
         };
       });
-    in rec {
+    in {
       darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
 
       nixosConfigurations = {
