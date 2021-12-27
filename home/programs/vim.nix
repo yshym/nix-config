@@ -1,6 +1,6 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
-{
+let cfg = config.programs.neovim; in {
   programs.neovim = {
     enable = true;
     withPython3 = true;
@@ -34,4 +34,6 @@
       inoremap fd <Esc>
     '';
   };
+
+  programs.zsh.shellAliases.vim = lib.mkIf cfg.enable "nvim";
 }

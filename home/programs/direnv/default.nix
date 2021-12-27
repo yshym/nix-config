@@ -30,4 +30,9 @@ in {
       }
     '';
   };
+
+  programs.zsh.shellAliases = mkIf cfg.enable {
+    dhook = ''eval "$(direnv hook zsh)"'';
+    drel = "direnv reload";
+  };
 }

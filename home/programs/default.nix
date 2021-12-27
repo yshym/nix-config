@@ -4,9 +4,11 @@
   imports = [
     ./alacritty
     ./asdf.nix
+    ./bat.nix
     ./crystal.nix
     ./direnv
     ./emacs
+    ./exa.nix
     ./firefox
     ./git.nix
     ./nodejs.nix
@@ -20,14 +22,13 @@
     ./topgrade
     ./vim.nix
     ./zathura.nix
+    ./zoxide.nix
     ./zsh
   ];
 
   programs = {
-    bat.enable = true;
     crystal.enable = false;
     emacs.enable = true;
-    exa.enable = true;
     git = {
       enable = true;
       pager = "diff-so-fancy";
@@ -56,10 +57,6 @@
       enableBuildLibs = true;
       provider = "nixpkgs";
       enableSolargraph = true;
-    };
-    zoxide = {
-      enable = true;
-      enableZshIntegration = true;
     };
   };
 }

@@ -86,26 +86,18 @@ with pkgs; {
       }
     ];
     shellAliases = {
-      cat = "bat --style plain";
-      cd = "z";
-      cdr = "cd $(git rev-parse --show-toplevel)";
-      dhook = ''eval "$(direnv hook zsh)"'';
-      drel = "direnv reload";
-      git = "hub";
+      du = "${pkgs.du-dust}/bin/dust";
       golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
-      grep = "rg";
-      ls = "exa --group-directories-first";
       lsa = "ls -a";
       ll = "ls -l";
       lla = "ls -al";
       md = "mkdir -p";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = if stdenv.isDarwin then "open" else "xdg-open";
-      shfmt = "shfmt -bn -ci -sr -i 4 -w";
+      shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
+      rf = "rm -rf";
       rd = "rmdir";
-      tg = "topgrade -y";
-      vim = "nvim";
       "..." = "../..";
       "...." = "../../..";
       "....." = "../../../..";

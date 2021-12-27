@@ -50,5 +50,7 @@ in {
         github.user = "yevhenshymotiuk";
       };
     };
+
+    programs.zsh.shellAliases.git = "hub";
   };
 }

@@ -13,4 +13,6 @@
       --smart-case
     '';
   };
+
+  programs.zsh.shellAliases.grep = "rg";
 }
