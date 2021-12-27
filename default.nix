@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ inputs, pkgs, ... }:
 
 with pkgs; {
   imports = [ ./cachix.nix ./home ];
