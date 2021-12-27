@@ -113,7 +113,7 @@ in {
           "XF86AudioLowerVolume" = "exec pamixer -d 5";
 
           # kill focused window
-          "${cfg.config.modifier}+Shift+q" = "kill";
+          "${cfg.config.modifier}+q" = "kill";
 
           # start a menu app
           "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
@@ -217,27 +217,26 @@ in {
 
     home = {
       file.".local/share/wallpaper.png".source = ./wallpaper.png;
-      packages = with lib;
-        with pkgs;
-        mkIf cfg.enable [
+      packages = with pkgs;
+        lib.mkIf cfg.enable [
           # supporting libraries
           libnotify
           qt5.qtwayland
 
           # sway components
-          swaybg # required by sway for controlling desktop wallpaper
-          swayidle # used for controlling idle timeouts and triggers (screen locking, etc)
-          swaylock # used for locking Wayland sessions
+          swaybg          # required by sway for controlling desktop wallpaper
+          swayidle        # used for controlling idle timeouts and triggers (screen locking, etc)
+          swaylock        # used for locking Wayland sessions
 
           # wayland programs
           gebaar-libinput # libinput gestures utility
-          grim # screen image capture
-          imv # image viewer
-          slurp # region selection utility
-          wl-clipboard # clipboard manipulation tool
-          ydotool # xdotool for wayland
+          grim            # screen image capture
+          imv             # image viewer
+          slurp           # region selection utility
+          wl-clipboard    # clipboard manipulation tool
+          ydotool         # fake keyboard/mouse input
 
-          pamixer # audio mixer
+          pamixer         # audio mixer
         ];
     };
   };
