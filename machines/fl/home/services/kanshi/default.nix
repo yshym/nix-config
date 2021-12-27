@@ -8,13 +8,13 @@
       docked = {
         outputs = [
           {
-            criteria = "eDP-1";
-            position = "1920,0";
-          }
-          {
             criteria = "DP-4";
             position = "0,0";
             scale = 1.5;
+          }
+          {
+            criteria = "eDP-1";
+            position = "1280,0";
           }
         ];
         exec =
