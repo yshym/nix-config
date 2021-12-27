@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 with pkgs; {
   imports = [ ./cachix.nix ./home ];
@@ -40,7 +40,7 @@ with pkgs; {
     };
   };
 
-  services = { emacs.enable = false; };
+  services = { emacs.enable = true; };
 
   time.timeZone = "Europe/Kiev";
 }
