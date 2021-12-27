@@ -14,9 +14,9 @@ rec {
       inputs.nixos.lib.nixosSystem) {
         system = system;
         modules = [
-          inputs.home-manager.${
-            if isDarwin system then "darwinModules" else "nixosModules"
-          }.home-manager
+          inputs.home-manager."${
+            if isDarwin system then "darwin" else "nixos"
+          }Modules".home-manager
           (import ./. {
             inherit inputs;
             pkgs = mkPkgs system;
