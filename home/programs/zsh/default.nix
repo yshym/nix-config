@@ -1,11 +1,6 @@
 { pkgs, lib, ... }:
 
 with pkgs; {
-  home = {
-    file.".zsh_completions".source = ./completions;
-    packages = [ zsh-completions zsh-powerlevel10k ];
-  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = false;
@@ -102,5 +97,10 @@ with pkgs; {
       "....." = "../../../..";
       "......" = "../../../../..";
     };
+  };
+
+  home = {
+    file.".zsh_completions".source = ./completions;
+    packages = [ zsh-completions ];
   };
 }
