@@ -5,13 +5,18 @@
     # core
     nixos.url = "github:yevhenshymotiuk/nixpkgs/nixos-21.11";
     nixpkgs.url = "github:yevhenshymotiuk/nixpkgs/release-21.11";
-    darwin.url = "github:yevhenshymotiuk/nix-darwin/master";
-    darwin.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:yevhenshymotiuk/home-manager/release-21.11";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    darwin = {
+      url = "github:yevhenshymotiuk/nix-darwin/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager = {
+      url = "github:yevhenshymotiuk/home-manager/release-21.11";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # extra
-    # emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url =
+      "github:nix-community/emacs-overlay/9578b9dbce95d9077c2c9b4e06391985670b059c";
   };
 
   outputs = inputs@{ self, nixos, nixpkgs, darwin, home-manager, ... }:

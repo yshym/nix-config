@@ -10,13 +10,7 @@ with pkgs; {
       allowUnsupportedSystem = false;
       pulseaudio = true;
     };
-    overlays = [
-      (import (builtins.fetchTarball {
-        url =
-          "https://github.com/nix-community/emacs-overlay/archive/9578b9dbce95d9077c2c9b4e06391985670b059c.tar.gz";
-        sha256 = "0xw7c2sca0qw74faddq9q7289f98kc2yc51jnlk6nbgaddi7xscx";
-      }))
-    ];
+    overlays = [ inputs.emacs-overlay.overlay ];
   };
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
@@ -39,8 +33,6 @@ with pkgs; {
       enableSSHSupport = true;
     };
   };
-
-  services = { emacs.enable = true; };
 
   time.timeZone = "Europe/Kiev";
 }
