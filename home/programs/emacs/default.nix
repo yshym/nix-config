@@ -23,10 +23,7 @@ let
 in {
   config = mkIf cfg.enable {
     programs = {
-      emacs = {
-        package = emacsGcc;
-        extraPackages = epkgs: [ epkgs.vterm ];
-      };
+      emacs.package = emacsGcc;
       zsh = {
         envExtra = ''
           export PATH="$HOME/.emacs.d/bin:$PATH"
