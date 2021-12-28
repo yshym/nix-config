@@ -1,9 +1,10 @@
 { pkgs, lib, ... }:
 
 with pkgs; {
-  home.packages = [ zsh-completions zsh-powerlevel10k ];
-
-  home.file.".zsh_completions".source = ./completions;
+  home = {
+    file.".zsh_completions".source = ./completions;
+    packages = [ zsh-completions zsh-powerlevel10k ];
+  };
 
   programs.zsh = {
     enable = true;
@@ -87,8 +88,6 @@ with pkgs; {
     ];
     shellAliases = {
       du = "${pkgs.du-dust}/bin/dust";
-      golines = "golines -w -m 80";
-      gomodifytags = "gomodifytags -add-tags json -all -w -file";
       lsa = "ls -a";
       ll = "ls -l";
       lla = "ls -al";

@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.programs.zoxide;
-in {
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
+{
+  programs = {
+    zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    zsh.shellAliases.cd = "z";
   };
-
-  programs.zsh.shellAliases.cd = lib.mkIf cfg.enable "z";
 }

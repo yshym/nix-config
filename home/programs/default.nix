@@ -5,12 +5,12 @@
     ./alacritty
     ./asdf.nix
     ./bat.nix
-    ./crystal.nix
     ./direnv
     ./emacs
     ./exa.nix
     ./firefox
     ./git.nix
+    ./go.nix
     ./nodejs.nix
     ./prettier
     ./python
@@ -27,13 +27,11 @@
   ];
 
   programs = {
-    crystal.enable = false;
     emacs.enable = true;
     git = {
       enable = true;
       pager = "diff-so-fancy";
     };
-    go.enable = true;
     nodejs = {
       enable = true;
       yarn.enable = true;
