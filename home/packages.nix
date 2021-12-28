@@ -18,55 +18,33 @@
       cachix
       caddy
       cmake
-      dart
-      # deno
       editorconfig-core-c
       elixir
       erlang
       exercism
       gawk
       gdb
-      ghc
       gitAndTools.git-hub
-      gitAndTools.gh
-      glib
-      gnupg
       gobject-introspection
-      gofumpt
       imagemagick
-      ix
       jq
       kubectl
-      libpng
-      libpqxx
-      lld_10
       lua
       luaPackages.lua-lsp
       minikube
       myTexlive
       nasm
-      nim
-      # octave
       openmpi
-      pipenv
-      pkg-config
       plantuml
-      protobuf
       redis
       rnix-lsp
-      ruby
       sass
-      shellcheck
-      shfmt
       unrar
       unzip
-      wakatime
 
       # nix stuff
       # comma
-      fd
       nixfmt
-      nix-index
       nix-prefetch-github
       nixpkgs-fmt
       nixpkgs-review
@@ -77,25 +55,16 @@
       pandoc
 
       # other ART (Awesome Rust Tools)
-      diskus
-      du-dust
       fd
-      ffsend
       hexyl
       hyperfine
-      just
-      lsd
       pastel
-      ruplacer
-      sd
       tealdeer
       tokei
-      xsv
 
       # communication
       isync
       mu
-      offlineimap
       protonmail-bridge
       tmate
 
@@ -118,7 +87,6 @@
       telnet
 
       # entertainment
-      epr
       mpv
       # portaudio
       # spotifyd
@@ -128,7 +96,6 @@
       youtube-dl
 
       # my stuff
-      navi
       termdown
       translate-shell
     ];
