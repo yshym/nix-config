@@ -95,7 +95,7 @@ in {
         seat = {
           "seat0" = {
             hide_cursor = "3000";
-            xcursor_theme = "Bibata_Oil 20";
+            xcursor_theme = "Bibata-Modern-Classic 20";
           };
         };
 
@@ -220,6 +220,7 @@ in {
       packages = with pkgs;
         lib.mkIf cfg.enable [
           # supporting libraries
+          glib
           libnotify
           qt5.qtwayland
 

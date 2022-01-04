@@ -13,7 +13,7 @@ with pkgs; {
     };
     font = { name = "Fira Code"; size = 8; };
     gtk3.extraConfig = {
-      gtk-cursor-theme-name = "Bibata_Oil";
+      gtk-cursor-theme-name = "Bibata-Modern-Classic";
       gtk-cursor-theme-size = 20;
     };
   };
