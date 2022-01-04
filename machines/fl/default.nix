@@ -30,7 +30,6 @@
       alsa.enable = true;
       pulse.enable = true;
     };
-    transmission.enable = true;
   };
 
   sound.enable = true;

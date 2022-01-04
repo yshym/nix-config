@@ -87,12 +87,12 @@
       telnet
 
       # entertainment
+      aria2
       mpv
       # portaudio
       # spotifyd
       spotify-tui
       streamlink
-      transmission
       youtube-dl
 
       # my stuff
