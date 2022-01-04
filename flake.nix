@@ -15,8 +15,7 @@
     };
 
     # extra
-    emacs-overlay.url =
-      "github:nix-community/emacs-overlay/9578b9dbce95d9077c2c9b4e06391985670b059c";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = inputs@{ self, nixos, nixpkgs, darwin, home-manager, ... }:
