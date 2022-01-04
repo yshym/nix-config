@@ -9,3 +9,4 @@
 (package! ansi-color)
 (package! undo-tree)
 (package! verb)
+(package! elisp-format)
