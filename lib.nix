@@ -21,7 +21,11 @@ rec {
             inherit inputs;
             pkgs = mkPkgs system;
           })
-          (./machines + "/${host}")
+          (import (./machines + "/${host}") {
+            inherit inputs;
+            inherit lib;
+            pkgs = mkPkgs system;
+          })
         ];
       };
 }

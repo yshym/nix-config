@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 
 {
   imports = [ ../../platforms/nixos ./hardware.nix ./home ];
@@ -12,8 +12,11 @@
     };
   };
 
-  nixpkgs.overlays =
-    [ (import ./overlays/wluma) (import ./overlays/nix-direnv.nix) ];
+  nixpkgs.overlays = [
+    (import ./overlays/wluma)
+    (import ./overlays/nix-direnv.nix)
+    (import ./overlays/telegram.nix { inherit inputs; })
+  ];
 
   networking = { hostName = "fl"; };
 

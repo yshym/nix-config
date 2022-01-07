@@ -89,13 +89,30 @@
         "type": "github"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1641589123,
+        "narHash": "sha256-NeMZ8eKEG6pyZtA54dAlEiDvuZEovzNPhmzH7MbB7kY=",
+        "owner": "yevhenshymotiuk",
+        "repo": "nixpkgs",
+        "rev": "9332bdf076539606d54741ebda67d4c286e4702d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yevhenshymotiuk",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "darwin": "darwin",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "nixos": "nixos",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-unstable": "nixpkgs-unstable"
       }
     }
   },
