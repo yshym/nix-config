@@ -7,25 +7,20 @@ rec {
       inherit system;
     };
   mkHost = host: system:
-    with mkPkgs system;
+    let pkgs = mkPkgs system;
+    in with pkgs;
     (if isDarwin system then
       inputs.darwin.lib.darwinSystem
     else
       inputs.nixos.lib.nixosSystem) {
         system = system;
-        modules = [
+        modules = let config = (import ./. { inherit inputs pkgs; });
+        in [
           inputs.home-manager."${
             if isDarwin system then "darwin" else "nixos"
           }Modules".home-manager
-          (import ./. {
-            inherit inputs;
-            pkgs = mkPkgs system;
-          })
-          (import (./machines + "/${host}") {
-            inherit inputs;
-            inherit lib;
-            pkgs = mkPkgs system;
-          })
+          config
+          (import (./machines + "/${host}") { inherit inputs config lib pkgs; })
         ];
       };
 }
