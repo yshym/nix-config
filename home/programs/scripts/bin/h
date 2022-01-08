@@ -7,6 +7,7 @@ import functools
 import inspect
 import os
 import platform
+import re
 import subprocess
 from collections import defaultdict
 from typing import List
@@ -20,33 +21,29 @@ SYSTEM_PROFILE = "/nix/var/nix/profiles/system"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
 
-def command(aliases=[]):
+_commands = set()
+_command_aliases = {}
+_actions = defaultdict(set)
+_action_aliases = defaultdict(dict)
+
+
+def command(aliases=None):
     """Make function a cli command"""
 
     def decorator_command(command_func):
-        global _commands, _command_aliases
-        if not "_commands" in globals():
-            _commands = set()
-        if not "_command_aliases" in globals():
-            _command_aliases = {}
         command_name = command_func.__name__
         _commands.add(command_name)
-        for alias in aliases:
-            _command_aliases[alias] = command_name
+        while aliases:
+            _command_aliases[aliases.pop()] = command_name
 
-        def action(aliases):
+        def action(aliases=None):
             """Make function an action of a cli command"""
 
             def decorator_action(action_func):
-                global _actions, _action_aliases
-                if not "_actions" in globals():
-                    _actions = defaultdict(set)
-                if not "_action_aliases" in globals():
-                    _action_aliases = defaultdict(dict)
                 _, action_name = action_func.__name__.split("_")
                 _actions[command_name].add(action_name)
-                for alias in aliases:
-                    _action_aliases[command_name][alias] = action_name
+                while aliases:
+                    _action_aliases[command_name][aliases.pop()] = action_name
 
                 @functools.wraps(action_func)
                 def wrapper(*args, **kwargs):
@@ -71,70 +68,81 @@ class CommandNotExists(Exception):
     pass
 
 
-def aliases_from_command(command):
-    return [al for al, com in _command_aliases.items() if com == command]
+def aliases_from_command(command_):
+    return [al for al, com in _command_aliases.items() if com == command_]
 
 
-def aliases_from_action(command, action):
-    return [al for al, ac in _action_aliases[command].items() if ac == action]
+def aliases_from_action(command_, action):
+    return [al for al, ac in _action_aliases[command_].items() if ac == action]
 
 
 def command_forwards_arguments(f):
     return str(inspect.signature(f)) in {"(*args)", "(*args, *kwargs)"}
 
 
-def is_command(command):
-    return command in _commands
+def is_command(command_):
+    return command_ in _commands
 
 
 def follow_aliases(func):
     """Substitute aliases with commands or actions"""
 
     @functools.wraps(func)
-    def wrapper(command, args, *pargs):
-        if command not in _commands and command not in _command_aliases:
+    def wrapper(command_, args, *pargs):
+        if command_ not in _commands and command_ not in _command_aliases:
             raise CommandNotExists("command does not exist")
-        command = _command_aliases.get(command, command)
+        command_ = _command_aliases.get(command_, command_)
         if "action" in args:
             args.action = (
-                _action_aliases.get(command).get(args.action) or args.action
+                _action_aliases.get(command_).get(args.action) or args.action
             )
-        return func(command, args, *pargs)
+        return func(command_, args, *pargs)
 
     return wrapper
 
 
 @follow_aliases
-def execute_command(command, args, unknown):
+def execute_command(command_, args, unknown):
     action = None
     if "action" in args:
         action = args.action
         del args.action
-    function_name = f"{command}_{action}" if action else command
+    function_name = f"{command_}_{action}" if action else command_
     command_function = (
-        globals()[function_name] if command in _commands else None
+        globals()[function_name] if command_ in _commands else None
     )
     pargs = unknown if command_forwards_arguments(command_function) else []
     return command_function(*pargs, **vars(args))
 
 
-def add_parser(subparsers, name, command=None):
+def add_parser(subparsers, name, command_=None):
     aliases = (
-        aliases_from_action(command, name)
-        if command
+        aliases_from_action(command_, name)
+        if command_
         else aliases_from_command(name)
     )
-    function_name = f"{command}_{name}" if command else name
+    function_name = f"{command_}_{name}" if command_ else name
     if function_name not in globals():
         raise NameError(f"function '{function_name}' is not defined")
-    return subparsers.add_parser(
-        name, aliases=aliases, help=globals()[function_name].__doc__
-    )
+    doc = globals()[function_name].__doc__
+    help_ = doc.split("\n\n", maxsplit=1)[0].strip() if doc else None
+    return subparsers.add_parser(name, aliases=aliases, help=help_)
 
 
-def function_args_to_cli_args(name: str, command=None):
+def parameter_docs(func):
+    if not func.__doc__:
+        return {}
+    docs = re.split(r"-+", func.__doc__)
+    if len(docs) < 2:
+        return {}
+    doc = docs[1]
+    param_docs = re.findall(r"(?P<name>\w+)\n\s*(?P<doc>.+)\n", doc)
+    return dict(param_docs)
+
+
+def function_args_to_cli_args(name: str, command_=None):
     cli_arguments = []
-    func = globals()[f"{command}_{name}"] if command else globals()[name]
+    func = globals()[f"{command_}_{name}"] if command_ else globals()[name]
     fullargspec = inspect.getfullargspec(
         func.__dict__.get("__wrapped__", func)
     )
@@ -152,55 +160,47 @@ def function_args_to_cli_args(name: str, command=None):
         )
         if cli_argument["default"]:
             cli_argument["nargs"] = "?"
+        cli_argument["help"] = parameter_docs(func).get(arg)
         cli_arguments.append(cli_argument)
     return cli_arguments
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Nix helper")
+    if not _commands:
+        return parser.parse_known_args()
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
     )
-    command_argument_help_strings = {
-        "search": {"package": "package name"},
-        "shell": {"packages": "package names"},
-    }
-    action_argument_help_strings = {
-        "generations": {"remove": {"generations": "generations to remove"}}
-    }
-    for command in _commands:
-        subparser_command = add_parser(subparsers, command)
-        for command_argument in function_args_to_cli_args(command):
+    for command_ in _commands:
+        subparser_command = add_parser(subparsers, command_)
+        for command_argument in function_args_to_cli_args(command_):
             name = command_argument.pop("name")
-            command_argument["help"] = command_argument_help_strings.get(
-                command, {}
-            ).get(name)
             subparser_command.add_argument(name, **command_argument)
-        if "_actions" not in globals() or not _actions[command]:
+        if not _actions[command_]:
             continue
         subparsers_command_actions = subparser_command.add_subparsers(
             dest="action", help="action to do", required=True
         )
-        for action in _actions[command]:
+        for action in _actions[command_]:
             subparser_action = add_parser(
-                subparsers_command_actions, action, command
+                subparsers_command_actions, action, command_
             )
             for action_argument in function_args_to_cli_args(
-                action, command=command
+                action, command_=command_
             ):
                 name = action_argument.pop("name")
-                action_argument["help"] = action_argument_help_strings[
-                    command
-                ][action][name]
                 subparser_action.add_argument(name, **action_argument)
     return parser.parse_known_args()
 
 
 def cli():
     args, unknown = parse_args()
-    command = args.command
+    if "command" not in args:
+        return None
+    command_ = args.command
     del args.command
-    return execute_command(command, args, unknown)
+    return execute_command(command_, args, unknown)
 
 
 @command(["b"])
@@ -237,12 +237,19 @@ def generations_list():
 
 
 @generations.action(["rm"])
-def generations_remove(generations: List[str]):
-    """Remove generations"""
+def generations_remove(generations_: List[str]):
+    """
+    Remove generations
+
+    Parameters
+    ----------
+    generations
+        generations to remove
+    """
     return subprocess.run(
         (["sudo"] if OS == "Linux" else [])
         + ["nix-env", "--delete-generations"]
-        + generations
+        + generations_
         + ["--profile", SYSTEM_PROFILE],
         check=False,
     )
@@ -262,13 +269,27 @@ def rebuild(*args):
 
 @command(["s"])
 def search(package: str):
-    """Search nixpkgs for a package"""
+    """
+    Search nixpkgs for a package
+
+    Parameters
+    ----------
+    package
+        package name
+    """
     return subprocess.run(["nix", "search", "nixpkgs", package], check=False)
 
 
 @command(["sh"])
 def shell(packages: List[str]):
-    """Run a shell in which the specified packages are available"""
+    """
+    Run a shell in which the specified packages are available
+
+    Parameters
+    ----------
+    packages
+        package names
+    """
     packages = [f"nixpkgs#{p}" for p in list(packages)]
     return subprocess.run(["nix", "shell"] + packages, check=False)
 
