@@ -4,87 +4,67 @@
 
 import argparse
 import functools
+import inspect
 import os
 import platform
 import subprocess
+from collections import defaultdict
+from typing import List
+
 
 HOME = os.getenv("HOME")
 HOST = platform.node()
 OS = platform.system()
 FLAKE_PATH = f"{HOME}/.nixpkgs" if OS == "Darwin" else "/etc/nixos"
+SYSTEM_PROFILE = "/nix/var/nix/profiles/system"
 NIXOS_REBUILD = ("darwin" if OS == "Darwin" else "nixos") + "-rebuild"
 
-COMMANDS = {
-    "build",
-    "check",
-    "generations",
-    "rebuild",
-    "search",
-    "shell",
-    "update",
-}
-COMMANDS_WITH_FORWARDED_ARGUMENTS = {"build", "shell", "rebuild", "update"}
-COMMAND_ALIASES = {
-    "b": "build",
-    "c": "check",
-    "g": "generations",
-    "rb": "rebuild",
-    "s": "search",
-    "sh": "shell",
-    "u": "update",
-}
-ACTION_ALIASES = {"generations": {"ls": "list", "rm": "remove"}}
 
+def command(aliases=[]):
+    """Make function a cli command"""
 
-def build(*args):
-    """Build a Nix expression"""
-    options = list(args)
-    return subprocess.run(["nix-build"] + options, check=False)
+    def decorator_command(command_func):
+        global _commands, _command_aliases
+        if not "_commands" in globals():
+            _commands = set()
+        if not "_command_aliases" in globals():
+            _command_aliases = {}
+        command_name = command_func.__name__
+        _commands.add(command_name)
+        for alias in aliases:
+            _command_aliases[alias] = command_name
 
+        def action(aliases):
+            """Make function an action of a cli command"""
 
-def check():
-    """Check whether the flake evaluates and run its tests"""
-    return subprocess.run(["nix", "flake", "check"], check=False)
+            def decorator_action(action_func):
+                global _actions, _action_aliases
+                if not "_actions" in globals():
+                    _actions = defaultdict(set)
+                if not "_action_aliases" in globals():
+                    _action_aliases = defaultdict(dict)
+                _, action_name = action_func.__name__.split("_")
+                _actions[command_name].add(action_name)
+                for alias in aliases:
+                    _action_aliases[command_name][alias] = action_name
 
+                @functools.wraps(action_func)
+                def wrapper(*args, **kwargs):
+                    action_func(*args, **kwargs)
 
-def generations_list():
-    """List generations"""
-    return subprocess.run(["nix-env", "--list-generations"], check=False)
+                return wrapper
 
+            return decorator_action
 
-def generations_remove(generations):
-    """Remove generations"""
-    return subprocess.run(
-        ["nix-env", "--delete-generations", generations], check=False
-    )
+        command_func.action = action
 
+        @functools.wraps(command_func)
+        def wrapper(*args, **kwargs):
+            return command_func(*args, **kwargs)
 
-def rebuild(*args):
-    """Rebuild the current system's flake"""
-    options = list(args)
-    return subprocess.run(
-        (["sudo"] if OS == "Linux" else [])
-        + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
-        + options,
-        check=False,
-    )
+        return wrapper
 
-
-def search(package):
-    """Search nixpkgs for a package"""
-    return subprocess.run(["nix", "search", "nixpkgs", package], check=False)
-
-
-def shell(*args):
-    """Run a shell in which the specified packages are available"""
-    options = list(args)
-    return subprocess.run(["nix", "shell"] + options, check=False)
-
-
-def update(*args):
-    """Update flake lock file"""
-    options = list(args)
-    return subprocess.run(["nix", "flake", "update"] + options, check=False)
+    return decorator_command
 
 
 class CommandNotExists(Exception):
@@ -92,11 +72,19 @@ class CommandNotExists(Exception):
 
 
 def aliases_from_command(command):
-    return [al for al, com in COMMAND_ALIASES.items() if com == command]
+    return [al for al, com in _command_aliases.items() if com == command]
 
 
 def aliases_from_action(command, action):
-    return [al for al, ac in ACTION_ALIASES[command].items() if ac == action]
+    return [al for al, ac in _action_aliases[command].items() if ac == action]
+
+
+def command_forwards_arguments(f):
+    return str(inspect.signature(f)) in {"(*args)", "(*args, *kwargs)"}
+
+
+def is_command(command):
+    return command in _commands
 
 
 def follow_aliases(func):
@@ -104,12 +92,12 @@ def follow_aliases(func):
 
     @functools.wraps(func)
     def wrapper(command, args, *pargs):
-        if command not in COMMANDS and command not in COMMAND_ALIASES:
+        if command not in _commands and command not in _command_aliases:
             raise CommandNotExists("command does not exist")
-        command = COMMAND_ALIASES.get(command) or command
+        command = _command_aliases.get(command, command)
         if "action" in args:
             args.action = (
-                ACTION_ALIASES.get(command).get(args.action) or args.action
+                _action_aliases.get(command).get(args.action) or args.action
             )
         return func(command, args, *pargs)
 
@@ -124,9 +112,9 @@ def execute_command(command, args, unknown):
         del args.action
     function_name = f"{command}_{action}" if action else command
     command_function = (
-        globals()[function_name] if command in COMMANDS else None
+        globals()[function_name] if command in _commands else None
     )
-    pargs = unknown if command in COMMANDS_WITH_FORWARDED_ARGUMENTS else []
+    pargs = unknown if command_forwards_arguments(command_function) else []
     return command_function(*pargs, **vars(args))
 
 
@@ -144,46 +132,67 @@ def add_parser(subparsers, name, command=None):
     )
 
 
+def function_args_to_cli_args(name: str, command=None):
+    cli_arguments = []
+    func = globals()[f"{command}_{name}"] if command else globals()[name]
+    fullargspec = inspect.getfullargspec(
+        func.__dict__.get("__wrapped__", func)
+    )
+    defaults = fullargspec.defaults
+    for i, arg in enumerate(fullargspec.args):
+        cli_argument = {}
+        cli_argument["name"] = arg
+        type_ = fullargspec.annotations.get(arg, str)
+        if hasattr(type_, "__origin__") and type_.__origin__ is list:
+            type_ = type_.__args__[0]
+            cli_argument["nargs"] = "+"
+        cli_argument["type"] = type_
+        cli_argument["default"] = (
+            defaults[i] if defaults and i < len(defaults) else None
+        )
+        if cli_argument["default"]:
+            cli_argument["nargs"] = "?"
+        cli_arguments.append(cli_argument)
+    return cli_arguments
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="Nix helper")
-    # h <command>
     subparsers = parser.add_subparsers(
         dest="command", help="command to execute", required=True
     )
-    # h build
-    add_parser(subparsers, "build")
-    # h check
-    add_parser(subparsers, "check")
-    # h generations
-    subparser_generations = subparsers.add_parser(
-        "generations",
-        aliases=aliases_from_command("generations"),
-        help="Explore, manage generations",
-    )
-    # h generations <action>
-    subparsers_generations_actions = subparser_generations.add_subparsers(
-        dest="action", help="action to do", required=True
-    )
-    # h generations list
-    add_parser(subparsers_generations_actions, "list", "generations")
-    # h generations remove
-    subparser_generations_actions_remove = add_parser(
-        subparsers_generations_actions, "remove", "generations"
-    )
-    # h generations remove <generations>
-    subparser_generations_actions_remove.add_argument(
-        "generations", help="generations to remove", type=str
-    )
-    # h rebuild
-    add_parser(subparsers, "rebuild")
-    # h search
-    subparser_search = add_parser(subparsers, "search")
-    # h search <package>
-    subparser_search.add_argument("package", type=str, help="package name")
-    # h shell
-    add_parser(subparsers, "shell")
-    # h update
-    add_parser(subparsers, "update")
+    command_argument_help_strings = {
+        "search": {"package": "package name"},
+        "shell": {"packages": "package names"},
+    }
+    action_argument_help_strings = {
+        "generations": {"remove": {"generations": "generations to remove"}}
+    }
+    for command in _commands:
+        subparser_command = add_parser(subparsers, command)
+        for command_argument in function_args_to_cli_args(command):
+            name = command_argument.pop("name")
+            command_argument["help"] = command_argument_help_strings.get(
+                command, {}
+            ).get(name)
+            subparser_command.add_argument(name, **command_argument)
+        if "_actions" not in globals() or not _actions[command]:
+            continue
+        subparsers_command_actions = subparser_command.add_subparsers(
+            dest="action", help="action to do", required=True
+        )
+        for action in _actions[command]:
+            subparser_action = add_parser(
+                subparsers_command_actions, action, command
+            )
+            for action_argument in function_args_to_cli_args(
+                action, command=command
+            ):
+                name = action_argument.pop("name")
+                action_argument["help"] = action_argument_help_strings[
+                    command
+                ][action][name]
+                subparser_action.add_argument(name, **action_argument)
     return parser.parse_known_args()
 
 
@@ -192,6 +201,83 @@ def cli():
     command = args.command
     del args.command
     return execute_command(command, args, unknown)
+
+
+@command(["b"])
+def build(*args):
+    """Build a Nix expression"""
+    options = list(args)
+    return subprocess.run(["nix-build"] + options, check=False)
+
+
+@command(["c"])
+def check():
+    """Check whether the flake evaluates and run its tests"""
+    return subprocess.run(["nix", "flake", "check"], check=False)
+
+
+@command(["g"])
+def generations():
+    """Explore, manage generations"""
+
+
+@generations.action(["ls"])
+def generations_list():
+    """List generations"""
+    return subprocess.run(
+        (["sudo"] if OS == "Linux" else [])
+        + [
+            "nix-env",
+            "--list-generations",
+            "--profile",
+            SYSTEM_PROFILE,
+        ],
+        check=False,
+    )
+
+
+@generations.action(["rm"])
+def generations_remove(generations: List[str]):
+    """Remove generations"""
+    return subprocess.run(
+        (["sudo"] if OS == "Linux" else [])
+        + ["nix-env", "--delete-generations"]
+        + generations
+        + ["--profile", SYSTEM_PROFILE],
+        check=False,
+    )
+
+
+@command(["rb"])
+def rebuild(*args):
+    """Rebuild the current system's flake"""
+    options = list(args)
+    return subprocess.run(
+        (["sudo"] if OS == "Linux" else [])
+        + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
+        + options,
+        check=False,
+    )
+
+
+@command(["s"])
+def search(package: str):
+    """Search nixpkgs for a package"""
+    return subprocess.run(["nix", "search", "nixpkgs", package], check=False)
+
+
+@command(["sh"])
+def shell(packages: List[str]):
+    """Run a shell in which the specified packages are available"""
+    packages = [f"nixpkgs#{p}" for p in list(packages)]
+    return subprocess.run(["nix", "shell"] + packages, check=False)
+
+
+@command(["u"])
+def update(*args):
+    """Update flake lock file"""
+    options = list(args)
+    return subprocess.run(["nix", "flake", "update"] + options, check=False)
 
 
 if __name__ == "__main__":
