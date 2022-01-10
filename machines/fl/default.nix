@@ -12,18 +12,21 @@
     };
   };
 
-  nixpkgs.overlays = [
-    (import ./overlays/wluma)
-    (import ./overlays/nix-direnv.nix)
-    (import ./overlays/telegram.nix { inherit inputs; })
-  ];
+  nixpkgs = {
+    config = {
+      chromium.commandLineArgs =
+        "--enable-features=UseOzonePlatform --ozone-platform=wayland --force-dark-mode";
+    };
+    overlays = [
+      (import ./overlays/wluma)
+      (import ./overlays/nix-direnv.nix)
+      (import ./overlays/telegram.nix { inherit inputs; })
+    ];
+  };
 
   networking = { hostName = "fl"; };
 
-  programs = {
-    gnupg.agent.pinentryFlavor = "curses";
-    light.enable = true;
-  };
+  programs = { light.enable = true; };
 
   services = {
     fprintd.enable = true;

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./mako ./telegram ./waybar ./wluma ./wofi ];
+  imports = [ ./chromium.nix ./mako ./telegram ./waybar ./wluma ./wofi ];
 
   programs = {
     firefox.package = pkgs.firefox-wayland;
