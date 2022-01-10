@@ -23,7 +23,6 @@
 
       programs = {
         git.enable = true;
-        gpg.enable = true;
         tmux.enable = true;
       };
     };

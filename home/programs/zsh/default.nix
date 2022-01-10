@@ -5,10 +5,6 @@ with pkgs; {
     enable = true;
     enableCompletion = false;
     autocd = true;
-    loginExtra = lib.optionalString stdenv.isLinux ''
-      ssh-add $HOME/.ssh/id_ed25519 &> /dev/null
-      export GPG_TTY=$(tty)
-    '';
     initExtra = ''
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
@@ -45,6 +41,7 @@ with pkgs; {
       export NIX_PATH="$HOME/.nix-defexpr/channels"
       ${lib.optionalString stdenv.isDarwin ''
         export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
+      export GPG_TTY="$(tty)"
     '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions

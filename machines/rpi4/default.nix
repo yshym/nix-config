@@ -43,8 +43,6 @@ in {
       lib.optionals config.services.hostapd.enable [ 5367 ];
   };
 
-  programs = { gnupg.agent.pinentryFlavor = "curses"; };
-
   security = {
     acme = {
       acceptTerms = false;
