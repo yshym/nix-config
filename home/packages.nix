@@ -74,8 +74,6 @@
       speedtest-cli
 
       # passwords & security
-      gopass
-      pass
       pinentry
 
       # net & cloud tools
@@ -88,6 +86,7 @@
 
       # entertainment
       aria2
+      chatterino2
       mpv
       # portaudio
       # spotifyd

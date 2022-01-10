@@ -12,6 +12,7 @@
     ./git.nix
     ./go.nix
     ./nodejs.nix
+    ./password-store.nix
     ./prettier
     ./python
     ./ranger
@@ -43,6 +44,7 @@
       mypy.enable = true;
       pipx.enable = true;
       pylint.enable = true;
+      extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
     ruby = {
       enable = false;
