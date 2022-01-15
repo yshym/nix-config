@@ -68,20 +68,19 @@ in {
     };
     spotifyd = {
       enable = true;
-      config = ''
-        [global]
-        backend = "pulseaudio"
-        bitrate = 320
-        device_name = "rpi4"
-        device_type = "speaker"
-        initial_volume = "50"
-        mixer = "PCM"
-        password_cmd = "pass Spotify/31ar6mmjcalpg3e76aifbrzs55bi"
-        use_keyring = true
-        username = "31ar6mmjcalpg3e76aifbrzs55bi"
-        volume_controller = "softvol"
-        volume_normalization = false
-      '';
+      settings.global = {
+        backend = "pulseaudio";
+        bitrate = 320;
+        device_name = "rpi4";
+        device_type = "speaker";
+        initial_volume = "50";
+        mixer = "PCM";
+        password_cmd = "pass Spotify/31ar6mmjcalpg3e76aifbrzs55bi";
+        use_keyring = true;
+        username = "31ar6mmjcalpg3e76aifbrzs55bi";
+        volume_controller = "softvol";
+        volume_normalization = false;
+      };
     };
     nginx = {
       enable = false;
