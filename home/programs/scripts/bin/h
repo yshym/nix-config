@@ -153,10 +153,9 @@ class CLI:
                 type_ = type_.__args__[0]
                 argument["nargs"] = "+"
             argument["type"] = type_
-            argument["default"] = (
-                defaults[i] if defaults and i < len(defaults) else None
-            )
-            if argument["default"]:
+            has_default_value = defaults is not None and i < len(defaults)
+            argument["default"] = defaults[i] if has_default_value else None
+            if has_default_value:
                 argument["nargs"] = "?"
             argument["help"] = self.parameter_docs(func).get(arg)
             arguments.append(argument)
@@ -210,9 +209,18 @@ def build(*args):
 
 
 @app.command(["c"])
-def check():
-    """Check whether the flake evaluates and run its tests"""
-    return subprocess.run(["nix", "flake", "check"], check=False)
+def check(path=None):
+    """
+    Check whether the flake evaluates and run its tests
+
+    Parameters
+    ----------
+    path
+        path to a flake
+    """
+    return subprocess.run(
+        ["nix", "flake", "check", path or FLAKE_PATH], check=False
+    )
 
 
 @app.command(["g"])
