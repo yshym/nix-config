@@ -13,7 +13,7 @@ in {
     zsh.sessionVariables.BROWSER = "firefox";
   };
 
-  home.file.".mozilla/native-messaging-hosts/passff.json".source =
+  home.file.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".source =
     lib.mkIf cfg.enable
-    "${pkgs.passff-host}/lib/mozilla/native-messaging-hosts/passff.json";
+    "${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
 }
