@@ -92,8 +92,7 @@
       (projectile-project-root)
       (- (length (projectile-project-root)) 1)
       " ")
-     (buffer-file-name))))
-  (revert-buffer))
+     (buffer-file-name)))))
 
 (defun set-pylint-executable ()
   "Set pylint executable based on venv path."
