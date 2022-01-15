@@ -13,14 +13,14 @@ rec {
       inputs.darwin.lib.darwinSystem
     else
       inputs.nixos.lib.nixosSystem) {
-        system = system;
-        modules = let config = (import ./. { inherit inputs pkgs; });
-        in [
+        inherit system;
+        specialArgs = { inherit lib inputs; };
+        modules = [
           inputs.home-manager."${
             if isDarwin system then "darwin" else "nixos"
           }Modules".home-manager
-          config
-          (import (./machines + "/${host}") { inherit inputs config lib pkgs; })
+          ./.
+          (./machines + "/${host}")
         ];
       };
 }
