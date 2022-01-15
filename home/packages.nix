@@ -90,7 +90,6 @@
       mpv
       # portaudio
       # spotifyd
-      spotify-tui
       streamlink
       youtube-dl
 

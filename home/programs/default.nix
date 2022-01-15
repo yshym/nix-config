@@ -20,6 +20,7 @@
     ./ruby.nix
     ./rust
     ./scripts
+    ./spotify
     ./topgrade
     ./vim.nix
     ./zathura.nix
