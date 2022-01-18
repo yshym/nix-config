@@ -5,5 +5,7 @@
     # media
     pavucontrol
     playerctl
+
+    sortdir
   ];
 }

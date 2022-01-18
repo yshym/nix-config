@@ -18,9 +18,10 @@
         "--enable-features=UseOzonePlatform --ozone-platform=wayland --force-dark-mode";
     };
     overlays = [
-      (import ./overlays/wluma)
       (import ./overlays/nix-direnv.nix)
+      (import ./overlays/sortdir)
       (import ./overlays/telegram.nix { inherit inputs; })
+      (import ./overlays/wluma)
     ];
   };
 
