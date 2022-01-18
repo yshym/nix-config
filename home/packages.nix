@@ -74,6 +74,7 @@
       speedtest-cli
 
       # passwords & security
+      openssl
       pinentry
 
       # net & cloud tools

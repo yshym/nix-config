@@ -5,7 +5,7 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     users.yevhenshymotiuk = { pkgs, ... }: {
-      imports = [ ./packages.nix ./programs ];
+      imports = [ ./accounts ./packages.nix ./programs ];
       home.stateVersion = "21.11";
     };
   };

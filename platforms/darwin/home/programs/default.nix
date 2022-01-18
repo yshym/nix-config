@@ -4,7 +4,6 @@
   imports = [
     # ./brave
     # ./hammerspoon
-    ./mbsync
     ./scripts
     ./spotify
     ./telegram

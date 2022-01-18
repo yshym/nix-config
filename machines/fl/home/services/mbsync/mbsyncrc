@@ -1,33 +1,17 @@
+# Gmail
 IMAPAccount gmail
 Host imap.gmail.com
 User yevhenshymotiuk@gmail.com
-PassCmd "pass Gmail/App/yevhenshymotiuk@gmail.com"
+PassCmd "pass google.com/yevhenshymotiuk@gmail.com/mail-fl"
 SSLType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
-
-IMAPAccount protonmail
-Host 127.0.0.1
-Port 1143
-User yevhenshymotiuk@pm.me
-PassCmd "pass Proton/Mail/Bridge/yevhenshymotiuk@pm.me"
-SSLType STARTTLS
-SSLVersions TLSv1.2
-CertificateFile ~/.config/protonmail/bridge/cert-imap.pem
 
 IMAPStore gmail-remote
 Account gmail
 
-IMAPStore protonmail-remote
-Account protonmail
-
 MaildirStore gmail-local
 Path ~/.mail/gmail/
 Inbox ~/.mail/gmail/Inbox
-Subfolders Verbatim
-
-MaildirStore protonmail-local
-Path ~/.mail/protonmail/
-Inbox ~/.mail/protonmail/Inbox
 Subfolders Verbatim
 
 Channel gmail-inbox
@@ -58,6 +42,31 @@ Create Both
 Expunge Both
 SyncState *
 
+Group gmail
+Channel gmail-inbox
+Channel gmail-sent
+Channel gmail-all
+Channel gmail-starred
+
+
+# Protonmail
+IMAPAccount protonmail
+Host 127.0.0.1
+Port 1143
+User yevhenshymotiuk@pm.me
+PassCmd "pass Proton/Mail/Bridge/yevhenshymotiuk"
+SSLType STARTTLS
+SSLVersions TLSv1.2
+CertificateFile ~/.config/protonmail/bridge/cert.pem
+
+IMAPStore protonmail-remote
+Account protonmail
+
+MaildirStore protonmail-local
+Path ~/.mail/protonmail/
+Inbox ~/.mail/protonmail/Inbox
+Subfolders Verbatim
+
 Channel protonmail-inbox
 Far :protonmail-remote:"INBOX"
 Near :protonmail-local:"inbox"
@@ -85,12 +94,6 @@ SyncState *
 # Create Both
 # Expunge Both
 # SyncState *
-
-Group gmail
-Channel gmail-inbox
-Channel gmail-sent
-Channel gmail-all
-Channel gmail-starred
 
 Group protonmail
 Channel protonmail-inbox
