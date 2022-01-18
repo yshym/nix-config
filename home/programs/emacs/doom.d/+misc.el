@@ -129,7 +129,10 @@ Prevents a series of redisplays from being called (when set to an appropriate va
                         (smtpmail-smtp-service  . 1025)
                         (user-mail-address      . "yevhenshymotiuk@pm.me"))
                       t)
-  (or (boundp 'gnutls-trustfiles) (setq gnu-trustfiles '()))
+  (let ((proton-bridge-cert "~/.config/protonmail/bridge/cert.pem"))
+    (if (boundp 'gnutls-trustfiles)
+        (add-to-list 'gnutls-trustfiles proton-bridge-cert)
+      (setq gnutls-trustfiles (list proton-bridge-cert))))
   (setq send-mail-function 'smtpmail-send-it
         mu4e-headers-fields '((:flags . 6)
                               (:account-stripe . 2)
