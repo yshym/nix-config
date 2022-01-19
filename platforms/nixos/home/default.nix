@@ -11,7 +11,7 @@
       hashedPassword =
         "$6$i3YXp5DMdXqRt$WjzYcieb8JAzGyL19GSXjKZ80/8zvNnPaVjAnvxoz.6xJRrxMlQghBoJ37d4j2muwmuFjNXYf4nquYqOhlZUz/";
       isNormalUser = true;
-      extraGroups = [ "audio" "sudo" "video" "wheel" ];
+      extraGroups = [ "audio" "i2c" "sudo" "video" "wheel" ];
       openssh.authorizedKeys.keyFiles = [ ./ssh/fl.pub ];
       shell = pkgs.zsh;
     };
