@@ -18,7 +18,7 @@ wget --no-check-certificate -O "$ICSFILE_PERSONAL" "$URL_PERSONAL"
 AUTHOR="Yevhen Shymotiuk" \
     EMAIL="yevhenshymotiuk@pm.me" \
     CALENDAR="personal" \
-    "$HOME/.local/bin/ical2org" < "$ICSFILE_PERSONAL" > "$ORGFILE_PERSONAL"
+    ical2org < "$ICSFILE_PERSONAL" > "$ORGFILE_PERSONAL"
 
 # AUTHOR="Yevhen Shymotiuk" \
 #     EMAIL="" \

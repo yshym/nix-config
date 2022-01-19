@@ -10,7 +10,7 @@ with pkgs; {
       allowUnsupportedSystem = false;
       pulseaudio = true;
     };
-    overlays = [ inputs.emacs-overlay.overlay ];
+    overlays = [ inputs.emacs-overlay.overlay (import ./overlays/ical2org) ];
   };
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
