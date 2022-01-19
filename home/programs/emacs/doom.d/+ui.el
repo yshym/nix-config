@@ -1,10 +1,16 @@
+;;; +ui.el --- UI
+
+;;; Commentary:
+
+;;; Code:
+
 ;; Font
 (setq doom-font (font-spec
                  :family "JetBrains Mono"
                  :size 12
                  :weight 'normal))
 (use-package doom-modeline
-  :hook (after-init . doom-modeline-mode)
+  :init (doom-modeline-mode 1)
   :config
   (set-face-attribute 'mode-line nil
                       :family "JetBrains Mono"
@@ -26,3 +32,9 @@
       evil-insert-state-cursor '(bar "DarkGoldenrod1")
       evil-visual-state-cursor '(hollow "DarkGoldenrod1")
       evil-operator-state-cursor '(evil-half-cursor "DarkGoldenrod1"))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+(provide '+ui)
+;;; +ui.el ends here

@@ -1,10 +1,8 @@
-;;; package --- Config
-;;;
+;;; config.el --- Config
+
 ;;; Commentary:
 ;;; Custom config
-;;;
-;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
-;;;
+
 ;;; Code:
 
 (load! "+bindings")
@@ -14,7 +12,7 @@
 (load! "+ui")
 
 ;; Local Variables:
-;; byte-compile-warnings: (not free-vars)
+;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
 (provide 'config)
 ;;; config.el ends here

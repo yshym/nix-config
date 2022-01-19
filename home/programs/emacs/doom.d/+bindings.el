@@ -41,3 +41,7 @@
       ;; :desc "Open mu4e" "M" 'mu4e
       :desc "Kill buffer" "b k" 'kill-this-buffer
       :desc "Sort lines" "l" 'sort-lines)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:

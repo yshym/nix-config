@@ -1,3 +1,6 @@
+(setq user-full-name "Yevhen Shymotiuk")
+
+
 ;; evil
 (global-undo-tree-mode)
 (evil-set-undo-system 'undo-tree)
@@ -63,7 +66,8 @@
     "Location of the reindex request, signaled by existance")
   (defvar mu4e-reindex-request-min-seperation 5.0
     "Don't refresh again until this many second have elapsed.
-Prevents a series of redisplays from being called (when set to an appropriate value)")
+Prevents a series of redisplays from being called (when set
+to an appropriate value)")
 
   (defvar mu4e-reindex-request--file-watcher nil)
   (defvar mu4e-reindex-request--file-just-deleted nil)
@@ -158,3 +162,7 @@ Prevents a series of redisplays from being called (when set to an appropriate va
 
 ;; twitter
 (setq twittering-allow-insecure-server-cert t)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:

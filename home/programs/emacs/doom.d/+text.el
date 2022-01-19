@@ -1,3 +1,9 @@
+;;; +text.el --- Text
+
+;;; Commentary:
+
+;;; Code:
+
 (setq org-directory "~/dev/org")
 
 
@@ -21,3 +27,9 @@
                ("DEADLINE:" . "")
                ("#+begin_src" . "«")
                ("#+end_src" . "»")))))
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
+(provide '+text)
+;;; +text.el ends here

@@ -1,12 +1,18 @@
 ;; -*- no-byte-compile: t; -*-
 ;;; ~/.doom.d/packages.el
 
-(package! direnv)
-(package! org-trello)
-(package! protobuf-mode)
-(package! poetry)
-(package! atomic-chrome)
 (package! ansi-color)
+(package! atomic-chrome)
+(package! direnv)
+(package! elisp-format)
+(package! org-trello)
+;; TODO Remove when relevant PR is merged
+(unpin! pdf-tools)
+(package! pdf-tools :recipe
+  (:host github
+   :repo "yevhenshymotiuk/pdf-tools"
+   :branch "nixos-without-nix-path"))
+(package! poetry)
+(package! protobuf-mode)
 (package! undo-tree)
 (package! verb)
-(package! elisp-format)

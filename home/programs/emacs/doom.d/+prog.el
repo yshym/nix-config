@@ -20,7 +20,6 @@
 
 (use-package! lsp-mode
   :commands lsp
-  :ensure t
   :diminish lsp-mode
   :hook
   (elixir-mode . 'lsp)
@@ -139,3 +138,7 @@
 ;; protobuf
 (add-hook 'protobuf-mode-hook 'display-line-numbers-mode)
 (add-hook 'protobuf-mode-hook 'hl-line-mode)
+
+;; Local Variables:
+;; byte-compile-warnings: (not free-vars unresolved)
+;; End:
