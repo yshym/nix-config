@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+channel="$1"
+channel_url="http://twitch.tv/$channel"
+workspace="$(swaymsg -t get_tree \
+    | jq -r 'recurse(.nodes[])
+        | select(.nodes[].focused == true)
+        | .name')"
+player_name () {
+    echo "$(swaymsg -t get_tree \
+        | jq -r \
+            --arg workspace "$workspace" \
+            --arg channel_url "$channel_url" \
+            '..
+            | (.nodes? // empty)[]
+            | select(.type == "workspace" and .name == $workspace)
+            | .nodes[]
+            | select(.name | match($channel_url))
+            | .name')"
+}
+
+run () {
+    # open player
+    streamlink --player mpv --twitch-disable-ads "$channel_url" best &> /dev/null &
+    # open chat
+    chatterino -c "$channel" &> /dev/null &
+    # wait for player window to open
+    until [[ "$(player_name)" == "$channel_url"* ]]; do sleep 1; done
+    swaymsg "move left"
+    swaymsg "resize grow right 50ppt"
+}
+run & disown
