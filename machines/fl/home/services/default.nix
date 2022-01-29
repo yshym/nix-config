@@ -5,6 +5,7 @@
     ./calendar-to-org.nix
     ./dropbox.nix
     ./imap.nix
+    ./imapnotify.nix
     ./mbsync
     ./kanshi
     ./redshift.nix
