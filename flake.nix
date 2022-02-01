@@ -3,16 +3,16 @@
 
   inputs = {
     # core
-    nixos.url = "github:yevhenshymotiuk/nixpkgs/nixos-21.11";
-    nixpkgs.url = "github:yevhenshymotiuk/nixpkgs/release-21.11";
-    nixos-unstable.url = "github:yevhenshymotiuk/nixpkgs/nixos-unstable";
-    nixpkgs-unstable.url = "github:yevhenshymotiuk/nixpkgs/nixpkgs-unstable";
+    nixos.url = "github:yshym/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
+    nixos-unstable.url = "github:yshym/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
-      url = "github:yevhenshymotiuk/nix-darwin/master";
+      url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yevhenshymotiuk/home-manager/release-21.11";
+      url = "github:yshym/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

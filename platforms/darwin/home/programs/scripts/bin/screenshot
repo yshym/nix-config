@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FILE="/Users/yevhenshymotiuk/screen.png"
+FILE="$HOME/screen.png"
 
 while getopts "s" opt; do
     case "$opt" in

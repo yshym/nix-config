@@ -9,13 +9,13 @@
       "locked": {
         "lastModified": 1634994402,
         "narHash": "sha256-xmlCVVOYGpZoxgOqsDOVF0B0ASrnbNGVAEzID9qh2xo=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "nix-darwin",
         "rev": "44da835ac40dab5fd231298b59d83487382d2fab",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "master",
         "repo": "nix-darwin",
         "type": "github"
@@ -45,13 +45,13 @@
       "locked": {
         "lastModified": 1637188941,
         "narHash": "sha256-4aA5iNVhSDbKjsPeG4n0SvfPQ3sd9ve23b05bVztSq4=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "home-manager",
         "rev": "d85bf67c48f5c64ca39d3d48375e742e16933f4f",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "release-21.11",
         "repo": "home-manager",
         "type": "github"
@@ -61,13 +61,13 @@
       "locked": {
         "lastModified": 1641244400,
         "narHash": "sha256-8i4oasWEz/2y9U+F1XU15jfwSbd5YOEBh2tyBBm/W8E=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "nixpkgs",
         "rev": "c6019d8efb5530dcf7ce98086b8e091be5ff900a",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "nixos-21.11",
         "repo": "nixpkgs",
         "type": "github"
@@ -77,13 +77,13 @@
       "locked": {
         "lastModified": 1642281915,
         "narHash": "sha256-jcMsXmmO1knyf99o242A+2cy1A0eKa9afly0cwBknPA=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "nixpkgs",
         "rev": "d5dae6569ea9952f1ae4e727946d93a71c507821",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
@@ -93,13 +93,13 @@
       "locked": {
         "lastModified": 1641271050,
         "narHash": "sha256-lSp/czUAdAjl//Cun8nz5LdAAb4e2xL4nzHp+BFngU8=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "nixpkgs",
         "rev": "e359d31cb93028a28ca1e595c2a5672ba6920808",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "release-21.11",
         "repo": "nixpkgs",
         "type": "github"
@@ -109,13 +109,13 @@
       "locked": {
         "lastModified": 1642603738,
         "narHash": "sha256-/cNWFaB2n4jgwnEXQBfc3ni8OVOLnLPxt/zss7c0cvQ=",
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "repo": "nixpkgs",
         "rev": "0c716a80efcd0745621a9c087b38bdeb13eab217",
         "type": "github"
       },
       "original": {
-        "owner": "yevhenshymotiuk",
+        "owner": "yshym",
         "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"

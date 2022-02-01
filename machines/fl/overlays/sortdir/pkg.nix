@@ -16,7 +16,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "Sorting directory files made easy.";
-    homepage = "https://github.com/yevhenshymotiuk/sortdir";
+    homepage = "https://github.com/yshym/sortdir";
     platforms = platforms.all;
     # watchdog is broken on x86_64-darwin
     broken = stdenv.isDarwin && !stdenv.isAarch64;

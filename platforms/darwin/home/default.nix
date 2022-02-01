@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 
-let me = "yevhenshymotiuk";
+let me = "yshym";
 in {
   users = {
     nix.configureBuildUsers = true;

@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  me = "yevhenshymotiuk";
+  me = "yshym";
   user = config.home-manager.users."${me}";
   home = user.home;
   homeManagerPath = home.path;

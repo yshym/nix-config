@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  me = "yevhenshymotiuk";
+  me = "yshym";
   home = config.home-manager.users."${me}".home;
   homeManagerPath = home.path;
   imapnotifyConfig =

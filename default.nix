@@ -20,7 +20,7 @@ with pkgs; {
 
   nix = {
     package = pkgs.nixFlakes;
-    trustedUsers = [ "root" "yevhenshymotiuk" ];
+    trustedUsers = [ "root" "yshym" ];
     useSandbox = true;
     extraOptions = ''
       experimental-features = nix-command flakes

@@ -4,7 +4,7 @@
   home-manager = {
     useUserPackages = true;
     useGlobalPkgs = true;
-    users.yevhenshymotiuk = { pkgs, ... }: {
+    users.yshym = { pkgs, ... }: {
       imports = [ ./accounts ./packages.nix ./programs ];
       home.stateVersion = "21.11";
     };

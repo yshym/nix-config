@@ -7,7 +7,7 @@ local stacklineConfig = {
         showIcons = false,
     },
     paths = {
-        jq = "/Users/yevhenshymotiuk/.nix-profile/bin/jq",
+        jq = "/Users/yshym/.nix-profile/bin/jq",
         yabai = "/run/current-system/sw/bin/yabai",
     },
 }

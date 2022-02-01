@@ -7,7 +7,7 @@
     # Disable ad-hoc user management.
     mutableUsers = false;
 
-    users.yevhenshymotiuk = {
+    users.yshym = {
       hashedPassword =
         "$6$i3YXp5DMdXqRt$WjzYcieb8JAzGyL19GSXjKZ80/8zvNnPaVjAnvxoz.6xJRrxMlQghBoJ37d4j2muwmuFjNXYf4nquYqOhlZUz/";
       isNormalUser = true;
@@ -18,7 +18,7 @@
   };
 
   home-manager = {
-    users.yevhenshymotiuk = { pkgs, ... }: {
+    users.yshym = { pkgs, ... }: {
       imports = [ ./packages.nix ./services ./programs ];
 
       programs = {

@@ -39,7 +39,7 @@ in {
         signByDefault = true;
       };
       userName = "Yevhen Shymotiuk";
-      userEmail = "yevhenshymotiuk@pm.me";
+      userEmail = "yshym@pm.me";
       extraConfig = {
         core.pager = if (cfg.pager == "delta") then
           "delta --dark"
@@ -47,7 +47,7 @@ in {
           "diff-so-fancy | less --tabs=4 -RFX"
         else
           null;
-        github.user = "yevhenshymotiuk";
+        github.user = "yshym";
       };
     };
 

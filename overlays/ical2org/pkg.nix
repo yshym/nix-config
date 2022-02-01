@@ -5,7 +5,7 @@ stdenv.mkDerivation rec {
   version = "d18cd3b072a19751df4265fd0427cfe1d1b9f874";
 
   src = fetchFromGitHub {
-    owner = "yevhenshymotiuk";
+    owner = "yshym";
     repo = "ical2org";
     rev = version;
     sha256 = "sha256-NxV2ipwHm4pq6ZbSKiG3MXGugRqSnoeizdsVqtS4sqw=";
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Convert ics files to org mode";
-    homepage = "https://github.com/yevhenshymotiuk/ical2org";
+    homepage = "https://github.com/yshym/ical2org";
     platforms = platforms.all;
   };
 }

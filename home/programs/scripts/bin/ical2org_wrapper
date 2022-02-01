@@ -4,7 +4,7 @@ ORG_DIR="$HOME/dev/org"
 
 ICSFILE_PERSONAL="/tmp/calendar-personal.ics"
 ORGFILE_PERSONAL="$ORG_DIR/calendar-personal.org"
-URL_PERSONAL="$(pass Proton/Calendar/yevhenshymotiuk@pm.me)"
+URL_PERSONAL="$(pass Proton/Calendar/yshym@pm.me)"
 
 # ICSFILE_WORK="/tmp/"
 # ORGFILE_WORK=""
@@ -16,7 +16,7 @@ wget --no-check-certificate -O "$ICSFILE_PERSONAL" "$URL_PERSONAL"
 
 # generate org files
 AUTHOR="Yevhen Shymotiuk" \
-    EMAIL="yevhenshymotiuk@pm.me" \
+    EMAIL="yshym@pm.me" \
     CALENDAR="personal" \
     ical2org < "$ICSFILE_PERSONAL" > "$ORGFILE_PERSONAL"
 

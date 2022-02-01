@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  me = "yevhenshymotiuk";
+  me = "yshym";
   home = config.home-manager.users."${me}".home;
   spotifydConfig = "${home.homeDirectory}/.config/spotifyd/spotifyd.conf";
 in {
