@@ -84,7 +84,7 @@ class CLI:
 
     @staticmethod
     def command_forwards_arguments(f):
-        return str(inspect.signature(f)) in {"(*args)", "(*args, *kwargs)"}
+        return str(inspect.signature(f)) in {"(*args)", "(*args, **kwargs)"}
 
     def is_command(self, command):
         return command in self._commands
@@ -141,23 +141,29 @@ class CLI:
     def args_from_function(self, name: str, command=None):
         arguments = []
         func = globals()[f"{command}_{name}"] if command else globals()[name]
-        fullargspec = inspect.getfullargspec(
-            func.__dict__.get("__wrapped__", func)
-        )
-        defaults = fullargspec.defaults
-        for i, arg in enumerate(fullargspec.args):
+        signature = inspect.signature(func.__dict__.get("__wrapped__", func))
+        for param in signature.parameters.values():
+            if str(param)[0] == "*":
+                continue
             argument = {}
-            argument["name"] = arg
-            type_ = fullargspec.annotations.get(arg, str)
-            if hasattr(type_, "__origin__") and type_.__origin__ is list:
-                type_ = type_.__args__[0]
+            argument["name"] = param.name
+            has_annotation = param.annotation is not param.empty
+            type_ = param.annotation if has_annotation else None
+            if (
+                type_
+                and hasattr(type_, "__origin__")
+                and type_.__origin__ in {list, tuple, set}
+            ):
+                type_ = (
+                    type_.__args__[0] if hasattr(type_, "__args__") else None
+                )
                 argument["nargs"] = "+"
             argument["type"] = type_
-            has_default_value = defaults is not None and i < len(defaults)
-            argument["default"] = defaults[i] if has_default_value else None
+            has_default_value = param.default is not param.empty
+            argument["default"] = param.default if has_default_value else None
             if has_default_value:
                 argument["nargs"] = "?"
-            argument["help"] = self.parameter_docs(func).get(arg)
+            argument["help"] = self.parameter_docs(func).get(param.name)
             arguments.append(argument)
         return arguments
 
