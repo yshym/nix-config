@@ -29,7 +29,6 @@
   ];
 
   programs = {
-    emacs.enable = true;
     git = {
       enable = true;
       pager = "diff-so-fancy";
