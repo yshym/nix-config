@@ -134,16 +134,32 @@ in {
     };
   };
 
-  systemd.services = {
-    bluetooth.serviceConfig.ExecStart =
-      [ "" "${pkgs.bluez}/libexec/bluetooth/bluetoothd --noplugin=sap" ];
-    btattach = {
-      before = [ "bluetooth.service" ];
-      after = [ "dev-ttyAMA0.device" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart =
-          "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
+  systemd = {
+    services = {
+      bluetooth.serviceConfig.ExecStart =
+        [ "" "${pkgs.bluez}/libexec/bluetooth/bluetoothd --noplugin=sap" ];
+      btattach = {
+        before = [ "bluetooth.service" ];
+        after = [ "dev-ttyAMA0.device" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          ExecStart =
+            "${pkgs.bluez}/bin/btattach -B /dev/ttyAMA0 -P bcm -S 3000000";
+        };
+      };
+      clear-log = {
+        description = "Clear >1 month-old logs every week";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.systemd}/bin/journalctl --vacuum-time=30d";
+        };
+      };
+    };
+    timers = {
+      clear-log = {
+        wantedBy = [ "timers.target" ];
+        partOf = [ "clear-log.service" ];
+        timerConfig.OnCalendar = "Sun *-*-* 00:00:00";
       };
     };
   };

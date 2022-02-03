@@ -19,8 +19,8 @@ rec {
           inputs.home-manager."${
             if isDarwin system then "darwin" else "nixos"
           }Modules".home-manager
-          ./.
-          (./machines + "/${host}")
+          ../.
+          (../machines + "/${host}")
         ];
       };
 }

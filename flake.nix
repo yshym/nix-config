@@ -18,25 +18,40 @@
 
     # extra
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = inputs@{ self, nixos, nixpkgs, darwin, home-manager, ... }:
+  outputs =
+    inputs@{ self, nixos, nixpkgs, darwin, home-manager, flake-utils, ... }:
     let
-      inherit (lib.my) mkHost;
+      inherit (lib) foldr optional optionalAttrs;
+      inherit (lib.my) isDarwin mkHost mkPkgs mapModules;
+      inherit (flake-utils.lib) eachDefaultSystem;
 
       lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib.nix {
+        my = import ./lib {
           inherit inputs;
           lib = self;
           pkgs = nixpkgs;
         };
       });
-    in {
-      darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
+    in eachDefaultSystem (system:
+      let
+        pkgs = mkPkgs system;
+        paths = [
+          ./packages
+          (if (isDarwin system) then ./packages/darwin else ./packages/linux)
+        ];
+      in {
+        packages = foldr (a: b: a // b) { }
+          (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
+            paths);
+      }) // {
+        darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
 
-      nixosConfigurations = {
-        rpi4 = mkHost "rpi4" "aarch64-linux";
-        fl = mkHost "fl" "x86_64-linux";
+        nixosConfigurations = {
+          rpi4 = mkHost "rpi4" "aarch64-linux";
+          fl = mkHost "fl" "x86_64-linux";
+        };
       };
-    };
 }

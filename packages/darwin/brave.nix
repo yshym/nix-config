@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchurl, undmg }:
+{ lib, pkgs }:
 
+with pkgs;
 stdenv.mkDerivation rec {
   pname = "Brave";
   version = "1.26.74";

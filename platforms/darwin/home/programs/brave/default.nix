@@ -1,9 +1,6 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.overlays =
-    [ (self: super: { Brave = super.callPackage ./pkg.nix { }; }) ];
-
-  home.packages = [ pkgs.Brave ];
+  home.packages = [ pkgs.my.Brave ];
   programs.zsh.sessionVariables.BROWSER = "brave";
 }

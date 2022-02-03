@@ -3,22 +3,12 @@
 {
   imports = [
     ./alacritty
-    ./asdf.nix
     ./bat.nix
     ./direnv
-    ./emacs
     ./exa.nix
     ./firefox
-    ./git.nix
     ./go.nix
-    ./nodejs.nix
     ./password-store.nix
-    ./prettier
-    ./python
-    ./ranger
-    ./ripgrep.nix
-    ./ruby.nix
-    ./rust
     ./scripts
     ./spotify
     ./topgrade
@@ -42,10 +32,11 @@
       enable = true;
       black.enable = true;
       mypy.enable = true;
-      pipx.enable = true;
       pylint.enable = true;
       extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
+    ranger.enable = true;
+    ripgrep.enable = true;
     ruby = {
       enable = false;
       enableBuildLibs = true;

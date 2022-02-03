@@ -1,6 +1,6 @@
-{ lib, buildPythonPackage, stdenv, fetchPypi, pythonOlder, colorama, toml
-, watchdog }:
+{ lib, pkgs }:
 
+with pkgs.python3Packages;
 buildPythonPackage rec {
   pname = "sortdir";
   version = "0.2.2";

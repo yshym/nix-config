@@ -6,6 +6,6 @@
     pavucontrol
     playerctl
 
-    sortdir
+    my.sortdir
   ];
 }

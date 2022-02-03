@@ -12,6 +12,6 @@
   ];
 
   programs = {
-    firefox.package = pkgs.Firefox;
+    firefox.package = pkgs.my.Firefox;
   };
 }

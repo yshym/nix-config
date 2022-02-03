@@ -4,8 +4,8 @@ with lib;
 
 let
   cfg = config.programs.ruby;
-  ruby = pkgs.ruby_2_6;
-  rubyPackages = pkgs.rubyPackages_2_6;
+  ruby = pkgs.ruby_3_0;
+  rubyPackages = pkgs.rubyPackages_3_0;
   rubyVersion = ruby.version.majMinTiny;
   rbenv = pkgs.fetchFromGitHub {
     owner = "rbenv";
@@ -23,8 +23,8 @@ in {
     enableBuildLibs = mkEnableOption "build libraries for Ruby";
     provider = mkOption {
       default = "nixpkgs";
-      type = types.enum [ "asdf" "nixpkgs" "rbenv" ];
-      example = "asdf";
+      type = types.enum [ "nixpkgs" "rbenv" ];
+      example = "rbenv";
     };
     enableSolargraph = mkEnableOption "solargraph language server";
   };
@@ -36,8 +36,6 @@ in {
     home.packages = with pkgs;
       (optional (cfg.provider == "nixpkgs") ruby) ++ cfg.extraPackages
       ++ (optional cfg.enableSolargraph solargraph);
-
-    programs.asdf.toolVersions.ruby = mkIf (cfg.provider == "asdf") rubyVersion;
 
     # add rbenv to zsh
     programs.zsh = mkIf (cfg.provider == "rbenv") {

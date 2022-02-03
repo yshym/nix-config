@@ -1,5 +1,6 @@
-{ lib, stdenv, fetchFromGitHub, AppKit, Cocoa, xcbuildHook }:
+{ lib, pkgs }:
 
+with pkgs; with pkgs.darwin.apple_sdk.frameworks;
 stdenv.mkDerivation rec {
   pname = "choose";
   version = "1.2";

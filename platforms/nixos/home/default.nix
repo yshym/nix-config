@@ -20,11 +20,6 @@
   home-manager = {
     users.yshym = { pkgs, ... }: {
       imports = [ ./packages.nix ./services ./programs ];
-
-      programs = {
-        git.enable = true;
-        tmux.enable = true;
-      };
     };
   };
 }

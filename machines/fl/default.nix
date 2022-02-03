@@ -19,7 +19,6 @@
     };
     overlays = [
       (import ./overlays/nix-direnv.nix)
-      (import ./overlays/sortdir)
       (import ./overlays/telegram.nix { inherit inputs; })
       (import ./overlays/wluma.nix { inherit inputs; })
     ];

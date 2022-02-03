@@ -95,7 +95,7 @@
       youtube-dl
 
       # my stuff
-      ical2org
+      my.ical2org
       termdown
       translate-shell
     ];

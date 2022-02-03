@@ -3,12 +3,7 @@
 {
   imports = [ ./home ./services ];
 
-  nixpkgs.overlays = let path = ./overlays;
-  in with builtins;
-  map (n: import (path + ("/" + n))) (filter (n:
-    match ".*\\.nix" n != null
-    || pathExists (path + ("/" + n + "/default.nix")))
-    (attrNames (readDir path)));
+  nixpkgs.overlays = lib.my.modules.mapModules ./overlays import;
 
   environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 

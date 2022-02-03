@@ -7,10 +7,10 @@
     terminal-notifier
 
     # net & cloud tools
-    Dropbox
+    my.Dropbox
 
     # entertainment
-    Spotify
+    my.Spotify
 
     # my stuff
     # choose

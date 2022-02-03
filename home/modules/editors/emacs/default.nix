@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -32,11 +32,13 @@ in {
       };
     };
 
-    home.file = {
-      ".authinfo.gpg".source = ./authinfo.gpg;
-      ".doom.d" = {
-        source = ./doom.d;
-        recursive = true;
+    home = {
+      file = {
+        ".authinfo.gpg".source = ./authinfo.gpg;
+        ".doom.d" = {
+          source = ./doom.d;
+          recursive = true;
+        };
       };
     };
   };

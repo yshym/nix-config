@@ -4,6 +4,6 @@
   home = {
     file."Library/Application Support/Telegram Desktop/tdata/shortcuts-custom.json".source =
       ./shortcuts-custom.json;
-    packages = [ pkgs.Telegram ];
+    packages = [ pkgs.my.Telegram ];
   };
 }
