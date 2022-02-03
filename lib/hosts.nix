@@ -12,36 +12,33 @@ with lib; rec {
   mkHost = host: system:
     let
       pkgs = mkPkgs system;
-      hostPath = ../machines + "/${host}";
-    in (if isDarwin system then
-      inputs.darwin.lib.darwinSystem
-    else
-      inputs.nixos.lib.nixosSystem) {
-        inherit system;
-        specialArgs = { inherit lib inputs; };
-        modules = [
-          {
-            nixpkgs.pkgs = pkgs;
-            networking.hostName = mkDefault (removeSuffix ".nix" host);
-          }
-          inputs.home-manager."${
-            if isDarwin system then "darwin" else "nixos"
-          }Modules".home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = {
-                lib = inputs.nixpkgs.lib.extend
-                  (self: super: inputs.home-manager.lib // lib);
-              };
-              # TODO https://github.com/nix-community/home-manager/issues/1262
-              sharedModules = [{ manual.manpages.enable = false; }];
-              useUserPackages = true;
-              useGlobalPkgs = true;
-              users.yshym = import ../home { inherit lib; };
+      hostPath = ../hosts + "/${host}";
+      shortSystemName = if isDarwin system then "darwin" else "nixos";
+      systemModule = inputs.${shortSystemName}.lib."${shortSystemName}System";
+    in systemModule {
+      inherit system;
+      specialArgs = { inherit lib inputs; };
+      modules = [
+        {
+          nixpkgs.pkgs = pkgs;
+          networking.hostName = mkDefault (removeSuffix ".nix" host);
+        }
+        inputs.home-manager."${shortSystemName}Modules".home-manager
+        {
+          home-manager = {
+            extraSpecialArgs = {
+              lib = inputs.nixpkgs.lib.extend
+                (self: super: inputs.home-manager.lib // lib);
             };
-          }
-          ../.
-          hostPath
-        ];
-      };
+            # TODO https://github.com/nix-community/home-manager/issues/1262
+            sharedModules = [{ manual.manpages.enable = false; }];
+            useUserPackages = true;
+            useGlobalPkgs = true;
+            users.yshym = import ../home { inherit lib; };
+          };
+        }
+        ../.
+        hostPath
+      ];
+    };
 }
