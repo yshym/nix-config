@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 
-with builtins; {
+with builtins;
+with lib.my; {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -85,7 +86,7 @@ with builtins; {
         };
       };
     }];
-    style = readFile ./style.css;
+    style = readFile (toCSSFile ./style.sass);
   };
 
   home.packages = with pkgs; [ material-icons roboto-mono font-awesome ];

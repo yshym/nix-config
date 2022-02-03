@@ -29,6 +29,10 @@ with lib; rec {
           }Modules".home-manager
           {
             home-manager = {
+              extraSpecialArgs = {
+                lib = inputs.nixpkgs.lib.extend
+                  (self: super: inputs.home-manager.lib // lib);
+              };
               # TODO https://github.com/nix-community/home-manager/issues/1262
               sharedModules = [{ manual.manpages.enable = false; }];
               useUserPackages = true;

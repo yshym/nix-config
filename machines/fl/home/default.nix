@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
-{
+with lib.my; {
   home-manager.users.yshym = { pkgs, ... }: {
-    imports = [ ./packages.nix ./themes.nix ./wayland ./programs ./services ];
+    imports = mapModules' ./. import;
   };
 }

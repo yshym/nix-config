@@ -1,13 +1,7 @@
 { lib, pkgs, ... }:
 
-{
-  imports = [
-    ./mako
-    ./telegram
-    ./waybar
-    ./wluma
-    ./wofi
-  ];
+with lib.my; {
+  imports = mapModules' ./. import;
 
   programs = {
     emacs.enable = true;
