@@ -32,7 +32,8 @@
         my = import ./lib {
           inherit inputs;
           lib = self;
-          pkgs = nixpkgs;
+          # TODO Substitute with OS-independent counterpart
+          pkgs = mkPkgs "x86_64-linux";
         };
       });
     in eachDefaultSystem (system:
@@ -47,6 +48,10 @@
           (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
             paths);
       }) // {
+        lib = lib.my;
+
+        overlays = { emacs = inputs.emacs-overlay.overlay; };
+
         darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
 
         nixosConfigurations = {

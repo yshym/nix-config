@@ -1,6 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
-{
+with builtins; {
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -85,7 +85,7 @@
         };
       };
     }];
-    style = builtins.readFile ./style.css;
+    style = readFile ./style.css;
   };
 
   home.packages = with pkgs; [ material-icons roboto-mono font-awesome ];

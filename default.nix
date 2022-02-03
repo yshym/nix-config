@@ -1,20 +1,7 @@
 { inputs, pkgs, ... }:
 
 with pkgs; {
-  imports = [ ./cachix ./home ];
-
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-      allowBroken = false;
-      allowUnsupportedSystem = false;
-      pulseaudio = true;
-    };
-    overlays = [
-      (final: prev: { my = inputs.self.packages."${stdenv.system}"; })
-      inputs.emacs-overlay.overlay
-    ];
-  };
+  imports = [ ./cachix ];
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
 

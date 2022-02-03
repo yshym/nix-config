@@ -1,6 +1,7 @@
 { inputs, lib, pkgs, ... }:
 
-{
+with lib;
+with lib.my; {
   imports = [ ../../platforms/nixos ./hardware.nix ./home ];
 
   boot = {
@@ -17,14 +18,8 @@
       chromium.commandLineArgs =
         "--enable-features=UseOzonePlatform --ozone-platform=wayland --force-dark-mode";
     };
-    overlays = [
-      (import ./overlays/nix-direnv.nix)
-      (import ./overlays/telegram.nix { inherit inputs; })
-      (import ./overlays/wluma.nix { inherit inputs; })
-    ];
+    overlays = mapModules' ./overlays (p: import p { inherit inputs; });
   };
-
-  networking = { hostName = "fl"; };
 
   programs = { light.enable = true; };
 

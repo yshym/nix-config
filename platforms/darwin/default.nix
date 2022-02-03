@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./home ./services ];
+  imports = [ ./services ./home ];
 
   nixpkgs.overlays = lib.my.modules.mapModules ./overlays import;
 

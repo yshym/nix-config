@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ../../platforms/darwin ];
-
-  networking.hostName = "mbp16";
+  imports = [ ../../platforms/darwin ./home.nix ];
 
   services = {
     postgresql = {

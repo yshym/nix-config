@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -6,11 +6,12 @@
     ./dropbox.nix
     ./imap.nix
     ./imapnotify.nix
-    ./mbsync
     ./kanshi
     ./redshift.nix
     ./spotifyd.nix
   ];
 
-  services = { };
+  services = {
+    mbsync.enable = true;
+  };
 }

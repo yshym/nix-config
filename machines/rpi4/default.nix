@@ -25,7 +25,6 @@ in {
   };
 
   networking = {
-    hostName = "rpi4";
     bridges.br0.interfaces =
       lib.optionals config.services.hostapd.enable [ "eth0" "wlan0" ];
     networkmanager.unmanaged = lib.optionals config.services.hostapd.enable [

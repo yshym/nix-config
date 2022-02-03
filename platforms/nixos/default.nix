@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 with pkgs; {
-  imports = [ ./home ./services ];
+  imports = [ ./services ./home ];
 
   nix = {
     gc = {
