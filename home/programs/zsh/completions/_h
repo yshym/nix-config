@@ -27,7 +27,7 @@ _h () {
 
     integer ret=1
     case ${words[2]} in
-        b|build)       _h_dispatch nix-build ;;
+        b|build)       ;;
         c|check)       ;;
         g|generations) ;;
         rb|rebuild)    ;;

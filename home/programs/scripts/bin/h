@@ -211,7 +211,7 @@ app = CLI()
 def build(*args):
     """Build a Nix expression"""
     options = list(args)
-    return subprocess.run(["nix-build"] + options, check=False)
+    return subprocess.run(["nix", "build"] + options, check=False)
 
 
 @app.command(["c"])
