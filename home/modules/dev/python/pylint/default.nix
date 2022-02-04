@@ -4,7 +4,8 @@ with lib;
 let
   cfg = config.programs.python.pylint;
   pythonPackages = pkgs.python3Packages;
-in {
+in
+{
   options.programs.python.pylint = { enable = mkEnableOption "Pylint"; };
 
   config = mkIf cfg.enable {

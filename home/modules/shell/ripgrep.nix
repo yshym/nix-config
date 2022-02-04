@@ -2,7 +2,8 @@
 
 with lib;
 let cfg = config.programs.ripgrep;
-in {
+in
+{
   options.programs.ripgrep = {
     enable = mkEnableOption "Ripgrep line-oriented CLI search tool";
   };

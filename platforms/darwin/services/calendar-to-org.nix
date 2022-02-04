@@ -6,7 +6,8 @@ let
   home = user.home;
   homeFiles = user.home-files;
   homeManagerPath = home.path;
-in {
+in
+{
   launchd.user.agents = {
     calendar-to-org.serviceConfig = {
       ProgramArguments = [ "${homeFiles}/.local/bin/ical2org_wrapper" ];

@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let cfg = config.programs.neovim; in {
+let cfg = config.programs.neovim; in
+{
   programs.neovim = {
     enable = true;
     withPython3 = true;

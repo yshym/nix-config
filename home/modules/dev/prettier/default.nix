@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
 let cfg = config.programs.prettier;
-in {
+in
+{
   options.programs.prettier = { enable = mkEnableOption "Prettier"; };
 
   config = mkIf cfg.enable {

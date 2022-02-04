@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let cfg = config.programs.topgrade;
-in {
+in
+{
   programs.topgrade = {
     enable = true;
     settings = {

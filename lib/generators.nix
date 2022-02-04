@@ -15,5 +15,6 @@ with lib; {
                "${file}" \
                "$out/${fileName}.css"
         '';
-    in "${compiledStyles}/${fileName}.css";
+    in
+    "${compiledStyles}/${fileName}.css";
 }

@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let cfg = config.programs.firefox;
-in {
+in
+{
   programs = {
     firefox = {
       enable = true;
@@ -15,5 +16,5 @@ in {
 
   home.file.".mozilla/native-messaging-hosts/com.github.browserpass.native.json".source =
     lib.mkIf cfg.enable
-    "${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
+      "${pkgs.browserpass}/lib/mozilla/native-messaging-hosts/com.github.browserpass.native.json";
 }

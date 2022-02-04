@@ -15,4 +15,5 @@ let
   mylib = makeExtensible (self:
     let callLibs = file: import file { inherit self inputs lib pkgs; };
     in mapModules ./. callLibs);
-in mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))
+in
+mylib.extend (self: super: foldr (a: b: a // b) { } (attrValues super))

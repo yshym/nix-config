@@ -36,27 +36,30 @@
           pkgs = mkPkgs "x86_64-linux";
         };
       });
-    in eachDefaultSystem (system:
+    in
+    eachDefaultSystem
+      (system:
       let
         pkgs = mkPkgs system;
         paths = [
           ./packages
           (if (isDarwin system) then ./packages/darwin else ./packages/linux)
         ];
-      in {
+      in
+      {
         packages = foldr (a: b: a // b) { }
           (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
             paths);
       }) // {
-        lib = lib.my;
+      lib = lib.my;
 
-        overlays = { emacs = inputs.emacs-overlay.overlay; };
+      overlays = { emacs = inputs.emacs-overlay.overlay; };
 
-        darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
+      darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
 
-        nixosConfigurations = {
-          rpi4 = mkHost "rpi4" "aarch64-linux";
-          fl = mkHost "fl" "x86_64-linux";
-        };
+      nixosConfigurations = {
+        rpi4 = mkHost "rpi4" "aarch64-linux";
+        fl = mkHost "fl" "x86_64-linux";
       };
+    };
 }

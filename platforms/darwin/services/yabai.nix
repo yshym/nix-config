@@ -1,7 +1,8 @@
 { pkgs, ... }:
 
 let padding = 10;
-in {
+in
+{
   services.yabai = {
     enable = true;
     package = pkgs.yabai;

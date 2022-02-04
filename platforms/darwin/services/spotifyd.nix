@@ -4,7 +4,8 @@ let
   me = "yshym";
   home = config.home-manager.users."${me}".home;
   spotifydConfig = "${home.homeDirectory}/.config/spotifyd/spotifyd.conf";
-in {
+in
+{
   launchd.user.agents = {
     spotifyd.serviceConfig = {
       ProgramArguments =

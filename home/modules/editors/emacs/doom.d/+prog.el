@@ -139,6 +139,11 @@
 (add-hook 'protobuf-mode-hook 'display-line-numbers-mode)
 (add-hook 'protobuf-mode-hook 'hl-line-mode)
 
+
+;; nix
+(after! nix-mode
+  (setq nix-nixfmt-bin "nixpkgs-fmt"))
+
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:

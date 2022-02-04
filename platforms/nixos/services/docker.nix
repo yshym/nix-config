@@ -3,7 +3,8 @@
 with lib;
 
 let cfg = config.services.docker;
-in {
+in
+{
   options.services.docker = {
     enable = mkEnableOption "Docker container daemon";
 

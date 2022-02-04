@@ -11,16 +11,19 @@ let
 
   emacsMacport = withPatches pkgs.emacsMacport (patches ./patches/emacsMacport);
   emacs = with pkgs; if stdenv.isDarwin then emacsMacport else emacsPgtk;
-  emacsGcc = if pkgs.stdenv.isDarwin then
-    pkgs.emacsGcc.overrideAttrs (old: {
-      buildInputs = old.buildInputs ++ (with pkgs; [
-        darwin.apple_sdk.frameworks.CoreFoundation
-        darwin.apple_sdk.frameworks.WebKit
-      ]);
-    })
-  else
-    pkgs.emacsPgtkGcc;
-in {
+  emacsGcc =
+    if pkgs.stdenv.isDarwin then
+      pkgs.emacsGcc.overrideAttrs
+        (old: {
+          buildInputs = old.buildInputs ++ (with pkgs; [
+            darwin.apple_sdk.frameworks.CoreFoundation
+            darwin.apple_sdk.frameworks.WebKit
+          ]);
+        })
+    else
+      pkgs.emacsPgtkGcc;
+in
+{
   config = mkIf cfg.enable {
     programs = {
       emacs.package = emacsGcc;

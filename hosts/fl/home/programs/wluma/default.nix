@@ -3,7 +3,8 @@
 {
   systemd.user.services.wluma =
     let wlumaConfig = "${config.home.homeDirectory}/.config/wluma/config.toml";
-    in {
+    in
+    {
       Unit = {
         Description =
           "Adjusting screen brightness based on screen contents and amount of ambient light";

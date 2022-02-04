@@ -13,7 +13,8 @@ let
     rev = "c46a970595036718f1b6d3ed8f38833820df709e";
     sha256 = "05ghzwawzlwwkql091fhxmznd7wi52arpkxp106h2ngfgk592hbi";
   };
-in {
+in
+{
   options.programs.ruby = {
     enable = mkEnableOption "Ruby language support";
     extraPackages = mkOption {

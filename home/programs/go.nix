@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let cfg = config.programs.go;
-in {
+in
+{
   programs = {
     go.enable = true;
     zsh.shellAliases = {

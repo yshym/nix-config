@@ -3,7 +3,8 @@
 let
   cfg = config.wayland.windowManager.sway;
   darkBlue = "#6272a4";
-in {
+in
+{
   config = {
     wayland.windowManager.sway = {
       enable = true;
@@ -87,11 +88,13 @@ in {
           };
         };
 
-        output = let bg = "~/.local/share/wallpaper.png stretch";
-        in {
-          "eDP-1" = { bg = bg; };
-          "DP-4" = { bg = bg; };
-        };
+        output =
+          let bg = "~/.local/share/wallpaper.png stretch";
+          in
+          {
+            "eDP-1" = { bg = bg; };
+            "DP-4" = { bg = bg; };
+          };
 
         seat = {
           "seat0" = {
@@ -226,19 +229,19 @@ in {
           qt5.qtwayland
 
           # sway components
-          swaybg          # required by sway for controlling desktop wallpaper
-          swayidle        # used for controlling idle timeouts and triggers (screen locking, etc)
-          swaylock        # used for locking Wayland sessions
+          swaybg # required by sway for controlling desktop wallpaper
+          swayidle # used for controlling idle timeouts and triggers (screen locking, etc)
+          swaylock # used for locking Wayland sessions
 
           # wayland programs
           gebaar-libinput # libinput gestures utility
-          grim            # screen image capture
-          imv             # image viewer
-          slurp           # region selection utility
-          wl-clipboard    # clipboard manipulation tool
-          ydotool         # fake keyboard/mouse input
+          grim # screen image capture
+          imv # image viewer
+          slurp # region selection utility
+          wl-clipboard # clipboard manipulation tool
+          ydotool # fake keyboard/mouse input
 
-          pamixer         # audio mixer
+          pamixer # audio mixer
         ];
     };
   };

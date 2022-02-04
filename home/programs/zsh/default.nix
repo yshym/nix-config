@@ -56,6 +56,8 @@ with pkgs; {
       export PATH="$HOME/.mix/escripts:$PATH"
       export PATH="$GOPATH/bin:$PATH"
       export PATH="/etc/profiles/per-user/$USER/bin:$PATH"
+      # TODO Package wtwitch
+      export PATH="$HOME/dev/wtwitch/src:$PATH"
     '';
     history.size = 1000;
     plugins = [
@@ -84,6 +86,7 @@ with pkgs; {
       ll = "ls -l";
       lla = "ls -al";
       md = "mkdir -p";
+      nixfmt = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = if stdenv.isDarwin then "open" else "xdg-open";
       shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";

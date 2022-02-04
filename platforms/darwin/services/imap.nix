@@ -6,7 +6,8 @@ let
   homeManagerPath = home.path;
   imapnotifyConfig =
     "${home.homeDirectory}/.config/imapnotify/gmail/notify.conf";
-in {
+in
+{
   launchd.user.agents = {
     # goimapnotify.serviceConfig = {
     #   ProgramArguments =

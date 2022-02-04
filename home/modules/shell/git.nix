@@ -1,7 +1,8 @@
 { config, lib, pkgs, ... }:
 with lib;
 let cfg = config.programs.git;
-in {
+in
+{
   options.programs.git = {
     pager = mkOption {
       type = with types; (nullOr (enum [ "delta" "diff-so-fancy" ]));
@@ -41,12 +42,13 @@ in {
       userName = "Yevhen Shymotiuk";
       userEmail = "yshym@pm.me";
       extraConfig = {
-        core.pager = if (cfg.pager == "delta") then
-          "delta --dark"
-        else if (cfg.pager == "diff-so-fancy") then
-          "diff-so-fancy | less --tabs=4 -RFX"
-        else
-          null;
+        core.pager =
+          if (cfg.pager == "delta") then
+            "delta --dark"
+          else if (cfg.pager == "diff-so-fancy") then
+            "diff-so-fancy | less --tabs=4 -RFX"
+          else
+            null;
         github.user = "yshym";
       };
     };

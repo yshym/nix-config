@@ -6,7 +6,8 @@ let
   filterCaches = key: value: value == "regular" && lib.hasSuffix ".nix" key;
   imports = lib.mapAttrsToList attrsToPath
     (lib.filterAttrs filterCaches (builtins.readDir cachesDir));
-in {
+in
+{
   environment.systemPackages = [ pkgs.cachix ];
 
   inherit imports;

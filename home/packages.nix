@@ -3,15 +3,18 @@
 {
   home.packages = with pkgs;
     let
-      comma = (import (builtins.fetchTarball {
-        url = "https://github.com/Shopify/comma/archive/master.tar.gz";
-        sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
-      }) { });
+      comma = (import
+        (builtins.fetchTarball {
+          url = "https://github.com/Shopify/comma/archive/master.tar.gz";
+          sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
+        })
+        { });
       myTexlive = (texlive.combine {
         inherit (texlive)
           scheme-basic etoolbox fontawesome microtype siunitx xcolor;
       });
-    in [
+    in
+    [
       # development
       asciinema
       awscli
@@ -36,6 +39,7 @@
       nasm
       openmpi
       plantuml
+      pre-commit
       redis
       rnix-lsp
       sass
@@ -44,7 +48,6 @@
 
       # nix stuff
       # comma
-      nixfmt
       nix-prefetch-github
       nixpkgs-fmt
       nixpkgs-review

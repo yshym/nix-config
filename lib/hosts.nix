@@ -15,7 +15,8 @@ with lib; rec {
       hostPath = ../hosts + "/${host}";
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs.${shortSystemName}.lib."${shortSystemName}System";
-    in systemModule {
+    in
+    systemModule {
       inherit system;
       specialArgs = { inherit lib inputs; };
       modules = [

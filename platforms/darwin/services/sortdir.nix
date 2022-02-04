@@ -5,7 +5,8 @@ let
   user = config.home-manager.users."${me}";
   home = user.home;
   homeManagerPath = home.path;
-in {
+in
+{
   launchd.user.agents = {
     sortdir.serviceConfig = {
       ProgramArguments = [ "${home.homeDirectory}/.local/bin/sortdir" ];

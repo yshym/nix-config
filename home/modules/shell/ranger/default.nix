@@ -2,7 +2,8 @@
 
 with lib;
 let cfg = config.programs.ranger;
-in {
+in
+{
   options.programs.ranger = { enable = mkEnableOption "Ranger file manager"; };
 
   config = mkIf cfg.enable {

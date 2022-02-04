@@ -16,7 +16,8 @@ let
       ipdb
     ];
   pythonWithMyPackages = python.withPackages myPythonPackages;
-in {
+in
+{
   options.programs.python = {
     enable = mkEnableOption "Python language support";
     extraPackages = mkOption {
