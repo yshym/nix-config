@@ -3,15 +3,15 @@
 {
   imports = [
     ./calendar-to-org.nix
-    ./dropbox.nix
     ./imap.nix
-    ./imapnotify.nix
     ./kanshi
     ./redshift.nix
     ./spotifyd.nix
   ];
 
   services = {
+    dropbox.enable = true;
+    imapnotify.enable = true;
     mbsync.enable = true;
   };
 }

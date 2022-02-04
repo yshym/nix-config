@@ -19,7 +19,7 @@
 
   home-manager = {
     users.yshym = { pkgs, ... }: {
-      imports = [ ./packages.nix ./services ./programs ];
+      imports = [ ./packages.nix ./programs ];
     };
   };
 }
