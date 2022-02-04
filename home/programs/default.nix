@@ -30,8 +30,14 @@
     prettier.enable = true;
     python = {
       enable = true;
-      black.enable = true;
-      mypy.enable = true;
+      black = {
+        enable = true;
+        settings.line-length = 79;
+      };
+      mypy = {
+        enable = true;
+        settings.ignore_missing_imports = true;
+      };
       pylint.enable = true;
       extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };

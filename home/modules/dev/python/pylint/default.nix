@@ -10,7 +10,9 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pythonPackages; [ pylint ];
 
-    xdg.configFile."pylint/pylintrc".source = ./.config/pylint/pylintrc;
-    xdg.configFile."pylint/init_hook.py".source = ./.config/pylint/init_hook.py;
+    xdg.configFile."pylint" = {
+      source = ./config;
+      recursive = true;
+    };
   };
 }

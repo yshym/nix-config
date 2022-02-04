@@ -26,14 +26,15 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pythonWithMyPackages ] ++ cfg.extraPackages;
-
     programs.zsh = {
       envExtra = ''
         export PYTHONBREAKPOINT=ipdb.set_trace
       '';
     };
 
-    home.file.".pdbrc".source = ./.pdbrc;
+    home = {
+      file.".pdbrc".source = ./.pdbrc;
+      packages = [ pythonWithMyPackages ] ++ cfg.extraPackages;
+    };
   };
 }
