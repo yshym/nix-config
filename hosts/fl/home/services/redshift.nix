@@ -1,9 +1,8 @@
 { config, lib, pkgs, ... }:
 
 {
-  services.redshift = {
+  services.gammastep = {
     enable = true;
-    package = pkgs.redshift-wlr;
     provider = "geoclue2";
     temperature = {
       day = 7700;
