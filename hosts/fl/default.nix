@@ -13,13 +13,7 @@ with lib.my; {
     };
   };
 
-  nixpkgs = {
-    config = {
-      chromium.commandLineArgs =
-        "--enable-features=UseOzonePlatform --ozone-platform=wayland --force-dark-mode";
-    };
-    overlays = mapModules' ./overlays (p: import p { inherit inputs; });
-  };
+  nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs; });
 
   programs = { light.enable = true; };
 
