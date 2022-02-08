@@ -73,7 +73,6 @@
 
       # monitoring
       neofetch
-      gotop
       speedtest-cli
 
       # passwords & security

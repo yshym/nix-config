@@ -82,7 +82,7 @@ with pkgs; {
     ];
     shellAliases = {
       du = "${pkgs.du-dust}/bin/dust";
-      lsa = "ls -a";
+      la = "ls -a";
       ll = "ls -l";
       lla = "ls -al";
       md = "mkdir -p";
@@ -92,6 +92,7 @@ with pkgs; {
       shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
       rf = "rm -rf";
       rd = "rmdir";
+      top = "${pkgs.gotop}/bin/gotop";
       "..." = "../..";
       "...." = "../../..";
       "....." = "../../../..";
