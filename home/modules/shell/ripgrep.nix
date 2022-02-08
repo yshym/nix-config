@@ -22,6 +22,6 @@ in
       '';
     };
 
-    programs.zsh.shellAliases.grep = "rg";
+    programs.zsh.shellAliases.grep = "rg -i";
   };
 }
