@@ -1,5 +1,5 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ xdg-utils ];
+  home.packages = with pkgs; [ ];
 }
