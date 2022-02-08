@@ -50,6 +50,11 @@
         packages = foldr (a: b: a // b) { }
           (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
             paths);
+
+        defaultApp = {
+          type = "app";
+          program = ./home/programs/scripts/bin/h;
+        };
       }) // {
       lib = lib.my;
 
