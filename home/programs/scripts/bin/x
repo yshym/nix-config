@@ -10,8 +10,17 @@ if [ "$2" ]; then
 fi
 
 case "$EXTENSION" in
-    "gz") tar xvf "$FILE" --directory "$DESTINATION" ;;
-    "zip") unzip "$FILE" -d "$DESTINATION" ;;
-    "rar") unrar x "$FILE" "$DESTINATION" ;;
-    *) tar cvzf "$FILE.tar.gz" "$FILE" ;;
+    "gz")
+        mkdir "$DESTINATION"
+        tar xvf "$FILE" --directory "$DESTINATION"
+        ;;
+    "zip")
+        unzip "$FILE" -d "$DESTINATION"
+        ;;
+    "rar")
+        unrar x "$FILE" "$DESTINATION"
+        ;;
+    *)
+        tar cvzf "$FILE.tar.gz" "$FILE"
+        ;;
 esac
