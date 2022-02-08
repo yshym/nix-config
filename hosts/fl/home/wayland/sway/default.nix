@@ -123,8 +123,8 @@ in
           "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
 
           # make a screenshot
-          "${cfg.config.modifier}+F11" = "exec ~/.local/platform/bin/maim.sh";
-          "${cfg.config.modifier}+Shift+F11" =
+          "${cfg.config.modifier}+Print" = "exec ~/.local/platform/bin/maim.sh";
+          "${cfg.config.modifier}+Shift+Print" =
             "exec ~/.local/platform/bin/maim.sh -s";
 
           # change focus
