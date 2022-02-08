@@ -6,6 +6,9 @@
     pavucontrol
     playerctl
 
+    # communication
+    zoom-us
+
     my.sortdir
   ];
 }
