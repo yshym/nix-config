@@ -2,7 +2,13 @@
 
 {
   programs = {
-    bat.enable = true;
-    zsh.shellAliases.cat = "bat --style plain";
+    bat = {
+      enable = true;
+      config = {
+        style = "plain";
+        theme = "Dracula";
+      };
+    };
+    zsh.shellAliases.cat = "bat";
   };
 }
