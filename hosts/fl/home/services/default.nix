@@ -8,6 +8,7 @@
     ./redshift.nix
     ./spotifyd.nix
     ./sway
+    ./swayidle.nix
   ];
 
   services = {
