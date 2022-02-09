@@ -71,10 +71,12 @@
 /*    display: none; */
 /* } */
 
-/* Remove go button from url bar */
-.urlbar-go-button {
+/* Remove url bar buttons */
+.urlbar-go-button,
+#star-button {
   display: none !important;
 }
+
 
 /* Makes the address bar and search bar borderless */
 #urlbar,
