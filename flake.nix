@@ -5,7 +5,6 @@
     # core
     nixos.url = "github:yshym/nixpkgs/nixos-21.11";
     nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
-    nixos-unstable.url = "github:yshym/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
