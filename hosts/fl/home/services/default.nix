@@ -7,6 +7,7 @@
     ./kanshi
     ./redshift.nix
     ./spotifyd.nix
+    ./sway
   ];
 
   services = {

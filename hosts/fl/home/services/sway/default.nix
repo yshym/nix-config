@@ -230,8 +230,6 @@ in
 
           # sway components
           swaybg # required by sway for controlling desktop wallpaper
-          swayidle # used for controlling idle timeouts and triggers (screen locking, etc)
-          swaylock # used for locking Wayland sessions
 
           # wayland programs
           gebaar-libinput # libinput gestures utility
