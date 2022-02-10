@@ -61,7 +61,7 @@ in
 
         bars = [ ];
 
-        startup = [{ command = "import-gsettings"; }];
+        startup = [{ command = "import-gsettings"; } { command = "swaylock-wrapped"; }];
 
         gaps = {
           inner = 5;
