@@ -21,6 +21,6 @@ case "$EXTENSION" in
         unrar x "$FILE" "$DESTINATION"
         ;;
     *)
-        tar cvzf "$FILE.tar.gz" "$FILE"
+        tar cvzf "$BASENAME.tar.gz" "$FILE"
         ;;
 esac
