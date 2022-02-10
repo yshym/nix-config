@@ -59,7 +59,10 @@ with lib.my; {
   };
 
   security = {
-    pam.services.swaylock = { };
+    pam.services = {
+      swaylock = { };
+      swaylock-wrapped = { };
+    };
   };
 
   sound.enable = false;
