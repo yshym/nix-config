@@ -4,7 +4,7 @@ ORG_DIR="$HOME/dev/org"
 
 ICSFILE_PERSONAL="/tmp/calendar-personal.ics"
 ORGFILE_PERSONAL="$ORG_DIR/calendar-personal.org"
-URL_PERSONAL="$(pass Proton/Calendar/yshym@pm.me)"
+URL_PERSONAL="$(pass protonmail.com/calendar/yshym)"
 
 # ICSFILE_WORK="/tmp/"
 # ORGFILE_WORK=""
