@@ -11,9 +11,6 @@ in
   config = mkIf cfg.enable {
     home.packages = with pythonPackages; [ pylint ];
 
-    xdg.configFile."pylint" = {
-      source = ./config;
-      recursive = true;
-    };
+    xdg.configFile."pylintrc".source = ./pylintrc;
   };
 }

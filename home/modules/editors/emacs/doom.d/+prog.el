@@ -16,28 +16,22 @@
 
 
 ;; lsp
-(setq lsp-dart-sdk-dir (getenv "DARTPATH"))
-
 (use-package! lsp-mode
   :commands lsp
   :diminish lsp-mode
+  :config
+  (setq lsp-dart-sdk-dir (getenv "DARTPATH"))
+  (setq lsp-gopls-codelens nil)
+  (lsp-register-custom-settings
+   '(("pylsp.plugins.flake8.enabled" nil nil)
+     ("pylsp.plugins.pylint.enabled" t t)
+     ("pylsp.plugins.pydocstyle.enabled" nil nil)))
   :hook
   (elixir-mode . 'lsp)
   :init
   (add-to-list
    'exec-path
    (concat (getenv "HOME") "/dev/elixir/elixir-ls/release")))
-
-(setq lsp-gopls-codelens nil)
-
-(add-hook! 'lsp-after-initialize-hook
-  (run-hooks (intern (format "%s-lsp-hook" major-mode))))
-
-(defun python-flycheck-setup ()
-  "Setup Flycheck checkers for Python."
-  (flycheck-add-next-checker 'lsp 'python-pylint 'python-mypy))
-
-(add-hook 'python-mode-lsp-hook 'python-flycheck-setup)
 
 
 ;; snippets
@@ -77,8 +71,8 @@
 
 
 ;; python
-;; (setq pylint-options '("--rcfile=~/.config/pylint/pylintrc"))
-(setq flycheck-pylintrc "~/.config/pylint/pylintrc")
+(after! flycheck-mode
+  (add-to-list 'flycheck-pylintrc "~/.config/pylint/pylintrc"))
 
 (defun black-format ()
   "Format current file using Black formatter."
