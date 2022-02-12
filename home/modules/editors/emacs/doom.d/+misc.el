@@ -1,12 +1,24 @@
+;;; +misc.el --- Miscellaneous
+
+;;; Commentary:
+
+;;; Code:
+
+;; user
 (setq user-full-name "Yevhen Shymotiuk")
 
 
+;; general
+(global-subword-mode 1)
+(global-undo-tree-mode 1)
+(setq truncate-string-ellipsis "…")
+
+
 ;; evil
-(global-undo-tree-mode)
 (evil-set-undo-system 'undo-tree)
-;; Switch to the new window after splitting
 (setq evil-split-window-below t
-      evil-vsplit-window-right t)
+      evil-vsplit-window-right t
+      evil-want-fine-undo t)
 
 
 ;; direnv
@@ -166,3 +178,5 @@ to an appropriate value)")
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
+(provide '+misc)
+;;; +misc.el ends here
