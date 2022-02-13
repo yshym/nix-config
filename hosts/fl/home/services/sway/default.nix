@@ -208,10 +208,10 @@ in
 
         modes = {
           resize = {
-            "${cfg.config.left}" = "resize shrink width 10 px";
-            "${cfg.config.down}" = "resize grow height 10 px";
-            "${cfg.config.up}" = "resize shrink height 10 px";
-            "${cfg.config.right}" = "resize grow width 10 px";
+            "${left}" = "resize shrink width 10 px";
+            "${right}" = "resize grow width 10 px";
+            "${up}" = "resize shrink height 10 px";
+            "${down}" = "resize grow height 10 px";
             "Left" = "resize shrink width 10 px";
             "Down" = "resize grow height 10 px";
             "Up" = "resize shrink height 10 px";
