@@ -2,6 +2,11 @@
 
 let
   cfg = config.wayland.windowManager.sway;
+  mod = cfg.config.modifier;
+  left = cfg.config.left;
+  right = cfg.config.right;
+  up = cfg.config.up;
+  down = cfg.config.down;
   darkBlue = "#6272a4";
 in
 {
@@ -105,7 +110,7 @@ in
 
         keybindings = {
           # start a terminal
-          "${cfg.config.modifier}+Return" = "exec ${cfg.config.terminal}";
+          "${mod}+Return" = "exec ${cfg.config.terminal}";
 
           # control screen brightness
           "XF86MonBrightnessUp" = "exec light -A 5";
@@ -117,89 +122,88 @@ in
           "XF86AudioLowerVolume" = "exec pamixer -d 5";
 
           # kill focused window
-          "${cfg.config.modifier}+q" = "kill";
+          "${mod}+q" = "kill";
 
           # start a menu app
-          "${cfg.config.modifier}+d" = "exec ${cfg.config.menu}";
+          "${mod}+d" = "exec ${cfg.config.menu}";
 
           # make a screenshot
-          "${cfg.config.modifier}+Print" = "exec ~/.local/platform/bin/maim.sh";
-          "${cfg.config.modifier}+Shift+Print" =
-            "exec ~/.local/platform/bin/maim.sh -s";
+          "Print" = "exec ~/.local/platform/bin/maim.sh";
+          "Shift+Print" = "exec ~/.local/platform/bin/maim.sh -s";
 
           # change focus
-          "${cfg.config.modifier}+${cfg.config.left}" = "focus left";
-          "${cfg.config.modifier}+${cfg.config.down}" = "focus down";
-          "${cfg.config.modifier}+${cfg.config.up}" = "focus up";
-          "${cfg.config.modifier}+${cfg.config.right}" = "focus right";
-          "${cfg.config.modifier}+Left" = "focus left";
-          "${cfg.config.modifier}+Down" = "focus down";
-          "${cfg.config.modifier}+Up" = "focus up";
-          "${cfg.config.modifier}+Right" = "focus right";
+          "${mod}+${left}" = "focus left";
+          "${mod}+${right}" = "focus right";
+          "${mod}+${up}" = "focus up";
+          "${mod}+${down}" = "focus down";
+          "${mod}+Left" = "focus left";
+          "${mod}+Down" = "focus down";
+          "${mod}+Up" = "focus up";
+          "${mod}+Right" = "focus right";
 
           # move focused window
-          "${cfg.config.modifier}+Shift+${cfg.config.left}" = "move left";
-          "${cfg.config.modifier}+Shift+${cfg.config.down}" = "move down";
-          "${cfg.config.modifier}+Shift+${cfg.config.up}" = "move up";
-          "${cfg.config.modifier}+Shift+${cfg.config.right}" = "move right";
-          "${cfg.config.modifier}+Shift+Left" = "move left";
-          "${cfg.config.modifier}+Shift+Down" = "move down";
-          "${cfg.config.modifier}+Shift+Up" = "move up";
-          "${cfg.config.modifier}+Shift+Right" = "move right";
+          "${mod}+Shift+${left}" = "move left";
+          "${mod}+Shift+${right}" = "move right";
+          "${mod}+Shift+${up}" = "move up";
+          "${mod}+Shift+${down}" = "move down";
+          "${mod}+Shift+Left" = "move left";
+          "${mod}+Shift+Down" = "move down";
+          "${mod}+Shift+Up" = "move up";
+          "${mod}+Shift+Right" = "move right";
 
           # split workspace
-          "${cfg.config.modifier}+b" = "splith";
-          "${cfg.config.modifier}+v" = "splitv";
+          "${mod}+b" = "splith";
+          "${mod}+v" = "splitv";
 
           # enter fullscreen mode for the focused container
-          "${cfg.config.modifier}+f" = "fullscreen toggle";
+          "${mod}+f" = "fullscreen toggle";
 
           # focus the parent container
-          "${cfg.config.modifier}+a" = "focus parent";
+          "${mod}+a" = "focus parent";
 
           # change container layout
-          "${cfg.config.modifier}+s" = "layout stacking";
-          "${cfg.config.modifier}+w" = "layout tabbed";
-          "${cfg.config.modifier}+e" = "layout toggle split";
+          "${mod}+s" = "layout stacking";
+          "${mod}+w" = "layout tabbed";
+          "${mod}+e" = "layout toggle split";
 
           # toggle tiling / floating
-          "${cfg.config.modifier}+Shift+space" = "floating toggle";
+          "${mod}+Shift+space" = "floating toggle";
 
           # change focus between tiling / floating windows
-          "${cfg.config.modifier}+space" = "focus mode_toggle";
+          "${mod}+space" = "focus mode_toggle";
 
           # focus workspace
-          "${cfg.config.modifier}+1" = "workspace 1";
-          "${cfg.config.modifier}+2" = "workspace 2";
-          "${cfg.config.modifier}+3" = "workspace 3";
-          "${cfg.config.modifier}+4" = "workspace 4";
-          "${cfg.config.modifier}+5" = "workspace 5";
-          "${cfg.config.modifier}+6" = "workspace 6";
-          "${cfg.config.modifier}+7" = "workspace 7";
-          "${cfg.config.modifier}+8" = "workspace 8";
-          "${cfg.config.modifier}+9" = "workspace 9";
+          "${mod}+1" = "workspace 1";
+          "${mod}+2" = "workspace 2";
+          "${mod}+3" = "workspace 3";
+          "${mod}+4" = "workspace 4";
+          "${mod}+5" = "workspace 5";
+          "${mod}+6" = "workspace 6";
+          "${mod}+7" = "workspace 7";
+          "${mod}+8" = "workspace 8";
+          "${mod}+9" = "workspace 9";
 
           # move focused container to workspace
-          "${cfg.config.modifier}+Shift+1" = "move container to workspace 1";
-          "${cfg.config.modifier}+Shift+2" = "move container to workspace 2";
-          "${cfg.config.modifier}+Shift+3" = "move container to workspace 3";
-          "${cfg.config.modifier}+Shift+4" = "move container to workspace 4";
-          "${cfg.config.modifier}+Shift+5" = "move container to workspace 5";
-          "${cfg.config.modifier}+Shift+6" = "move container to workspace 6";
-          "${cfg.config.modifier}+Shift+7" = "move container to workspace 7";
-          "${cfg.config.modifier}+Shift+8" = "move container to workspace 8";
-          "${cfg.config.modifier}+Shift+9" = "move container to workspace 9";
+          "${mod}+Shift+1" = "move container to workspace 1";
+          "${mod}+Shift+2" = "move container to workspace 2";
+          "${mod}+Shift+3" = "move container to workspace 3";
+          "${mod}+Shift+4" = "move container to workspace 4";
+          "${mod}+Shift+5" = "move container to workspace 5";
+          "${mod}+Shift+6" = "move container to workspace 6";
+          "${mod}+Shift+7" = "move container to workspace 7";
+          "${mod}+Shift+8" = "move container to workspace 8";
+          "${mod}+Shift+9" = "move container to workspace 9";
 
           # move the currently focused window to the scratchpad
-          "${cfg.config.modifier}+Shift+minus" = "move scratchpad";
+          "${mod}+Shift+minus" = "move scratchpad";
           # cycle through scratchpad windows
-          "${cfg.config.modifier}+minus" = "scratchpad show";
+          "${mod}+minus" = "scratchpad show";
 
-          "${cfg.config.modifier}+Shift+c" = "reload";
-          "${cfg.config.modifier}+Shift+e" =
+          "${mod}+Shift+c" = "reload";
+          "${mod}+Shift+e" =
             "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
 
-          "${cfg.config.modifier}+r" = "mode resize";
+          "${mod}+r" = "mode resize";
         };
 
         modes = {
