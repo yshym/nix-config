@@ -1,3 +1,9 @@
+;;; +prog.el --- Prog
+
+;;; Commentary:
+
+;;; Code:
+
 ;; magit
 (add-hook! 'magit-mode-hook 'magit-todos-mode)
 
@@ -141,3 +147,5 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
+(provide 'prog)
+;;; +prog.el ends here

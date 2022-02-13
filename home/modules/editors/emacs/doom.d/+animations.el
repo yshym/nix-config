@@ -1,9 +1,15 @@
+;;; +animations --- Animations
+
+;;; Commentary:
+
+;;; Code:
+
 (mac-start-animation (selected-window) :type 'move-out
                      :duration 1.0 :direction 'right)
 
 ;; Implement fade-outs
 (defvar mac-animation-duration 0.5
-  "Duration of transition animations")
+  "Duration of transition animations.")
 (defvar mac-animation-locked-p nil)
 (defun mac-animation-toggle-lock ()
   (setq mac-animation-locked-p (not mac-animation-locked-p)))
@@ -24,3 +30,5 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
+(provide '+animations)
+;;; +animations.el ends here

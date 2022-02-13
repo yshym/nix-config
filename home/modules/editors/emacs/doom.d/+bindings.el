@@ -1,3 +1,9 @@
+;;; +bindings.el --- Bindings
+
+;;; Commentary:
+
+;;; Code:
+
 ;; evil-escape-key-sequence
 (setq evil-escape-key-sequence "fd")
 
@@ -45,3 +51,5 @@
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
 ;; End:
+(provide '+bindings)
+;;; +bindings.el ends here
