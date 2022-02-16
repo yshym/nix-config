@@ -5,7 +5,7 @@
     services.calendar-to-org = {
       Unit.Description = "Synchronizing calendar and org-mode";
       Service.ExecStart =
-        "${config.home.homeDirectory}/.local/bin/ical2org_wrapper";
+        "${config.home.homeDirectory}/.local/bin/ical2org-wrapper";
     };
     timers.calendar-to-org = {
       Unit.Description = "Synchronizing calendar and org-mode timer";

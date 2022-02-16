@@ -18,6 +18,7 @@ wget --no-check-certificate -O "$ICSFILE_PERSONAL" "$URL_PERSONAL"
 AUTHOR="Yevhen Shymotiuk" \
     EMAIL="yshym@pm.me" \
     CALENDAR="personal" \
+    MAX_AGE=10 \
     ical2org < "$ICSFILE_PERSONAL" > "$ORGFILE_PERSONAL"
 
 # AUTHOR="Yevhen Shymotiuk" \

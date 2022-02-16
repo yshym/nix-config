@@ -10,7 +10,7 @@ in
 {
   launchd.user.agents = {
     calendar-to-org.serviceConfig = {
-      ProgramArguments = [ "${homeFiles}/.local/bin/ical2org_wrapper" ];
+      ProgramArguments = [ "${homeFiles}/.local/bin/ical2org-wrapper" ];
       UserName = "${me}";
       KeepAlive = true;
       StartCalendarInterval = [{ Minute = 5; }];
