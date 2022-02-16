@@ -61,7 +61,7 @@ with lib.my; {
   security = {
     pam.services = {
       swaylock = { };
-      swaylock-wrapped = { };
+      swaylock-wrapper = { };
     };
   };
 

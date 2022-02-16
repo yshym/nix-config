@@ -3,8 +3,8 @@
 with lib;
 let
   cfg = config.programs.swaylock;
-  wrapped = pkgs.writeShellScriptBin
-    "swaylock-wrapped"
+  wrapper = pkgs.writeShellScriptBin
+    "swaylock-wrapper"
     ''
       exec ${pkgs.swaylock-effects}/bin/swaylock \
         --screenshots \
@@ -31,9 +31,9 @@ in
     home.packages = with pkgs; [
       (symlinkJoin
         {
-          name = "swaylock-wrapped";
+          name = "swaylock-wrapper";
           paths = [
-            wrapped
+            wrapper
             swaylock-effects
           ];
         })

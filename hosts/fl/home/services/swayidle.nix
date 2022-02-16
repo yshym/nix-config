@@ -5,7 +5,7 @@
 
   services.swayidle = {
     enable = true;
-    timeouts = [{ timeout = 600; command = "swaylock-wrapped"; }];
-    events = [{ event = "before-sleep"; command = "swaylock-wrapped"; }];
+    timeouts = [{ timeout = 600; command = "swaylock-wrapper"; }];
+    events = [{ event = "before-sleep"; command = "swaylock-wrapper"; }];
   };
 }
