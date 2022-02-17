@@ -11,6 +11,11 @@ in
         settings = {
           "browser.search.defaultenginename" = "duckduckgo";
           "browser.uidensity" = 1;
+          "font.name.monospace.x-western" = "Fira Code";
+          "font.name.sans-serif.x-western" = "DejaVu Sans";
+          "font.name.serif.x-western" = "DejaVu Serif";
+          "font.size.monospace.x-western" = 15;
+          "font.size.variable.x-western" = 15;
           "general.smoothScroll.lines.durationMaxMS" = 125;
           "general.smoothScroll.lines.durationMinMS" = 125;
           "general.smoothScroll.mouseWheel.durationMaxMS" = 200;
