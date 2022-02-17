@@ -11,7 +11,7 @@ in
         settings = {
           "browser.search.defaultenginename" = "duckduckgo";
           "browser.uidensity" = 1;
-          "font.name.monospace.x-western" = "Fira Code";
+          "font.name.monospace.x-western" = "JetBrains Mono";
           "font.name.sans-serif.x-western" = "DejaVu Sans";
           "font.name.serif.x-western" = "DejaVu Serif";
           "font.size.monospace.x-western" = 15;
