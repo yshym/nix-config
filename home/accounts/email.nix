@@ -130,7 +130,7 @@
         };
         primary = true;
         realName = "Yevhen Shymotiuk";
-        passwordCommand = "pass Proton/Mail/Bridge/yevhenshymotiuk";
+        passwordCommand = "pass protonmail.com/bridge/yshym";
         smtp = {
           host = "127.0.0.1";
           port = 1025;
