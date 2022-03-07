@@ -1,7 +1,7 @@
-{ config, lib, mylib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
-with mylib;
+with lib.my;
 let cfg = config.programs.wofi; in
 {
   options.programs.wofi = {
