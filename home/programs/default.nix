@@ -23,6 +23,7 @@
       enable = true;
       pager = "diff-so-fancy";
     };
+    man.enable = true;
     nodejs = {
       enable = true;
       yarn.enable = true;
