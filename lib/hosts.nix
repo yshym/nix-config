@@ -15,6 +15,7 @@ with lib; rec {
       hostPath = ../hosts + "/${host}";
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs.${shortSystemName}.lib."${shortSystemName}System";
+      hmModule = inputs.home-manager."${shortSystemName}Modules".home-manager;
     in
     systemModule {
       inherit system;
@@ -24,15 +25,10 @@ with lib; rec {
           nixpkgs.pkgs = pkgs;
           networking.hostName = mkDefault (removeSuffix ".nix" host);
         }
-        inputs.home-manager."${shortSystemName}Modules".home-manager
+        hmModule
         {
           home-manager = {
-            extraSpecialArgs = {
-              lib = inputs.nixpkgs.lib.extend
-                (self: super: inputs.home-manager.lib // lib);
-            };
-            # TODO https://github.com/nix-community/home-manager/issues/1262
-            sharedModules = [{ manual.manpages.enable = false; }];
+            extraSpecialArgs.mylib = lib.my;
             useUserPackages = true;
             useGlobalPkgs = true;
             users.yshym = import ../home { inherit lib; };

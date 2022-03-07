@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }:
+{ lib, mylib, pkgs, ... }:
 
 with builtins;
-with lib.my; {
+with mylib; {
   programs.waybar = {
     enable = true;
     systemd.enable = true;

@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, mylib, pkgs, ... }:
 
-with lib.my; {
+with mylib; {
   imports = mapModules' ./. import;
 
   programs = {
