@@ -11,6 +11,6 @@ in
   config = mkIf cfg.enable {
     home.packages = with pythonPackages; [ pylint ];
 
-    xdg.configFile."pylintrc".source = ./pylintrc;
+    xdg.configFile."pylint/config".source = ./config;
   };
 }

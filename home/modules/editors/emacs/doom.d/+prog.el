@@ -26,12 +26,12 @@
   :commands lsp
   :diminish lsp-mode
   :config
-  (setq lsp-dart-sdk-dir (getenv "DARTPATH"))
-  (setq lsp-gopls-codelens nil)
-  (lsp-register-custom-settings
-   '(("pylsp.plugins.flake8.enabled" nil nil)
-     ("pylsp.plugins.pylint.enabled" t t)
-     ("pylsp.plugins.pydocstyle.enabled" nil nil)))
+  (setq lsp-dart-sdk-dir (getenv "DARTPATH")
+        lsp-gopls-codelens nil
+        lsp-pylsp-plugins-flake8-enabled nil
+        lsp-pylsp-plugins-pylint-enabled t
+        lsp-pylsp-plugins-pylint-args ["--rcfile ~/.config/pylint/config"]
+        lsp-pylsp-plugins-pydocstyle-enabled nil)
   :hook
   (elixir-mode . 'lsp)
   :init
@@ -77,9 +77,6 @@
 
 
 ;; python
-(after! flycheck-mode
-  (add-to-list 'flycheck-pylintrc "~/.config/pylint/pylintrc"))
-
 (defun black-format ()
   "Format current file using Black formatter."
   (interactive)
