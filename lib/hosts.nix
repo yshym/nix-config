@@ -32,7 +32,6 @@ with lib; rec {
               lib = inputs.nixpkgs.lib.extend
                 (self: super: inputs.home-manager.lib // lib);
             };
-            sharedModules = [{ manual.manpages.enable = false; }];
             useUserPackages = true;
             useGlobalPkgs = true;
             users.yshym = import ../home { inherit lib; };
