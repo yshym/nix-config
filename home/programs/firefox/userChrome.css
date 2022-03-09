@@ -2,9 +2,7 @@
 /*     padding-top: 4px !important; */
 /* } */
 
-/*
- *  Hide window controls
- */
+/* Hide window controls */
 .titlebar-buttonbox-container {
   display: none !important;
 }
@@ -17,9 +15,7 @@
   display: none !important;
 }
 
-/*
- *  Minimal theme
- */
+/* Minimal theme */
 #navigator-toolbox #urlbar-container {
   padding: 0 !important;
   margin: 0 !important;
@@ -100,3 +96,8 @@
 /*   -moz-margin-end: initial !important; /\* Use initial margins to show the icon *\/ */
 /*   -moz-padding-right: 10px !important; */
 /* } */
+
+/* Hide sharing indicator */
+#webrtcIndicator {
+  display: none !important;
+}
