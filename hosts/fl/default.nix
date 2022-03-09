@@ -20,7 +20,6 @@ with lib.my; {
   };
 
   services = {
-    fprintd.enable = true;
     geoclue2.enable = true;
     pipewire = {
       enable = true;
