@@ -6,7 +6,7 @@ let
   python = pkgs.python3;
   pythonPackages = pkgs.python3Packages;
   myPythonPackages = pythonPackages:
-    with pythonPackages; [
+    with pythonPackages; with pkgs.my; [
       # setup
       pip
       setuptools
@@ -14,6 +14,9 @@ let
 
       # ipython
       ipdb
+
+      # other
+      clion
     ];
   pythonWithMyPackages = python.withPackages myPythonPackages;
 in
