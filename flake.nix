@@ -16,7 +16,7 @@
     };
 
     # extra
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url = "github:yshym/emacs-overlay";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
