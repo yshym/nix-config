@@ -31,7 +31,7 @@ def build(*args):
 
 
 @app.command(aliases=["c"])
-def check(path=None):
+def check(path=None, impure=False):
     """
     Check whether the flake evaluates and run its tests
 
@@ -41,7 +41,9 @@ def check(path=None):
         path to a flake
     """
     return subprocess.run(
-        ["nix", "flake", "check", path or FLAKE_PATH], check=False
+        ["nix", "flake", "check", path or FLAKE_PATH]
+        + (["--impure"] if impure else []),
+        check=False,
     )
 
 
