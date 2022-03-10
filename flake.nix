@@ -3,22 +3,22 @@
 
   inputs = {
     # core
-    nixos.url = "nixpkgs/nixos-21.11";
-    nixpkgs.url = "nixpkgs/release-21.11";
-    nixpkgs-unstable.url = "nixpkgs/nixpkgs-unstable";
+    nixos.url = "github:yshym/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
+    nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-21.11";
+      url = "github:yshym/home-manager/release-21.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # extra
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url = "github:yshym/emacs-overlay";
     flake-utils.url = "github:numtide/flake-utils";
-    nixos-hardware.url = "github:nixos/nixos-hardware/master";
+    nixos-hardware.url = "nixos-hardware/master";
   };
 
   outputs =

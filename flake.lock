@@ -7,15 +7,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1645293039,
-        "narHash": "sha256-PwdDu+SkX8dreeuJ/4av1sEluNZdrpdXv8JsRKKg1Yc=",
-        "owner": "lnl7",
+        "lastModified": 1634994402,
+        "narHash": "sha256-xmlCVVOYGpZoxgOqsDOVF0B0ASrnbNGVAEzID9qh2xo=",
+        "owner": "yshym",
         "repo": "nix-darwin",
-        "rev": "1df878b6f8351795a3bebfbe4fd2d02e1e8b29d6",
+        "rev": "44da835ac40dab5fd231298b59d83487382d2fab",
         "type": "github"
       },
       "original": {
-        "owner": "lnl7",
+        "owner": "yshym",
         "ref": "master",
         "repo": "nix-darwin",
         "type": "github"
@@ -23,15 +23,15 @@
     },
     "emacs-overlay": {
       "locked": {
-        "lastModified": 1646847692,
-        "narHash": "sha256-HCWcVFhyHfQ0EJmzpqRYIQHC4alH7WxgU9uoBzMzWIg=",
-        "owner": "nix-community",
+        "lastModified": 1646818969,
+        "narHash": "sha256-35Ymee1xFKYgGSvpteI0ZT+Fc8qPygYleCy3vyeXj2w=",
+        "owner": "yshym",
         "repo": "emacs-overlay",
-        "rev": "0034bfa40dfac057ad8c9f79da35b6c96d995188",
+        "rev": "55a555f10b76f1e632a429dc6b9d10b81fa86023",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "yshym",
         "repo": "emacs-overlay",
         "type": "github"
       }
@@ -60,13 +60,13 @@
       "locked": {
         "lastModified": 1643933536,
         "narHash": "sha256-yRmsWAG4DnLxLIUtlaZsl0kH7rN5xSoyNRlf0YZrcH4=",
-        "owner": "nix-community",
+        "owner": "yshym",
         "repo": "home-manager",
         "rev": "2860d7e3bb350f18f7477858f3513f9798896831",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "yshym",
         "ref": "release-21.11",
         "repo": "home-manager",
         "type": "github"
@@ -76,15 +76,16 @@
       "locked": {
         "lastModified": 1646588256,
         "narHash": "sha256-ZHljmNlt19nSm0Mz8fx6QEhddKUkU4hhwFmfNmGn+EY=",
-        "owner": "NixOS",
+        "owner": "yshym",
         "repo": "nixpkgs",
         "rev": "2ebb6c1e5ae402ba35cca5eec58385e5f1adea04",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "yshym",
         "ref": "nixos-21.11",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixos-hardware": {
@@ -97,40 +98,41 @@
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "id": "nixos-hardware",
         "ref": "master",
-        "repo": "nixos-hardware",
-        "type": "github"
+        "type": "indirect"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1646844010,
-        "narHash": "sha256-NRDLmpjmBMNBRr/BiztSsGht5wJYl8WZFzj+b+6LhLk=",
-        "owner": "NixOS",
+        "lastModified": 1646913499,
+        "narHash": "sha256-naPn+dx5sDnm7DUSHfjoakm1ED8xv7X4cbuAJiqx/eQ=",
+        "owner": "yshym",
         "repo": "nixpkgs",
-        "rev": "d59edd3833597be12763f1f017c7ad666cf1b810",
+        "rev": "4e5bf8730ee5a55388c16453d964234544e62923",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "yshym",
         "ref": "release-21.11",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1646506091,
-        "narHash": "sha256-sWNAJE2m+HOh1jtXlHcnhxsj6/sXrHgbqVNcVRlveK4=",
-        "owner": "NixOS",
+        "lastModified": 1646919353,
+        "narHash": "sha256-hNs5JXmukfj6qtAtzA1O08qUJ64Q+VnWTqy0KjxPzpE=",
+        "owner": "yshym",
         "repo": "nixpkgs",
-        "rev": "3e644bd62489b516292c816f70bf0052c693b3c7",
+        "rev": "641674dbbcced6d8e4f499e8ed90f65c8987d8fa",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
+        "owner": "yshym",
         "ref": "nixpkgs-unstable",
-        "type": "indirect"
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "root": {
