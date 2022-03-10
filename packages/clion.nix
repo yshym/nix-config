@@ -3,13 +3,13 @@
 with pkgs.python3Packages;
 buildPythonPackage rec {
   pname = "clion";
-  version = "0.3.1";
+  version = "0.3.2";
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-xBJhW7RWn6ZuZsGgFJDhx6r9i99O7DtBvqv4pUxXZZk=";
+    sha256 = "sha256-kSHzny3wjcpcmbZS1sw0NPFC1JYlgNHCgbs+khd0naw=";
   };
 
   meta = with lib; {
