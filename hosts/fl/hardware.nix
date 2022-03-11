@@ -3,24 +3,28 @@
 {
   imports = [ inputs.nixos-hardware.nixosModules.framework (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/90743b97-0b54-45e5-8550-d0cbac218fe1";
-    fsType = "ext4";
+  boot = {
+    initrd = {
+      availableKernelModules =
+        [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
+      kernelModules = [ ];
+    };
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3606-9FF7";
-    fsType = "vfat";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-label/nixos";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-label/boot";
+      fsType = "vfat";
+    };
   };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/a8db5131-8feb-4caf-8813-7cb7092d1858"; }];
+  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware = {
