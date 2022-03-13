@@ -115,8 +115,7 @@
     "golines -w -m 80 "
     (buffer-file-name)
     "&& gofumpt -w "
-    (buffer-file-name)))
-  (revert-buffer))
+    (buffer-file-name))))
 
 (defun gomodifytags ()
   "Add tags for all structs of the current buffer."

@@ -6,7 +6,6 @@ in
   programs = {
     go.enable = true;
     zsh.shellAliases = {
-      golines = "golines -w -m 80";
       gomodifytags = "gomodifytags -add-tags json -all -w -file";
     };
   };
