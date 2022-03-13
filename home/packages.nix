@@ -43,6 +43,7 @@
       redis
       rnix-lsp
       sass
+      tokei
       unrar
       unzip
 
@@ -56,14 +57,6 @@
       # documents
       graphviz
       pandoc
-
-      # other ART (Awesome Rust Tools)
-      fd
-      hexyl
-      hyperfine
-      pastel
-      tealdeer
-      tokei
 
       # communication
       isync
@@ -80,6 +73,7 @@
       pinentry
 
       # net & cloud tools
+      aria2
       ddgr
       doctl
       httpie
@@ -88,7 +82,6 @@
       telnet
 
       # entertainment
-      aria2
       chatterino2
       mpv
       # portaudio
@@ -96,8 +89,13 @@
       streamlink
       youtube-dl
 
-      # my stuff
+      # other
+      fd
+      hexyl
+      hyperfine
       my.ical2org
+      pastel
+      tealdeer
       termdown
       translate-shell
     ];
