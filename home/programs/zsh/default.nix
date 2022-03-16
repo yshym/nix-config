@@ -37,14 +37,16 @@ with pkgs; {
       bindkey "^J"   history-substring-search-down # ctrl-j
       bindkey "^[[A" history-substring-search-up   # up arrow
       bindkey "^[[B" history-substring-search-down # down arrow
-
-      export NIX_PATH="$HOME/.nix-defexpr/channels"
-      ${lib.optionalString stdenv.isDarwin ''
-        export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
-      export GPG_TTY="$(tty)"
     '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
+
+      source /etc/set-environment
+
+      export NIX_PATH="$HOME/.nix-defexpr/channels:$NIX_PATH"
+      ${lib.optionalString stdenv.isDarwin ''
+        export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
+      export GPG_TTY="$(tty)"
 
       export ERL_AFLAGS="-kernel shell_history enabled"
       export PYENV_ROOT="$HOME/.pyenv"
