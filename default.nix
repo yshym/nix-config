@@ -11,6 +11,7 @@ with pkgs; {
     font-awesome
     jetbrains-mono
     (joypixels.override { acceptLicense = true; })
+    noto-fonts
     noto-fonts-cjk
   ];
 
