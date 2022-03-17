@@ -1,4 +1,6 @@
+#!/usr/bin/env bash
 # Nix shell helper which can be used in a shebang
+
 FLAKE_PATH="/etc/nixos"
 EXPRESSION="$1"
 COMMAND="$2"
