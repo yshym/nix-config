@@ -1,32 +1,56 @@
 #!/usr/bin/env bash
 
-channel="$1"
-channel_url="http://twitch.tv/$channel"
+while getopts y opt; do
+    case "$opt" in
+        y) youtube="1" ;;
+    esac
+done
+
+if [[ "$youtube" ]]; then
+    channel="$2"
+    google_api_key="$(pass google.com/api-keys/tw)"
+    youtube_channel_id_api_url="https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=$channel&key=$google_api_key"
+    youtube_channel_id="$(http $youtube_channel_id_api_url | jq -r ".items[0].id")"
+    youtube_stream_api_url="https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=$youtube_channel_id&eventType=live&type=video&key=$google_api_key"
+    youtube_stream_id="$(http $youtube_stream_api_url | jq -r ".items[0].id.videoId")"
+    stream_url="https://www.youtube.com/watch?v=$youtube_stream_id"
+    chat_command="chromium 'https://www.youtube.com/live_chat?is_popout=1&v=$youtube_stream_id'"
+else
+    channel="$1"
+    stream_url="http://twitch.tv/$channel"
+    chat_command="chatterino -c '$channel'"
+fi
 workspace="$(swaymsg -t get_tree \
     | jq -r 'recurse(.nodes[])
         | select(.nodes[].focused == true)
         | .name')"
+
 player_name () {
     echo "$(swaymsg -t get_tree \
         | jq -r \
             --arg workspace "$workspace" \
-            --arg channel_url "$channel_url" \
+            --arg stream_url "$stream_url" \
             '..
             | (.nodes? // empty)[]
             | select(.type == "workspace" and .name == $workspace)
             | .nodes[]
-            | select(.name | match($channel_url))
+            | select(.name | match($stream_url))
             | .name')"
 }
 
 run () {
     # open player
-    streamlink --player mpv --twitch-disable-ads "$channel_url" best &> /dev/null &
+    streamlink --player mpv --twitch-disable-ads "$stream_url" best &> /dev/null &
     # open chat
-    chatterino -c "$channel" &> /dev/null &
+    eval "$chat_command" &> /dev/null &
     # wait for player window to open
-    until [[ "$(player_name)" == "$channel_url"* ]]; do sleep 1; done
+    retry_count=0
+    until [[ "$(player_name)" == "$stream_url"* || "$retry_count" > 20 ]]; do
+        sleep 1
+        ((retry_count++))
+    done
     swaymsg "move left"
     swaymsg "resize grow right 50ppt"
 }
+
 run & disown
