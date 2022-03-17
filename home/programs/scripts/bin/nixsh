@@ -7,9 +7,9 @@ COMMAND="$2"
 
 nix shell \
     --impure \
-    --arg "pkgs" "with import <nixpkgs> { }; \
-                  with builtins; \
-                  let flake = getFlake (toString $FLAKE_PATH); \
+    --arg "pkgs" "with import <nixpkgs> { };
+                  with builtins;
+                  let flake = getFlake (toString $FLAKE_PATH);
                   in flake.lib.mkPkgs stdenv.system" \
     --expr "$EXPRESSION" \
     -c "$COMMAND" \
