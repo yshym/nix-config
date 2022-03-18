@@ -41,8 +41,6 @@ with pkgs; {
     envExtra = ''
       fpath+=$HOME/.zsh_completions
 
-      source /etc/set-environment
-
       export NIX_PATH="$HOME/.nix-defexpr/channels:$NIX_PATH"
       ${lib.optionalString stdenv.isDarwin ''
         export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
