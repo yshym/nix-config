@@ -40,6 +40,7 @@
       openmpi
       plantuml
       pre-commit
+      p7zip
       redis
       rnix-lsp
       sass
@@ -91,9 +92,11 @@
 
       # other
       fd
+      ffmpeg
       hexyl
       hyperfine
       my.ical2org
+      obs-studio
       pastel
       tealdeer
       termdown
