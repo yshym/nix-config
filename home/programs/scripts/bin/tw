@@ -14,16 +14,13 @@ if [[ "$youtube" ]]; then
     youtube_stream_api_url="https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=$youtube_channel_id&eventType=live&type=video&key=$google_api_key"
     youtube_stream_id="$(http $youtube_stream_api_url | jq -r ".items[0].id.videoId")"
     stream_url="https://www.youtube.com/watch?v=$youtube_stream_id"
-    chat_command="chromium 'https://www.youtube.com/live_chat?is_popout=1&v=$youtube_stream_id'"
+    chat_command="chromium --new-window 'https://www.youtube.com/live_chat?is_popout=1&v=$youtube_stream_id'"
 else
     channel="$1"
     stream_url="http://twitch.tv/$channel"
     chat_command="chatterino -c '$channel'"
 fi
-workspace="$(swaymsg -t get_tree \
-    | jq -r 'recurse(.nodes[])
-        | select(.nodes[].focused == true)
-        | .name')"
+workspace="$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused == true) | .name')"
 
 player_name () {
     echo "$(swaymsg -t get_tree \
