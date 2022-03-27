@@ -1,6 +1,6 @@
 #+TITLE: Nix Config
 
-[[https://builtwithnix.org][https://builtwithnix.org/badge.svg]]
+[[https://nixos.org][https://img.shields.io/badge/NixOS-21.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white]]
 
 #+BEGIN_QUOTE
 Configuration for my nix machines
