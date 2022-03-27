@@ -9,9 +9,17 @@ done
 if [[ "$youtube" ]]; then
     channel="$2"
     google_api_key="$(pass google.com/api-keys/tw)"
-    youtube_channel_id_api_url="https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=$channel&key=$google_api_key"
+    youtube_channel_id_api_url="https://www.googleapis.com/youtube/v3/channels \
+        ?part=contentDetails
+        &forUsername=$channel
+        &key=$google_api_key"
     youtube_channel_id="$(http $youtube_channel_id_api_url | jq -r ".items[0].id")"
-    youtube_stream_api_url="https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=$youtube_channel_id&eventType=live&type=video&key=$google_api_key"
+    youtube_stream_api_url="https://www.googleapis.com/youtube/v3/search \
+        ?part=snippet
+        &channelId=$youtube_channel_id
+        &eventType=live
+        &type=video
+        &key=$google_api_key"
     youtube_stream_id="$(http $youtube_stream_api_url | jq -r ".items[0].id.videoId")"
     stream_url="https://www.youtube.com/watch?v=$youtube_stream_id"
     chat_command="chromium --new-window 'https://www.youtube.com/live_chat?is_popout=1&v=$youtube_stream_id'"
