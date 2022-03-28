@@ -1,7 +1,7 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, pkgs }:
 
 let
-  inherit (lib) makeExtensible attrValues foldr;
+  inherit (lib) mkPkgs makeExtensible attrValues foldr;
   inherit (modules) mapModules;
 
   modules = import ./modules.nix {

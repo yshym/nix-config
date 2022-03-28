@@ -24,29 +24,34 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, darwin, home-manager, flake-utils, ... }:
     let
-      inherit (lib) foldr optional optionalAttrs;
-      inherit (lib.my) isDarwin mkHost mkPkgs mapModules;
       inherit (flake-utils.lib) eachDefaultSystem;
 
-      lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib {
-          inherit inputs;
-          lib = self;
-          # TODO Substitute with OS-independent counterpart
-          pkgs = mkPkgs "x86_64-linux";
-        };
-      });
+      mkHost = hostname: system:
+        let
+          pkgs = import inputs.nixpkgs { inherit system; };
+          lib = nixpkgs.lib.extend (self: super: {
+            my = import ./lib { inherit inputs pkgs; lib = self; };
+          });
+        in
+        lib.my.mkHost hostname system;
     in
     eachDefaultSystem
       (system:
       let
-        pkgs = mkPkgs system;
+        inherit (nixpkgs.lib) foldr;
+        inherit (mylib) isDarwin mapModules;
+
+        lib = nixpkgs.lib;
+        pkgs = import inputs.nixpkgs { inherit system; };
+        mylib = import ./lib { inherit inputs lib pkgs; };
         paths = [
           ./packages
           (if (isDarwin system) then ./packages/darwin else ./packages/linux)
         ];
       in
       {
+        lib = mylib;
+
         packages = foldr (a: b: a // b) { }
           (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
             paths);
@@ -56,8 +61,6 @@
           program = ./home/programs/scripts/bin/h;
         };
       }) // {
-      lib = lib.my;
-
       overlays = { emacs = inputs.emacs-overlay.overlay; };
 
       darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };

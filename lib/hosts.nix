@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, ... }:
+{ inputs, lib, ... }:
 
 with lib; rec {
   isDarwin = system: strings.hasSuffix "darwin" system;
