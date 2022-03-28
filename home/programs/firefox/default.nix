@@ -4,12 +4,11 @@ let cfg = config.programs.firefox;
 in
 {
   programs = {
-    browserpass.enable = true;
     firefox = {
       enable = true;
       profiles.default = {
         settings = {
-          "browser.search.defaultenginename" = "duckduckgo";
+          "browser.search.defaultenginename" = "brave";
           "browser.uidensity" = 1;
           "font.name.monospace.x-western" = "JetBrains Mono";
           "font.name.sans-serif.x-western" = "DejaVu Sans";

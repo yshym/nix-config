@@ -4,6 +4,11 @@ with lib.my; {
   imports = mapModules' ./. import;
 
   programs = {
+    brave = {
+      enable = true;
+      package = pkgs.my.brave;
+    };
+    browserpassWithBrave.enable = true;
     chromium = {
       enable = true;
       package = pkgs.ungoogled-chromium.override {
