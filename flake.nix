@@ -24,43 +24,39 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, darwin, home-manager, flake-utils, ... }:
     let
+      inherit (lib) foldr mapAttrs mapAttrsToList nameValuePair zipAttrs;
+      inherit (lib.my) isDarwin mapModules mkHost;
       inherit (flake-utils.lib) eachDefaultSystem;
 
-      mkHost = hostname: system:
-        let
-          pkgs = import inputs.nixpkgs { inherit system; };
-          lib = nixpkgs.lib.extend (self: super: {
-            my = import ./lib { inherit inputs pkgs; lib = self; };
-          });
-        in
-        lib.my.mkHost hostname system;
+      pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+      lib = nixpkgs.lib.extend (self: super: {
+        my = import ./lib { inherit inputs pkgs; lib = self; };
+      });
+      mapPackages = path: mapAttrs
+        (name: value: foldr (a: b: a // b) { } value)
+        (zipAttrs (mapAttrsToList
+          (name: pkg: foldr (a: b: a // b) { }
+            (map (plat: { ${plat} = { ${name} = pkg; }; })
+              pkg.meta.platforms))
+          (mapModules path (p: pkgs.callPackage p { }))));
     in
     eachDefaultSystem
       (system:
       let
-        inherit (nixpkgs.lib) foldr;
-        inherit (mylib) isDarwin mapModules;
-
         lib = nixpkgs.lib;
         pkgs = import inputs.nixpkgs { inherit system; };
         mylib = import ./lib { inherit inputs lib pkgs; };
-        paths = [
-          ./packages
-          (if (isDarwin system) then ./packages/darwin else ./packages/linux)
-        ];
       in
       {
         lib = mylib;
-
-        packages = foldr (a: b: a // b) { }
-          (map (path: mapModules (toString path) (p: pkgs.callPackage p { }))
-            paths);
 
         defaultApp = {
           type = "app";
           program = ./home/programs/scripts/bin/h;
         };
       }) // {
+      packages = mapPackages ./packages;
+
       overlays = { emacs = inputs.emacs-overlay.overlay; };
 
       darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
