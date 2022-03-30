@@ -49,11 +49,14 @@ run () {
     # open chat
     eval "$chat_command" &> /dev/null &
     # wait for player window to open
+    max_retry_count=20
     retry_count=0
-    until [[ "$(player_name)" == "$stream_url"* || "$retry_count" > 20 ]]; do
+    until [[ "$(player_name)" == "$stream_url"* ]]; do
+        [[ "$retry_count" == "$max_retry_count" ]] && exit 1
         sleep 1
         ((retry_count++))
     done
+    sleep 0.1
     swaymsg "move left"
     swaymsg "resize grow right 50ppt"
 }
