@@ -54,6 +54,7 @@
        dired               ; making dired pretty [functional]
        electric            ; smarter, keyword-based electric-indent
        imenu               ; an imenu sidebar and searchable code index
+       undo                ; persistent, smarter undo for your inevitable mistakes
        vc                  ; version-control and Emacs, sitting in a tree
 
        :term

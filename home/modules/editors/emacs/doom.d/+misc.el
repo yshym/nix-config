@@ -10,7 +10,6 @@
 
 ;; general
 (global-subword-mode 1)
-(global-undo-tree-mode 1)
 (setq truncate-string-ellipsis "…")
 
 
@@ -19,12 +18,6 @@
 (setq evil-split-window-below t
       evil-vsplit-window-right t
       evil-want-fine-undo t)
-
-
-;; direnv
-(use-package! direnv
-  :config
-  (direnv-mode))
 
 
 ;; dired
@@ -41,13 +34,6 @@
   (interactive)
   (+term/toggle t)
   (evil-window-set-height 10))
-
-
-;; trello
-(defun org-trello-sync-buffer-from-trello ()
-  "Sync Trello buffer."
-  (interactive)
-  (org-trello-sync-buffer t))
 
 
 ;; agenda
