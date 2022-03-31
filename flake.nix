@@ -33,7 +33,7 @@
         my = import ./lib { inherit inputs pkgs; lib = self; };
       });
       mapPackages = path: mapAttrs
-        (name: value: foldr (a: b: a // b) { } value)
+        (_: v: foldr (a: b: a // b) { } v)
         (zipAttrs (mapAttrsToList
           (name: pkg: foldr (a: b: a // b) { }
             (map (plat: { ${plat} = { ${name} = pkg; }; })
