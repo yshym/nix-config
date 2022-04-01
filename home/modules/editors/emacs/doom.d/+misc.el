@@ -14,7 +14,6 @@
 
 
 ;; evil
-(evil-set-undo-system 'undo-tree)
 (setq evil-split-window-below t
       evil-vsplit-window-right t
       evil-want-fine-undo t)
@@ -139,13 +138,12 @@ to an appropriate value)")
         mu4e-headers-fields '((:flags . 6)
                               (:account-stripe . 2)
                               (:from-or-to . 25)
-                              ;; (:folder . 10)
-                              ;; (:recipnum . 2)
+                              (:folder . 10)
                               (:subject . 80)
-                              (:human-date . 8))
+                              (:human-date . 10))
         +mu4e-min-header-frame-width 142
-        mu4e-headers-date-format "%d/%m/%y"
-        mu4e-headers-time-format " %H:%M"
+        mu4e-headers-date-format " %d/%m/%y"
+        mu4e-headers-time-format " %H:%M"
         mu4e-headers-results-limit 1000
         mu4e-index-cleanup t)
   (defvar +mu4e-header--folder-colors nil)
