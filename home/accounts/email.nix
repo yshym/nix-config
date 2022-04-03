@@ -24,12 +24,12 @@
           boxes = [
             "INBOX"
             "[Gmail]/Sent Mail"
-            "[Gmail]/All Mail"
+            # "[Gmail]/All Mail"
             "[Gmail]/Starred"
           ];
           onNotify = "${pkgs.isync}/bin/mbsync --pull --new gmail";
           onNotifyPost =
-            "'if ${pkgs.mu}/bin/mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi'";
+            "if ${pkgs.mu}/bin/mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi";
         };
         mbsync = {
           enable = true;
@@ -54,15 +54,15 @@
                 SyncState = "*";
               };
             };
-            all = {
-              farPattern = "[Gmail]/All Mail";
-              nearPattern = "all";
-              extraConfig = {
-                Create = "both";
-                Expunge = "both";
-                SyncState = "*";
-              };
-            };
+            # all = {
+            #   farPattern = "[Gmail]/All Mail";
+            #   nearPattern = "all";
+            #   extraConfig = {
+            #     Create = "both";
+            #     Expunge = "both";
+            #     SyncState = "*";
+            #   };
+            # };
             starred = {
               farPattern = "[Gmail]/Starred";
               nearPattern = "starred";
@@ -97,10 +97,14 @@
         };
         imapnotify = {
           enable = true;
-          boxes = [ "INBOX" "Sent" "All Mail" ];
+          boxes = [
+            "INBOX"
+            "Sent"
+            # "All Mail"
+          ];
           onNotify = "${pkgs.isync}/bin/mbsync --pull --new protonmail";
           onNotifyPost =
-            "'if ${pkgs.mu}/bin/mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi'";
+            "if ${pkgs.mu}/bin/mu index --lazy-check; then test -f /tmp/mu_reindex_now && rm /tmp/mu_reindex_now; else touch /tmp/mu_reindex_now; fi";
         };
         mbsync = {
           enable = true;
@@ -125,15 +129,15 @@
                 SyncState = "*";
               };
             };
-            all = {
-              farPattern = "All Mail";
-              nearPattern = "all";
-              extraConfig = {
-                Create = "both";
-                Expunge = "both";
-                SyncState = "*";
-              };
-            };
+            # all = {
+            #   farPattern = "All Mail";
+            #   nearPattern = "all";
+            #   extraConfig = {
+            #     Create = "both";
+            #     Expunge = "both";
+            #     SyncState = "*";
+            #   };
+            # };
           };
         };
       };
