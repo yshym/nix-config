@@ -1,10 +1,20 @@
 #!/usr/bin/env bash
+
 # Nix shell helper which can be used in a shebang
+#
+# Example:
+# #!/usr/bin/env -S nixsh "{pkgs}: with pkgs; python3.withPackages (pythonPkgs: with pythonPkgs; [rich])" "python3"
+#
+# from rich import print
+#
+# print("Hello, [bold magenta]World[/bold magenta]!")
 
 FLAKE_PATH="/etc/nixos"
 EXPRESSION="$1"
+# TODO Use bash command by default
 COMMAND="$2"
 
+# TODO Add option to provide a list of packages instead of expresion
 nix shell \
     --impure \
     --arg "pkgs" "with import <nixpkgs> { };
