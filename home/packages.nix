@@ -62,7 +62,6 @@
       # communication
       isync
       mu
-      protonmail-bridge
       tmate
 
       # monitoring
@@ -93,6 +92,7 @@
       # other
       fd
       ffmpeg
+      gimp
       hexyl
       hyperfine
       my.ical2org
