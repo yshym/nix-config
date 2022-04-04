@@ -2,16 +2,16 @@
 
 FILE="$HOME/screen.png"
 
+select=0
+
 while getopts "s" opt; do
     case "$opt" in
-        s)
-            SELECT=true
-            ;;
+        s) select=1 ;;
     esac
 done
 
 # make screenshot
-if [ "$SELECT" == true ]; then
+if [ "$select" = 1 ]; then
     screencapture -i "$FILE"
 else
     screencapture "$FILE"

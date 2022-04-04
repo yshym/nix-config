@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
-FILE="$1"
-BASENAME="${FILE%%.*}"
-EXTENSION="${FILE##*.}"
-DESTINATION="$BASENAME"
+file="$1"
+basename="${file%%.*}"
+extension="${file##*.}"
+destination="$basename"
 
 if [ "$2" ]; then
-    DESTINATION="$2"
+    destination="$2"
 fi
 
-case "$EXTENSION" in
+case "$extension" in
     "gz")
-        mkdir "$DESTINATION"
-        tar xvf "$FILE" --directory "$DESTINATION"
+        mkdir "$destination"
+        tar xvf "$file" --directory "$destination"
         ;;
     "zip")
-        unzip "$FILE" -d "$DESTINATION"
+        unzip "$file" -d "$destination"
         ;;
     "rar")
-        unrar x "$FILE" "$DESTINATION"
+        unrar x "$file" "$destination"
         ;;
     *)
-        tar cvzf "$BASENAME.tar.gz" "$FILE"
+        tar cvzf "$basename.tar.gz" "$file"
         ;;
 esac

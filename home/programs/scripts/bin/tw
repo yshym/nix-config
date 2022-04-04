@@ -15,7 +15,7 @@ EOF
 youtube=0
 chat=1
 
-options=$(getopt -l "help,youtube,no-chat" -o "hy" -- "$@")
+options="$(getopt -l "help,youtube,no-chat" -o "hy" -- "$@")"
 eval set -- "$options"
 while true; do
     case "$1" in

@@ -17,6 +17,6 @@ else
         | sort > "$CACHE_FILE"
 fi
 
-APPLICATIONS="$(cat "$CACHE_FILE")"
-APPLICATION="$(echo "$APPLICATIONS" | choose -c bd93f9 -b 272832 -s 22 -f "Fira Code")"
-[ "$APPLICATION" ] && open -a "$APPLICATION"
+applications="$(cat "$CACHE_FILE")"
+application="$(echo "$applications" | choose -c bd93f9 -b 272832 -s 22 -f "Fira Code")"
+[ "$application" ] && open -a "$application"

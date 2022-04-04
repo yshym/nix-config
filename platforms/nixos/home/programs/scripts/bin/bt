@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 AIRPODS="D0:65:44:A6:0B:64"
-CONNECTED_DEVICE="$(bluetoothctl info | grep Device | sed -e "s/Device //" -e "s/ (public)//")"
-[ "$#" = 0 ] && DEVICE="$AIRPODS" || DEVICE="$1"
-[ "$DEVICE" = "$CONNECTED_DEVICE" ] && ACTION="disconnect" || ACTION="connect"
-eval "bluetoothctl $ACTION $DEVICE"
+
+connected_device="$(bluetoothctl info | grep Device | sed -e "s/Device //" -e "s/ (public)//")"
+device="$AIRPODS"
+action="connect"
+
+[ "$#" = 0 ] || device="$1"
+[ "$device" = "$connected_device" ] && action="disconnect"
+eval "bluetoothctl $action $device"

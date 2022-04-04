@@ -2,9 +2,11 @@
 
 FILE="$HOME/screen.png"
 
+select=0
+
 while getopts "s" opt; do
     case "$opt" in
-        s) SELECT=1 ;;
+        s) select=1 ;;
         *) ;;
     esac
 done
@@ -15,10 +17,10 @@ case "$XDG_SESSION_TYPE" in
     *) ;;
 esac
 options=("Default" "Imgur")
-choice=$(printf "%s\n" "${options[@]}" | eval "$dmenu")
+choice="$(printf "%s\n" "${options[@]}" | eval "$dmenu")"
 [ $? = 0 ] || exit 1
 
-if [ "$SELECT" ]; then
+if [ "$select" == 1 ]; then
     case "$XDG_SESSION_TYPE" in
         x11) maim --select "$FILE" --hidecursor ;;
         wayland) grim -g "$(slurp)" "$FILE" ;;

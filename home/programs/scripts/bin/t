@@ -1,40 +1,35 @@
 #!/usr/bin/env bash
 
+paste=0
+verbose=0
+
 while getopts "pv" opt; do
     case "$opt" in
-        p) PASTE=1 ;;
-        v) VERBOSE=1 ;;
-        *)
-            VERBOSE=0
-            PASTE=0
-            ;;
+        p) paste=1 ;;
+        v) verbose=1 ;;
+        *) break ;;
     esac
+    shift
 done
 
-if [ "$PASTE" ]; then
-    STRING="$(pbpaste)"
+string="$1"
+
+if [ "$paste" = 1 ]; then
+    string="$(wl-paste)"
 else
-    if [ -p /dev/stdin ]; then
-        read -r STRING
-    else
-        if [ "$#" -gt 1 ]; then
-            STRING="$2"
-        else
-            STRING="$1"
-        fi
-    fi
+    [ -p /dev/stdin ] && read -r string
 fi
 
-PHRASE=$(echo "$STRING" | sed -e "s/^ *//" -e "s/ *$//")
-FIRST_CHARACTER=${PHRASE:0:1}
-if [[ $(echo "$FIRST_CHARACTER" | tr "[:upper:]" "[:lower:]") =~ [a-z] ]]; then
-    LANGUAGES="en:uk"
+phrase="$(echo "$string" | sed -e "s/^ *//" -e "s/ *$//")"
+first_character="${phrase:0:1}"
+if [[ "$(echo "$first_character" | tr "[:upper:]" "[:lower:]")" =~ [a-z] ]]; then
+    languages="en:uk"
 else
-    LANGUAGES="uk:en"
+    languages="uk:en"
 fi
 
-if [ "$VERBOSE" ]; then
-    eval "trans $LANGUAGES '$PHRASE'"
+if [ "$verbose" = 1 ]; then
+    eval "trans $languages \"$phrase\""
 else
-    eval "trans -b $LANGUAGES '$PHRASE'"
+    eval "trans -b $languages \"$phrase\""
 fi

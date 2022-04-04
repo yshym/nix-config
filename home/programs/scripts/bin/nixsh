@@ -10,9 +10,9 @@
 # print("Hello, [bold magenta]World[/bold magenta]!")
 
 FLAKE_PATH="/etc/nixos"
-EXPRESSION="$1"
+expression="$1"
 # TODO Use bash command by default
-COMMAND="$2"
+command="$2"
 
 # TODO Add option to provide a list of packages instead of expresion
 nix shell \
@@ -21,6 +21,6 @@ nix shell \
                   with builtins;
                   let flake = getFlake (toString $FLAKE_PATH);
                   in flake.lib.mkPkgs stdenv.system" \
-    --expr "$EXPRESSION" \
-    -c "$COMMAND" \
+    --expr "$expression" \
+    -c "$command" \
     "${@:3}"
