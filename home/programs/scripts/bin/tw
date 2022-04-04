@@ -1,13 +1,34 @@
 #!/usr/bin/env bash
 
-while getopts y opt; do
-    case "$opt" in
-        y) youtube="1" ;;
+help () {
+    cat <<EOF
+Usage: tw [options] <channel> && exit
+Open twitch/youtube stream with chat
+
+Options:
+    -h, --help    Display help message
+    -y, --youtube Open youtube stream
+    --no-chat     Do not open chat
+EOF
+}
+
+youtube=0
+chat=1
+
+options=$(getopt -l "help,youtube,no-chat" -o "hy" -- "$@")
+eval set -- "$options"
+while true; do
+    case "$1" in
+        -h | --help) help; exit 0 ;;
+        -y | --youtube) youtube=1 ;;
+        --no-chat) chat=0 ;;
+        --) shift; break ;;
     esac
+    shift
 done
 
-if [[ "$youtube" ]]; then
-    channel="$2"
+channel="$1"
+if [[ "$youtube" == 1 ]]; then
     google_api_key="$(pass google.com/api-keys/tw)"
     youtube_channel_id_api_url="https://www.googleapis.com/youtube/v3/channels?part=contentDetails&forUsername=$channel&key=$google_api_key"
     youtube_channel_id="$(http $youtube_channel_id_api_url | jq -r ".items[0].id")"
@@ -16,7 +37,6 @@ if [[ "$youtube" ]]; then
     stream_url="https://www.youtube.com/watch?v=$youtube_stream_id"
     chat_command="chromium --new-window 'https://www.youtube.com/live_chat?is_popout=1&v=$youtube_stream_id'"
 else
-    channel="$1"
     stream_url="http://twitch.tv/$channel"
     chat_command="chatterino -c '$channel'"
 fi
@@ -39,7 +59,7 @@ run () {
     # open player
     streamlink --player mpv --twitch-disable-ads "$stream_url" best &> /dev/null &
     # open chat
-    eval "$chat_command" &> /dev/null &
+    [[ "$chat" == 1 ]] && eval "$chat_command" &> /dev/null &
     # wait for player window to open
     max_retry_count=20
     retry_count=0
