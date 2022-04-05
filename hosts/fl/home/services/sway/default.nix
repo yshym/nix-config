@@ -28,6 +28,7 @@ in
         # use this if they aren't displayed properly:
         export _JAVA_AWT_WM_NONREPARENTING=1
         export WLR_DRM_NO_MODIFIERS=1
+        export NIXOS_OZONE_WL=1
       '';
       config = {
         fonts = {
