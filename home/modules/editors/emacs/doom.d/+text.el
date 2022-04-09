@@ -7,7 +7,8 @@
 ;; org
 (setq org-directory "~/dev/org"
       org-latex-packages-alist '(("AUTO" "babel" t)
-                                 ("T2A" "fontenc" t)))
+                                 ("T2A" "fontenc" t))
+      +org-msg-accent-color "#282a36")
 
 (after! org-superstar
   (setq org-superstar-headline-bullets-list '(?◉ ?○ ?✸ ?✿ ?✤ ?✜ ?◆)
