@@ -3,9 +3,14 @@
 self: super:
 with lib;
 let
-  packageNames = [ "tdesktop" "wluma" ];
-  pkgsUnstable =
-    (import inputs.nixpkgs-unstable { system = super.stdenv.system; });
+  system = super.stdenv.system;
+  pkgsUnstable = import inputs.nixpkgs-unstable {
+    inherit system;
+    config.allowUnfree = true;
+  };
+  pkgsTdesktop = import inputs.nixpkgs-tdesktop { inherit system; };
+  packageNames = [ "discord" "wluma" ];
 in
-foldr (a: b: a // b) { }
-  (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames)
+(foldr (a: b: a // b) { }
+  (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames))
+  // { tdesktop = pkgsTdesktop.tdesktop; }

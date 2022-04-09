@@ -6,6 +6,7 @@
     nixos.url = "github:yshym/nixpkgs/nixos-21.11";
     nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
+    nixpkgs-tdesktop.url = "github:/yshym/nixpkgs/12769bc7e1098fc781f70c40f62c55d4673329fa";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";

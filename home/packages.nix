@@ -60,6 +60,7 @@
       pandoc
 
       # communication
+      discord
       isync
       mu
       tmate
