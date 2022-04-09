@@ -12,11 +12,12 @@ Options:
 EOF
 }
 
+PLAYER_VOLUME=70
 youtube=0
 chat=1
 
 options="$(getopt -l "help,youtube,no-chat" -o "hy" -- "$@")"
-eval set -- "$options"
+eval "set -- $options"
 while true; do
     case "$1" in
         -h | --help) help; exit 0 ;;
@@ -57,7 +58,12 @@ player_name () {
 
 run () {
     # open player
-    streamlink --player mpv --twitch-disable-ads "$stream_url" best &> /dev/null &
+    streamlink \
+        --player mpv \
+        --player-args "--volume=$PLAYER_VOLUME" \
+        --twitch-disable-ads "$stream_url" \
+        best \
+        &> /dev/null &
     # open chat
     [[ "$chat" == 1 ]] && eval "$chat_command" &> /dev/null &
     # wait for player window to open
