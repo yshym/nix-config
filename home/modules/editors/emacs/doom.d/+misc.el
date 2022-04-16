@@ -110,15 +110,25 @@ to an appropriate value)")
         (when new-request
           (run-at-time (* 1.1 mu4e-reindex-request-min-seperation) nil
                        #'mu4e-reindex-maybe)))))
-  (set-email-account! "gmail"
-                      '((mu4e-sent-folder       . "/gmail/sent")
-                        (mu4e-drafts-folder     . "/gmail/drafts")
-                        (mu4e-trash-folder      . "/gmail/trash")
-                        (mu4e-refile-folder     . "/gmail/all")
+  (set-email-account! "gmail-personal"
+                      '((mu4e-sent-folder       . "/gmail-personal/sent")
+                        (mu4e-drafts-folder     . "/gmail-personal/drafts")
+                        (mu4e-trash-folder      . "/gmail-personal/trash")
+                        (mu4e-refile-folder     . "/gmail-personal/all")
                         (smtpmail-smtp-user     . "yevhenshymotiuk@gmail.com")
                         (smtpmail-smtp-server   . "smtp.gmail.com")
                         (smtpmail-smtp-service  . 587)
                         (user-mail-address      . "yevhenshymotiuk@gmail.com"))
+                      t)
+  (set-email-account! "gmail-work"
+                      '((mu4e-sent-folder       . "/gmail-work/sent")
+                        (mu4e-drafts-folder     . "/gmail-work/drafts")
+                        (mu4e-trash-folder      . "/gmail-work/trash")
+                        (mu4e-refile-folder     . "/gmail-work/all")
+                        (smtpmail-smtp-user     . "yshymotiuk@brave.com")
+                        (smtpmail-smtp-server   . "smtp.gmail.com")
+                        (smtpmail-smtp-service  . 587)
+                        (user-mail-address      . "yshymotiuk@brave.com"))
                       t)
   (set-email-account! "protonmail"
                       '((mu4e-sent-folder       . "/protonmail/sent")
