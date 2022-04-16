@@ -55,12 +55,19 @@ with lib.my; {
         }
       ];
     };
+    udev.packages = [ pkgs.yubikey-personalization ];
   };
 
   security = {
-    pam.services = {
-      swaylock = { };
-      swaylock-wrapper = { };
+    pam = {
+      yubico = {
+        enable = true;
+        mode = "challenge-response";
+      };
+      services = {
+        swaylock = { };
+        swaylock-wrapper = { };
+      };
     };
   };
 
