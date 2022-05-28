@@ -8,9 +8,7 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-  pkgsTdesktop = import inputs.nixpkgs-tdesktop { inherit system; };
-  packageNames = [ "discord" "slack" "wluma" ];
+  packageNames = [ "discord" "slack" "tdesktop" "wluma" ];
 in
-(foldr (a: b: a // b) { }
-  (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames))
-  // { tdesktop = pkgsTdesktop.tdesktop; }
+foldr (a: b: a // b) { }
+  (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames)
