@@ -11,13 +11,24 @@
         { });
       myTexlive = (texlive.combine {
         inherit (texlive)
-          scheme-basic etoolbox fontawesome microtype siunitx xcolor;
+          capt-of
+          cyrillic
+          scheme-basic
+          etoolbox
+          fontawesome
+          metafont
+          microtype
+          nopageno
+          siunitx
+          ulem
+          wrapfig
+          xcolor;
       });
     in
     [
       # development
       asciinema
-      awscli
+      awscli2
       cachix
       caddy
       cmake
