@@ -6,7 +6,6 @@
     nixos.url = "github:yshym/nixpkgs/nixos-21.11";
     nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
-    nixpkgs-tdesktop.url = "github:yshym/nixpkgs/12769bc7e1098fc781f70c40f62c55d4673329fa";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,10 +24,11 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, darwin, home-manager, flake-utils, ... }:
     let
-      inherit (lib) foldr mapAttrs mapAttrsToList nameValuePair zipAttrs;
+      inherit (lib) foldr intersectLists mapAttrs mapAttrsToList nameValuePair zipAttrs;
       inherit (lib.my) isDarwin mapModules mkHost;
-      inherit (flake-utils.lib) eachDefaultSystem;
+      inherit (flake-utils.lib) eachSystem;
 
+      supportedSystems = [ "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
@@ -38,10 +38,11 @@
         (zipAttrs (mapAttrsToList
           (name: pkg: foldr (a: b: a // b) { }
             (map (plat: { ${plat} = { ${name} = pkg; }; })
-              pkg.meta.platforms))
+              (intersectLists supportedSystems pkg.meta.platforms)))
           (mapModules path (p: pkgs.callPackage p { }))));
     in
-    eachDefaultSystem
+    eachSystem
+      supportedSystems
       (system:
       let
         lib = nixpkgs.lib;
