@@ -20,7 +20,7 @@ nix shell \
     --arg "pkgs" "with import <nixpkgs> { };
                   with builtins;
                   let flake = getFlake (toString $FLAKE_PATH);
-                  in flake.lib.mkPkgs stdenv.system" \
+                  in flake.lib.\${stdenv.system}.mkPkgs stdenv.system" \
     --expr "$expression" \
     -c "$command" \
     "${@:3}"
