@@ -2,12 +2,12 @@
 
 stdenv.mkDerivation rec {
   pname = "ical2org";
-  version = "a68bc938469b5880f75bf59fcc098974f5b07ecd";
+  version = "latest";
 
   src = fetchFromGitHub {
     owner = "yshym";
     repo = "ical2org";
-    rev = version;
+    rev = "a68bc938469b5880f75bf59fcc098974f5b07ecd";
     sha256 = "sha256-UWvkWcu7SwO60FLMaB3SXpw7WIGArCdkS8QCV1Q4Z8Y=";
   };
 
