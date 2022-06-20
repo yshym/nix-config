@@ -4,9 +4,8 @@ with lib;
 let
   cfg = config.programs.python;
   python = pkgs.python3;
-  pythonPackages = pkgs.python3Packages;
   myPythonPackages = pythonPackages:
-    with pythonPackages; with pkgs.my; [
+    with pythonPackages; [
       # setup
       pip
       setuptools
@@ -16,7 +15,7 @@ let
       ipdb
 
       # other
-      clion
+      pkgs.clion
     ];
   pythonWithMyPackages = python.withPackages myPythonPackages;
 in

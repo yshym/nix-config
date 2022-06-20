@@ -1,9 +1,12 @@
-{ inputs, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 
+with lib.my;
 with pkgs; {
   imports = [ ./cachix ];
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
+
+  nixpkgs.overlays = lib.my.mapModules' ./overlays (p: import p { inherit inputs lib; });
 
   fonts = {
     fonts = [
