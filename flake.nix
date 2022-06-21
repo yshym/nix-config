@@ -19,17 +19,24 @@
     emacs-overlay.url = "github:yshym/emacs-overlay";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "nixos-hardware/master";
+    clion = {
+      url = "github:yshym/clion";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
+    };
   };
 
   outputs =
-    inputs@{ self, nixos, nixpkgs, darwin, home-manager, flake-utils, ... }:
+    inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, ... }:
     let
       inherit (lib) foldr intersectLists mapAttrs mapAttrsToList nameValuePair zipAttrs;
       inherit (lib.my) isDarwin mapModules mkHost;
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [ "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-      pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
       });
@@ -59,7 +66,10 @@
       }) // {
       packages = mapPackages ./packages;
 
-      overlays = { emacs = inputs.emacs-overlay.overlay; };
+      overlays = {
+        emacs = emacs-overlay.overlay;
+        clion = clion.overlay;
+      };
 
       darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
 
