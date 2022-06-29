@@ -50,7 +50,7 @@ in
         assigns = {
           "1" = [{ app_id = "firefox"; }];
           "2" = [{ app_id = "emacs"; }];
-          "3" = [{ app_id = "telegramdesktop"; }];
+          "3" = [{ app_id = "telegramdesktop"; } { title = "^Slack"; }];
         };
 
         modifier = "Mod4";
