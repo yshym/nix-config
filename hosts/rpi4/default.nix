@@ -38,7 +38,7 @@
 
   security = {
     acme = {
-      acceptTerms = false;
+      acceptTerms = true;
       email = "yshym@pm.me";
     };
   };
