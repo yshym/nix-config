@@ -76,7 +76,7 @@
       };
     };
     nginx = {
-      enable = false;
+      enable = true;
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
       virtualHosts."yevhen.space" = {
