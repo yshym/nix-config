@@ -8,6 +8,7 @@
     my.soundux
 
     # communication
+    discord
     slack
     zoom-us
 
