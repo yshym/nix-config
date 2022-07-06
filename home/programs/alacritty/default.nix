@@ -6,6 +6,7 @@
     settings = {
       window = {
         decorations = "None";
+        opacity = 1;
         padding = {
           x = 2;
           y = 2;
@@ -15,7 +16,6 @@
         normal.family = "Fira Code";
         size = if pkgs.stdenv.isDarwin then 15.0 else 9.0;
       };
-      background_opacity = 1;
       colors = {
         primary = {
           background = "0x282a36";

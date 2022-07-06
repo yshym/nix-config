@@ -90,7 +90,7 @@
       httpie
       netcat
       rclone
-      telnet
+      inetutils
 
       # entertainment
       chatterino2

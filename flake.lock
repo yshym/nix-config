@@ -81,32 +81,32 @@
         ]
       },
       "locked": {
-        "lastModified": 1643933536,
-        "narHash": "sha256-yRmsWAG4DnLxLIUtlaZsl0kH7rN5xSoyNRlf0YZrcH4=",
+        "lastModified": 1656169755,
+        "narHash": "sha256-Nlnm4jeQWEGjYrE6hxi/7HYHjBSZ/E0RtjCYifnNsWk=",
         "owner": "yshym",
         "repo": "home-manager",
-        "rev": "2860d7e3bb350f18f7477858f3513f9798896831",
+        "rev": "4a3d01fb53f52ac83194081272795aa4612c2381",
         "type": "github"
       },
       "original": {
         "owner": "yshym",
-        "ref": "release-21.11",
+        "ref": "release-22.05",
         "repo": "home-manager",
         "type": "github"
       }
     },
     "nixos": {
       "locked": {
-        "lastModified": 1656782578,
-        "narHash": "sha256-1eMCBEqJplPotTo/SZ/t5HU6Sf2I8qKlZi9MX7jv9fw=",
+        "lastModified": 1657027964,
+        "narHash": "sha256-jseM2zvERPZe5yErbc3wrd6wK8gp0f+e18KJngs5qlo=",
         "owner": "yshym",
         "repo": "nixpkgs",
-        "rev": "573603b7fdb9feb0eb8efc16ee18a015c667ab1b",
+        "rev": "9e96b1562d67a90ca2f7cfb919f1e86b76a65a2c",
         "type": "github"
       },
       "original": {
         "owner": "yshym",
-        "ref": "nixos-21.11",
+        "ref": "nixos-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -128,16 +128,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1648744337,
-        "narHash": "sha256-bYe1dFJAXovjqiaPKrmAbSBEK5KUkgwVaZcTbSoJ7hg=",
+        "lastModified": 1657115931,
+        "narHash": "sha256-eek/9E6Xi2IuUO6ParVxQYHQD/sZbyZ4FEE4FiiLfh8=",
         "owner": "yshym",
         "repo": "nixpkgs",
-        "rev": "0a58eebd8ec65ffdef2ce9562784123a73922052",
+        "rev": "745b8972302693ca9f671c26c645cc02548602f5",
         "type": "github"
       },
       "original": {
         "owner": "yshym",
-        "ref": "release-21.11",
+        "ref": "release-22.05",
         "repo": "nixpkgs",
         "type": "github"
       }

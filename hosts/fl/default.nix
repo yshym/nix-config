@@ -6,7 +6,7 @@ with lib.my; {
 
   boot = {
     cleanTmpDir = true;
-    kernelPackages = pkgs.linuxPackages_5_17;
+    kernelPackages = pkgs.linuxPackages_5_18;
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -79,6 +79,4 @@ with lib.my; {
     gtkUsePortal = true;
     wlr.enable = true;
   };
-
-  virtualisation.virtualbox.host.enable = true;
 }

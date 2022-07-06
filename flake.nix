@@ -3,15 +3,15 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/nixos-21.11";
-    nixpkgs.url = "github:yshym/nixpkgs/release-21.11";
+    nixos.url = "github:yshym/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:yshym/nixpkgs/release-22.05";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager/release-21.11";
+      url = "github:yshym/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -64,6 +64,7 @@
           program = ./home/programs/scripts/bin/h;
         };
       }) // {
+      # TODO Consider moving packages to separate overlays
       packages = mapPackages ./packages;
 
       overlays = {

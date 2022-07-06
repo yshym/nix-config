@@ -40,4 +40,6 @@ with pkgs; {
   };
 
   time.timeZone = "Europe/Kiev";
+
+  system.stateVersion = "22.05";
 }
