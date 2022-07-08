@@ -40,7 +40,6 @@
     opengl = {
       enable = true;
       driSupport = true;
-      extraPackages = [ pkgs.amdvlk ];
     };
     pulseaudio = {
       enable = false;
