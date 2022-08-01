@@ -1,0 +1,5 @@
+#!/usr/bin/env osascript
+
+tell application id "com.apple.systemevents"
+    keystroke (key code 49 using control down)
+end tell

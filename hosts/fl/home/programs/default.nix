@@ -5,7 +5,7 @@ with lib.my; {
 
   programs = {
     brave.enable = true;
-    browserpassWithBrave.enable = true;
+    browserpass.enable = true;
     chromium = {
       enable = true;
       package = pkgs.ungoogled-chromium.override {
@@ -14,7 +14,6 @@ with lib.my; {
     };
     emacs.enable = true;
     firefox.package = pkgs.firefox-wayland;
-    git.gpgKey = "4B0D9393F36E588A";
     mbsync.enable = true;
     mimi.enable = true;
     wofi.enable = true;

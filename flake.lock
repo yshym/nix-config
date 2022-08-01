@@ -10,11 +10,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655816526,
-        "narHash": "sha256-EoZ1IwN7DBbS1F4rfYPgVZXf/4ChNy3t1zDxniBOX/0=",
+        "lastModified": 1659274332,
+        "narHash": "sha256-fRnBuDk6ry54hV+3vyvbm/urBYiAkFWEmr68FAJkiSk=",
         "owner": "yshym",
         "repo": "clion",
-        "rev": "e626023528cd23e4c0b985ac2ea3e479d23a9aa3",
+        "rev": "bf8490b03f5b78a9851a5e77944f786837dacc10",
         "type": "github"
       },
       "original": {
@@ -30,11 +30,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1634994402,
-        "narHash": "sha256-xmlCVVOYGpZoxgOqsDOVF0B0ASrnbNGVAEzID9qh2xo=",
+        "lastModified": 1657835815,
+        "narHash": "sha256-CnZszAYpNKydh6N7+xg+eRtWNVoAAGqc6bg+Lpgq1xc=",
         "owner": "yshym",
         "repo": "nix-darwin",
-        "rev": "44da835ac40dab5fd231298b59d83487382d2fab",
+        "rev": "54a24f042f93c79f5679f133faddedec61955cf2",
         "type": "github"
       },
       "original": {

@@ -5,10 +5,14 @@
     enable = true;
     skhdConfig = ''
       # open application
-      cmd - space : open-app
+      cmd - d : open-app
 
       # open terminal
-      alt - return : open -a "Alacritty"
+      alt - return : open -n -a "Alacritty"
+
+      # make a screenshot
+      alt - p : screenshot
+      shift + alt - p : screenshot -s
 
       # emacs-everywhere
       alt - e : doom everywhere

@@ -14,7 +14,7 @@ with pkgs; {
       autoload -Uz compinit
       if [[ ${
         if stdenv.isDarwin then
-          "$(date +'%j') != $(date -d $(stat -c '@%Y' ~/.zcompdump) +'%j')"
+          "$(date +'%j') != $(date -r $(stat -f '%m' ~/.zcompdump) +'%j')"
         else
           "-n $ZDOTDIR/.zcompdump(#qN.mh+24)"
       } ]]; then
@@ -40,10 +40,8 @@ with pkgs; {
     '';
     envExtra = ''
       fpath+=$HOME/.zsh_completions
+      ${lib.optionalString stdenv.isDarwin ''eval "$(/opt/homebrew/bin/brew shellenv)"''}
 
-      export NIX_PATH="$HOME/.nix-defexpr/channels:$NIX_PATH"
-      ${lib.optionalString stdenv.isDarwin ''
-        export NIX_PATH="darwin-config=$HOME/.nixpkgs/configuration.nix:$NIX_PATH"''}
       export GPG_TTY="$(tty)"
 
       export ERL_AFLAGS="-kernel shell_history enabled"
@@ -91,7 +89,7 @@ with pkgs; {
       shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
       rf = "rm -rf";
       rd = "rmdir";
-      top = "${pkgs.gotop}/bin/gotop";
+      top = "${pkgs.bottom}/bin/btm";
       "..." = "../..";
       "...." = "../../..";
       "....." = "../../../..";

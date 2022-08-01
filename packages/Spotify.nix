@@ -21,6 +21,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Play music from the Spotify music service";
     homepage = "https://www.spotify.com/";
-    platforms = platforms.darwin;
+    platforms = platforms.all;
   };
 }

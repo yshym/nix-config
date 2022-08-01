@@ -5,22 +5,15 @@ with pkgs; {
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
 
-  fonts = {
-    fonts = [
-      dejavu_fonts
-      fira-code
-      font-awesome
-      jetbrains-mono
-      (joypixels.override { acceptLicense = true; })
-      noto-fonts
-      noto-fonts-cjk
-    ];
-    fontconfig.defaultFonts = {
-      monospace = [ "JetBrains Mono" ];
-      serif = [ "DejaVu Serif" ];
-      sansSerif = [ "DejaVu Sans" ];
-    };
-  };
+  fonts.fonts = [
+    dejavu_fonts
+    fira-code
+    font-awesome
+    jetbrains-mono
+    (joypixels.override { acceptLicense = true; })
+    noto-fonts
+    noto-fonts-cjk
+  ];
 
   nix = {
     package = pkgs.nixFlakes;
@@ -40,6 +33,4 @@ with pkgs; {
   };
 
   time.timeZone = "Europe/Kiev";
-
-  system.stateVersion = "22.05";
 }

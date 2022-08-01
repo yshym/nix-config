@@ -8,6 +8,6 @@
     # ./sortdir.nix
     ./spacebar.nix
     # ./spotifyd.nix
-    ./yabai.nix
+    # ./yabai.nix
   ];
 }

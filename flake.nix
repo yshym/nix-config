@@ -35,7 +35,7 @@
       inherit (lib.my) isDarwin mapModules mkHost;
       inherit (flake-utils.lib) eachSystem;
 
-      supportedSystems = [ "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
+      supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       pkgs = import nixpkgs { system = "x86_64-linux"; };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
@@ -72,7 +72,7 @@
         clion = clion.overlay;
       };
 
-      darwinConfigurations = { mbp16 = mkHost "mbp16" "x86_64-darwin"; };
+      darwinConfigurations = { mbp16 = mkHost "mbp16" "aarch64-darwin"; };
 
       nixosConfigurations = {
         rpi4 = mkHost "rpi4" "aarch64-linux";

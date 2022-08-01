@@ -22,4 +22,6 @@ with pkgs; {
   services = { openssh = { enable = true; }; };
 
   i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
+
+  system.stateVersion = "22.05";
 }

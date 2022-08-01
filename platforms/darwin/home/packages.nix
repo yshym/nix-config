@@ -6,14 +6,19 @@
     chromedriver
     terminal-notifier
 
+    # security
+    gnupg
+
     # net & cloud tools
     my.Dropbox
+    wireguard-go
+    wireguard-tools
 
     # entertainment
-    my.Spotify
+    # my.Spotify
 
     # my stuff
-    # choose
+    # my.choose
     # sortdir
   ];
 }

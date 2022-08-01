@@ -15,6 +15,12 @@ with lib.my; {
 
   nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs lib; });
 
+  fonts.fontconfig.defaultFonts = {
+    monospace = [ "JetBrains Mono" ];
+    serif = [ "DejaVu Serif" ];
+    sansSerif = [ "DejaVu Sans" ];
+  };
+
   programs = {
     light.enable = true;
   };

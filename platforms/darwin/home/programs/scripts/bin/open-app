@@ -2,7 +2,7 @@
 
 CACHE_FILE="$HOME/.cache/open-app"
 if [ -e "$CACHE_FILE" ] \
-    && [ "$(date +'%j')" -eq "$(date -d "$(stat -c '@%Y' "$CACHE_FILE")" +'%j')" ]; then
+    && [ "$(date +'%j')" -eq "$(date -r "$(stat -f '%m' "$CACHE_FILE")" +'%j')" ]; then
     echo "Reading from cache"
 else
     rm -f "$CACHE_FILE"

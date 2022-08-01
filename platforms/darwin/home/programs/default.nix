@@ -2,13 +2,13 @@
 
 {
   imports = [
-    # ./brave
+    ./brave
     # ./hammerspoon
     ./scripts
     ./spotify
     ./telegram
     ./vscode.nix
-    ./yabai
+    # ./yabai
   ];
 
   programs = {

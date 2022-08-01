@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-{
+with pkgs; {
   programs.alacritty = {
     enable = true;
     settings = {
       window = {
-        decorations = "None";
+        decorations = if stdenv.isDarwin then "full" else "none";
         opacity = 1;
         padding = {
           x = 2;
@@ -14,7 +14,7 @@
       };
       font = {
         normal.family = "Fira Code";
-        size = if pkgs.stdenv.isDarwin then 15.0 else 9.0;
+        size = if stdenv.isDarwin then 15.0 else 9.0;
       };
       colors = {
         primary = {

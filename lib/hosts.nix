@@ -22,7 +22,10 @@ with lib; rec {
       specialArgs = { inherit lib inputs; };
       modules = [
         {
-          nixpkgs.pkgs = pkgs;
+          nixpkgs = if isDarwin system then {
+            config = pkgs.config;
+            overlays = pkgs.overlays;
+          } else { pkgs = pkgs; };
           networking.hostName = mkDefault (removeSuffix ".nix" host);
         }
         hmModule
