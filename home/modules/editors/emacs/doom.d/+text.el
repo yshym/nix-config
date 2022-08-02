@@ -5,15 +5,20 @@
 ;;; Code:
 
 ;; org
-(setq org-directory "~/dev/org"
-      org-latex-packages-alist '(("AUTO" "babel" t)
-                                 ("T2A" "fontenc" t))
-      +org-msg-accent-color "#282a36")
+(after! org
+  (setq org-directory "~/dev/org"
+        org-latex-packages-alist '(("AUTO" "babel" t)
+                                   ("T2A" "fontenc" t))
+        +org-msg-accent-color "#282a36"
+        org-lowest-priority ?D))
 
 (after! org-superstar
   (setq org-superstar-headline-bullets-list '(?◉ ?○ ?✸ ?✿ ?✤ ?✜ ?◆)
         org-superstar-item-bullet-alist '((42 . ?⌬) (43 . ?◐) (45 . ?➜))
         org-superstar-prettify-item-bullets t))
+
+(after! org-fancy-priorities
+  (setq org-fancy-priorities-list '("" "" "" "")))
 
 
 ;; ligatures
