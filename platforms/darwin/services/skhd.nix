@@ -54,19 +54,19 @@
       alt - 0 : yabai -m space --focus 10
 
       # send window to desktop and follow focus
-      shift + ctrl - x : yabai -m window --space recent && yabai -m space --focus recent
-      shift + ctrl - z : yabai -m window --space prev && yabai -m space --focus prev
-      shift + ctrl - c : yabai -m window --space next && yabai -m space --focus next
-      shift + ctrl - 1 : yabai -m window --space 1 && yabai -m space --focus 1
-      shift + ctrl - 2 : yabai -m window --space 2 && yabai -m space --focus 2
-      shift + ctrl - 3 : yabai -m window --space 3 && yabai -m space --focus 3
-      shift + ctrl - 4 : yabai -m window --space 4 && yabai -m space --focus 4
-      shift + ctrl - 5 : yabai -m window --space 5 && yabai -m space --focus 5
-      shift + ctrl - 6 : yabai -m window --space 6 && yabai -m space --focus 6
-      shift + ctrl - 7 : yabai -m window --space 7 && yabai -m space --focus 7
-      shift + ctrl - 8 : yabai -m window --space 8 && yabai -m space --focus 8
-      shift + ctrl - 9 : yabai -m window --space 9 && yabai -m space --focus 9
-      shift + ctrl - 0 : yabai -m window --space 10 && yabai -m space --focus 10
+      shift + alt - x : yabai -m window --space recent && yabai -m space --focus recent
+      shift + alt - z : yabai -m window --space prev && yabai -m space --focus prev
+      shift + alt - c : yabai -m window --space next && yabai -m space --focus next
+      shift + alt - 1 : yabai -m window --space 1 && yabai -m space --focus 1
+      shift + alt - 2 : yabai -m window --space 2 && yabai -m space --focus 2
+      shift + alt - 3 : yabai -m window --space 3 && yabai -m space --focus 3
+      shift + alt - 4 : yabai -m window --space 4 && yabai -m space --focus 4
+      shift + alt - 5 : yabai -m window --space 5 && yabai -m space --focus 5
+      shift + alt - 6 : yabai -m window --space 6 && yabai -m space --focus 6
+      shift + alt - 7 : yabai -m window --space 7 && yabai -m space --focus 7
+      shift + alt - 8 : yabai -m window --space 8 && yabai -m space --focus 8
+      shift + alt - 9 : yabai -m window --space 9 && yabai -m space --focus 9
+      shift + alt - 0 : yabai -m window --space 10 && yabai -m space --focus 10
 
       # toggle window zoom
       alt - w : yabai -m window --toggle zoom-fullscreen
@@ -87,7 +87,7 @@
       shift + alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # set horizontal splitting direction
-      alt - s : yabai -m window --insert west
+      alt - s : yabai -m window --insert east
 
       # set vertical splitting direction
       alt - v : yabai -m window --insert south

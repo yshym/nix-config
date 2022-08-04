@@ -8,7 +8,7 @@
     ./spotify
     ./telegram
     ./vscode.nix
-    # ./yabai
+    ./yabai
   ];
 
   programs = {
