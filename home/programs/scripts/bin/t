@@ -15,7 +15,11 @@ done
 string="$1"
 
 if [ "$paste" = 1 ]; then
-    string="$(wl-paste)"
+    if command -v wl-paste &> /dev/null; then
+        string="$(wl-paste)"
+    else
+        string="$(pbpaste)"
+    fi
 else
     [ -p /dev/stdin ] && read -r string
 fi
