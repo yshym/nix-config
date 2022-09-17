@@ -18,7 +18,7 @@
         org-superstar-prettify-item-bullets t))
 
 (after! org-fancy-priorities
-  (setq org-fancy-priorities-list '("" "" "" "")))
+  (setq org-fancy-priorities-list '((?5 . 5))))
 
 
 ;; ligatures
