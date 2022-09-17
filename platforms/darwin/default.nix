@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
-{
+with lib.my; {
   imports = [ ./services ./home ];
 
-  nixpkgs.overlays = lib.my.modules.mapModules' ./overlays import;
+  nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs lib; });
 
   environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 
@@ -19,12 +19,8 @@
 
   homebrew = {
     enable = true;
-    brews = [ "choose-gui" "ykman" ];
-    casks = [ "slack" ];
-    extraConfig = ''
-      brew "libxml2", link: true
-      brew "libxslt", link: true
-    '';
+    brews = [ "choose-gui" "openblas" "ykman" ];
+    casks = [ "docker" "hammerspoon" ];
   };
 
   services = { nix-daemon.enable = true; };
