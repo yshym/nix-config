@@ -19,15 +19,9 @@
 
       # focus bsp windows
       alt - h : yabai -m window --focus west
-      alt - j : yabai -m window --focus south
-      alt - k : yabai -m window --focus north
+      alt - j : "$HOME/.config/yabai/focus_south.sh"
+      alt - k : "$HOME/.config/yabai/focus_north.sh"
       alt - l : yabai -m window --focus east
-
-      # focus stack windows
-      ctrl + alt - j : yabai -m window --focus stack.next \
-            || yabai -m window --focus stack.first
-      ctrl + alt - k : yabai -m window --focus stack.prev \
-            || yabai -m window --focus stack.last
 
       # swap window
       shift + alt - h : yabai -m window --swap west
