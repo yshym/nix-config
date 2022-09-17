@@ -8,8 +8,8 @@ in
     package = pkgs.yabai;
     enableScriptingAddition = true;
     config = {
-      mouse_follows_focus = "off";
-      focus_follows_mouse = "off";
+      mouse_follows_focus = "on";
+      focus_follows_mouse = "autoraise";
       window_shadow = "off";
       window_placement = "second_child";
       window_border = "off";
