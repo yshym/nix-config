@@ -8,7 +8,7 @@ in
     package = pkgs.yabai;
     enableScriptingAddition = true;
     config = {
-      mouse_follows_focus = "on";
+      mouse_follows_focus = "off";
       focus_follows_mouse = "autoraise";
       window_shadow = "off";
       window_placement = "second_child";
@@ -17,7 +17,7 @@ in
       active_window_border_color = "0xffa35763";
       normal_window_border_color = "0xff353c54";
       insert_feedback_color = "0xaa7c5c9c";
-      auto_balance = "off";
+      auto_balance = "on";
       split_ratio = 0.50;
       window_gap = 7;
       layout = "bsp";
@@ -40,7 +40,7 @@ in
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
       yabai -m rule --add app="^Emacs$" space=code manage=on
-      yabai -m rule --add app="^Telegram$" space=social manage=on
+      yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on
       yabai -m rule --add app="^Slack$" space=social
       yabai -m rule --add app="^Discord$" space=social
       yabai -m rule --add app="^Zoom$" space=social manage=on
