@@ -18,10 +18,10 @@
       alt - e : doom everywhere
 
       # focus bsp windows
-      alt - h : yabai -m window --focus west
+      alt - h : "$HOME/.config/yabai/focus_west.sh"
       alt - j : "$HOME/.config/yabai/focus_south.sh"
       alt - k : "$HOME/.config/yabai/focus_north.sh"
-      alt - l : yabai -m window --focus east
+      alt - l : "$HOME/.config/yabai/focus_east.sh"
 
       # swap window
       shift + alt - h : yabai -m window --swap west
