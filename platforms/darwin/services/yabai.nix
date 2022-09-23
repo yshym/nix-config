@@ -37,6 +37,9 @@ in
       yabai -m space 3 --label social
       yabai -m space 4 --label media
 
+      # split type
+      yabai -m config split_type vertical
+
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
       yabai -m rule --add app="^Emacs$" space=code manage=on

@@ -81,10 +81,10 @@
       shift + alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # set horizontal splitting direction
-      alt - s : yabai -m window --insert east
+      alt - s : yabai -m config split_type vertical
 
       # set vertical splitting direction
-      alt - v : yabai -m window --insert south
+      alt - v : yabai -m config split_type horizontal
 
       # restart yabai
       shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.skhd" && \
