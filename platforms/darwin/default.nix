@@ -7,7 +7,10 @@ with lib.my; {
 
   environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 
-  fonts.fontDir.enable = true;
+  fonts = {
+    fonts = [ pkgs.hack-font ];
+    fontDir.enable = true;
+  };
 
   nix = {
     gc = {
@@ -19,7 +22,8 @@ with lib.my; {
 
   homebrew = {
     enable = true;
-    brews = [ "choose-gui" "openblas" "ykman" ];
+    taps = [ "FelixKratz/formulae" ];
+    brews = [ "choose-gui" "openblas" "sketchybar" "ykman" ];
     casks = [ "docker" "hammerspoon" ];
   };
 

@@ -5,6 +5,7 @@
     ./brave
     # ./hammerspoon
     ./scripts
+    ./sketchybar
     ./spotify
     ./telegram
     ./vscode.nix

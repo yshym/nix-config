@@ -89,6 +89,7 @@
       # restart yabai
       shift + alt - r : launchctl kickstart -k "gui/$UID/org.nixos.skhd" && \
             launchctl kickstart -k "gui/$UID/org.nixos.yabai"
+            # sketchybar.sh
     '';
   };
 }
