@@ -12,7 +12,7 @@
         "$6$i3YXp5DMdXqRt$WjzYcieb8JAzGyL19GSXjKZ80/8zvNnPaVjAnvxoz.6xJRrxMlQghBoJ37d4j2muwmuFjNXYf4nquYqOhlZUz/";
       isNormalUser = true;
       extraGroups = [ "audio" "i2c" "sudo" "video" "wheel" "user-with-access-to-virtualbox" ];
-      openssh.authorizedKeys.keyFiles = [ ./ssh/fl.pub ];
+      openssh.authorizedKeys.keyFiles = [ ./ssh/fl.pub ./ssh/mbp.pub ];
       shell = pkgs.zsh;
     };
   };
