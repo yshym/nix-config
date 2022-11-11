@@ -11,5 +11,5 @@ in
   environment.systemPackages = [ pkgs.cachix ];
 
   inherit imports;
-  nix.binaryCaches = [ "https://cache.nixos.org/" ];
+  nix.settings.substituters = [ "https://cache.nixos.org/" ];
 }

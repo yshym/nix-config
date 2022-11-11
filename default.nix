@@ -17,8 +17,10 @@ with pkgs; {
 
   nix = {
     package = pkgs.nixFlakes;
-    trustedUsers = [ "root" "yshym" ];
-    useSandbox = true;
+    settings = {
+      sandbox = true;
+      trusted-users = [ "root" "yshym" ];
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
