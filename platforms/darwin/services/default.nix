@@ -7,7 +7,7 @@
     ./skhd.nix
     # ./sortdir.nix
     ./spacebar.nix
-    # ./spotifyd.nix
+    ./spotifyd.nix
     ./yabai.nix
   ];
 }
