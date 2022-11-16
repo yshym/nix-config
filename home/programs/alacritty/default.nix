@@ -5,7 +5,7 @@ with pkgs; {
     enable = true;
     settings = {
       window = {
-        decorations = if stdenv.isDarwin then "full" else "none";
+        decorations = if stdenv.isDarwin then "buttonless" else "none";
         opacity = 1;
         padding = {
           x = 2;
