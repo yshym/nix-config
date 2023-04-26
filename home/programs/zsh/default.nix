@@ -79,6 +79,7 @@ with pkgs; {
       }
     ];
     shellAliases = {
+      docker-stop-all = "docker stop $(docker ps -a -q)";
       du = "${pkgs.du-dust}/bin/dust";
       la = "ls -a";
       ll = "ls -l";
@@ -86,9 +87,10 @@ with pkgs; {
       md = "mkdir -p";
       nrs = "${if stdenv.isDarwin then "darwin" else "nixos"}-rebuild switch";
       o = if stdenv.isDarwin then "open" else "xdg-open";
-      shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
       rf = "rm -rf";
       rd = "rmdir";
+      shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
+      srf = "sudo rm -rf";
       top = "${pkgs.bottom}/bin/btm";
       "..." = "../..";
       "...." = "../../..";
@@ -99,6 +101,7 @@ with pkgs; {
 
   home = {
     file.".zsh_completions".source = ./completions;
+    file.".hushlogin".text = "";
     packages = [ zsh-completions ];
   };
 }
