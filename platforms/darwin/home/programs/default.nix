@@ -13,6 +13,6 @@
   ];
 
   programs = {
-    firefox.package = pkgs.my.Firefox;
+    firefox.package = pkgs.my.FirefoxDev;
   };
 }

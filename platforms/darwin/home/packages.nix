@@ -21,7 +21,7 @@
     slack
 
     # entertainment
-    # my.Spotify
+    my.Spotify
     nodePackages.webtorrent-cli
 
     # my stuff

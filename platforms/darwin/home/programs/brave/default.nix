@@ -2,5 +2,5 @@
 
 {
   home.packages = [ pkgs.my.Brave ];
-  programs.zsh.sessionVariables.BROWSER = "brave";
+  # programs.zsh.sessionVariables.BROWSER = "brave";
 }

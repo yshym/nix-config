@@ -87,13 +87,13 @@
       aria2
       ddgr
       doctl
-      httpie
+      # httpie
       netcat
       rclone
       inetutils
 
       # entertainment
-      chatterino2
+      # chatterino2
       mpv
       # portaudio
       # spotifyd
@@ -103,11 +103,11 @@
       # other
       fd
       ffmpeg
-      gimp
+      # gimp
       hexyl
       hyperfine
       my.ical2org
-      obs-studio
+      # obs-studio
       pastel
       tealdeer
       termdown

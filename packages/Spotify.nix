@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     name = "Spotify-${version}.dmg";
     url = "http://download.spotify.com/Spotify.dmg";
-    sha256 = "sha256-Ie2m+RK6jCxyOoi0T55r/MbxtKilW6u/rqzzG2QWCtU=";
+    sha256 = "sha256-9Ts6064YaZdjbRN28qkZcrwTH+63drC/jUfTGLvpBNc=";
   };
 
   buildInputs = [ undmg ];
@@ -21,6 +21,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Play music from the Spotify music service";
     homepage = "https://www.spotify.com/";
-    platforms = platforms.all;
+    platforms = platforms.darwin;
   };
 }
