@@ -65,6 +65,7 @@
       # toggle window zoom
       alt - w : yabai -m window --toggle zoom-fullscreen
 
+      # TODO Replace with setting split type of each window on explicitly setting the option
       # toggle window split type
       alt - t : yabai -m window --toggle split
 
