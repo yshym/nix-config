@@ -38,7 +38,7 @@ with pkgs; {
             foreground = "0x44475a";
             background = "0xffb86c";
           };
-          bar = {
+          colors.footer_bar = {
             foreground = "0xf8f8f2";
             background = "0x282a36";
           };

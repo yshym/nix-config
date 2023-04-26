@@ -11,7 +11,7 @@
     ./password-store.nix
     ./scripts
     ./spotify
-    ./topgrade
+    # ./topgrade
     ./vim.nix
     ./zathura.nix
     ./zoxide.nix
@@ -32,14 +32,14 @@
     python = {
       enable = true;
       black = {
-        enable = true;
+        enable = false;
         settings.line-length = 79;
       };
       mypy = {
         enable = true;
         settings.ignore_missing_imports = true;
       };
-      pylint.enable = true;
+      pylint.enable = false;
       extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
     ranger.enable = true;
