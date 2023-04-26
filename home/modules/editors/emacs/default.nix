@@ -26,6 +26,7 @@ in
 {
   config = mkIf cfg.enable {
     programs = {
+      # emacs.package = with pkgs; if stdenv.isDarwin then emacsMacport else emacsGcc;
       emacs.package = emacsGcc;
       zsh = {
         envExtra = ''
