@@ -54,6 +54,7 @@ with pkgs; {
       export PATH="$HOME/.mix/escripts:$PATH"
       export PATH="$GOPATH/bin:$PATH"
       export PATH="/etc/profiles/per-user/$USER/bin:$PATH"
+      export PATH="$HOME/.config/emacs/bin:$PATH"
       # TODO Package wtwitch
       export PATH="$HOME/dev/wtwitch/src:$PATH"
     '';
