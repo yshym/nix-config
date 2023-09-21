@@ -53,6 +53,7 @@ with lib.my; {
         format-icons = [ "" "" "" "" "" ];
       };
       backlight = {
+        device = "intel_backlight";
         format = "{icon} {percent}";
         format-icons = [ "" "" "" ];
       };

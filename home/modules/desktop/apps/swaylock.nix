@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cfg = config.programs.swaylock;
+  cfg = config.programs.swaylock-custom;
   wrapper = pkgs.writeShellScriptBin
     "swaylock-wrapper"
     ''
@@ -23,7 +23,7 @@ let
     '';
 in
 {
-  options.programs.swaylock = {
+  options.programs.swaylock-custom = {
     enable = mkEnableOption "Swaylock";
   };
 

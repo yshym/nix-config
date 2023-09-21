@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  programs.swaylock.enable = true;
+  programs.swaylock-custom.enable = true;
 
   services.swayidle = {
     enable = true;

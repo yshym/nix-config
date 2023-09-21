@@ -3,15 +3,15 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/nixos-22.05";
-    nixpkgs.url = "github:yshym/nixpkgs/release-22.05";
+    nixos.url = "github:yshym/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:yshym/nixpkgs/release-23.05";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager/release-22.05";
+      url = "github:yshym/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -36,7 +36,8 @@
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-      pkgs = import nixpkgs { system = "aarch64-darwin"; };
+      # NOTE `system` should be replaced with your current host system
+      pkgs = import nixpkgs { system = "x86_64-linux"; };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
       });

@@ -53,7 +53,7 @@ in
           "3" = [{ app_id = "telegramdesktop"; } { title = "^Slack"; }];
         };
 
-        modifier = "Mod4";
+        modifier = "Mod1";
 
         colors = {
           focused = {
@@ -82,7 +82,11 @@ in
         input = {
           "1:1:AT_Translated_Set_2_keyboard" = {
             xkb_layout = "us,ru,ua";
-            xkb_options = "grp:alt_shift_toggle";
+            xkb_options = "grp:win_space_toggle";
+          };
+          "12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I" = {
+            xkb_layout = "us,ru,ua";
+            xkb_options = "grp:win_space_toggle";
           };
           "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
             dwt = "enabled";
@@ -92,6 +96,10 @@ in
             tap = "enabled";
             tap_button_map = "lrm";
           };
+          "5426:166:Razer_Razer_Viper_V2_Pro_Mouse" = {
+            pointer_accel = "0";
+            scroll_factor = "0.5";
+          };
         };
 
         output =
@@ -99,7 +107,7 @@ in
           in
           {
             "eDP-1" = { bg = bg; };
-            "DP-4" = { bg = bg; };
+            "DP-1" = { bg = bg; };
           };
 
         seat = {

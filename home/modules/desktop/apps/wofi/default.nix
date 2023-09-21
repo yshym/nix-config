@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.programs.wofi; in
+let cfg = config.programs.wofi-custom; in
 {
-  options.programs.wofi = {
+  options.programs.wofi-custom = {
     enable = mkEnableOption "Wofi launcher/menu for wlroots based compositors";
   };
 

@@ -5,16 +5,17 @@
     # media
     pavucontrol
     playerctl
-    my.soundux
+    # my.soundux
+    nodePackages.webtorrent-cli
 
     # communication
-    discord
+    discord-ptb
     slack
     zoom-us
 
     # security
     yubikey-manager
 
-    my.sortdir
+    # my.sortdir
   ];
 }

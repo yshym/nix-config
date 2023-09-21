@@ -52,7 +52,5 @@
       '';
     };
     sensor.iio.enable = true;
-    # high-resolution display
-    video.hidpi.enable = true;
   };
 }

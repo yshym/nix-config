@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 
 {
-  programs.mako = {
+  services.mako = {
     enable = true;
     sort = "+time";
     anchor = "top-right";

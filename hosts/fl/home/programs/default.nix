@@ -16,7 +16,7 @@ with lib.my; {
     firefox.package = pkgs.firefox-wayland;
     mbsync.enable = true;
     mimi.enable = true;
-    wofi.enable = true;
+    wofi-custom.enable = true;
     zsh.loginExtra = ''[[ "$(tty)" == /dev/tty1 ]] && sway'';
   };
 }

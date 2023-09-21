@@ -8,7 +8,7 @@ let
     inherit system;
     config.allowUnfree = true;
   };
-  packageNames = [ "discord" "slack" "tdesktop" "wluma" ];
+  packageNames = [ "discord-ptb" "slack" "tdesktop" "wluma" ];
 in
 foldr (a: b: a // b) { }
   (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames)

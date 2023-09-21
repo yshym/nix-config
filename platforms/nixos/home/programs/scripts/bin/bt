@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-AIRPODS="D0:65:44:A6:0B:64"
+AIRPODS="2C:32:6A:DE:FD:A0"
 
 connected_device="$(bluetoothctl info | grep Device | sed -e "s/Device //" -e "s/ (public)//")"
 device="$AIRPODS"
