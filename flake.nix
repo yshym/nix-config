@@ -37,7 +37,7 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `system` should be replaced with your current host system
-      pkgs = import nixpkgs { system = "x86_64-linux"; };
+      pkgs = import nixpkgs { system = "aarch64-darwin"; };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
       });

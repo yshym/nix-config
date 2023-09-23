@@ -37,7 +37,6 @@
       erlang
       exercism
       gawk
-      gdb
       gitAndTools.git-hub
       gobject-introspection
       imagemagick
