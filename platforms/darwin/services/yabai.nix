@@ -1,6 +1,9 @@
 { pkgs, ... }:
 
-let padding = 10;
+let
+  padding = 10;
+  ultrawide_padding = 500;
+  ultrawide_display_id = 2;
 in
 {
   services.yabai = rec {
@@ -12,11 +15,11 @@ in
       focus_follows_mouse = "autoraise";
       window_shadow = "off";
       window_placement = "second_child";
-      window_border = "on";
-      window_border_blur = "off";
-      window_border_width = 2;
-      active_window_border_color = "0xff6272a4";
-      normal_window_border_color = "0xff353c54";
+      # window_border = "on";
+      # window_border_blur = "off";
+      # window_border_width = 2;
+      # active_window_border_color = "0xff6272a4";
+      # normal_window_border_color = "0xff353c54";
       insert_feedback_color = "0xaa7c5c9c";
       auto_balance = "on";
       split_ratio = 0.50;
@@ -46,9 +49,9 @@ in
 
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
-      yabai -m rule --add app="^Emacs$" space=code manage=on border=${config.window_border}
-      yabai -m rule --add app="^Telegram$" space=social manage=off border=off
-      yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on border=${config.window_border}
+      yabai -m rule --add app="^Emacs$" space=code manage=on
+      yabai -m rule --add app="^Telegram$" space=social manage=off
+      yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on
       yabai -m rule --add app="^Slack$" space=social
       yabai -m rule --add app="^Discord$" space=social
       yabai -m rule --add app="^Zoom$" space=social manage=on
@@ -57,14 +60,26 @@ in
       yabai -m rule --add app="^mpv$" space=media manage=on
       yabai -m rule --add app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add app="^Spotlight$" layer=above manage=off
-      yabai -m rule --add app="^Steam$" manage=off border=off
+      yabai -m rule --add app="^Steam$" manage=off
       yabai -m rule --add app="^Stickies$" manage=off
       yabai -m rule --add app="^System Settings$" manage=off
-      yabai -m rule --add app="^choose$" manage=off border=off
+      yabai -m rule --add app="^choose$" manage=off
 
       # signals
       # yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
       # yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
+      # change padding depending on whether an ultrawide display is connected
+      DISPLAY_ID=$(yabai -m query --displays | jq ".[0].id")
+      [ \$DISPLAY_ID -eq ${toString ultrawide_display_id} ] \
+            && yabai -m config left_padding ${toString ultrawide_padding} \
+            && yabai -m config right_padding ${toString ultrawide_padding}
+      yabai -m signal --add event=display_added action="[ \$YABAI_DISPLAY_ID -eq 2 ] \
+            && yabai -m config left_padding ${toString ultrawide_padding} \
+            && yabai -m config right_padding ${toString ultrawide_padding}"
+      yabai -m signal --add event=display_removed action="[ \$YABAI_DISPLAY_ID -eq 2 ] \
+            && yabai -m config left_padding ${toString padding} \
+            && yabai -m config right_padding ${toString padding}"
 
       # init
       # sketchybar.sh
