@@ -14,7 +14,7 @@ in
   config = mkIf cfg.enable {
     home = {
       packages = with pkgs.gitAndTools;
-        ([ bfg-repo-cleaner git-secrets git-standup hub ]
+        ([ bfg-repo-cleaner git-secrets git-standup ]
           ++ (optional (cfg.pager == "delta") delta)
           ++ (optional (cfg.pager == "diff-so-fancy") diff-so-fancy));
       file.gitignore = {
@@ -48,7 +48,7 @@ in
           github.user = "yshym";
         };
       };
-      zsh.shellAliases.git = "hub";
+      # zsh.shellAliases.git = "hub";
     };
   };
 }

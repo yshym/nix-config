@@ -21,12 +21,17 @@ with lib.my; {
     };
   };
 
-  homebrew = {
-    enable = true;
-    taps = [ "FelixKratz/formulae" ];
-    brews = [ "choose-gui" "openblas" "sketchybar" "ykman" ];
-    casks = [ "docker" "hammerspoon" ];
-  };
+  # homebrew = {
+  #   enable = true;
+  #   # taps = [ "FelixKratz/formulae" ];
+  #   brews = [
+  #     "choose-gui"
+  #     "openblas"
+  #     # "sketchybar"
+  #     # "ykman"
+  #   ];
+  #   casks = [ "docker" "hammerspoon" ];
+  # };
 
   services = { nix-daemon.enable = true; };
 

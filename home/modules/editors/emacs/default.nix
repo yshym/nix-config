@@ -13,7 +13,7 @@ let
   emacs = with pkgs; if stdenv.isDarwin then emacsMacport else emacsPgtk;
   emacsGcc =
     if pkgs.stdenv.isDarwin then
-      pkgs.emacsGcc.overrideAttrs
+      pkgs.emacs-git.overrideAttrs
         (old: {
           buildInputs = old.buildInputs ++ (with pkgs; [
             darwin.apple_sdk.frameworks.CoreFoundation

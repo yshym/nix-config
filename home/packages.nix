@@ -37,9 +37,9 @@
       erlang
       exercism
       gawk
-      gitAndTools.git-hub
+      # gitAndTools.git-hub
       gobject-introspection
-      imagemagick
+      # imagemagick
       jq
       kubectl
       lua
