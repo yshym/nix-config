@@ -2,8 +2,6 @@
 
 let
   padding = 10;
-  ultrawide_padding = 500;
-  ultrawide_display_id = 2;
 in
 {
   services.yabai = rec {
@@ -68,18 +66,6 @@ in
       # signals
       # yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
       # yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-
-      # change padding depending on whether an ultrawide display is connected
-      DISPLAY_ID=$(yabai -m query --displays | jq ".[0].id")
-      [ \$DISPLAY_ID -eq ${toString ultrawide_display_id} ] \
-            && yabai -m config left_padding ${toString ultrawide_padding} \
-            && yabai -m config right_padding ${toString ultrawide_padding}
-      yabai -m signal --add event=display_added action="[ \$YABAI_DISPLAY_ID -eq 2 ] \
-            && yabai -m config left_padding ${toString ultrawide_padding} \
-            && yabai -m config right_padding ${toString ultrawide_padding}"
-      yabai -m signal --add event=display_removed action="[ \$YABAI_DISPLAY_ID -eq 2 ] \
-            && yabai -m config left_padding ${toString padding} \
-            && yabai -m config right_padding ${toString padding}"
 
       # init
       # sketchybar.sh
