@@ -30,12 +30,14 @@ in
             md5sum "$bin" | cut -b-32
           done | md5sum | cut -b-32
         }
-        mkdir -p ~/Applications/Nix
+        export USER="yshym"
+        export APPLICATIONS_DIR="/Users/$USER/Applications/Nix"
+        mkdir -p "$APPLICATIONS_DIR"
         export IFS=$'\n'
         for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
           name="$(basename "$app")"
           src="$(/usr/bin/stat -f%Y "$app")"
-          dst="$HOME/Applications/Nix/$name"
+          dst="$APPLICATIONS_DIR/$name"
           if [ -h "$src/Contents/MacOS" ]; then
             src_tmp="/tmp/$name"
             mkdir "$src_tmp"
@@ -51,7 +53,7 @@ in
           hash2="$(hash-app "$dst")"
           if [ "$hash1" != "$hash2" ]; then
             echo "Current hash of '$name' differs from the Nix store's"
-            cp -R "$src" ~/Applications/Nix
+            cp -R "$src" "$APPLICATIONS_DIR"
           fi
           rm -rf "$src_tmp"
         done
