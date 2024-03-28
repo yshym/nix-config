@@ -31,7 +31,8 @@ in
           done | md5sum | cut -b-32
         }
         export USER="yshym"
-        export APPLICATIONS_DIR="/Users/$USER/Applications/Nix"
+        export HOME="/Users/$USER"
+        export APPLICATIONS_DIR="$HOME/Applications/Nix"
         mkdir -p "$APPLICATIONS_DIR"
         export IFS=$'\n'
         for app in $(find ${config.system.build.applications}/Applications -maxdepth 1 -type l); do
@@ -58,12 +59,12 @@ in
           rm -rf "$src_tmp"
         done
 
-        # create password store symlink
-        ln -snf ~/Dropbox/.password-store ~/.password-store
+        # create Proton Drive symlink
+        ln -snf $HOME/Library/CloudStorage/ProtonDrive-yshym@pm.me $HOME/ProtonDrive
 
         # crate org directory symlink
-        mkdir -p ~/dev
-        ln -snf ~/Dropbox/org ~/dev/org
+        mkdir -p $HOME/dev
+        ln -snf $HOME/ProtonDrive/org $HOME/dev/org
       ''
     );
   };

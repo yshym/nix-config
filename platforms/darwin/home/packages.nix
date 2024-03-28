@@ -12,7 +12,7 @@
     gnupg
 
     # net & cloud tools
-    my.Dropbox
+    # my.Dropbox
     wireguard-go
     wireguard-tools
 
