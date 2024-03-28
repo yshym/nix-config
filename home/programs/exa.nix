@@ -2,7 +2,7 @@
 
 {
   programs = {
-    exa.enable = true;
+    eza.enable = true;
     zsh.shellAliases.ls = "exa --group-directories-first";
   };
 }

@@ -3,15 +3,15 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/nixos-23.05";
-    nixpkgs.url = "github:yshym/nixpkgs/release-23.05";
+    nixos.url = "github:yshym/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:yshym/nixpkgs/release-23.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager/release-23.05";
+      url = "github:yshym/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

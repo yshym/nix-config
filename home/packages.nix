@@ -53,7 +53,7 @@
       p7zip
       redis
       rnix-lsp
-      sass
+      # sass
       tokei
       unrar
       unzip
