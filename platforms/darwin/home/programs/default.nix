@@ -14,5 +14,6 @@
 
   programs = {
     firefox.package = pkgs.my.FirefoxDev;
+    zsh.sessionVariables.BROWSER = "brave";
   };
 }
