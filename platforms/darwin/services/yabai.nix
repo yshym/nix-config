@@ -47,7 +47,8 @@ in
 
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
-      yabai -m rule --add app="^Emacs$" space=code manage=on
+      yabai -m rule --add app="^Brave Browser Nightly$" space=web
+      yabai -m rule --add app="^Emacs$" space=code role=AXTextField subrole=AXStandardWindow manage=on
       yabai -m rule --add app="^Telegram$" space=social manage=off
       yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on
       yabai -m rule --add app="^Slack$" space=social
