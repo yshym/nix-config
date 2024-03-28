@@ -43,7 +43,16 @@
       extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
     ranger.enable = true;
-    ripgrep.enable = true;
+    ripgrep = {
+      enable = true;
+      # NOTE Arguments break ripgrep in Emacs
+      # arguments = [
+      #   "--max-columns=150"
+      #   "--max-columns-preview"
+      #   "--type-add web:*.{html,css,js}*"
+      #   "--smart-case"
+      # ];
+    };
     ruby = {
       enable = false;
       enableBuildLibs = true;

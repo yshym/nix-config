@@ -6,7 +6,7 @@
 
 ;; magit
 (add-hook! 'magit-mode-hook 'magit-todos-mode)
-(setq magit-todos-exclude-globs '(".git/" "*.html"))
+(setq magit-todos-exclude-globs '(".git/" "*.html" "*.json"))
 
 
 ;; company
