@@ -8,14 +8,13 @@ in
     home = "/Users/${me}";
   };
 
-  system.build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
-    name = "applications";
-    paths = config.environment.systemPackages
-      ++ config.home-manager.users."${me}".home.packages;
-    pathsToLink = "/Applications";
-  });
-
   system = {
+    build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
+      name = "applications";
+      paths = config.environment.systemPackages
+        ++ config.home-manager.users."${me}".home.packages;
+      pathsToLink = "/Applications";
+    });
     activationScripts.applications.text = pkgs.lib.mkForce (
       ''
         # disable the creation of desktop sevice store files
