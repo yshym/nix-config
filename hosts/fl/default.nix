@@ -6,8 +6,9 @@ with lib.my; {
 
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_6_4;
-    kernelParams = [ "usbcore.autosuspend=-1" ];
+    kernelPackages = pkgs.linuxPackages_6_6;
+    resumeDevice = "/dev/disk/by-label/swap";
+    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -63,6 +64,7 @@ with lib.my; {
       # ];
       wireplumber.enable = true;
     };
+    thermald.enable = true;
     udev = {
       packages = [ pkgs.yubikey-personalization ];
       extraRules = ''
@@ -79,6 +81,19 @@ with lib.my; {
         # Wally Flashing rules for the Moonlander and Planck EZ
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11",     MODE:="0666",     SYMLINK+="stm32_dfu"
       '';
+    };
+    auto-cpufreq = {
+      enable = true;
+      settings = {
+        battery = {
+          governor = "powersave";
+          turbo = "never";
+        };
+        charger = {
+          governor = "performance";
+          turbo = "auto";
+        };
+      };
     };
   };
 
@@ -98,6 +113,7 @@ with lib.my; {
   sound.enable = false;
 
   xdg.portal = {
+    config.common.default = "*";
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
     # gtkUsePortal = true;
