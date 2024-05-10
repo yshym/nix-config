@@ -4,6 +4,7 @@ with pkgs.python3Packages;
 buildPythonPackage rec {
   pname = "sortdir";
   version = "0.2.2";
+  pyproject = true;
 
   disabled = pythonOlder "3.8";
 
@@ -12,7 +13,7 @@ buildPythonPackage rec {
     sha256 = "sha256-uEyB6v6y/lSRo2j+7bTRciMlw1Z7H6gayRKSuvEM4sA=";
   };
 
-  propagatedBuildInputs = [ colorama toml watchdog ];
+  propagatedBuildInputs = [ colorama toml watchdog poetry-core ];
 
   meta = with lib; {
     description = "Sorting directory files made easy.";

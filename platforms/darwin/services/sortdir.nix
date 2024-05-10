@@ -9,7 +9,7 @@ in
 {
   launchd.user.agents = {
     sortdir.serviceConfig = {
-      ProgramArguments = [ "${home.homeDirectory}/.local/bin/sortdir" ];
+      ProgramArguments = [ "${pkgs.my.sortdir}/bin/sortdir" ];
       UserName = "${me}";
       KeepAlive = true;
       ThrottleInterval = 30;

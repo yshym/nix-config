@@ -26,6 +26,6 @@
 
     # my stuff
     # my.choose
-    # sortdir
+    # my.sortdir
   ];
 }
