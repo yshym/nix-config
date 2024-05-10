@@ -23,5 +23,5 @@ with pkgs; {
 
   i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
 }

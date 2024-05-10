@@ -13,7 +13,7 @@ in
   config = {
     wayland.windowManager.sway = {
       enable = true;
-      systemdIntegration = true;
+      systemd.enable = true;
       xwayland = false;
       wrapperFeatures = {
         base = true;
@@ -90,7 +90,7 @@ in
           };
           "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
             dwt = "enabled";
-            natural_scroll = "enabled";
+            natural_scroll = "disabled";
             pointer_accel = "0";
             scroll_factor = "0.5";
             tap = "enabled";
@@ -240,6 +240,7 @@ in
           glib
           libnotify
           qt5.qtwayland
+          qt6.qtwayland
 
           # sway components
           swaybg # required by sway for controlling desktop wallpaper

@@ -5,7 +5,7 @@ with pkgs; {
 
   environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
 
-  fonts.fonts = [
+  fonts.packages = [
     dejavu_fonts
     fira-code
     font-awesome
