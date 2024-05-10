@@ -17,6 +17,11 @@
     pinentry
     yubikey-manager
 
+
+    # entertaiment
+    chatterino2
+
+    # other
     # my.sortdir
   ];
 }

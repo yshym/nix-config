@@ -90,7 +90,6 @@
       inetutils
 
       # entertainment
-      # chatterino2
       mpv
       # portaudio
       # spotifyd
