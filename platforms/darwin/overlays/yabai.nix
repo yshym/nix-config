@@ -4,7 +4,7 @@ self: super:
 {
   # NOTE Used to always keep yabai up-to-date
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "7.0.3";
+    version = "7.1.0";
     src = builtins.fetchTarball {
       url =
         "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
