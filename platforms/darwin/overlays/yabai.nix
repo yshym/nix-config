@@ -4,11 +4,11 @@ self: super:
 {
   # NOTE Used to always keep yabai up-to-date
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "7.1.0";
+    version = "7.1.1";
     src = builtins.fetchTarball {
       url =
         "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "0y34kklrsjgzp03v4dq0s7na7m9kvxfc7bzydz3idv7phj3a87i6";
+      sha256 = "0l31zppaq0jhnra1z2ddpj5rw4sz9f04wyja3sizsaad5acd94aw";
     };
 
     installPhase = ''
