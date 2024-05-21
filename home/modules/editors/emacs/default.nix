@@ -3,14 +3,7 @@
 with lib;
 let
   cfg = config.programs.emacs;
-  withPatches = pkg: patches: pkg.overrideAttrs (attrs: { inherit patches; });
-  patches = path:
-    with builtins;
-    (map (n: path + ("/" + n))
-      (filter (n: match ".*\\.patch" n != null) (attrNames (readDir path))));
-
-  emacsMacport = withPatches pkgs.emacsMacport (patches ./patches/emacsMacport);
-  emacs = with pkgs; if stdenv.isDarwin then emacsMacport else emacsPgtk;
+  emacs = with pkgs; if stdenv.isDarwin then pkgs.emacsMacport else emacsPgtk;
   emacsGcc =
     if pkgs.stdenv.isDarwin then
       pkgs.emacs-git.overrideAttrs
@@ -26,7 +19,6 @@ in
 {
   config = mkIf cfg.enable {
     programs = {
-      # emacs.package = with pkgs; if stdenv.isDarwin then emacsMacport else emacsGcc;
       emacs.package = emacsGcc;
       zsh = {
         envExtra = ''
