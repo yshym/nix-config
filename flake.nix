@@ -26,6 +26,10 @@
         flake-utils.follows = "flake-utils";
       };
     };
+    undmg-lzma = {
+      url = "github:yshym/undmg-lzma/lzma-support";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -37,7 +41,15 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `system` should be replaced with your current host system
-      pkgs = import nixpkgs { system = "aarch64-darwin"; };
+      system = "aarch64-darwin";
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (final: prev: {
+            undmgLzma = inputs.undmg-lzma.defaultPackage."${system}";
+          })
+        ];
+      };
       lib = nixpkgs.lib.extend (self: super: {
         my = import ./lib { inherit inputs pkgs; lib = self; };
       });

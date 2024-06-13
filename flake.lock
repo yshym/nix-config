@@ -226,7 +226,8 @@
         "nixos": "nixos",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
-        "nixpkgs-unstable": "nixpkgs-unstable"
+        "nixpkgs-unstable": "nixpkgs-unstable",
+        "undmg-lzma": "undmg-lzma"
       }
     },
     "systems": {
@@ -256,6 +257,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "undmg-lzma": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1717351794,
+        "narHash": "sha256-adLzXVUZ/IOXZWXon6tqiup6l7AaUB9p9WS+X0qeqZc=",
+        "owner": "yshym",
+        "repo": "undmg-lzma",
+        "rev": "8df3d1e9d3ba05fdedcb4dbef6641d2be2132db4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yshym",
+        "ref": "lzma-support",
+        "repo": "undmg-lzma",
         "type": "github"
       }
     }
