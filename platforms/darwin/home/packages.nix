@@ -28,5 +28,6 @@
     # my stuff
     # my.choose
     # my.sortdir
+    pngpaste
   ];
 }

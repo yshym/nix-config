@@ -105,7 +105,6 @@
       my.ical2org
       # obs-studio
       pastel
-      pngpaste
       tealdeer
       termdown
       translate-shell
