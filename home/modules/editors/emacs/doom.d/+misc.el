@@ -171,7 +171,7 @@ to an appropriate value)")
 
 ;; fix ripgrep search
 (after! counsel
-  (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s || true"))
+  (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never --smart-case %s || true"))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
