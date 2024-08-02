@@ -47,7 +47,7 @@ in
 
       # window rules
       yabai -m rule --add app="^Firefox$" space=web
-      yabai -m rule --add app="^Brave Browser Nightly$" space=web
+      yabai -m rule --add app="^Brave Browser$" space=web
       yabai -m rule --add app="^Emacs$" space=code role=AXTextField subrole=AXStandardWindow manage=on
       yabai -m rule --add app="^Telegram$" space=social manage=off
       yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on
@@ -63,6 +63,7 @@ in
       yabai -m rule --add app="^Stickies$" manage=off
       yabai -m rule --add app="^System Settings$" manage=off
       yabai -m rule --add app="^choose$" manage=off
+      yabai -m rule --add app="^Gitify$" manage=off
 
       # signals
       # yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
