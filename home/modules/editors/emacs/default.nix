@@ -3,23 +3,31 @@
 with lib;
 let
   cfg = config.programs.emacs;
-  emacs = with pkgs; if stdenv.isDarwin then pkgs.emacsMacport else emacsPgtk;
-  emacsGcc =
-    if pkgs.stdenv.isDarwin then
-      pkgs.emacs-git.overrideAttrs
-        (old: {
-          buildInputs = old.buildInputs ++ (with pkgs; [
-            darwin.apple_sdk.frameworks.CoreFoundation
-            darwin.apple_sdk.frameworks.WebKit
-          ]);
-        })
-    else
-      pkgs.emacsPgtkGcc;
+  emacs29 = (import
+    (fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/c434383f2a4866a7c674019b4cdcbfc55db3c4ab.tar.gz";
+      sha256 = "072c46gnmzyphbm1y5iq75k9x4d9g59n4jyivmlg63j0w022v2mb";
+    })
+    { system = pkgs.stdenv.system; }).emacs29;
+  # emacsGit is a legacy package name
+  emacs-git = pkgs.emacsGit;
+  emacs = if pkgs.stdenv.isDarwin then emacs29 else pkgs.emacsPgtkGcc;
+  # emacs =
+  #   if pkgs.stdenv.isDarwin then
+  #     emacs-git.overrideAttrs
+  #       (old: {
+  #         buildInputs = old.buildInputs ++ (with pkgs; [
+  #           darwin.apple_sdk.frameworks.CoreFoundation
+  #           darwin.apple_sdk.frameworks.WebKit
+  #         ]);
+  #       })
+  #   else
+  #     pkgs.emacsPgtkGcc;
 in
 {
   config = mkIf cfg.enable {
     programs = {
-      emacs.package = emacsGcc;
+      emacs.package = emacs;
       zsh = {
         envExtra = ''
           export PATH="$HOME/.emacs.d/bin:$PATH"
