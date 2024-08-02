@@ -53,7 +53,7 @@ in
           "3" = [{ app_id = "telegramdesktop"; } { title = "^Slack"; }];
         };
 
-        modifier = "Mod1";
+        modifier = "Mod4";
 
         colors = {
           focused = {
@@ -86,7 +86,7 @@ in
           };
           "12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I" = {
             xkb_layout = "us,ru,ua";
-            xkb_options = "grp:win_space_toggle";
+            xkb_options = "grp:win_space_toggle,altwin:swap_alt_win";
           };
           "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
             dwt = "enabled";
@@ -107,7 +107,7 @@ in
           in
           {
             "eDP-1" = { bg = bg; };
-            "DP-1" = { bg = bg; };
+            "DP-4" = { bg = bg; };
           };
 
         seat = {
