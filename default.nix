@@ -16,7 +16,7 @@ with pkgs; {
   ];
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.nix_2_19;
     settings = {
       sandbox = true;
       trusted-users = [ "root" "yshym" ];
