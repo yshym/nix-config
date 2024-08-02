@@ -14,6 +14,7 @@
     zoom-us
 
     # security
+    pinentry
     yubikey-manager
 
     # my.sortdir

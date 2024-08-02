@@ -52,7 +52,6 @@
       pre-commit
       p7zip
       redis
-      rnix-lsp
       # sass
       tokei
       unrar
@@ -80,7 +79,6 @@
 
       # passwords & security
       openssl
-      pinentry
 
       # net & cloud tools
       aria2
@@ -97,7 +95,7 @@
       # portaudio
       # spotifyd
       streamlink
-      youtube-dl
+      yt-dlp
 
       # other
       fd

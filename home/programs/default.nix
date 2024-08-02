@@ -10,7 +10,6 @@
     ./go.nix
     ./password-store.nix
     ./scripts
-    ./spotify
     # ./topgrade
     ./vim.nix
     ./zathura.nix
@@ -42,7 +41,6 @@
       pylint.enable = false;
       extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
-    ranger.enable = true;
     ripgrep = {
       enable = true;
       # NOTE Arguments break ripgrep in Emacs

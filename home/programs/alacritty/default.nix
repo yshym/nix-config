@@ -38,14 +38,14 @@ with pkgs; {
             foreground = "0x44475a";
             background = "0xffb86c";
           };
-          colors.footer_bar = {
-            foreground = "0xf8f8f2";
-            background = "0x282a36";
-          };
         };
         line_indicator = {
           foreground = "None";
           background = "None";
+        };
+        footer_bar = {
+          foreground = "0xf8f8f2";
+          background = "0x282a36";
         };
         selection = {
           text = "CellForeground";
@@ -82,7 +82,7 @@ with pkgs; {
           white = "0xe6e6d1";
         };
       };
-      key_bindings = [
+      keyboard.bindings = [
         {
           key = "V";
           mods = "Command";
@@ -101,17 +101,17 @@ with pkgs; {
         {
           key = "B";
           mods = "Alt";
-          chars = "\\x1bb";
+          chars = "\\u001bb";
         }
         {
           key = "F";
           mods = "Alt";
-          chars = "\\x1bf";
+          chars = "\\u001bf";
         }
         {
           key = "D";
           mods = "Alt";
-          chars = "\\x1bd";
+          chars = "\\u001bd";
         }
       ];
     };
