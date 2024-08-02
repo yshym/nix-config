@@ -6,6 +6,7 @@
     chromedriver
     docker
     docker-compose
+    my.Gitify
     terminal-notifier
 
     # security
