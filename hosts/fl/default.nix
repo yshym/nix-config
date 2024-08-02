@@ -8,7 +8,7 @@ with lib.my; {
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_6_6;
     resumeDevice = "/dev/disk/by-label/swap";
-    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" ];
+    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" "resume_offset=0" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
