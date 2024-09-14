@@ -35,7 +35,7 @@ with lib.my; {
       extraConfig = ''
         HandlePowerKey=suspend-then-hibernate
         IdleAction=suspend-then-hibernate
-        IdleActionSec=30m
+        IdleActionSec=2h
       '';
     };
     pipewire = {
