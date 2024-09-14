@@ -12,6 +12,8 @@ in
 {
   config = {
     wayland.windowManager.sway = {
+      # HACK https://github.com/nix-community/home-manager/issues/5311
+      checkConfig = false;
       enable = true;
       systemd.enable = true;
       xwayland = false;

@@ -1,7 +1,7 @@
 { config, inputs, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ inputs.nixos-hardware.nixosModules.framework (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [ inputs.nixos-hardware.nixosModules.framework-11th-gen-intel (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot = {
     initrd = {

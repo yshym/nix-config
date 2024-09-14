@@ -8,7 +8,7 @@ with lib.my; {
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_6_6;
     resumeDevice = "/dev/disk/by-label/swap";
-    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" "resume_offset=0" ];
+    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -28,7 +28,16 @@ with lib.my; {
   };
 
   services = {
+    fwupd.enable = true;
     geoclue2.enable = true;
+    logind = {
+      lidSwitch = "suspend-then-hibernate";
+      extraConfig = ''
+        HandlePowerKey=suspend-then-hibernate
+        IdleAction=suspend-then-hibernate
+        IdleActionSec=30m
+      '';
+    };
     pipewire = {
       enable = true;
       alsa = {
@@ -96,6 +105,8 @@ with lib.my; {
       };
     };
   };
+
+  systemd.sleep.extraConfig = "HibernateDelaySec=30s";
 
   security = {
     pam = {

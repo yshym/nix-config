@@ -19,7 +19,7 @@ with pkgs; {
   };
   qt = {
     enable = true;
-    platformTheme = "gtk";
+    platformTheme.name = "gtk";
   };
 
   home.packages = [ dconf bibata-cursors ];

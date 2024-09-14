@@ -17,11 +17,11 @@ with pkgs; {
 
   security = { sudo.wheelNeedsPassword = false; };
 
-  programs = { gnupg.agent.pinentryFlavor = "curses"; zsh.enable = true; };
+  programs = { gnupg.agent.pinentryPackage = pinentry; zsh.enable = true; };
 
   services = { openssh = { enable = true; }; };
 
   i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
 }

@@ -40,8 +40,8 @@
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-      # NOTE `system` should be replaced with your current host system
-      system = "aarch64-darwin";
+      # NOTE `<system>` should be replaced with your current host system
+      system = "<system>";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [

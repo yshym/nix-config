@@ -11,7 +11,7 @@ let
     { system = pkgs.stdenv.system; }).emacs29;
   # emacsGit is a legacy package name
   emacs-git = pkgs.emacsGit;
-  emacs = if pkgs.stdenv.isDarwin then emacs29 else pkgs.emacsPgtkGcc;
+  emacs = if pkgs.stdenv.isDarwin then emacs29 else emacsPgtk;
   # emacs =
   #   if pkgs.stdenv.isDarwin then
   #     emacs-git.overrideAttrs
@@ -22,7 +22,7 @@ let
   #         ]);
   #       })
   #   else
-  #     pkgs.emacsPgtkGcc;
+  #     pkgs.emacsPgtk;
 in
 {
   config = mkIf cfg.enable {
