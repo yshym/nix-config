@@ -19,6 +19,7 @@
     emacs-overlay.url = "github:yshym/emacs-overlay/88e410d7f1ddef554b40f66755626e5c883487d9";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "nixos-hardware/master";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
     clion = {
       url = "github:yshym/clion";
       inputs = {
@@ -41,7 +42,7 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `<system>` should be replaced with your current host system
-      system = "x86_64-linux";
+      system = "<system>";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
@@ -90,6 +91,7 @@
       nixosConfigurations = {
         rpi4 = mkHost "rpi4" "aarch64-linux";
         fl = mkHost "fl" "x86_64-linux";
+        atlas = mkHost "atlas" "aarch64-linux";
       };
     };
 }
