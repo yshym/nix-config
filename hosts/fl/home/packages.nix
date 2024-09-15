@@ -9,7 +9,7 @@
     nodePackages.webtorrent-cli
 
     # communication
-    discord-ptb
+    discord
     slack
     zoom-us
 

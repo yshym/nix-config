@@ -18,7 +18,7 @@
     wireguard-tools
 
     # communication
-    discord-ptb
+    discord
     slack
 
     # entertainment
