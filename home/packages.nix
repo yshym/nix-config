@@ -39,6 +39,7 @@
       gawk
       # gitAndTools.git-hub
       gobject-introspection
+      httpie
       # imagemagick
       jq
       kubectl
