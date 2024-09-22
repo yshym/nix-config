@@ -6,7 +6,7 @@
       comma = (import
         (builtins.fetchTarball {
           url = "https://github.com/Shopify/comma/archive/master.tar.gz";
-          sha256 = "0n5a3rnv9qnnsrl76kpi6dmaxmwj1mpdd2g0b4n1wfimqfaz6gi1";
+          sha256 = "0xcld2ncs8dnidpl7kz8x1s01c0qc4d2s87jvqlks8laqf7czsay";
         })
         { });
       myTexlive = (texlive.combine {
@@ -33,8 +33,8 @@
       caddy
       cmake
       editorconfig-core-c
-      elixir
       erlang
+      elixir
       exercism
       gawk
       # gitAndTools.git-hub
@@ -48,6 +48,7 @@
       minikube
       myTexlive
       nasm
+      nil
       openmpi
       plantuml
       pre-commit

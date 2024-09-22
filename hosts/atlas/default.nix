@@ -1,12 +1,7 @@
 { inputs, lib, pkgs, ... }:
 
-{
-  imports = [
-    inputs.nixos-apple-silicon.nixosModules.apple-silicon-support
-    ./hardware.nix
-    ../../platforms/nixos
-    ./home
-  ];
+with lib.my; {
+  imports = [ ./hardware.nix ../../platforms/nixos ../../platforms/nixos/graphical ];
 
   boot = {
     loader = {
@@ -17,20 +12,27 @@
       options hid_apple iso_layout=0
     '';
     initrd.kernelModules = [
-      "nvme"
       "usbhid"
       "usb_storage"
-      "ext4"
-      "dm-snapshot"
+      "sdhci_pci"
     ];
     kernelParams = [ "apple_dcp.show_notch=1" ];
   };
 
-  nixpkgs.overlays = [ inputs.nixos-apple-silicon.overlays.apple-silicon-overlay ];
+  zramSwap.enable = true;
 
-  networking.wireless.iwd = {
-    enable = true;
-    settings.General.EnableNetworkConfiguration = true;
+  nixpkgs.overlays = [
+    inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
+  ] ++ (mapModules' ./overlays (p: import p { inherit inputs lib; }));
+
+  environment.systemPackages = with pkgs; [ vulkan-validation-layers ];
+
+  networking = {
+    useDHCP = lib.mkDefault true;
+    wireless.iwd = {
+      enable = true;
+      settings.General.EnableNetworkConfiguration = true;
+    };
   };
 
   services.logind = {

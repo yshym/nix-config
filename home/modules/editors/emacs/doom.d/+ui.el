@@ -7,7 +7,8 @@
 ;; Font
 (setq doom-font (font-spec
                  :family "JetBrains Mono"
-                 :size (if IS-MAC 15 12)
+                 ;; :size (if IS-MAC 15 12)
+                 :size 15
                  :weight 'normal))
 (use-package doom-modeline
   :init (doom-modeline-mode 1)

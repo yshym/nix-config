@@ -3,7 +3,7 @@
 with pkgs; {
   imports = [ ./cachix ];
 
-  environment.systemPackages = [ coreutils gcc ripgrep vim wget ];
+  environment.systemPackages = [ coreutils gcc git ripgrep vim wget ];
 
   fonts.packages = [
     dejavu_fonts

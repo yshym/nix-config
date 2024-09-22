@@ -14,7 +14,7 @@ with pkgs; {
       };
       font = {
         normal.family = "Fira Code";
-        size = if stdenv.isDarwin then 15.0 else 9.0;
+        size = if stdenv.isDarwin then 15.0 else if stdenv.isAarch64 then 12.0 else 9.0;
       };
       colors = {
         primary = {

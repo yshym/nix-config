@@ -3,15 +3,15 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/nixos-24.05";
-    nixpkgs.url = "github:yshym/nixpkgs/release-24.05";
+    nixos.url = "github:yshym/nixpkgs/345c263f2f53a3710abe117f28a5cb86d0ba4059";
+    nixpkgs.url = "github:yshym/nixpkgs/12228ff1752d7b7624a54e9c1af4b222b3c1073b";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager/release-24.05";
+      url = "github:yshym/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -31,6 +31,10 @@
       url = "github:yshym/undmg-lzma/lzma-support";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -42,7 +46,7 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `<system>` should be replaced with your current host system
-      system = "<system>";
+      system = "aarch64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [

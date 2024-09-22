@@ -3,26 +3,15 @@
 with lib;
 let
   cfg = config.programs.emacs;
-  emacs29 = (import
+  emacs29-nixpkgs = (import
     (fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/c434383f2a4866a7c674019b4cdcbfc55db3c4ab.tar.gz";
       sha256 = "072c46gnmzyphbm1y5iq75k9x4d9g59n4jyivmlg63j0w022v2mb";
     })
-    { system = pkgs.stdenv.system; }).emacs29;
+    { system = pkgs.stdenv.system; });
   # emacsGit is a legacy package name
   emacs-git = pkgs.emacsGit;
-  emacs = if pkgs.stdenv.isDarwin then emacs29 else emacsPgtk;
-  # emacs =
-  #   if pkgs.stdenv.isDarwin then
-  #     emacs-git.overrideAttrs
-  #       (old: {
-  #         buildInputs = old.buildInputs ++ (with pkgs; [
-  #           darwin.apple_sdk.frameworks.CoreFoundation
-  #           darwin.apple_sdk.frameworks.WebKit
-  #         ]);
-  #       })
-  #   else
-  #     pkgs.emacsPgtk;
+  emacs = if pkgs.stdenv.isDarwin then emacs29-nixpkgs.emacs29 else emacs29-nixpkgs.emacs29-pgtk;
 in
 {
   config = mkIf cfg.enable {

@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my; {
-  imports = [ ../../platforms/nixos ./hardware.nix ./home ];
+  imports = [ ../../platforms/nixos ../../platforms/nixos/graphical ./hardware.nix ];
 
   boot = {
     tmp.cleanOnBoot = true;
@@ -17,19 +17,8 @@ with lib.my; {
 
   nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs lib; });
 
-  fonts.fontconfig.defaultFonts = {
-    monospace = [ "JetBrains Mono" ];
-    serif = [ "DejaVu Serif" ];
-    sansSerif = [ "DejaVu Sans" ];
-  };
-
-  programs = {
-    light.enable = true;
-  };
-
   services = {
     fwupd.enable = true;
-    geoclue2.enable = true;
     logind = {
       lidSwitch = "suspend-then-hibernate";
       extraConfig = ''
@@ -37,41 +26,6 @@ with lib.my; {
         IdleAction=suspend-then-hibernate
         IdleActionSec=2h
       '';
-    };
-    pipewire = {
-      enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-      pulse.enable = true;
-      # media-session.config.bluez-monitor.rules = [
-      #   {
-      #     # Matches all cards
-      #     matches = [{ "device.name" = "~bluez_card.*"; }];
-      #     actions = {
-      #       "update-props" = {
-      #         "bluez5.reconnect-profiles" = [ "hfp_hf" "hsp_hs" "a2dp_sink" ];
-      #         # mSBC is not expected to work on all headset + adapter combinations.
-      #         "bluez5.msbc-support" = true;
-      #         # SBC-XQ is not expected to work on all headset + adapter combinations.
-      #         "bluez5.sbc-xq-support" = true;
-      #       };
-      #     };
-      #   }
-      #   {
-      #     matches = [
-      #       # Matches all sources
-      #       {
-      #         "node.name" = "~bluez_input.*";
-      #       }
-      #       # Matches all outputs
-      #       { "node.name" = "~bluez_output.*"; }
-      #     ];
-      #     actions = { "node.pause-on-idle" = false; };
-      #   }
-      # ];
-      wireplumber.enable = true;
     };
     thermald.enable = true;
     udev = {
@@ -108,26 +62,5 @@ with lib.my; {
 
   systemd.sleep.extraConfig = "HibernateDelaySec=30s";
 
-  security = {
-    pam = {
-      yubico = {
-        enable = true;
-        mode = "challenge-response";
-      };
-      services = {
-        swaylock = { };
-        swaylock-wrapper = { };
-      };
-    };
-  };
-
   sound.enable = false;
-
-  xdg.portal = {
-    config.common.default = "*";
-    enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    # gtkUsePortal = true;
-    wlr.enable = true;
-  };
 }

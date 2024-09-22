@@ -5,6 +5,7 @@
 ;;; Code:
 
 (package! elisp-format)
+(package! magit-todos)
 
 (provide 'packages)
 ;;; packages.el ends here
