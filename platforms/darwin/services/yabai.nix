@@ -11,6 +11,7 @@ in
     config = {
       mouse_follows_focus = "off";
       focus_follows_mouse = "autoraise";
+      window_animation_duration = 0;
       window_shadow = "off";
       window_placement = "second_child";
       # window_border = "on";
