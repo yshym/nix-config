@@ -7,10 +7,7 @@ with lib.my; {
 
   environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 
-  fonts = {
-    fonts = [ pkgs.hack-font ];
-    fontDir.enable = true;
-  };
+  fonts.packages = [ pkgs.hack-font ];
 
   nix = {
     configureBuildUsers = true;
