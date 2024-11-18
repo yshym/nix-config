@@ -12,7 +12,7 @@ with pkgs; {
     jetbrains-mono
     (joypixels.override { acceptLicense = true; })
     noto-fonts
-    noto-fonts-cjk
+    noto-fonts-cjk-sans
   ];
 
   nix = {
