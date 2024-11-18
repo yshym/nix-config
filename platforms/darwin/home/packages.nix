@@ -22,6 +22,7 @@
     slack
 
     # entertainment
+    spotify-player
     my.Spotify
     # nodePackages.webtorrent-cli
 
