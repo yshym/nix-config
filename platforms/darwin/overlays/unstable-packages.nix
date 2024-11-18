@@ -1,14 +1,9 @@
 { inputs, lib }:
 
 self: super:
-with lib;
-let
-  system = super.stdenv.system;
-  pkgsUnstable = import inputs.nixpkgs-unstable {
-    inherit system;
+{
+  unstable = import inputs.nixpkgs-unstable {
+    system = super.stdenv.system;
     config.allowUnfree = true;
   };
-  packageNames = [ ];
-in
-foldr (a: b: a // b) { }
-  (map (p: { ${p} = pkgsUnstable.${p}; }) packageNames)
+}

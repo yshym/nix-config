@@ -3,6 +3,7 @@
 with pkgs; {
   programs.alacritty = {
     enable = true;
+    package = pkgs.unstable.alacritty;
     settings = {
       window = {
         decorations = if stdenv.isDarwin then "buttonless" else "none";
