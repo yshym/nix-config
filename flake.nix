@@ -4,7 +4,7 @@
   inputs = {
     # core
     nixos.url = "github:yshym/nixpkgs/345c263f2f53a3710abe117f28a5cb86d0ba4059";
-    nixpkgs.url = "github:yshym/nixpkgs/12228ff1752d7b7624a54e9c1af4b222b3c1073b";
+    nixpkgs.url = "github:yshym/nixpkgs/release-24.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
       url = "github:yshym/nix-darwin/master";
@@ -29,7 +29,7 @@
     };
     undmg-lzma = {
       url = "github:yshym/undmg-lzma/lzma-support";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland = {
       url = "github:hyprwm/Hyprland";
