@@ -23,7 +23,7 @@
 
     # entertainment
     my.Spotify
-    nodePackages.webtorrent-cli
+    # nodePackages.webtorrent-cli
 
     # my stuff
     # my.choose
