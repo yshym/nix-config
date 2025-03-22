@@ -1,6 +1,14 @@
 { pkgs, ... }:
 
 with pkgs; {
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+  };
   gtk = {
     enable = true;
     iconTheme = {
@@ -11,16 +19,15 @@ with pkgs; {
       name = "Pop-dark";
       package = pop-gtk-theme;
     };
-    font = { name = "Fira Code"; size = 8; };
-    gtk3.extraConfig = {
-      gtk-cursor-theme-name = "Bibata-Modern-Classic";
-      gtk-cursor-theme-size = 20;
+    cursorTheme = {
+      package = bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 20;
     };
+    font = { name = "Fira Code"; size = 8; };
   };
   qt = {
     enable = true;
     platformTheme.name = "gtk";
   };
-
-  home.packages = [ dconf bibata-cursors ];
 }
