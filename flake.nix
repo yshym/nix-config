@@ -3,7 +3,7 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/345c263f2f53a3710abe117f28a5cb86d0ba4059";
+    nixos.url = "github:yshym/nixpkgs/nixos-24.11";
     nixpkgs.url = "github:yshym/nixpkgs/release-24.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
@@ -19,7 +19,7 @@
     emacs-overlay.url = "github:yshym/emacs-overlay/88e410d7f1ddef554b40f66755626e5c883487d9";
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "nixos-hardware/master";
-    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon";
+    nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/releasep2-2024-12-25";
     clion = {
       url = "github:yshym/clion";
       inputs = {
