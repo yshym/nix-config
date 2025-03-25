@@ -8,6 +8,7 @@ let
   up = cfg.config.up;
   down = cfg.config.down;
   darkBlue = "#6272a4";
+  pastelRed = "#ff9e99";
 in
 {
   config = {
@@ -57,6 +58,13 @@ in
             text = "#f8f8f2";
             indicator = darkBlue;
             childBorder = darkBlue;
+          };
+          urgent = {
+            border = pastelRed;
+            background = "#222222";
+            text = "#888888";
+            indicator = "#292d2e";
+            childBorder = "#222222";
           };
         };
 
