@@ -2,6 +2,9 @@
 
 {
   home.packages = with pkgs; [
+    # dev
+    colima
+
     # media
     pavucontrol
     playerctl
@@ -9,8 +12,8 @@
     # nodePackages.webtorrent-cli
 
     # communication
-    armcord
-    # discord
+
+    (if pkgs.stdenv.isAarch64 then legcord else discord)
     # slack
 
     # security
@@ -19,6 +22,7 @@
 
     # entertaiment
     chatterino2
+    spotify-player
 
     # other
     # my.sortdir
