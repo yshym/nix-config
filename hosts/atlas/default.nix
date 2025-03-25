@@ -4,6 +4,7 @@ with lib.my; {
   imports = [ ./hardware.nix ../../platforms/nixos ../../platforms/nixos/graphical ];
 
   boot = {
+    binfmt.emulatedSystems = [ "x86_64-linux" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = false;
@@ -25,7 +26,7 @@ with lib.my; {
     inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
   ] ++ (mapModules' ./overlays (p: import p { inherit inputs lib; }));
 
-  environment.systemPackages = with pkgs; [ vulkan-validation-layers ];
+  environment.systemPackages = with pkgs; [ qemu vulkan-validation-layers ];
 
   networking = {
     useDHCP = lib.mkDefault true;
