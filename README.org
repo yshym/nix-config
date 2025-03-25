@@ -1,3 +1,3 @@
 #+TITLE: Nix Config
 
-[[https://nixos.org][https://img.shields.io/badge/NixOS-21.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white]]
+[[https://nixos.org][https://img.shields.io/badge/NixOS-24.11-blue.svg?style=flat-square&logo=NixOS&logoColor=white]]
