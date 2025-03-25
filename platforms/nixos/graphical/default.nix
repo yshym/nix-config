@@ -9,6 +9,7 @@
   };
 
   programs = {
+    dconf.enable = true;
     hyprland = {
       enable = false;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
