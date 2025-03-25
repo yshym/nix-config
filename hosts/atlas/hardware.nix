@@ -33,6 +33,5 @@
       powerOnBoot = true;
     };
     graphics.enable = true;
-    pulseaudio.package = pkgs.pulseaudioFull;
   };
 }

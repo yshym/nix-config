@@ -61,6 +61,4 @@ with lib.my; {
   };
 
   systemd.sleep.extraConfig = "HibernateDelaySec=30s";
-
-  sound.enable = false;
 }

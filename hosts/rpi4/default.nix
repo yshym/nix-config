@@ -157,8 +157,6 @@
     };
   };
 
-  sound.enable = true;
-
   hardware = {
     # Enable GPU acceleration
     raspberry-pi."4".fkms-3d.enable = true;
