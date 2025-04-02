@@ -67,7 +67,7 @@
 
       # TODO Replace with setting split type of each window on explicitly setting the option
       # toggle window split type
-      alt - t : yabai -m window --toggle split
+      alt - e : yabai -m window --toggle split
 
       # rotate tree
       alt - r : yabai -m space --rotate 90
@@ -79,10 +79,10 @@
       alt - x : yabai -m space --mirror x-axis
 
       # toggle stack
-      shift + alt - s : "$HOME/.config/yabai/toggle_stack.sh"
+      alt - s : "$HOME/.config/yabai/toggle_stack.sh"
 
       # set horizontal splitting direction
-      alt - s : yabai -m config split_type vertical
+      alt - h : yabai -m config split_type vertical
 
       # set vertical splitting direction
       alt - v : yabai -m config split_type horizontal
