@@ -1,5 +1,52 @@
-#!/usr/bin/env osascript
+#!/usr/bin/env bash
 
-tell application id "com.apple.systemevents"
-    keystroke (key code 49 using control down)
-end tell
+LAYOUTS=("com.apple.keylayout.ABC" "com.apple.keylayout.Ukrainian-PC" "com.apple.keylayout.RussianWin")
+CURRENT_LAYOUT=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)
+TARGET_LAYOUT=$1
+
+next_layout() { skhd -k "ctrl + alt - space"; }
+
+if ! [[ "${LAYOUTS[@]}" =~ $TARGET_LAYOUT ]]; then
+    echo "Target layout is not supported"
+    exit 1
+fi
+if ! [[ "${LAYOUTS[@]}" =~ $CURRENT_LAYOUT ]]; then
+    echo "Current layout is not supported"
+    exit 1
+fi
+
+if [[ $TARGET_LAYOUT == $CURRENT_LAYOUT ]]; then
+    exit 0
+fi
+
+while [[ $TARGET_LAYOUT != $CURRENT_LAYOUT ]]; do
+    next_layout
+    CURRENT_LAYOUT=$(defaults read ~/Library/Preferences/com.apple.HIToolbox.plist AppleCurrentKeyboardLayoutInputSourceID)
+done
+
+# case $TARGET_LAYOUT in
+#     "com.apple.keylayout.ABC")
+#         if [[ $CURRENT_LAYOUT == "com.apple.keylayout.Ukrainian-PC" ]]; then
+#             layout_right
+#         else
+#             layout_left
+#         fi
+#         ;;
+#     "com.apple.keylayout.Ukrainian-PC")
+#         if [[ $CURRENT_LAYOUT == "com.apple.keylayout.RussianWin" ]]; then
+#             layout_right
+#         else
+#             layout_left
+#         fi
+#         ;;
+#     "com.apple.keylayout.RussianWin")
+#         if [[ $CURRENT_LAYOUT == "com.apple.keylayout.ABC" ]]; then
+#             layout_right
+#         else
+#             layout_left
+#         fi
+#         ;;
+#     *) echo "Unknown target layout"
+#        exit 1
+#        ;;
+# esac

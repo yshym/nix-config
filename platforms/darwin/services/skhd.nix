@@ -8,7 +8,12 @@
       cmd - d : open-app
 
       # open terminal
-      alt - return : open -n -a "Alacritty"
+      alt - return : alacritty
+
+      # change keyboard layout
+      # ctrl - z : change-keyboard-layout "com.apple.keylayout.ABC"
+      # ctrl - x : change-keyboard-layout "com.apple.keylayout.Ukrainian-PC"
+      # ctrl - c : change-keyboard-layout "com.apple.keylayout.RussianWin"
 
       # make a screenshot
       alt - p : screenshot
