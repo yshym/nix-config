@@ -14,7 +14,7 @@ with pkgs; {
       autoload -Uz compinit
       if [[ ${
         if stdenv.isDarwin then
-          "$(date +'%j') != $(date -r $(stat -f '%m' ~/.zcompdump) +'%j')"
+          "$(date +'%j') != $(date -d @\"$(stat -c '%Y' \"$ZDOTDIR/.zcompdump\")\" +'%j')"
         else
           "-n $ZDOTDIR/.zcompdump(#qN.mh+24)"
       } ]]; then
@@ -74,8 +74,8 @@ with pkgs; {
         src = fetchFromGitHub {
           owner = "zsh-users";
           repo = name;
-          rev = "v1.0.2";
-          sha256 = "0y8va5kc2ram38hbk2cibkk64ffrabfv1sh4xm7pjspsba9n5p1y";
+          rev = "v1.1.0";
+          sha256 = "sha256-GSEvgvgWi1rrsgikTzDXokHTROoyPRlU0FVpAoEmXG4=";
         };
       }
     ];
@@ -93,10 +93,6 @@ with pkgs; {
       shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
       srf = "sudo rm -rf";
       top = "${pkgs.bottom}/bin/btm";
-      "..." = "../..";
-      "...." = "../../..";
-      "....." = "../../../..";
-      "......" = "../../../../..";
     };
   };
 
