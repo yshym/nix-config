@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager";
+      url = "github:yshym/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
