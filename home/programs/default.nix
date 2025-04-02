@@ -57,5 +57,25 @@
       provider = "nixpkgs";
       enableSolargraph = true;
     };
+    tmux = {
+      enable = true;
+      shell = "${pkgs.zsh}/bin/zsh";
+      sensibleOnTop = false;
+      keyMode = "vi";
+      customPaneNavigationAndResize = true;
+      clock24 = true;
+      plugins = with pkgs.tmuxPlugins; [
+        yank
+        {
+          plugin = dracula;
+          extraConfig = ''
+            set -g @dracula-plugins " "
+            set -g @dracula-show-powerline true
+            set -g @dracula-show-left-icon "#h | #S"
+            set -g @dracula-refresh-rate 10
+          '';
+        }
+      ];
+    };
   };
 }
