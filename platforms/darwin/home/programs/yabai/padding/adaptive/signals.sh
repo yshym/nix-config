@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
 
-refresh_padding_script_path="$HOME/.config/yabai/padding/refresh.sh"
+refresh_padding_script_path="$HOME/.config/yabai/padding/adaptive/refresh.sh"
 
 yabai -m signal --add event=window_created action="$refresh_padding_script_path"
 yabai -m signal --add event=window_destroyed action="$refresh_padding_script_path"
+# Track space type changes like bsp -> stack
+yabai -m signal --add event=window_resized action="$refresh_padding_script_path"
 yabai -m signal --add event=application_launched action="$refresh_padding_script_path"
 yabai -m signal --add event=application_terminated action="$refresh_padding_script_path"

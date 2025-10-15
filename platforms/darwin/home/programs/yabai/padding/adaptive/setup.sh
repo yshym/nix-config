@@ -1,20 +1,12 @@
 #!/usr/bin/env sh
 
-window_numbers=$(yabai -m query --spaces \
-    | jq ".[].index"  \
-    | xargs -I{} yabai -m query --windows --space {} \
-    | jq "length")
+number_of_spaces=$(yabai -m query --spaces | jq "length")
 
-di=1
-for wn in $window_numbers; do
-    p=$((wn == 1 ? 0 : 10))
+si=1
+while (( si < $number_of_spaces )); do
+    "$HOME/.config/yabai/padding/adaptive/refresh.sh" $si
 
-    yabai -m config --space $di top_padding $p
-    yabai -m config --space $di bottom_padding $p
-    yabai -m config --space $di left_padding $p
-    yabai -m config --space $di right_padding $p
-
-    di=$((di+1))
+    si=$((si+1))
 done
 
-"$HOME/.config/yabai/padding/signals.sh"
+"$HOME/.config/yabai/padding/adaptive/signals.sh"
