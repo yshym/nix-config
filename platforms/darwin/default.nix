@@ -41,10 +41,24 @@ with lib.my; {
         mineffect = "scale";
       };
       finder = {
+        AppleShowAllExtensions = true;
         CreateDesktop = false;
+        FXEnableExtensionChangeWarning = false;
+        FXPreferredViewStyle = "Nlsv"; # list view
+        NewWindowTarget = "Other";
+        NewWindowTargetPath = "file://${config.users.users.yshym.home}/";
+        ShowPathbar = true;
         QuitMenuItem = true;
       };
       screencapture.location = "~/Screenshots";
+
+      CustomUserPreferences = {
+        "com.apple.desktopservices" = {
+          # Avoid creating .DS_Store files for network or USB volumes
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+      };
     };
     # Used for backwards compatibility, please read the changelog before changing.
     # $ darwin-rebuild changelog
