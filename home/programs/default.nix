@@ -59,6 +59,7 @@
     };
     tmux = {
       enable = true;
+      mouse = true;
       shell = "${pkgs.zsh}/bin/zsh";
       sensibleOnTop = false;
       keyMode = "vi";
