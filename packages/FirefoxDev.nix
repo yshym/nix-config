@@ -2,7 +2,7 @@
 
 stdenv.mkDerivation rec {
   pname = "FirefoxDev";
-  version = "124.0b1";
+  version = "142.0b7";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     name = "FirefoxDev-${version}.dmg";
     url =
       "https://download-installer.cdn.mozilla.net/pub/devedition/releases/${version}/mac/en-GB/Firefox%20${version}.dmg";
-    sha256 = "sha256-PyYpI9I0CKOyFwsTUBQwXwwr6qiS4/eDF42VWABsTWI=";
+    sha256 = "sha256-vQCE2+efsM69yjSH4NG1QqgIP2Z91txKMe0AVSygAqA=";
   };
 
   meta = with lib; {
