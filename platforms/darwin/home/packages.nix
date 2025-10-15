@@ -18,7 +18,7 @@
     wireguard-tools
 
     # communication
-    discord
+    unstable.discord
     slack
 
     # entertainment
