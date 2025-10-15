@@ -2,6 +2,8 @@
 
 let
   padding = 10;
+  darkBlue = "6272a4";
+  darkGrey = "333333";
 in
 {
   services.yabai = rec {
@@ -67,11 +69,18 @@ in
       yabai -m rule --add app="^Gitify$" manage=off
 
       # signals
+      yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
       # yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
       # yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
       # init
       # sketchybar.sh
+
+      ${pkgs.unstable.jankyborders}/bin/borders \
+        active_color=0xff${darkBlue} \
+        inactive_color=0xff${darkGrey} \
+        width=5.0 \
+        blacklist="choose" &
     '';
   };
 }
