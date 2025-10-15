@@ -7,7 +7,7 @@
     nixpkgs.url = "github:yshym/nixpkgs/release-24.11";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
-      url = "github:yshym/nix-darwin/master";
+      url = "github:yshym/nix-darwin/nix-darwin-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
