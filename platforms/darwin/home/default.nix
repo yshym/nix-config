@@ -6,6 +6,7 @@ in
   users.users."${me}" = {
     name = me;
     home = "/Users/${me}";
+    shell = pkgs.zsh;
   };
 
   system = {
