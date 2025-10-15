@@ -12,10 +12,7 @@ done
 
 # make screenshot
 if [ "$select" = 1 ]; then
-    screencapture -i "$FILE"
+    screencapture -xci "$FILE"
 else
-    screencapture "$FILE"
+    screencapture -xc "$FILE"
 fi
-
-# copy to clipboard
-osascript -e "$(printf 'set the clipboard to (read (POSIX file "%s") as JPEG picture)' $FILE)"
