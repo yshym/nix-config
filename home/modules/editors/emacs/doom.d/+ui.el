@@ -15,10 +15,10 @@
   :config
   (set-face-attribute 'mode-line nil
                       :family "JetBrains Mono"
-                      :height 100)
+                      :height (if IS-MAC 150 100))
   (set-face-attribute 'mode-line-inactive nil
                       :family "JetBrains Mono"
-                      :height 100))
+                      :height (if IS-MAC 150 100)))
 
 ;; Theme
 (setq doom-theme 'doom-dracula)
