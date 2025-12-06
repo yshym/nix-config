@@ -5,9 +5,13 @@ with pkgs; {
     enable = true;
     enableCompletion = false;
     autocd = true;
-    initExtra = ''
+    initContent = ''
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
+
+      ${lib.optionalString stdenv.isDarwin ''
+      # Use GNU utils
+      export PATH="${coreutils}/bin:$PATH"''}
 
       setopt extendedglob
       [ -z "$ZDOTDIR" ] && export ZDOTDIR="$HOME"
@@ -78,10 +82,19 @@ with pkgs; {
           sha256 = "sha256-GSEvgvgWi1rrsgikTzDXokHTROoyPRlU0FVpAoEmXG4=";
         };
       }
+      # rec {
+      #   name = "zsh-vi-mode";
+      #   src = fetchFromGitHub {
+      #     owner = "jeffreytse";
+      #     repo = name;
+      #     rev = "v0.12.0";
+      #     sha256 = "sha256-EYr/jInRGZSDZj+QVAc9uLJdkKymx1tjuFBWgpsaCFw=";
+      #   };
+      # }
     ];
     shellAliases = {
       docker-stop-all = "docker stop $(docker ps -a -q)";
-      du = "${pkgs.du-dust}/bin/dust";
+      du = "${pkgs.dust}/bin/dust";
       la = "ls -a";
       ll = "ls -l";
       lla = "ls -al";
