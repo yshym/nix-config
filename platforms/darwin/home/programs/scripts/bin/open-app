@@ -6,13 +6,14 @@ if [ -e "$CACHE_FILE" ] \
     echo "Reading from cache"
 else
     rm -f "$CACHE_FILE"
-    ls -d \
-        /System/Applications/*.app \
-        /System/Applications/Utilities/*.app \
-        /System/Library/CoreServices/*.app \
-        /Applications/*.app \
-        /Applications/Utilities/*.app \
-        $HOME/Applications/Nix/*.app \
+    find \
+        /System/Applications \
+        /System/Applications/Utilities \
+        /System/Library/CoreServices \
+        /Applications \
+        /Applications/Utilities \
+        $HOME/Applications/Nix \
+        -maxdepth 1 -name "*.app" \
         | sed -e "s/.*\///g" -e "s/\.app//" \
         | sort > "$CACHE_FILE"
 fi
