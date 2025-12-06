@@ -1,17 +1,19 @@
-{ inputs, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.programs.emacs;
-  emacs29-nixpkgs = (import
+  emacs30-nixpkgs = import
     (fetchTarball {
-      url = "https://github.com/NixOS/nixpkgs/archive/c434383f2a4866a7c674019b4cdcbfc55db3c4ab.tar.gz";
-      sha256 = "072c46gnmzyphbm1y5iq75k9x4d9g59n4jyivmlg63j0w022v2mb";
+      url = "https://github.com/NixOS/nixpkgs/archive/0919966ec74f9e402c5ed442d938f12980c57fc2.tar.gz";
+      sha256 = "1zq8yvbkf0p2qni5y0kpf3dqx33p0mmp2qm991qglwfxxs64rxy3";
     })
-    { system = pkgs.stdenv.system; });
-  # emacsGit is a legacy package name
-  emacs-git = pkgs.emacsGit;
-  emacs = if pkgs.stdenv.isDarwin then emacs29-nixpkgs.emacs29 else emacs29-nixpkgs.emacs29-pgtk;
+    { system = pkgs.stdenv.system; };
+  emacs = with pkgs;
+    if stdenv.isDarwin then
+      emacs30-nixpkgs.emacs30.override { withNativeCompilation = true; }
+    else
+      emacs-git-pgtk;
 in
 {
   config = mkIf cfg.enable {
@@ -33,6 +35,7 @@ in
           recursive = true;
         };
       };
+      packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola ];
     };
   };
 }

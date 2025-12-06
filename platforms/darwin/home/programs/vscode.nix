@@ -4,7 +4,7 @@
   programs.vscode = {
     enable = false;
     package = pkgs.vscodium;
-    userSettings = {
+    profiles.default.userSettings = {
       security.workspace.trust.untrustedFiles = "open";
       editor.fontSize = 15;
       python.linting.enabled = true;

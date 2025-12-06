@@ -10,15 +10,16 @@ in
   };
 
   system = {
+    primaryUser = me;
     build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
       name = "applications";
       paths = config.environment.systemPackages
         ++ config.home-manager.users."${me}".home.packages;
-      pathsToLink = "/Applications";
+      pathsToLink = [ "/Applications" ];
     });
     activationScripts.applications.text = pkgs.lib.mkForce (
       ''
-        # disable the creation of desktop sevice store files
+        # Disable the creation of desktop sevice store files
         defaults write com.apple.desktopservices DSDontWriteNetworkStores true
 
         # Copy applications into ~/Applications/Nix. This workaround
@@ -57,12 +58,17 @@ in
           fi
         done
 
-        # create Proton Drive symlink
+        # Create Proton Drive symlink
         ln -snf $HOME/Library/CloudStorage/ProtonDrive-yshym@pm.me $HOME/ProtonDrive
 
-        # create org directory symlink
+        # Create org directory symlink
         mkdir -p $HOME/dev
         ln -snf $HOME/ProtonDrive/org $HOME/dev/org
+
+        # Create BackgroundMusic driver symlink
+        # NOTE Symlinking doesn't work for some reason
+        # ln -snf ${pkgs.my.BackgroundMusic}/Library/Audio/Plug-Ins/HAL/Background\ Music\ Device.driver /Library/Audio/Plug-Ins/HAL/Background\ Music\ Device.driver
+        # cp -r ${pkgs.my.BackgroundMusic}/Library/Audio/Plug-Ins/HAL/Background\ Music\ Device.driver /Library/Audio/Plug-Ins/HAL/
       ''
     );
   };

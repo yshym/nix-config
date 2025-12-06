@@ -1,12 +1,11 @@
 { lib, pkgs }:
 
-with pkgs; with pkgs.darwin.apple_sdk.frameworks;
+with pkgs;
 stdenv.mkDerivation rec {
   pname = "choose";
   version = "1.2";
 
   nativeBuildInputs = [ xcbuildHook ];
-  buildInputs = [ AppKit Cocoa ];
   xcbuildFlags = [ "-configuration" "Release" ];
   installPhase = ''
     mkdir -p $out/bin

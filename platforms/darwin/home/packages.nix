@@ -29,6 +29,7 @@
     # my stuff
     # my.choose
     # my.sortdir
+    # my.BackgroundMusic
     pngpaste
   ];
 }

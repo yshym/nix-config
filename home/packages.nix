@@ -3,12 +3,6 @@
 {
   home.packages = with pkgs;
     let
-      comma = (import
-        (builtins.fetchTarball {
-          url = "https://github.com/Shopify/comma/archive/master.tar.gz";
-          sha256 = "0xcld2ncs8dnidpl7kz8x1s01c0qc4d2s87jvqlks8laqf7czsay";
-        })
-        { });
       myTexlive = (texlive.combine {
         inherit (texlive)
           capt-of
@@ -60,7 +54,6 @@
       unzip
 
       # nix stuff
-      # comma
       nix-prefetch-github
       nixpkgs-fmt
       nixpkgs-review

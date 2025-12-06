@@ -9,13 +9,9 @@ with lib.my; {
 
   fonts.packages = [ pkgs.hack-font ];
 
-  nix = {
-    configureBuildUsers = true;
-    gc = {
-      user = "yshym";
-      automatic = true;
-      interval = { Weekday = 1; };
-    };
+  nix.gc = {
+    automatic = true;
+    interval = { Weekday = 1; };
   };
 
   # homebrew = {
@@ -29,8 +25,6 @@ with lib.my; {
   #   ];
   #   casks = [ "docker" "hammerspoon" ];
   # };
-
-  services = { nix-daemon.enable = true; };
 
   system = {
     defaults = {

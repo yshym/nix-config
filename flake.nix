@@ -3,20 +3,23 @@
 
   inputs = {
     # core
-    nixos.url = "github:yshym/nixpkgs/nixos-24.11";
-    nixpkgs.url = "github:yshym/nixpkgs/release-24.11";
+    nixos.url = "github:yshym/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:yshym/nixpkgs/nixpkgs-25.11-darwin";
     nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
     darwin = {
-      url = "github:yshym/nix-darwin/nix-darwin-24.11";
+      url = "github:yshym/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:yshym/home-manager/release-24.11";
+      url = "github:yshym/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # extra
-    emacs-overlay.url = "github:yshym/emacs-overlay/88e410d7f1ddef554b40f66755626e5c883487d9";
+    emacs-overlay = {
+      url = "github:yshym/emacs-overlay/f87351a238ddda570226360a8e0725fc2d75f273";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     nixos-hardware.url = "nixos-hardware/master";
     nixos-apple-silicon.url = "github:tpwrules/nixos-apple-silicon/releasep2-2024-12-25";
@@ -46,7 +49,7 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `<system>` should be replaced with your current host system
-      system = "aarch64-linux";
+      system = "aarch64-darwin";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
@@ -77,7 +80,7 @@
       {
         lib = mylib;
 
-        defaultApp = {
+        apps.default = {
           type = "app";
           program = ./home/programs/scripts/bin/h;
         };

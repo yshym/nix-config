@@ -51,7 +51,7 @@ def check(path=None, impure=False):
 def generations_list():
     """List generations"""
     return subprocess.run(
-        (["sudo"] if OS == "Linux" else [])
+        ["sudo"]
         + [
             "nix-env",
             "--list-generations",
@@ -73,7 +73,7 @@ def generations_remove(generations_: List[str]):
         generations to remove
     """
     return subprocess.run(
-        (["sudo"] if OS == "Linux" else [])
+        ["sudo"]
         + ["nix-env", "--delete-generations"]
         + generations_
         + ["--profile", SYSTEM_PROFILE],
@@ -86,7 +86,7 @@ def rebuild(*args):
     """Rebuild the current system's flake"""
     options = list(args)
     return subprocess.run(
-        (["sudo"] if OS == "Linux" else [])
+        ["sudo"]
         + [NIXOS_REBUILD, "switch", "--flake", f"{FLAKE_PATH}#{HOST}"]
         + options,
         check=False,
