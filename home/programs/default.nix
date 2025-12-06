@@ -10,6 +10,7 @@
     ./go.nix
     ./password-store.nix
     ./scripts
+    ./tmux
     # ./topgrade
     ./vim.nix
     ./zathura.nix
@@ -30,6 +31,7 @@
     prettier.enable = true;
     python = {
       enable = true;
+      extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
       black = {
         enable = false;
         settings.line-length = 79;
@@ -39,7 +41,6 @@
         settings.ignore_missing_imports = true;
       };
       pylint.enable = false;
-      extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
     };
     ripgrep = {
       enable = true;
@@ -57,26 +58,12 @@
       provider = "nixpkgs";
       enableSolargraph = true;
     };
-    tmux = {
+    fzf = {
       enable = true;
-      mouse = true;
-      shell = "${pkgs.zsh}/bin/zsh";
-      sensibleOnTop = false;
-      keyMode = "vi";
-      customPaneNavigationAndResize = true;
-      clock24 = true;
-      plugins = with pkgs.tmuxPlugins; [
-        yank
-        {
-          plugin = dracula;
-          extraConfig = ''
-            set -g @dracula-plugins " "
-            set -g @dracula-show-powerline true
-            set -g @dracula-show-left-icon "#h | #S"
-            set -g @dracula-refresh-rate 10
-          '';
-        }
-      ];
+      colors = {
+        "pointer" = "#BD93F9";
+        "prompt"= "#50fa7b";
+      };
     };
   };
 }
