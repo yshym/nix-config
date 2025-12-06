@@ -21,6 +21,7 @@ else
         && yabai -m config right_padding "$PADDING"
 fi
 
+# FIXME `YABAI_DISPLAY_ID` is not a UUID, but an internal id (`yabai -m query --displays | jq ".[].id"`)
 yabai -m signal --add event=display_added action='[ "$YABAI_DISPLAY_ID" = "$ULTRAWIDE_DISPLAY_ID" ] \
     && yabai -m config left_padding "$ULTRAWIDE_PADDING" \
     && yabai -m config right_padding "$ULTRAWIDE_PADDING'
