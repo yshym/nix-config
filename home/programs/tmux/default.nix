@@ -8,18 +8,21 @@ let cfg = config.programs.tmux; in
     mouse = true;
     shell = "${pkgs.zsh}/bin/zsh";
     sensibleOnTop = false;
+    baseIndex = 1;
     keyMode = "vi";
     customPaneNavigationAndResize = true;
     clock24 = true;
+    historyLimit = 50000;
     plugins = with pkgs.tmuxPlugins; [
       yank
       {
         plugin = dracula;
         extraConfig = ''
           set -g @dracula-plugins " "
-          set -g @dracula-show-powerline true
+          set -g @dracula-show-powerline false
           set -g @dracula-show-left-icon "#h | #S"
           set -g @dracula-refresh-rate 10
+          set -g mode-style "bg=#44475A,fg=default"
         '';
       }
       {
@@ -32,16 +35,37 @@ let cfg = config.programs.tmux; in
           set -g @tmux-dotbar-maximized-icon "⛶"
         '';
       }
-      {
-        plugin = tmux-fzf;
-      }
+      tmux-fzf
     ];
     extraConfig = ''
+      # Enable true color support
+      set-option -sa terminal-overrides ",xterm*:Tc"
+
+      # Renumber window after one is closed
+      set-option -g renumber-windows on
+
+      # Open panes in the current directory
+      bind c new-window      -c "#{pane_current_path}"
+      bind s split-window -v -c "#{pane_current_path}"
+      bind v split-window -h -c "#{pane_current_path}"
+
+      # Vim-like text selection
+      bind -T copy-mode-vi v      send-keys -X begin-selection
+      bind -T copy-mode-vi C-v    send-keys -X rectangle-toggle
+      bind -T copy-mode-vi y      send-keys -X copy-selection-and-cancel
+      bind -T copy-mode-vi Escape send-keys -X cancel
+
       # Keep text highlighting after releasing the mouse button
-      bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X continue
+      bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X continue
 
       # Display a popup listing active sessions
-      bind-key "S" run-shell "tmux-session-fzf"
+      bind "S" run-shell "tmux-session-fzf"
+
+      # Disable confirmation
+      bind x kill-pane
+      bind X kill-window
+      bind q kill-session
+      bind Q kill-server
     '';
   };
 
