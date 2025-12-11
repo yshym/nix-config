@@ -1,9 +1,9 @@
-{ lib, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./calendar-to-org.nix
-    ./imap.nix
+    # ./calendar-to-org.nix
+    # ./imap.nix
     ./kanshi
     ./redshift.nix
     ./spotifyd.nix

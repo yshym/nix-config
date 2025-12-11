@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 {
   imports = [
-    ./calendar-to-org.nix
+    # ./calendar-to-org.nix
     # ./imap.nix
     ./skhd.nix
     # ./sortdir.nix
