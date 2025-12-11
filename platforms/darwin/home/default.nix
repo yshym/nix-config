@@ -1,20 +1,13 @@
 { config, pkgs, ... }:
 
-let me = "yshym";
-in
 {
-  users.users."${me}" = {
-    name = me;
-    home = "/Users/${me}";
-    shell = pkgs.zsh;
-  };
-
   system = {
-    primaryUser = me;
+    primaryUser = config.user.name;
     build.applications = pkgs.lib.mkForce (pkgs.buildEnv {
       name = "applications";
       paths = config.environment.systemPackages
-        ++ config.home-manager.users."${me}".home.packages;
+        ++ config.user.packages
+        ++ config.home.home.packages;
       pathsToLink = [ "/Applications" ];
     });
     activationScripts.applications.text = pkgs.lib.mkForce (
@@ -73,7 +66,5 @@ in
     );
   };
 
-  home-manager = {
-    users."${me}" = { pkgs, ... }: { imports = [ ./packages.nix ./programs ]; };
-  };
+  home = { pkgs, ... }: { imports = [ ./packages.nix ./programs ]; };
 }

@@ -23,7 +23,7 @@ in
   config = {
     environment.systemPackages = cfg.extraPackages;
 
-    users.users.yshym.extraGroups = optional cfg.addUserToDockerGroup "docker";
+    user.extraGroups = optional cfg.addUserToDockerGroup "docker";
 
     virtualisation.docker.enable = true;
   };

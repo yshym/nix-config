@@ -1,7 +1,7 @@
 { inputs, config, lib, pkgs, ... }:
 
 with lib.my; {
-  home-manager.users.yshym = { pkgs, ... }: {
+  home = { pkgs, ... }: {
     imports = [ inputs.hyprland.homeManagerModules.default ] ++ (mapModules' ./. import);
   };
 }

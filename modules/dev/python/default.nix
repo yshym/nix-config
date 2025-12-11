@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cfg = config.programs.python;
+  cfg = config.modules.dev.python;
   python = pkgs.python3;
   myPythonPackages = pythonPackages:
     with pythonPackages; [
@@ -20,7 +20,7 @@ let
   pythonWithMyPackages = python.withPackages myPythonPackages;
 in
 {
-  options.programs.python = {
+  options.modules.dev.python = {
     enable = mkEnableOption "Python language support";
     extraPackages = mkOption {
       default = [ ];
@@ -29,14 +29,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.zsh.envExtra = ''
-      export PYTHONPATH="${pythonWithMyPackages}/${pythonWithMyPackages.sitePackages}:$PYTHONPATH"
-      export PYTHONBREAKPOINT=ipdb.set_trace
-    '';
-
     home = {
-      file.".pdbrc".source = ./.pdbrc;
-      packages = [ pythonWithMyPackages ] ++ cfg.extraPackages;
+      programs.zsh.envExtra = ''
+        export PYTHONPATH="${pythonWithMyPackages}/${pythonWithMyPackages.sitePackages}:$PYTHONPATH"
+        export PYTHONBREAKPOINT=ipdb.set_trace
+      '';
+      home.file.".pdbrc".source = ./.pdbrc;
     };
+    user.packages = [ pythonWithMyPackages ] ++ cfg.extraPackages;
   };
 }

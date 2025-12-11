@@ -3,7 +3,7 @@
 with lib;
 
 let
-  cfg = config.programs.ruby;
+  cfg = config.modules.dev.ruby;
   ruby = pkgs.ruby_3_0;
   rubyPackages = pkgs.rubyPackages_3_0;
   rubyVersion = ruby.version.majMinTiny;
@@ -15,7 +15,7 @@ let
   };
 in
 {
-  options.programs.ruby = {
+  options.modules.dev.ruby = {
     enable = mkEnableOption "Ruby language support";
     extraPackages = mkOption {
       default = with rubyPackages; [ rubocop rspec-core ];
@@ -31,21 +31,23 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.ruby.extraPackages = mkIf cfg.enableBuildLibs
-      (with pkgs; [ libmysqlclient libxml2 openssl sqlite zlib ]);
-
-    home.packages = with pkgs;
+    home = {
+      programs = {
+        ruby.extraPackages = mkIf cfg.enableBuildLibs
+          (with pkgs; [ libmysqlclient libxml2 openssl sqlite zlib ]);
+        # add rbenv to zsh
+        zsh = mkIf (cfg.provider == "rbenv") {
+          envExtra = ''
+            export PATH="${rbenv}/bin:$PATH"
+          '';
+          initExtra = ''
+            eval "$(rbenv init -)"
+          '';
+        };
+      };
+    };
+    user.packages = with pkgs;
       (optional (cfg.provider == "nixpkgs") ruby) ++ cfg.extraPackages
       ++ (optional cfg.enableSolargraph solargraph);
-
-    # add rbenv to zsh
-    programs.zsh = mkIf (cfg.provider == "rbenv") {
-      envExtra = ''
-        export PATH="${rbenv}/bin:$PATH"
-      '';
-      initExtra = ''
-        eval "$(rbenv init -)"
-      '';
-    };
   };
 }

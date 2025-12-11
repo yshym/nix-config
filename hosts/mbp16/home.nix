@@ -1,10 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, ... }:
 
 {
-  home-manager.users.yshym = { pkgs, ... }: {
+  home = { pkgs, ... }: {
     programs = {
       browserpass.enable = true;
-      emacs.enable = true;
     };
   };
 }

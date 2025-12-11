@@ -18,6 +18,8 @@
     };
   };
 
+  user.name = "yshym";
+
   networking = {
     bridges.br0.interfaces =
       lib.optionals config.services.hostapd.enable [ "eth0" "wlan0" ];
@@ -156,6 +158,8 @@
       };
     };
   };
+
+  modules.editors.emacs.enable = false;
 
   hardware = {
     # Enable GPU acceleration

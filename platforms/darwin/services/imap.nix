@@ -1,18 +1,16 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  me = "yshym";
-  home = config.home-manager.users."${me}".home;
-  homeManagerPath = home.path;
+  homeManagerPath = config.home.path;
   imapnotifyConfig =
-    "${home.homeDirectory}/.config/imapnotify/gmail/notify.conf";
+    "${config.home.homeDirectory}/.config/imapnotify/gmail/notify.conf";
 in
 {
   launchd.user.agents = {
     # goimapnotify.serviceConfig = {
     #   ProgramArguments =
     #     [ "${pkgs.goimapnotify}/bin/goimapnotify" "-conf" imapnotifyConfig ];
-    #   UserName = "${me}";
+    #   UserName = "${config.user.name}";
     #   RunAtLoad = true;
     #   ThrottleInterval = 30;
     #   EnvironmentVariables.PATH =
@@ -20,7 +18,7 @@ in
     # };
     mbsync.serviceConfig = {
       ProgramArguments = [ "${pkgs.isync}/bin/mbsync" "-a" ];
-      UserName = "${me}";
+      UserName = "${config.user.name}";
       StartInterval = 300;
       RunAtLoad = true;
       ThrottleInterval = 30;
@@ -29,7 +27,7 @@ in
     };
     proton-bridge.serviceConfig = {
       ProgramArguments = [ "${pkgs.protonmail-bridge}/bin/protonmail-bridge" "--no-window" ];
-      UserName = "${me}";
+      UserName = "${config.user.name}";
       StartInterval = 300;
       RunAtLoad = true;
       ThrottleInterval = 30;

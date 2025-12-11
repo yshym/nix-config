@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cfg = config.programs.emacs;
+  cfg = config.modules.editors.emacs;
   emacs30-nixpkgs = import
     (fetchTarball {
       url = "https://github.com/NixOS/nixpkgs/archive/0919966ec74f9e402c5ed442d938f12980c57fc2.tar.gz";
@@ -16,26 +16,32 @@ let
       emacs-git-pgtk;
 in
 {
-  config = mkIf cfg.enable {
-    programs = {
-      emacs.package = emacs;
-      zsh = {
-        envExtra = ''
-          export PATH="$HOME/.emacs.d/bin:$PATH"
-        '';
-        sessionVariables.EDITOR = "emacsclient";
-      };
-    };
+  options.modules.editors.emacs = {
+    enable = mkEnableOption false;
+  };
 
+  config = mkIf cfg.enable {
     home = {
-      file = {
+      programs = {
+        emacs = {
+          enable = true;
+          package = emacs;
+        };
+        zsh = {
+          envExtra = ''
+            export PATH="$HOME/.emacs.d/bin:$PATH"
+          '';
+          sessionVariables.EDITOR = "emacsclient";
+        };
+      };
+      home.file = {
         ".authinfo.gpg".source = ./authinfo.gpg;
         ".doom.d" = {
           source = ./doom.d;
           recursive = true;
         };
       };
-      packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola ];
     };
+    user.packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola ];
   };
 }

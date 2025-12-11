@@ -26,6 +26,8 @@ with lib.my; {
     inputs.nixos-apple-silicon.overlays.apple-silicon-overlay
   ] ++ (mapModules' ./overlays (p: import p { inherit inputs lib; }));
 
+  user.name = "yshym";
+
   environment.systemPackages = with pkgs; [ qemu vulkan-validation-layers ];
 
   networking = {

@@ -1,16 +1,14 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
-  me = "yshym";
-  home = config.home-manager.users."${me}".home;
-  spotifydConfig = "${home.homeDirectory}/.config/spotifyd/spotifyd.conf";
+  spotifydConfig = "${config.user.home}/.config/spotifyd/spotifyd.conf";
 in
 {
   launchd.user.agents = {
     spotifyd.serviceConfig = {
       ProgramArguments =
         [ "${pkgs.spotifyd}/bin/spotifyd" "--config-path" spotifydConfig "--no-daemon" ];
-      UserName = me;
+      UserName = config.user.name;
       KeepAlive = true;
       ThrottleInterval = 30;
     };

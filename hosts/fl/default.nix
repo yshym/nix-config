@@ -17,6 +17,8 @@ with lib.my; {
 
   nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs lib; });
 
+  user.name = "yshym";
+
   services = {
     fwupd.enable = true;
     logind = {

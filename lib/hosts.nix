@@ -14,8 +14,9 @@ with lib; rec {
       pkgs = mkPkgs system;
       hostPath = ../hosts + "/${host}";
       shortSystemName = if isDarwin system then "darwin" else "nixos";
-      systemModule = inputs.${shortSystemName}.lib."${shortSystemName}System";
+      systemModule = inputs."${shortSystemName}".lib."${shortSystemName}System";
       hmModule = inputs.home-manager."${shortSystemName}Modules".home-manager;
+      hostConfig = import hostPath { inherit inputs lib pkgs; };
     in
     systemModule {
       inherit system;
@@ -37,11 +38,11 @@ with lib; rec {
             };
             useUserPackages = true;
             useGlobalPkgs = true;
-            users.yshym = import ../home { inherit lib; };
+            users."${hostConfig.user.name}" = import ../home { inherit lib; };
           };
         }
+        hostConfig
         ../.
-        hostPath
       ];
     };
 }

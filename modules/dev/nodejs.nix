@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 with lib;
-let cfg = config.programs.nodejs;
+let cfg = config.modules.dev.nodejs;
 in
 {
-  options.programs.nodejs = {
+  options.modules.dev.nodejs = {
     enable = mkEnableOption "Node.js support";
 
     yarn = mkOption {
@@ -28,11 +28,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ nodejs ] ++ (optional cfg.yarn.enable yarn);
-
-    programs.zsh.envExtra = with cfg.yarn;
-      mkIf (enable && global.addToPath) ''
-        export PATH="$HOME/.yarn/bin:$PATH"
-      '';
+    home = {
+      programs.zsh.envExtra = with cfg.yarn;
+        mkIf (enable && global.addToPath) ''
+          export PATH="$HOME/.yarn/bin:$PATH"
+        '';
+    };
+    user.packages = with pkgs; [ nodejs ] ++ (optional cfg.yarn.enable yarn);
   };
 }

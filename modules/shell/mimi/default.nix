@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cfg = config.programs.mimi;
+  cfg = config.modules.shell.mimi;
   xdg-utils = (import
     (fetchTarball {
       url = "https://github.com/abathur/nixpkgs/archive/fix_xdg-utils_mimisupport.tar.gz";
@@ -11,16 +11,18 @@ let
     { system = pkgs.stdenv.system; }).xdg-utils;
 in
 {
-  options.programs.mimi = {
+  options.modules.shell.mimi = {
     enable = mkEnableOption "Mimi";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    home = {
+      xdg.configFile."mimi/mime.conf".source = ./mime.conf;
+
+    };
+    user.packages = with pkgs; [
       file
       (xdg-utils.override { mimiSupport = true; })
     ];
-
-    xdg.configFile."mimi/mime.conf".source = ./mime.conf;
   };
 }

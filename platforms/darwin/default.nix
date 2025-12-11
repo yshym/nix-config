@@ -5,6 +5,8 @@ with lib.my; {
 
   nixpkgs.overlays = mapModules' ./overlays (p: import p { inherit inputs lib; });
 
+  user.home = "/Users/${config.user.name}";
+
   environment = { darwinConfig = "$HOME/.nixpkgs/configuration.nix"; };
 
   fonts.packages = [ pkgs.hack-font ];
@@ -40,7 +42,7 @@ with lib.my; {
         FXEnableExtensionChangeWarning = false;
         FXPreferredViewStyle = "Nlsv"; # list view
         NewWindowTarget = "Other";
-        NewWindowTargetPath = "file://${config.users.users.yshym.home}/";
+        NewWindowTargetPath = "file://${config.user.home}/";
         ShowPathbar = true;
         QuitMenuItem = true;
       };

@@ -2,7 +2,7 @@
 
 with lib;
 let
-  cfg = config.programs.swaylock-custom;
+  cfg = config.modules.desktop.apps.swaylock-custom;
   wrapper = pkgs.writeShellScriptBin
     "swaylock-wrapper"
     ''
@@ -23,12 +23,12 @@ let
     '';
 in
 {
-  options.programs.swaylock-custom = {
+  options.modules.desktop.apps.swaylock-custom = {
     enable = mkEnableOption "Swaylock";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
+    user.packages = with pkgs; [
       (symlinkJoin
         {
           name = "swaylock-wrapper";

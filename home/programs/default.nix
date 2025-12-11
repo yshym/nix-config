@@ -19,29 +19,6 @@
   ];
 
   programs = {
-    git = {
-      enable = true;
-      pager = "diff-so-fancy";
-    };
-    man.enable = true;
-    nodejs = {
-      enable = true;
-      yarn.enable = true;
-    };
-    prettier.enable = true;
-    python = {
-      enable = true;
-      extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
-      black = {
-        enable = false;
-        settings.line-length = 79;
-      };
-      mypy = {
-        enable = true;
-        settings.ignore_missing_imports = true;
-      };
-      pylint.enable = false;
-    };
     ripgrep = {
       enable = true;
       # NOTE Arguments break ripgrep in Emacs
@@ -51,12 +28,6 @@
       #   "--type-add web:*.{html,css,js}*"
       #   "--smart-case"
       # ];
-    };
-    ruby = {
-      enable = false;
-      enableBuildLibs = true;
-      provider = "nixpkgs";
-      enableSolargraph = true;
     };
     fzf = {
       enable = true;

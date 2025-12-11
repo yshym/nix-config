@@ -1,7 +1,9 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 with pkgs; {
   imports = [ ./services ./home ];
+
+  user.home = "/home/${config.user.name}";
 
   nix = {
     gc = {
@@ -14,6 +16,8 @@ with pkgs; {
     networkmanager.enable = true;
     firewall.enable = false;
   };
+
+  modules.shell.mimi.enable = true;
 
   security = { sudo.wheelNeedsPassword = false; };
 
