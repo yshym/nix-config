@@ -17,7 +17,7 @@ let
 in
 {
   options.modules.editors.emacs = {
-    enable = mkEnableOption false;
+    enable = mkEnableOption "Emacs";
   };
 
   config = mkIf cfg.enable {

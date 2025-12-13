@@ -5,7 +5,7 @@ let cfg = config.modules.shell.git;
 in
 {
   options.modules.shell.git = {
-    enable = mkEnableOption false;
+    enable = mkEnableOption "Git";
     pager = mkOption {
       type = with types; (nullOr (enum [ "delta" "diff-so-fancy" ]));
       default = null;

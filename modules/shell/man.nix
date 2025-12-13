@@ -5,7 +5,7 @@ let cfg = config.modules.shell.man;
 in
 {
   options.modules.shell.man = {
-    enable = mkEnableOption false;
+    enable = mkEnableOption "Manual pages";
   };
 
   config = mkIf cfg.enable {
