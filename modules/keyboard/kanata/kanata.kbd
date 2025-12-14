@@ -1,0 +1,12 @@
+(defcfg
+  macos-dev-names-include "Apple Internal Keyboard / Trackpad"
+  process-unmapped-keys yes
+)
+
+(defsrc
+  caps
+)
+
+(deflayer default
+  bspc
+)

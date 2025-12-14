@@ -28,6 +28,8 @@ with lib.my; {
   #   casks = [ "docker" "hammerspoon" ];
   # };
 
+  modules.keyboard.kanata.enable = true;
+
   system = {
     defaults = {
       dock = {
