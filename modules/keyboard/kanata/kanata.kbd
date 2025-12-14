@@ -4,9 +4,27 @@
 )
 
 (defsrc
-  caps
+       f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+  caps a    s    d    f              j    k    l    ;
+)
+
+(defvar
+  tap-time 150
+  hold-time 200
+)
+
+(defalias
+  a (tap-hold $tap-time $hold-time a lsft)
+  s (tap-hold $tap-time $hold-time s lctl)
+  d (tap-hold $tap-time $hold-time d lmet)
+  f (tap-hold $tap-time $hold-time f lalt)
+  j (tap-hold $tap-time $hold-time j ralt)
+  k (tap-hold $tap-time $hold-time k rmet)
+  l (tap-hold $tap-time $hold-time l rctl)
+  ; (tap-hold $tap-time $hold-time ; rsft)
 )
 
 (deflayer default
-  bspc
+       brdn brup _    _    _    _    prev pp   next mute vold volu
+  bspc @a   @s   @d   @f             @j   @k   @l   @;
 )
