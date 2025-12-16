@@ -15,10 +15,10 @@
 
 
 ;; company
-(map! (:after company
-       (:map company-active-map
-        "<tab>" nil
-        "TAB" 'company-complete-selection)))
+;; (map! (:after company
+;;        (:map company-active-map
+;;         "<tab>" nil
+;;         "TAB" 'company-complete-selection)))
 
 
 ;; verb
