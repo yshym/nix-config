@@ -9,22 +9,38 @@
 )
 
 (defvar
-  tap-time 200
-  hold-time 200
+  tap-time  200 ;; delay between tap and release to activate a tap action
+  hold-time 150 ;; delay before activating hold action early
+  left-hand-keys  (q w e r t a s d f g z x c v b 1 2 3 4 5)
+  right-hand-keys (y u i o p h j k l ; n m , . / 6 7 8 9 0)
+)
+
+(deffakekeys to-base (layer-switch base))
+
+(deftemplate mod (tap-key hold-key keys)
+  (tap-hold-release-keys $tap-time $hold-time (multi $tap-key @tap) $hold-key $keys)
 )
 
 (defalias
-  a (tap-hold $tap-time $hold-time a lsft)
-  s (tap-hold $tap-time $hold-time s lctl)
-  d (tap-hold $tap-time $hold-time d lmet)
-  f (tap-hold $tap-time $hold-time f lalt)
-  j (tap-hold $tap-time $hold-time j ralt)
-  k (tap-hold $tap-time $hold-time k rmet)
-  l (tap-hold $tap-time $hold-time l rctl)
-  ; (tap-hold $tap-time $hold-time ; rsft)
+  ;; switch to the tap-only layer to prevent sticky modifiers
+  tap (multi (layer-switch nomods) (on-idle-fakekey to-base tap 20))
+  ;; bilateral homerow modifiers
+  a (t! mod a lsft $right-hand-keys)
+  s (t! mod s lctl $right-hand-keys)
+  d (t! mod d lmet $right-hand-keys)
+  f (t! mod f lalt $right-hand-keys)
+  j (t! mod j ralt $left-hand-keys)
+  k (t! mod k rmet $left-hand-keys)
+  l (t! mod l rctl $left-hand-keys)
+  ; (t! mod ; rsft $left-hand-keys)
 )
 
-(deflayer default
+(deflayer base
        brdn brup _    _    _    _    prev pp   next mute vold volu
   bspc @a   @s   @d   @f             @j   @k   @l   @;
+)
+
+(deflayer nomods
+       _    _    _    _    _    _    _    _    _    _    _    _
+  _    a    s    d    f              j    k    l    ;
 )
