@@ -1,4 +1,4 @@
-;;; +prog.el --- Prog
+;;; +prog.el --- Prog -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -23,22 +23,27 @@
 
 
 ;; lsp
-(use-package! lsp-mode
-  :commands lsp
-  :diminish lsp-mode
-  :config
-  (setq lsp-dart-sdk-dir (getenv "DARTPATH")
-        lsp-gopls-codelens nil
-        lsp-pylsp-plugins-flake8-enabled nil
-        lsp-pylsp-plugins-pylint-enabled t
-        lsp-pylsp-plugins-pylint-args ["--rcfile ~/.config/pylint/config"]
-        lsp-pylsp-plugins-pydocstyle-enabled nil)
-  :hook
-  (elixir-mode . 'lsp)
-  :init
-  (add-to-list
-   'exec-path
-   (concat (getenv "HOME") "/dev/elixir/elixir-ls/release")))
+;; (use-package! lsp-mode
+;;   :commands lsp
+;;   :diminish lsp-mode
+;;   :config
+;;   (setq lsp-dart-sdk-dir (getenv "DARTPATH")
+;;         lsp-gopls-codelens nil
+;;         lsp-pylsp-plugins-flake8-enabled nil
+;;         lsp-pylsp-plugins-pylint-enabled t
+;;         lsp-pylsp-plugins-pylint-args ["--rcfile ~/.config/pylint/config"]
+;;         lsp-pylsp-plugins-pydocstyle-enabled nil)
+;;   :hook
+;;   (elixir-mode . 'lsp)
+;;   :init
+;;   (add-to-list
+;;    'exec-path
+;;    (concat (getenv "HOME") "/dev/elixir/elixir-ls/release")))
+
+(add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (eglot-inlay-hints-mode -1)
+            (setq eglot-semantic-token-types nil)))
 
 
 ;; snippets
@@ -126,10 +131,6 @@
       "gomodifytags -add-tags json -all -w -file "
       (buffer-file-name)))
   (revert-buffer))
-
-
-;; js
-(add-hook 'js2-mode-hook 'lsp)
 
 
 ;; protobuf

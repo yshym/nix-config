@@ -1,4 +1,4 @@
-;;; +misc.el --- Miscellaneous
+;;; +misc.el --- Miscellaneous -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -36,17 +36,19 @@
 
 
 ;; agenda
-(setq org-agenda-files '("~/dev/org/" "~/dev/org/google-calendar/"))
+(setq org-agenda-files '("~/dev/org/" "~/dev/org/google-calendar/" "~/dev/org/brave/"))
 
 (setq org-agenda-custom-commands
       '(("c" "Custom agenda view"
-         ((agenda ""
-                  ((org-agenda-overriding-header "Today's agenda")
-                   (org-agenda-start-day "4d")
-                   (org-agenda-span 1)))
+         ((agenda "" ((org-agenda-overriding-header "Today's agenda")
+                      (org-agenda-start-day "4d")
+                      (org-agenda-span 1)))
           (agenda "" ((org-agenda-overriding-header "10 days' agenda")))
-          (alltodo "" ((org-agenda-overriding-header "All tasks")))))))
-
+          (alltodo "" ((org-agenda-overriding-header "All tasks")))))
+        ("t" "Today's agenda view"
+         ((agenda "" ((org-agenda-overriding-header "Today's agenda")
+                      (org-agenda-start-day "4d")
+                      (org-agenda-span 1)))))))
 
 
 ;; plantuml
@@ -169,9 +171,55 @@ to an appropriate value)")
 ;; twitter
 (setq twittering-allow-insecure-server-cert t)
 
+
 ;; fix ripgrep search
 (after! counsel
   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never --smart-case %s || true"))
+
+
+;; eshell
+(defun eshell-handle-ansi-color ()
+  "Apply ansi escape sequences to an eshell output buffer."
+  (ansi-color-apply-on-region eshell-last-output-start eshell-last-output-end))
+(add-hook 'eshell-output-filter-functions 'eshell-handle-ansi-color)
+
+(set-popup-rule! "^\\*Eshell Command Output*" :side 'bottom :size 0.3)
+
+;; FIXME This varible is never set to `t`
+;; NOTE Common history traversal currently
+;; TODO Improve it so the current manual input is considered
+(defvar-local my-eshell--input-manual nil)
+
+(defun my-eshell--on-input-change ()
+  "Mark input as manually typed."
+  (setq my-eshell--input-manual t))
+
+(defun my-eshell-previous-input ()
+  "Get previout input using matching history if input was typed.
+Otherwise use plain history."
+  (interactive)
+  ;; (if (and my-eshell--input-manual (> (point) eshell-last-output-end))
+  ;;     (eshell-previous-matching-input-from-input 1)
+  ;;   (eshell-previous-input 1))
+  (eshell-previous-input 1))
+
+(defun my-eshell-next-input ()
+  "Get next input using matching history if input was typed.
+Otherwise use plain history."
+  (interactive)
+  ;; (if (and my-eshell--input-manual (> (point) eshell-last-output-end))
+  ;;     (eshell-next-matching-input-from-input 1)
+  ;;   (eshell-next-input 1))
+  (eshell-next-input 1))
+
+;; Reset flag after command is sent
+(defun my-eshell-reset-flag-hook ()
+  "Mark input as not manually typed."
+  (setq my-eshell--input-manual nil))
+
+(add-hook 'eshell-input-filter-functions #'my-eshell--on-input-change nil t)
+(add-hook 'eshell-post-command-hook #'my-eshell-reset-flag-hook)
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)

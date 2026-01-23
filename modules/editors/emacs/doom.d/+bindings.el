@@ -1,4 +1,4 @@
-;;; +bindings.el --- Bindings
+;;; +bindings.el --- Bindings -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -8,10 +8,10 @@
 (setq evil-escape-key-sequence "fd")
 
 ;; web
-(map! (:after web-mode
-       (:map web-mode-map
-        "TAB" nil
-        "TAB" 'emmet-expand-yas)))
+(map! :after web-mode
+      :map web-mode-map
+      "TAB" nil
+      "TAB" 'emmet-expand-yas)
 
 
 ;; company
@@ -22,9 +22,9 @@
 
 
 ;; verb
-(map! (:after verb
-       (:map verb-mode-map
-        "C-c v" 'verb-send-request-on-point)))
+(map! :after verb
+      :map verb-mode-map
+      "C-c v" 'verb-send-request-on-point)
 
 
 ;; eshell
@@ -35,9 +35,14 @@
     (erase-buffer)
     (eshell-send-input)))
 
-(map! (:after eshell
-       (:map eshell-mode-map
-        "C-l" 'eshell/clear-to-top)))
+(map! :after eshell
+      :map eshell-mode-map
+      "C-l" 'eshell/clear-to-top)
+
+(map! :leader "!" #'eshell-command)
+(map! :map eshell-hist-mode-map
+      "C-j" #'my-eshell-next-input
+      "C-k" #'my-eshell-previous-input)
 
 
 ;; <leader>

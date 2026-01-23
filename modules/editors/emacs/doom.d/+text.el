@@ -1,4 +1,4 @@
-;;; +text.el --- Text
+;;; +text.el --- Text -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -10,15 +10,11 @@
         org-latex-packages-alist '(("AUTO" "babel" t)
                                    ("T2A" "fontenc" t))
         +org-msg-accent-color "#282a36"
-        org-lowest-priority ?D))
+        org-lowest-priority ?D)
 
-(after! org-superstar
-  (setq org-superstar-headline-bullets-list '(?◉ ?○ ?✸ ?✿ ?✤ ?✜ ?◆)
-        org-superstar-item-bullet-alist '((42 . ?⌬) (43 . ?◐) (45 . ?➜))
-        org-superstar-prettify-item-bullets t))
-
-(after! org-fancy-priorities
-  (setq org-fancy-priorities-list '((?5 . 5))))
+  (after! org-modern
+    (setq org-modern-star 'replace
+          org-modern-table nil)))
 
 
 ;; ligatures

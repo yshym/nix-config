@@ -1,4 +1,4 @@
-;;; +animations --- Animations
+;;; +animations.el --- Animations -*- lexical-binding: t -*-
 
 ;;; Commentary:
 

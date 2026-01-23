@@ -42,6 +42,6 @@ in
         };
       };
     };
-    user.packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola ];
+    user.packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola sqlite wordnet ];
   };
 }
