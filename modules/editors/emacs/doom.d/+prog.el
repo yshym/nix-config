@@ -43,6 +43,7 @@
 (add-hook 'eglot-managed-mode-hook
           (lambda ()
             (eglot-inlay-hints-mode -1)
+            (eglot-semantic-tokens-mode -1)
             (setq eglot-semantic-token-types nil)))
 
 
