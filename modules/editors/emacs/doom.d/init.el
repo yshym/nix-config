@@ -123,7 +123,7 @@
        ;; (haskell +dante)            ; a language that's lazier than I am
        ;; hy                          ; readability of scheme w/ speed of python
        ;; idris
-       json                        ; At least it ain't XML
+       (json +tree-sitter)         ; At least it ain't XML
        (janet
         +tree-sitter)              ; Fun fact: Janet is me!
        ;; (java +meghanada)           ; the poster child for carpal tunnel syndrome
@@ -138,7 +138,7 @@
         +fennel
         +lsp
         +tree-sitter)              ; one-based indices? one-based indices
-       markdown                    ; writing docs for people to ignore
+       (markdown +tree-sitter)     ; writing docs for people to ignore
        ;; nim                         ; python + lisp at the speed of c
        (nix
         +lsp
