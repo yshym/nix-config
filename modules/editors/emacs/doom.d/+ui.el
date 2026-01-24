@@ -35,10 +35,19 @@
     ;; Cursor
     `(cursor :background ,(doom-color 'orange))
     ;; Corfu
-    `(corfu-current
-      :background ,(doom-color 'base3)
-      :extend t)))
+    `(corfu-current :background ,(doom-color 'base3) :extend t)))
 
+
+;; Modeline
+;; Override modeline buffer id behaviour
+(def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
+  '((:eval
+     (propertize
+      (or +modeline--buffer-id-cache "%b")
+      'face (cond ((buffer-modified-p) '(warning bold mode-line-buffer-id))
+                  ((+modeline-active)  'mode-line-buffer-id))
+      'help-echo (or +modeline--buffer-id-cache (buffer-name))))
+    (buffer-read-only (:propertize " RO" face warning))))
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
