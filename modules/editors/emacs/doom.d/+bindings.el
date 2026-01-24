@@ -50,7 +50,7 @@
       :desc "Open consult-line"      "S"   'consult-line
       :desc "Open terminal in popup" "o t" 'open-popup-terminal
       ;; :desc "Open mu4e"              "M"   'mu4e
-      :desc "Kill buffer"            "b k" 'kill-this-buffer
+      :desc "Kill buffer"            "b k" 'kill-current-buffer
       :desc "Sort lines"             "l"   'sort-lines)
 
 ;; Local Variables:
