@@ -14,6 +14,7 @@ in
       mouse_follows_focus = "off";
       focus_follows_mouse = "autoraise";
       window_animation_duration = 0;
+      window_animation_easing = "ease_out_quint";
       window_shadow = "off";
       window_placement = "second_child";
       # window_border = "on";
@@ -73,9 +74,14 @@ in
       # yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
       # yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
+      # load scripting addition
+      sudo yabai --load-sa
+
       # init
       # sketchybar.sh
 
+      # window borders
+      pkill ${pkgs.unstable.jankyborders}/bin/borders
       ${pkgs.unstable.jankyborders}/bin/borders \
         active_color=0xff${darkBlue} \
         inactive_color=0xff${darkGrey} \
