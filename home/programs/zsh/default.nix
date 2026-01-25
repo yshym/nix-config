@@ -106,6 +106,7 @@ with pkgs; {
       shfmt = "${pkgs.shfmt}/bin/shfmt -bn -ci -sr -i 4 -w";
       srf = "sudo rm -rf";
       top = "${pkgs.bottom}/bin/btm";
+      ldd = lib.optionalString stdenv.isDarwin "otool -L";
     };
   };
 
