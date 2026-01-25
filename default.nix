@@ -57,21 +57,6 @@ with lib.my;
         python = {
           enable = true;
           extraPackages = with pkgs.python3Packages; [ python-lsp-server ];
-          black = {
-            enable = false;
-            settings.line-length = 79;
-          };
-          mypy = {
-            enable = true;
-            settings.ignore_missing_imports = true;
-          };
-          pylint.enable = false;
-        };
-        ruby = {
-          enable = false;
-          enableBuildLibs = true;
-          provider = "nixpkgs";
-          enableSolargraph = true;
         };
         nodejs = {
           enable = true;

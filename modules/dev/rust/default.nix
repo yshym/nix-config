@@ -10,11 +10,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = with pkgs; [ rustup ];
-      programs.zsh.envExtra = ''
-        export PATH="$HOME/.cargo/bin:$PATH"
-      '';
-    };
+    home.programs.zsh.envExtra = ''
+      export PATH="$HOME/.cargo/bin:$PATH"
+    '';
+    user.packages = with pkgs; [ rustup ];
   };
 }

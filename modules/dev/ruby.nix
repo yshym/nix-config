@@ -6,7 +6,6 @@ let
   cfg = config.modules.dev.ruby;
   ruby = pkgs.ruby_3_0;
   rubyPackages = pkgs.rubyPackages_3_0;
-  rubyVersion = ruby.version.majMinTiny;
   rbenv = pkgs.fetchFromGitHub {
     owner = "rbenv";
     repo = "rbenv";
