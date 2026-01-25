@@ -43,8 +43,8 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, ... }:
     let
-      inherit (lib) foldr intersectLists mapAttrs mapAttrsToList nameValuePair zipAttrs;
-      inherit (lib.my) isDarwin mapModules mkHost;
+      inherit (lib) foldr intersectLists mapAttrs mapAttrsToList zipAttrs;
+      inherit (lib.my) mapModules mkHost;
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
