@@ -9,13 +9,6 @@
 (setq magit-todos-exclude-globs '(".git/" "*.html" "*.json"))
 
 
-;; company
-;; (add-hook 'text-mode-hook 'global-company-mode)
-
-;; (setq company-idle-delay 0.2
-;;       company-minimum-prefix-length 2)
-
-
 ;; flycheck
 (setq-default flycheck-disabled-checkers
               '(python-flake8
@@ -23,37 +16,14 @@
 
 
 ;; lsp
-;; (use-package! lsp-mode
-;;   :commands lsp
-;;   :diminish lsp-mode
-;;   :config
-;;   (setq lsp-dart-sdk-dir (getenv "DARTPATH")
-;;         lsp-gopls-codelens nil
-;;         lsp-pylsp-plugins-flake8-enabled nil
-;;         lsp-pylsp-plugins-pylint-enabled t
-;;         lsp-pylsp-plugins-pylint-args ["--rcfile ~/.config/pylint/config"]
-;;         lsp-pylsp-plugins-pydocstyle-enabled nil)
-;;   :hook
-;;   (elixir-mode . 'lsp)
-;;   :init
-;;   (add-to-list
-;;    'exec-path
-;;    (concat (getenv "HOME") "/dev/elixir/elixir-ls/release")))
-
-(add-hook 'eglot-managed-mode-hook
-          (lambda ()
-            (eglot-inlay-hints-mode -1)
-            (eglot-semantic-tokens-mode -1)
-            (setq eglot-semantic-token-types nil)))
-
-
-;; snippets
-(require 'yasnippet)
-(doom-snippets-initialize)
+(add-hook! 'eglot-managed-mode-hook
+  (eglot-inlay-hints-mode -1)
+  (eglot-semantic-tokens-mode -1)
+  (setq eglot-semantic-token-types nil))
 
 
 ;; prog
-(add-hook 'prog-mode-hook 'smartparens-mode)
+(add-hook! 'prog-mode-hook 'smartparens-mode)
 
 
 ;; web-mode
@@ -72,7 +42,7 @@
 
 (sp-local-pair 'web-mode "<" ">" :actions nil)
 
-(add-hook 'web-mode-hook 'emmet-mode)
+(add-hook! 'web-mode-hook 'emmet-mode)
 
 
 ;; c
@@ -80,7 +50,7 @@
 (defun c-flycheck-setup ()
   "Setup Flycheck checkers for C."
   (flycheck-select-checker 'c/c++-gcc))
-(add-hook 'c-mode-hook 'c-flycheck-setup)
+(add-hook! 'c-mode-hook 'c-flycheck-setup)
 
 
 ;; python
@@ -105,8 +75,8 @@
             (concat venv-path "/bin/pylint")
             "pylint")))
 
-(add-hook 'python-mode-hook (λ! (electric-indent-local-mode -1)))
-(add-hook 'python-mode-hook 'set-pylint-executable)
+(add-hook! 'python-mode-hook (electric-indent-local-mode -1))
+(add-hook! 'python-mode-hook 'set-pylint-executable)
 
 
 ;; go
@@ -135,8 +105,8 @@
 
 
 ;; protobuf
-(add-hook 'protobuf-mode-hook 'display-line-numbers-mode)
-(add-hook 'protobuf-mode-hook 'hl-line-mode)
+(add-hook! 'protobuf-mode-hook 'display-line-numbers-mode)
+(add-hook! 'protobuf-mode-hook 'hl-line-mode)
 
 
 ;; nix

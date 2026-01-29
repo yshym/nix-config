@@ -14,13 +14,6 @@
       "TAB" 'emmet-expand-yas)
 
 
-;; company
-;; (map! (:after company
-;;        (:map company-active-map
-;;         "<tab>" nil
-;;         "TAB" 'company-complete-selection)))
-
-
 ;; verb
 (map! :after verb
       :map verb-mode-map
@@ -43,6 +36,13 @@
 (map! :map eshell-hist-mode-map
       "C-j" #'my-eshell-next-input
       "C-k" #'my-eshell-previous-input)
+
+
+;; grep
+(map! :after grep-mode
+      :map grep-mode-map
+      "C-c" #'wgrep-finish-edit
+      "C-k" #'wgrep-abort-changes)
 
 
 ;; <leader>

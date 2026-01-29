@@ -145,15 +145,11 @@
         +lsp
         +tree-sitter)              ; I hereby declare "nix geht mehr!"
        ;; ocaml                       ; an objective camel
-       (org                        ; organize your plain life in plain text
-        +pretty                    ; yessss my pretties! (nice unicode symbols)
-        +attach                    ; custom attachment system
-        +babel                     ; running code in org
-        +capture                   ; org-capture in and outside of Emacs
-        +export                    ; Exporting org to whatever you want
-        +habit                     ; Keep track of your habits
-        +present                   ; Emacs for presentations
-        +protocol)                 ; Support for org-protocol:// links
+       (org
+        +pretty
+        +present
+        +pandoc
+        +dragndrop)                ; organize your plain life in plain text
        ;; perl                        ; write code no one else can comprehend
        ;; php                         ; perl's insecure younger brother
        plantuml                    ; diagrams for confusing people more
@@ -175,7 +171,8 @@
        ;; swift                       ; who asked for emoji variables?
        ;; terra                       ; Earth and Moon in alignment for performance.
        web                         ; the tubes
-       ;; vala                        ; GObjective-C
+       yaml                        ; JSON, but readable
+       ;; zig                      ; C, but simpler
 
        :email
        ;; (:if (executable-find "mu") (mu4e +org +gmail))

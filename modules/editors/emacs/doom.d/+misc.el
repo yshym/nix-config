@@ -181,7 +181,7 @@ to an appropriate value)")
 (defun eshell-handle-ansi-color ()
   "Apply ansi escape sequences to an eshell output buffer."
   (ansi-color-apply-on-region eshell-last-output-start eshell-last-output-end))
-(add-hook 'eshell-output-filter-functions 'eshell-handle-ansi-color)
+(add-hook! 'eshell-output-filter-functions 'eshell-handle-ansi-color)
 
 (set-popup-rule! "^\\*Eshell Command Output*" :side 'bottom :size 0.3)
 
@@ -217,8 +217,15 @@ Otherwise use plain history."
   "Mark input as not manually typed."
   (setq my-eshell--input-manual nil))
 
-(add-hook 'eshell-input-filter-functions #'my-eshell--on-input-change nil t)
-(add-hook 'eshell-post-command-hook #'my-eshell-reset-flag-hook)
+(add-hook! 'eshell-input-filter-functions 'my-eshell--on-input-change nil t)
+(add-hook! 'eshell-post-command-hook 'my-eshell-reset-flag-hook)
+
+
+;; grep
+(after! grep
+  (setq wgrep-auto-save-buffer t))
+
+(add-hook! 'grep-mode-hook (evil-escape-mode 1))
 
 
 ;; Local Variables:
