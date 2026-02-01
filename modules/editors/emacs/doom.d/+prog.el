@@ -36,10 +36,6 @@
   (sp-local-pair "%" "%" :post-handlers '(("| " "SPC")))
   (sp-local-pair "=" "" :post-handlers '(("| " "SPC"))))
 
-(sp-with-modes '(python-mode)
-  (sp-local-pair "f\"" "\"" :post-handlers '(("| " "SPC")))
-  (sp-local-pair "b\"" "\"" :post-handlers '(("| " "SPC"))))
-
 (sp-local-pair 'web-mode "<" ">" :actions nil)
 
 (add-hook! 'web-mode-hook 'emmet-mode)
@@ -77,6 +73,10 @@
 
 (add-hook! 'python-mode-hook (electric-indent-local-mode -1))
 (add-hook! 'python-mode-hook 'set-pylint-executable)
+
+(sp-with-modes '(python-mode)
+  (sp-local-pair "f\"" "\"" :post-handlers '(("| " "SPC")))
+  (sp-local-pair "b\"" "\"" :post-handlers '(("| " "SPC"))))
 
 
 ;; go
