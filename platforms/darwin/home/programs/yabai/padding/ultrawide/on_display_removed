@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+#
+# Change padding when a display was added
+#
+
+source "$HOME/.config/yabai/padding/padding.env"
+
+YABAI_DISPLAY_UUID=$(cat "$DISPLAY_UUID_FILE")
+echo "" > "$DISPLAY_UUID_FILE"
+
+case $YABAI_DISPLAY_UUID in
+    $INTERNAL_DISPLAY_UUID)  "$SET_VERTICAL_PADDING" "$ULTRAWIDE_PADDING" ;;
+    $ULTRAWIDE_DISPLAY_UUID) "$SET_VERTICAL_PADDING" "$PADDING" ;;
+    *)                       "$SET_VERTICAL_PADDING" "$ULTRAWIDE_PADDING" ;;
+esac
+
+echo "Removed $YABAI_DISPLAY_ID -> $YABAI_DISPLAY_UUID" \
+    >> ~/yabailogs.txt

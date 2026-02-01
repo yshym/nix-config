@@ -50,24 +50,23 @@ in
       yabai -m config split_type vertical
 
       # window rules
-      yabai -m rule --add app="^Firefox$" space=web
-      yabai -m rule --add app="^Brave Browser$" space=web
-      yabai -m rule --add app="^Emacs$" space=code role=AXTextField subrole=AXStandardWindow manage=on
-      yabai -m rule --add app="^Telegram$" space=social manage=off
-      yabai -m rule --add app="^Telegram$" space=social subrole=AXStandardWindow manage=on
-      yabai -m rule --add app="^Slack$" space=social
-      yabai -m rule --add app="^Discord$" space=social
-      yabai -m rule --add app="^Zoom$" space=social manage=on
-      yabai -m rule --add app="^Transmission$" space=media
-      yabai -m rule --add app="^Spotify$" space=media manage=on
-      yabai -m rule --add app="^mpv$" space=media manage=on
-      yabai -m rule --add app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-      yabai -m rule --add app="^Spotlight$" layer=above manage=off
-      yabai -m rule --add app="^Steam$" manage=off
-      yabai -m rule --add app="^Stickies$" manage=off
+      yabai -m rule --add app="^Firefox$"         space=web
+      yabai -m rule --add app="^Brave Browser$"   space=web
+      yabai -m rule --add app="^Emacs$"           space=code role=AXTextField subrole=AXStandardWindow manage=on
+      yabai -m rule --add app="^Telegram$"        space=social manage=off
+      yabai -m rule --add app="^Telegram$"        space=social subrole=AXStandardWindow manage=on
+      yabai -m rule --add app="^Slack$"           space=social
+      yabai -m rule --add app="^Discord$"         space=social
+      yabai -m rule --add app="^Zoom$"            space=social manage=on
+      yabai -m rule --add app="^Transmission$"    space=media
+      yabai -m rule --add app="^Spotify$"         space=media manage=on
+      yabai -m rule --add app="^mpv$"             space=media manage=on
+      yabai -m rule --add app="^Finder$"          title="(Co(py|nnect)|Move|Info|Pref)" manage=off
+      yabai -m rule --add app="^Spotlight$"       layer=above manage=off
+      yabai -m rule --add app="^Steam$"           manage=off
+      yabai -m rule --add app="^Stickies$"        manage=off
       yabai -m rule --add app="^System Settings$" manage=off
-      yabai -m rule --add app="^choose$" manage=off
-      yabai -m rule --add app="^Gitify$" manage=off
+      yabai -m rule --add app="^choose$"          manage=off
 
       # signals
       yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
@@ -87,6 +86,9 @@ in
         inactive_color=0xff${darkGrey} \
         width=5.0 \
         blacklist="choose" &
+
+      # ultrawide display padding
+      $HOME/.config/yabai/padding/ultrawide/setup.sh
     '';
   };
 }
