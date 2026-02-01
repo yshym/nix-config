@@ -38,6 +38,11 @@
     `(corfu-current :background ,(doom-color 'base3) :extend t)))
 
 
+;; consult
+(custom-set-faces!
+  `(consult-file :foreground ,(doom-color `base5))
+  `(consult-highlight-match :foreground ,(doom-color `violet) :background ,(doom-color `base3)))
+
 ;; Modeline
 ;; Override modeline buffer id behaviour
 (def-modeline-var! +modeline-buffer-identification ; slightly more informative buffer id
