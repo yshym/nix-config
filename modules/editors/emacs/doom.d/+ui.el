@@ -11,12 +11,9 @@
                  :size 15
                  :weight 'normal))
 
-(set-face-attribute 'mode-line nil
-                    :family "JetBrains Mono"
-                    :height (if IS-MAC 150 100))
-(set-face-attribute 'mode-line-inactive nil
-                    :family "JetBrains Mono"
-                    :height (if IS-MAC 150 100))
+(custom-set-faces!
+  `(mode-line          :family "JetBrains Mono" :height ,(if IS-MAC 150 100))
+  `(mode-line-inactive :family "JetBrains Mono" :height ,(if IS-MAC 150 100)))
 
 
 ;; Theme
