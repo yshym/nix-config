@@ -9,11 +9,28 @@ let
       sha256 = "1zq8yvbkf0p2qni5y0kpf3dqx33p0mmp2qm991qglwfxxs64rxy3";
     })
     { system = pkgs.stdenv.system; };
-  emacs = with pkgs;
-    if stdenv.isDarwin then
-      emacs30-nixpkgs.emacs30.override { withNativeCompilation = true; }
-    else
-      emacs-git-pgtk;
+  emacsPkg = with pkgs; if stdenv.isDarwin then
+    emacs-pgtk.overrideAttrs (old: {
+      patches = (old.patches or []) ++ [
+        # Fix window role for tiling window managers (e.g., yabai)
+        (fetchpatch {
+          url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/fix-window-role.patch";
+          sha256 = "sha256-+z/KfsBm1lvZTZNiMbxzXQGRTjkCFO4QPlEK35upjsE=";
+        })
+        # Enable rounded, undecorated windows
+        (fetchpatch {
+          url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/round-undecorated-frame.patch";
+          sha256 = "sha256-uYIxNTyfbprx5mCqMNFVrBcLeo+8e21qmBE3lpcnd+4=";
+        })
+        # Sync with macOS light/dark mode
+        # (fetchpatch {
+        #   url = "https://raw.githubusercontent.com/d12frosted/homebrew-emacs-plus/master/patches/emacs-30/system-appearance.patch";
+        #   sha256 = "sha256-oM6fXdXCWVcBnNrzXmF0ZMdp8j0pzkLE66WteeCutv8=";
+        # })
+      ];
+    })
+  else
+    emacs-pgtk;
 in
 {
   options.modules.editors.emacs = {
@@ -25,7 +42,7 @@ in
       programs = {
         emacs = {
           enable = true;
-          package = emacs;
+          package = emacsPkg;
         };
         zsh = {
           envExtra = ''
@@ -42,6 +59,13 @@ in
         };
       };
     };
-    user.packages = with pkgs; [ coreutils-prefixed fd ripgrep symbola sqlite wordnet ];
+    user.packages = with pkgs; [
+      coreutils-prefixed
+      fd
+      ripgrep
+      symbola
+      sqlite
+      wordnet
+    ];
   };
 }

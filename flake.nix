@@ -17,7 +17,7 @@
 
     # extra
     emacs-overlay = {
-      url = "github:yshym/emacs-overlay/f87351a238ddda570226360a8e0725fc2d75f273";
+      url = "github:yshym/emacs-overlay/2019dddf1777b1aebafbff5f6fe4bac06d134d9e";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-utils.url = "github:numtide/flake-utils";

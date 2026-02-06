@@ -4,16 +4,21 @@
 
 ;;; Code:
 
+;; Frame
+(if (featurep :system 'macos)
+    (setq default-frame-alist '((undecorated-round . t))))
+
+
 ;; Font
 (setq doom-font (font-spec
                  :family "JetBrains Mono"
-                 ;; :size (if IS-MAC 15 12)
+                 ;; :size (if (featurep :system 'macos) 15 12)
                  :size 15
                  :weight 'normal))
 
 (custom-set-faces!
-  `(mode-line          :family "JetBrains Mono" :height ,(if IS-MAC 150 100))
-  `(mode-line-inactive :family "JetBrains Mono" :height ,(if IS-MAC 150 100)))
+  `(mode-line          :family "JetBrains Mono" :height ,(if (featurep :system 'macos) 150 100))
+  `(mode-line-inactive :family "JetBrains Mono" :height ,(if (featurep :system 'macos) 150 100)))
 
 
 ;; Theme
