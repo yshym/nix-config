@@ -54,6 +54,9 @@
        ;; parinfer                    ; turn lisp into python, sort of
        rotate-text                 ; cycle region at point between text candidates
        snippets                    ; my elves. They type so I don't have to
+       (whitespace
+        +guess
+        +trim)                     ; a butler for your whitespace
 
        :emacs
        (dired +dirvish)            ; making dired pretty [functional]
@@ -87,7 +90,7 @@
        (lookup                     ; helps you navigate your code and documentation
         +docsets)                  ; ...or in Dash docsets locally
        (lsp +eglot)                ; M-x vscode
-       (magit +childframe)         ; a git porcelain for Emacs
+       magit                       ; a git porcelain for Emacs
        ;; make                        ; run make tasks from Emacs
        pass                        ; password manager for nerds
        pdf                         ; pdf enhancements
@@ -134,7 +137,7 @@
        ;; julia                       ; a better, faster MATLAB
        ;; kotlin                      ; a better, slicker Java(Script)
        latex                       ; writing papers in Emacs has never been so fun
-       ;; ledger                   ; an accounting system in Emacs
+       ;; ledger                      ; an accounting system in Emacs
        (lua
         +fennel
         +lsp
@@ -153,7 +156,7 @@
        ;; perl                        ; write code no one else can comprehend
        ;; php                         ; perl's insecure younger brother
        plantuml                    ; diagrams for confusing people more
-       ;; purescript               ; javascript, but functional
+       ;; purescript                  ; javascript, but functional
        (python
         +lsp
         +tree-sitter
@@ -172,7 +175,7 @@
        ;; terra                       ; Earth and Moon in alignment for performance.
        web                         ; the tubes
        yaml                        ; JSON, but readable
-       ;; zig                      ; C, but simpler
+       ;; zig                         ; C, but simpler
 
        :email
        ;; (:if (executable-find "mu") (mu4e +org +gmail))
