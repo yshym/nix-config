@@ -4,8 +4,15 @@
 
 ;;; Code:
 
+;; modifiers
+(if (featurep :system 'macos)
+    (setq ns-option-modifier 'meta
+          ns-right-option-modifier 'left))
+
+
 ;; evil-escape-key-sequence
 (setq evil-escape-key-sequence "fd")
+
 
 ;; web
 (map! :after web-mode
