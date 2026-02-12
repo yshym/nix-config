@@ -11,8 +11,18 @@
 (defvar
   tap-time  200 ;; delay between tap and release to activate a tap action
   hold-time 150 ;; delay after tap to activate a hold action
-  left-hand-keys  (q w e r t a s d f g z x c v b 1 2 3 4 5)
-  right-hand-keys (y u i o p h j k l ; n m , . / 6 7 8 9 0)
+  left-hand-keys (
+    1 2 3 4 5
+    q w e r t
+    a s d f g
+    z x c v b
+  )
+  right-hand-keys (
+    6 7 8 9 0
+    y u i o p
+    h j k l ;
+    n m , . /
+  )
 )
 
 (deffakekeys to-base (layer-switch base))

@@ -19,7 +19,7 @@ in
 
   config = mkIf cfg.enable {
     home.xdg.configFile."kanata/kanata.kbd".source = configFile;
-    user.packages = with pkgs; [ kanata ];
+    user.packages = with pkgs; [ unstable.kanata ];
 
     modules.keyboard.karabiner-dk.enable = true;
 
