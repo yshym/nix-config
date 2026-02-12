@@ -38,11 +38,12 @@ let cfg = config.programs.tmux; in
       tmux-fzf
     ];
     extraConfig = ''
-      # Enable true color support
-      set-option -sa terminal-overrides ",xterm*:Tc"
+      # Enable 256-color and truecolor support
+      set -g default-terminal "tmux-256color"
+      set -sa terminal-overrides ",alacritty*:RGB"
 
       # Renumber window after one is closed
-      set-option -g renumber-windows on
+      set -g renumber-windows on
 
       # Open panes in the current directory
       bind c new-window      -c "#{pane_current_path}"
