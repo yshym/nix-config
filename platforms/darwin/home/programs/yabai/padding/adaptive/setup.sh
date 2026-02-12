@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 number_of_spaces=$(yabai -m query --spaces | jq "length")
 

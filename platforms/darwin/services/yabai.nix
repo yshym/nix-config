@@ -89,6 +89,9 @@ in
 
       # ultrawide display padding
       $HOME/.config/yabai/padding/ultrawide/setup.sh
+      # $HOME/.config/yabai/padding/adaptive/setup.sh
     '';
   };
+
+  home.home.packages = with pkgs; [ jankyborders ];
 }
