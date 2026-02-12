@@ -42,7 +42,7 @@ with lib.my;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" "nixpkgs-unstable=${inputs.nixpkgs-unstable}" ];
     };
 
     programs = {
