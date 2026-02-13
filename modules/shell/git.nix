@@ -6,15 +6,15 @@ in
 {
   options.modules.shell.git = {
     enable = mkEnableOption "Git";
-    pager = mkOption {
-      type = with types; (nullOr (enum [ "delta" "diff-so-fancy" ]));
-      default = null;
-    };
   };
 
   config = mkIf cfg.enable {
     home = {
       programs = {
+        delta = {
+          enable = true;
+          enableGitIntegration = true;
+        };
         git = {
           enable = true;
           signing = {
@@ -30,13 +30,6 @@ in
               email = "yshym@pm.me";
             };
             extraConfig = {
-              core.pager =
-                if cfg.pager == "delta" then
-                  "delta --dark"
-                else if cfg.pager == "diff-so-fancy" then
-                  "diff-so-fancy | less --tabs=4 -RFX"
-                else
-                  null;
               github.user = "yshym";
             };
           };
@@ -51,9 +44,6 @@ in
         '';
       };
     };
-    user.packages = with pkgs;
-      ([ bfg-repo-cleaner git-secrets git-standup ]
-        ++ (optional (cfg.pager == "delta") delta)
-        ++ (optional (cfg.pager == "diff-so-fancy") diff-so-fancy));
+    user.packages = with pkgs; [ bfg-repo-cleaner git-secrets git-standup ];
   };
 }

@@ -22,10 +22,7 @@
     };
     editors.emacs.enable = true;
     shell = {
-      git = {
-        enable = true;
-        pager = "diff-so-fancy";
-      };
+      git.enable = true;
       man.enable = true;
     };
   };
