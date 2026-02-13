@@ -2,20 +2,31 @@
 
 self: super:
 {
-  # NOTE Used to always keep yabai up-to-date
+  # Used to always keep yabai up-to-date
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "7.1.16";
-    src = builtins.fetchTarball {
-      url =
-        "https://github.com/koekeishiya/yabai/releases/download/v${version}/yabai-v${version}.tar.gz";
-      sha256 = "101djah9h1j935ygysh96zcflhc69vb9wb0nx5rwy7zw8xv80mhq";
+    version = "5bde933ec85a4a601a186163b7db04aa3bf6c3b1";
+
+    src = super.fetchFromGitHub {
+      owner = "koekeishiya";
+      repo = "yabai";
+      rev = version;
+      sha256 = "sha256-IVVwlqMlkfkgqmZegVeVwt/YRSIfaH+swTWAikl64wY=";
     };
 
-    installPhase = ''
-      mkdir -p $out/bin
-      mkdir -p $out/share/man/man1/
-      cp ./bin/yabai $out/bin/yabai
-      cp ./doc/yabai.1 $out/share/man/man1/yabai.1
+    nativeBuildInputs = o.nativeBuildInputs ++ [ super.xxd ];
+
+    buildInputs = [ super.apple-sdk_15 ];
+
+    dontConfigure = false;
+    dontBuild = false;
+
+    # Strip x86_64 cross-compilation flags — Nix's clang wrapper can't
+    # cross-compile and lipo fails when both arches are requested.
+    # Keep arm64 / arm64e for the native aarch64 build.
+    postPatch = ''
+      substituteInPlace makefile --replace-fail "-arch x86_64" ""
     '';
+
+    nativeInstallCheckInputs = [ ];
   });
 }

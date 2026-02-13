@@ -2,10 +2,13 @@
 
 let
   padding = 10;
-  darkBlue = "6272a4";
-  darkGrey = "333333";
 in
 {
+  imports = [
+    # window borders
+    ./jankyborders.nix
+  ];
+
   services.yabai = rec {
     enable = true;
     package = pkgs.yabai;
@@ -17,11 +20,6 @@ in
       window_animation_easing = "ease_out_quint";
       window_shadow = "off";
       window_placement = "second_child";
-      # window_border = "on";
-      # window_border_blur = "off";
-      # window_border_width = 2;
-      # active_window_border_color = "0xff6272a4";
-      # normal_window_border_color = "0xff353c54";
       insert_feedback_color = "0xaa7c5c9c";
       auto_balance = "on";
       split_ratio = 0.50;
@@ -79,19 +77,9 @@ in
       # init
       # sketchybar.sh
 
-      # window borders
-      pkill ${pkgs.unstable.jankyborders}/bin/borders
-      ${pkgs.unstable.jankyborders}/bin/borders \
-        active_color=0xff${darkBlue} \
-        inactive_color=0xff${darkGrey} \
-        width=5.0 \
-        blacklist="choose" &
-
       # ultrawide display padding
       $HOME/.config/yabai/padding/ultrawide/setup.sh
       # $HOME/.config/yabai/padding/adaptive/setup.sh
     '';
   };
-
-  home.home.packages = with pkgs; [ jankyborders ];
 }

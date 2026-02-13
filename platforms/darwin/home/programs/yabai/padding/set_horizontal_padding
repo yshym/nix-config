@@ -4,5 +4,5 @@ padding=$1
 
 echo "Setting horizontal padding to $padding"
 
-yabai -m config left_padding $padding & \
-    && yabai -m config right_padding $padding &
+yabai -m config left_padding $padding &
+yabai -m config right_padding $padding &
