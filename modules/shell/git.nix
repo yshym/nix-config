@@ -14,6 +14,11 @@ in
         delta = {
           enable = true;
           enableGitIntegration = true;
+          options = {
+            hunk-header-style = "omit";
+            line-numbers = true;
+            syntax-theme = "Dracula";
+          };
         };
         git = {
           enable = true;
