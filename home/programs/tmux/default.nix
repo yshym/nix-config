@@ -1,7 +1,10 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.programs.tmux; in
+let
+  cfg = config.programs.tmux;
+  configFile = "${config.xdg.configHome}/tmux/tmux.conf";
+in
 {
   programs.tmux = {
     enable = true;
@@ -40,10 +43,13 @@ let cfg = config.programs.tmux; in
     extraConfig = ''
       # Enable 256-color and truecolor support
       set -g default-terminal "tmux-256color"
-      set -sa terminal-overrides ",alacritty*:RGB"
+      set -sa terminal-overrides ",*:RGB"
 
       # Renumber window after one is closed
       set -g renumber-windows on
+
+      # Improve pane separator visibility
+      set -g pane-border-lines heavy
 
       # Open panes in the current directory
       bind c new-window      -c "#{pane_current_path}"
@@ -53,8 +59,17 @@ let cfg = config.programs.tmux; in
       # Vim-like text selection
       bind -T copy-mode-vi v      send-keys -X begin-selection
       bind -T copy-mode-vi C-v    send-keys -X rectangle-toggle
-      bind -T copy-mode-vi y      send-keys -X copy-selection-and-cancel
+      bind -T copy-mode-vi y      send-keys -X copy-selection
       bind -T copy-mode-vi Escape send-keys -X cancel
+
+      # Replace word selection bindings not to automatically copy after selection
+      bind -T copy-mode-vi DoubleClick1Pane select-pane \; send-keys -X select-word
+      bind -T copy-mode    DoubleClick1Pane select-pane \; send-keys -X select-word
+      bind -T root         DoubleClick1Pane select-pane -t = \; if-shell -F "#{||:#{pane_in_mode},#{mouse_any_flag}}" { send-keys -M } { copy-mode -H ; send-keys -X select-word }
+
+      # Cancel selection after clicking outside
+      bind -T copy-mode-vi MouseDown1Pane send-keys -X clear-selection
+      bind -T copy-mode    MouseDown1Pane send-keys -X clear-selection
 
       # Keep text highlighting after releasing the mouse button
       bind -T copy-mode-vi MouseDragEnd1Pane send-keys -X continue
@@ -67,6 +82,10 @@ let cfg = config.programs.tmux; in
       bind X kill-window
       bind q kill-session
       bind Q kill-server
+
+      # reload config without killing server
+      bind r source-file ${configFile} \; display-message "  Config reloaded.."
+      bind ^r refresh-client \; display-message "  Client refreshed.."
     '';
   };
 
