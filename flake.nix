@@ -84,6 +84,12 @@
           type = "app";
           program = ./home/programs/scripts/bin/h;
         };
+
+        devShells.default = pkgs.mkShell {
+          shellHook = ''
+            export PATH="$(pwd)/home/programs/scripts/bin/h:$PATH"
+          '';
+        };
       }) // {
       # TODO Consider moving packages to separate overlays
       packages = mapPackages ./packages;

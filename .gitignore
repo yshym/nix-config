@@ -9,3 +9,6 @@ result-*
 
 # Mac OS
 .DS_Store
+
+# Direnv
+.direnv/
