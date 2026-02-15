@@ -34,10 +34,6 @@
       url = "github:yshym/undmg-lzma/lzma-support";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

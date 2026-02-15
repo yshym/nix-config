@@ -20,7 +20,6 @@ with lib.my; {
     emacs.enable = true;
     firefox.package = pkgs.firefox-wayland;
     mbsync.enable = true;
-    wofi-custom.enable = true;
     zsh.loginExtra = ''[[ "$(tty)" == /dev/tty1 ]] && sway'';
   };
 }

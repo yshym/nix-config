@@ -1,9 +1,9 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   home = {
     file.".local/share/TelegramDesktop/tdata/shortcuts-custom.json".source =
       ./shortcuts-custom.json;
-    packages = [ pkgs.unstable.tdesktop ];
+    packages = [ pkgs.unstable.telegram-desktop ];
   };
 }

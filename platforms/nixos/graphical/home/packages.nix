@@ -12,12 +12,12 @@
     # nodePackages.webtorrent-cli
 
     # communication
-
     (if pkgs.stdenv.isAarch64 then legcord else discord)
-    # slack
+    slack
 
     # security
-    pinentry
+    unstable.paretosecurity
+    pinentry-curses
     yubikey-manager
 
     # entertaiment

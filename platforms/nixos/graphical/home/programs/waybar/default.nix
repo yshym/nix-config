@@ -8,7 +8,7 @@ with lib.my; {
     settings = [{
       layer = "top";
       position = "top";
-      height = 32;
+      height = 30;
       modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
       modules-center = [ "clock" ];
       modules-right = [
@@ -78,7 +78,8 @@ with lib.my; {
       };
       clock = {
         tooltip = false;
-        format = "{:%a %d/%m                       %H:%M    }";
+        # format = "{:%a %d/%m                       %H:%M    }";
+        format = "{:%a %d/%m %H:%M}";
       };
       tray = {
         tooltip = false;

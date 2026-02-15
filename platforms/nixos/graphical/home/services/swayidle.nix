@@ -1,8 +1,6 @@
 { ... }:
 
 {
-  programs.swaylock-custom.enable = true;
-
   services.swayidle = {
     enable = true;
     timeouts = [{ timeout = 600; command = "swaylock-wrapper"; }];

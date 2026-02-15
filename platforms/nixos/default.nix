@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 with pkgs; {
   imports = [ ./services ./home ];
@@ -14,16 +14,28 @@ with pkgs; {
 
   networking = {
     networkmanager.enable = true;
-    firewall.enable = false;
+    firewall = {
+      enable = true;
+      allowedTCPPorts = [ ];
+    };
   };
 
   modules.shell.mimi.enable = true;
 
   security = { sudo.wheelNeedsPassword = false; };
 
-  programs = { gnupg.agent.pinentryPackage = pinentry; zsh.enable = true; };
+  programs = {
+    gnupg.agent.pinentryPackage = pinentry-curses;
+    zsh.enable = true;
+  };
 
-  services = { openssh = { enable = true; }; };
+  services = {
+    openssh = {
+      enable = false;
+      openFirewall = false;
+      settings.PermitRootLogin = "no";
+    };
+  };
 
   i18n.extraLocaleSettings = { LC_TIME = "en_GB.UTF-8"; };
 

@@ -10,8 +10,8 @@ let cfg = config.modules.desktop.apps.wofi-custom; in
 
   config = mkIf cfg.enable {
     home = {
-      packages = with pkgs; [ wofi ];
       xdg.configFile."wofi/style.css".source = toCSSFile ./style.sass;
     };
+    user.packages = with pkgs; [ wofi ];
   };
 }

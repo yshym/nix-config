@@ -30,4 +30,5 @@ with pkgs; {
     enable = true;
     platformTheme.name = "gtk";
   };
+  home.packages = [ dconf ];
 }

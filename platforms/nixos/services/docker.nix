@@ -25,6 +25,11 @@ in
 
     user.extraGroups = optional cfg.addUserToDockerGroup "docker";
 
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
   };
 }

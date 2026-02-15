@@ -6,9 +6,9 @@ with lib.my; {
 
   boot = {
     tmp.cleanOnBoot = true;
-    kernelPackages = pkgs.linuxPackages_6_6;
+    kernelPackages = pkgs.linuxPackages_6_18;
     resumeDevice = "/dev/disk/by-label/swap";
-    kernelParams = [ "mem_sleep_default=deep" "usbcore.autosuspend=-1" ];
+    kernelParams = [ "mem_sleep_default=s2idle" "usbcore.autosuspend=-1" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -21,12 +21,22 @@ with lib.my; {
 
   services = {
     fwupd.enable = true;
-    logind = {
-      lidSwitch = "suspend-then-hibernate";
+    # logind = {
+    #   lidSwitch = "suspend-then-hibernate";
+    #   extraConfig = ''
+    #     HandlePowerKey=suspend-then-hibernate
+    #     IdleAction=suspend-then-hibernate
+    #     IdleActionSec=2h
+    #   '';
+    # };
+    pulseaudio = {
+      enable = false;
+      systemWide = false;
+      support32Bit = true;
+      extraModules = [ pkgs.pulseaudio-modules-bt ];
+      package = pkgs.pulseaudioFull;
       extraConfig = ''
-        HandlePowerKey=suspend-then-hibernate
-        IdleAction=suspend-then-hibernate
-        IdleActionSec=2h
+        load-module module-switch-on-connect
       '';
     };
     thermald.enable = true;
@@ -62,5 +72,5 @@ with lib.my; {
     };
   };
 
-  systemd.sleep.extraConfig = "HibernateDelaySec=30s";
+  # systemd.sleep.extraConfig = "HibernateDelaySec=30s";
 }

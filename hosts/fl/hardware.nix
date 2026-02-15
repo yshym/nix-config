@@ -37,20 +37,7 @@
       powerOnBoot = true;
     };
     i2c.enable = true;
-    opengl = {
-      enable = true;
-      driSupport = true;
-    };
-    pulseaudio = {
-      enable = false;
-      systemWide = false;
-      support32Bit = true;
-      extraModules = [ pkgs.pulseaudio-modules-bt ];
-      package = pkgs.pulseaudioFull;
-      extraConfig = ''
-        load-module module-switch-on-connect
-      '';
-    };
+    graphics.enable = true;
     sensor.iio.enable = true;
   };
 }

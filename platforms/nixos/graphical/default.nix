@@ -9,11 +9,6 @@
   };
 
   programs = {
-    dconf.enable = true;
-    hyprland = {
-      enable = false;
-      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    };
     light.enable = true;
   };
 
@@ -21,7 +16,7 @@
     greetd = {
       enable = true;
       settings.default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet -r --cmd ${pkgs.sway}/bin/sway";
+        command = "${pkgs.tuigreet}/bin/tuigreet -r --cmd ${pkgs.sway}/bin/sway";
         user = "greeter";
       };
     };
@@ -63,6 +58,11 @@
         };
       };
     };
+  };
+
+  modules.desktop.apps = {
+    swaylock-custom.enable = true;
+    wofi-custom.enable = true;
   };
 
   security = {

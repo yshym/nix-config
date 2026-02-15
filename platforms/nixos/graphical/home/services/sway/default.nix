@@ -89,7 +89,7 @@ in
           };
           "12951:6505:ZSA_Technology_Labs_Moonlander_Mark_I" = {
             xkb_layout = "us,ru,ua";
-            xkb_options = "grp:win_space_toggle";
+            xkb_options = "grp:win_space_toggle,altwin:swap_alt_win";
           };
           "2362:628:PIXA3854:00_093A:0274_Touchpad" = {
             dwt = "enabled";
@@ -108,6 +108,10 @@ in
           };
           "5426:166:Razer_Razer_Viper_V2_Pro_Mouse" = {
             pointer_accel = "0";
+            scroll_factor = "0.5";
+          };
+          "1133:50509:Logitech_USB_Receiver" = {
+            pointer_accel = "-0.5";
             scroll_factor = "0.5";
           };
         };

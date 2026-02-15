@@ -14,8 +14,7 @@
 ;; Font
 (setq doom-font (font-spec
                  :family "JetBrains Mono"
-                 ;; :size (if (featurep :system 'macos) 15 12)
-                 :size 15
+                 :size (if (featurep :system 'macos) 15 12)
                  :weight 'normal))
 
 (custom-set-faces!

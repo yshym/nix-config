@@ -14,7 +14,7 @@
           }
           {
             criteria = "eDP-1";
-            # status = "disable";
+            status = "disable";
             position = "720,960";
           }
         ];

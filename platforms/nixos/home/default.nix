@@ -12,7 +12,6 @@
     isNormalUser = true;
     extraGroups = [ "audio" "i2c" "plugdev" "sudo" "video" "wheel" "user-with-access-to-virtualbox" ];
     openssh.authorizedKeys.keyFiles = [ ./ssh/fl.pub ./ssh/mbp.pub ];
-    shell = pkgs.zsh;
   };
 
   home = { pkgs, ... }: {

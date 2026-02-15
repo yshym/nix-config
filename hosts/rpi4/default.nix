@@ -34,8 +34,10 @@
         prefixLength = 24;
       }];
     };
-    firewall.allowedUDPPorts =
-      lib.optionals config.services.hostapd.enable [ 5367 ];
+    firewall = {
+      allowedTCPPorts = [ 22 80 443 ];
+      allowedUDPPorts = lib.optionals config.services.hostapd.enable [ 5367 ];
+    };
   };
 
   security = {
@@ -60,6 +62,10 @@
       hwMode = "g";
       ssid = "piece-of-metal";
       wpaPassphrase = "helloworld";
+    };
+    openssh = {
+      enable = true;
+      openFirewall = true;
     };
     spotifyd = {
       enable = true;

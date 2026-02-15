@@ -18,7 +18,6 @@ in
   config = mkIf cfg.enable {
     home = {
       xdg.configFile."mimi/mime.conf".source = ./mime.conf;
-
     };
     user.packages = with pkgs; [
       file
