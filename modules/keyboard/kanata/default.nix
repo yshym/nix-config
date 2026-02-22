@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, system, ... }:
 
 with lib;
 let
   cfg = config.modules.keyboard.kanata;
+  # Check system string directly to prevent infinite recursion
+  isDarwin = my.isDarwin system;
   port = 10000;
   configFile = pkgs.writeTextFile {
     name = "config.kbd";
@@ -17,13 +19,13 @@ in
     enable = mkEnableOption "Kanata software keyboard remapper";
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf cfg.enable ({
     home.xdg.configFile."kanata/kanata.kbd".source = configFile;
     user.packages = with pkgs; [ unstable.kanata ];
 
     modules.keyboard.karabiner-dk.enable = true;
-
-    launchd.daemons.kanata = mkIf pkgs.stdenv.isDarwin {
+  } // (optionalAttrs isDarwin {
+    launchd.daemons.kanata = {
       command = "${pkgs.kanata}/bin/kanata --cfg ${configFile} --port ${toString port}";
       serviceConfig = {
         RunAtLoad = true;
@@ -31,8 +33,8 @@ in
         ProcessType = "Interactive";
       };
     };
-    system.activationScripts.postActivation.text = mkIf pkgs.stdenv.isDarwin (mkAfter ''
+    system.activationScripts.postActivation.text = ''
       launchctl kickstart -k system/org.nixos.kanata
-    '');
-  };
+    '';
+  }));
 }

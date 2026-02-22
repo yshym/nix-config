@@ -20,7 +20,7 @@ with lib; rec {
     in
     systemModule {
       inherit system;
-      specialArgs = { inherit lib inputs; };
+      specialArgs = { inherit lib inputs system; };
       modules = [
         {
           nixpkgs = if isDarwin system then {
