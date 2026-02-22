@@ -9,6 +9,8 @@
         [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
     };
+    resumeDevice = "/dev/disk/by-uuid/90743b97-0b54-45e5-8550-d0cbac218fe1";
+    kernelParams = [ "resume_offset=39172096" "mem_sleep_default=deep" "usbcore.autosuspend=-1" ];
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
   };
@@ -24,7 +26,13 @@
     };
   };
 
-  swapDevices = [{ device = "/dev/disk/by-label/swap"; }];
+  swapDevices = [
+    { device = "/dev/disk/by-label/swap"; }
+    # {
+    #   device = "/var/lib/swapfile";
+    #   size = 16 * 1024; # 16GB
+    # }
+  ];
 
   powerManagement = {
     enable = true;

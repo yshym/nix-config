@@ -7,8 +7,6 @@ with lib.my; {
   boot = {
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_6_18;
-    resumeDevice = "/dev/disk/by-label/swap";
-    kernelParams = [ "mem_sleep_default=s2idle" "usbcore.autosuspend=-1" ];
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
@@ -21,14 +19,14 @@ with lib.my; {
 
   services = {
     fwupd.enable = true;
-    # logind = {
-    #   lidSwitch = "suspend-then-hibernate";
-    #   extraConfig = ''
-    #     HandlePowerKey=suspend-then-hibernate
-    #     IdleAction=suspend-then-hibernate
-    #     IdleActionSec=2h
-    #   '';
+    # logind.settings.Login = {
+    #   LidSwitch = "suspend-then-hibernate";
+    #   PowerKey = "hibernate";
+    #   PowerKeyLongPress = "poweroff";
+    #   IdleAction = "suspend-then-hibernate";
+    #   IdleActionSec = "2h";
     # };
+    power-profiles-daemon.enable = true;
     pulseaudio = {
       enable = false;
       systemWide = false;
@@ -57,20 +55,10 @@ with lib.my; {
         SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11",     MODE:="0666",     SYMLINK+="stm32_dfu"
       '';
     };
-    auto-cpufreq = {
-      enable = true;
-      settings = {
-        battery = {
-          governor = "powersave";
-          turbo = "never";
-        };
-        charger = {
-          governor = "performance";
-          turbo = "auto";
-        };
-      };
-    };
   };
 
-  # systemd.sleep.extraConfig = "HibernateDelaySec=30s";
+  systemd.sleep.extraConfig = ''
+    # HibernateDelaySec=30m
+    SuspendState=mem
+  '';
 }
