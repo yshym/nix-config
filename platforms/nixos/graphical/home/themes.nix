@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 with pkgs; {
   dconf = {
@@ -20,9 +20,9 @@ with pkgs; {
       package = pop-gtk-theme;
     };
     cursorTheme = {
-      package = bibata-cursors;
-      name = "Bibata-Modern-Classic";
-      size = 20;
+      package = config.home.pointerCursor.package;
+      name = config.home.pointerCursor.name;
+      size = config.home.pointerCursor.size;
     };
     font = { name = "Fira Code"; size = 8; };
   };
@@ -30,5 +30,14 @@ with pkgs; {
     enable = true;
     platformTheme.name = "gtk";
   };
-  home.packages = [ dconf ];
+
+  home = {
+    pointerCursor = {
+      gtk.enable = config.gtk.enable;
+      package = bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 20;
+    };
+    packages = [ dconf ];
+  };
 }

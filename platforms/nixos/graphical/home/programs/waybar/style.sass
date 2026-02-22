@@ -54,18 +54,24 @@ window
             box-shadow: inherit
             border-bottom: 3px solid $primary-color
 
-        &.focused
+        &.active
             border-bottom: 3px solid $secondary-color
 
         &.urgent
             border-bottom: 3px solid $urgent-color
 
 
-#mode
+#submap
     @extend %module-shared
 
     background-color: #64727D
     border-bottom: 3px solid $primary-color
+
+
+#window
+    @extend %module-shared
+
+    border-bottom: none
 
 
 #clock

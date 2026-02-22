@@ -9,26 +9,26 @@ with lib.my; {
       layer = "top";
       position = "top";
       height = 30;
-      modules-left = [ "sway/workspaces" "sway/mode" "sway/window" ];
+      modules-left = [ "hyprland/workspaces" "hyprland/mode" "hyprland/window" ];
       modules-center = [ "clock" ];
       modules-right = [
         "custom/spotify"
         "backlight"
         "pulseaudio"
-        "sway/language"
+        "hyprland/language"
         "network"
         "battery"
         "tray"
       ];
-      "sway/mode" = {
+      "hyprland/submap" = {
         tooltip = false;
         format = ''<span weight="bold">{}</span>'';
       };
-      "sway/window" = {
+      "hyprland/window" = {
         tooltip = false;
         max-length = 50;
       };
-      "sway/language" = { format = "{}"; };
+      "hyprland/language" = { format = "{short}"; };
       "custom/spotify" = {
         format = " {}";
         exec = "spotify-status";

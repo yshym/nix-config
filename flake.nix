@@ -34,10 +34,18 @@
       url = "github:yshym/undmg-lzma/lzma-support";
       # inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.53.3?submodules=1";
+      inputs.nixpkgs.follows = "nixos";
+    };
+    hy3 = {
+      url = "github:outfoxxed/hy3?ref=hl0.53.0.1";
+      inputs.hyprland.follows = "hyprland";
+    };
   };
 
   outputs =
-    inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, ... }:
+    inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, hyprland, ... }:
     let
       inherit (lib) foldr intersectLists mapAttrs mapAttrsToList zipAttrs;
       inherit (lib.my) mapModules mkHost;
@@ -45,7 +53,7 @@
 
       supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
       # NOTE `<system>` should be replaced with your current host system
-      system = "aarch64-darwin";
+      system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
         overlays = [
@@ -93,6 +101,10 @@
       overlays = {
         emacs = emacs-overlay.overlay;
         clion = clion.overlay;
+        hyprland = hyprland.overlays.default;
+        hy3 = (final: prev: {
+          hy3 = inputs.hy3.packages."${system}".hy3;
+        });
       };
 
       darwinConfigurations = { mbp16 = mkHost "mbp16" "aarch64-darwin"; };

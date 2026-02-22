@@ -9,6 +9,7 @@
     ./spotifyd.nix
     ./sway
     ./swayidle.nix
+    ./hyprland
   ];
 
   services = {

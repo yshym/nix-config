@@ -15,7 +15,7 @@ in
     wayland.windowManager.sway = {
       # HACK https://github.com/nix-community/home-manager/issues/5311
       checkConfig = false;
-      enable = true;
+      enable = false;
       systemd.enable = true;
       xwayland = true;
       wrapperFeatures = {
@@ -246,29 +246,28 @@ in
       };
     };
 
-    home = {
+    home =  lib.mkIf cfg.enable {
       file.".local/share/wallpaper.png".source = ./wallpaper.png;
-      packages = with pkgs;
-        lib.mkIf cfg.enable [
-          # supporting libraries
-          glib
-          libnotify
-          qt5.qtwayland
-          qt6.qtwayland
+      packages = with pkgs; [
+        # supporting libraries
+        glib
+        libnotify
+        qt5.qtwayland
+        qt6.qtwayland
 
-          # sway components
-          swaybg # required by sway for controlling desktop wallpaper
+        # sway components
+        swaybg # required by sway for controlling desktop wallpaper
 
-          # wayland programs
-          gebaar-libinput # libinput gestures utility
-          grim # screen image capture
-          imv # image viewer
-          slurp # region selection utility
-          wl-clipboard # clipboard manipulation tool
-          ydotool # fake keyboard/mouse input
+        # wayland programs
+        gebaar-libinput # libinput gestures utility
+        grim # screen image capture
+        imv # image viewer
+        slurp # region selection utility
+        wl-clipboard # clipboard manipulation tool
+        ydotool # fake keyboard/mouse input
 
-          pamixer # audio mixer
-        ];
+        pamixer # audio mixer
+      ];
       sessionVariables = {
         NIXOS_OZONE_WL = "1";
         DISABLE_QT5_COMPAT = "0";

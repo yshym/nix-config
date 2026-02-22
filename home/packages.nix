@@ -98,7 +98,6 @@
       hexyl
       hyperfine
       my.ical2org
-      # obs-studio
       pastel
       tealdeer
       termdown
