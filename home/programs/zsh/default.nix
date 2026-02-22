@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 
 with pkgs; {
   programs.zsh = {
@@ -8,6 +8,9 @@ with pkgs; {
     initContent = ''
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
       source ${zsh-powerlevel10k}/share/zsh-powerlevel10k/config/p10k-pure.zsh
+
+      # Nix binary
+      export PATH="${config.nix.package}/bin:$PATH"
 
       ${lib.optionalString stdenv.isDarwin ''
       # Use GNU utils
