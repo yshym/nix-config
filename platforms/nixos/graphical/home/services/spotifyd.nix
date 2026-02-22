@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, osConfig, lib, pkgs, ... }:
 
 {
   services.spotifyd = {
@@ -8,9 +8,9 @@
       device = "default";
       control = "default";
       bitrate = 320;
-      device_name = "fl";
+      device_name = osConfig.networking.hostName;
       device_type = "computer";
-      initial_volume = "50";
+      initial_volume = 50;
       mixer = "PCM";
       password_cmd = "pass spotify.com/yevhenshymotiuk@pm.me | head -n 1";
       use_keyring = false;
