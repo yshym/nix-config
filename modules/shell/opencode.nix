@@ -13,6 +13,8 @@ in
       enable = true;
       package = pkgs.unstable.opencode;
       settings = {
+        default_agent = "plan";
+        agent.build.permission.edit = "ask";
         theme = "dracula";
         autoupdate = false;
       };
