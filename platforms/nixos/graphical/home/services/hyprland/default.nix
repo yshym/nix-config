@@ -122,7 +122,7 @@ in
           "$mod, w, fullscreen, 1"
 
           # toggle tabs
-          "$mod, t, hy3:makegroup, tab, toggle"
+          "$mod, t, hy3:changegroup, toggletab"
 
           # make a screenshot
           "$mod, p, exec, ~/.local/platform/bin/maim.sh"
