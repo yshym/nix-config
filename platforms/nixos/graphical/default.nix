@@ -82,7 +82,7 @@
 
   modules.desktop.apps = {
     swaylock-custom.enable = true;
-    wofi-custom.enable = true;
+    wofi-custom.enable = false;
   };
 
   security = {

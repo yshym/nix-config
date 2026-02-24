@@ -3,7 +3,7 @@
 let
   cfg = config.wayland.windowManager.hyprland;
 
-  wofiCmd = "wofi --show=drun --lines=10 --prompt=\"Run:\"";
+  menuCmd = "rofi -show drun";
 
   darkBlue = "#6272a4";
   purple = "#BD93F9";
@@ -110,7 +110,7 @@ in
           "$mod, RETURN, exec, alacritty"
 
           # app menu
-          "$mod, d, exec, pkill wofi; ${wofiCmd}"
+          "$mod, d, exec, ${menuCmd}"
 
           # kill window
           "$mod, q, killactive"
