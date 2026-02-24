@@ -51,6 +51,10 @@ in
       # Improve pane separator visibility
       set -g pane-border-lines heavy
 
+      # Set window title
+      set -g set-titles on
+      set -g set-titles-string "#W"
+
       # Open panes in the current directory
       bind c new-window      -c "#{pane_current_path}"
       bind s split-window -v -c "#{pane_current_path}"
