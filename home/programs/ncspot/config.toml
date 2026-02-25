@@ -16,3 +16,10 @@ statusbar_bg = "#bd93f9"
 cmdline = "#f8f8f2"
 cmdline_bg = "#282a36"
 search_match = "#ff79c6"
+
+[keybindings]
+"Ctrl+u" = "move up 20"
+"Ctrl+d" = "move down 20"
+"Space"  = "playpause"
+"Ctrl+l" = "focus library"
+"Ctrl+f" = "focus search"
