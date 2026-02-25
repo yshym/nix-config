@@ -19,5 +19,5 @@ else
 fi
 
 applications="$(cat "$CACHE_FILE")"
-application="$(echo "$applications" | choose -c bd93f9 -b 272832 -s 22 -f "Fira Code")"
+application="$(echo "$applications" | choose -n 10 -c bd93f9 -b 282a36 -s 22 -f "Fira Code")"
 [ "$application" ] && open -a "$application"

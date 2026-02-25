@@ -2,12 +2,18 @@
 
 {
   home.packages = with pkgs; [
+    # system
+    choose-gui
+    pngpaste
+    terminal-notifier
+    # my.sortdir
+    # my.BackgroundMusic
+
     # development
     chromedriver
     docker
     docker-compose
     my.Gitify
-    terminal-notifier
 
     # security
     gnupg
@@ -25,11 +31,5 @@
     spotify-player
     my.Spotify
     # nodePackages.webtorrent-cli
-
-    # my stuff
-    # my.choose
-    # my.sortdir
-    # my.BackgroundMusic
-    pngpaste
   ];
 }
