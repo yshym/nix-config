@@ -3,6 +3,6 @@
 {
   programs = {
     eza.enable = true;
-    zsh.shellAliases.ls = "exa --group-directories-first";
+    zsh.shellAliases.ls = "eza --group-directories-first";
   };
 }
