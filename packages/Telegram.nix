@@ -1,12 +1,12 @@
-{ lib, stdenv, fetchurl, undmg }:
+{ lib, pkgs }:
 
+with pkgs;
 stdenv.mkDerivation rec {
   pname = "Telegram";
   version = "6.1.0";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
-  phases = [ "unpackPhase" "installPhase" ];
   installPhase = ''
     mkdir -p "$out/Applications"
     cp -r Telegram.app "$out/Applications/Telegram.app"

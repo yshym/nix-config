@@ -4,6 +4,8 @@ with lib;
 with lib.my; {
   imports = [ ../../platforms/nixos ../../platforms/nixos/graphical ./hardware.nix ];
 
+  system = "x86_64-linux";
+
   boot = {
     tmp.cleanOnBoot = true;
     kernelPackages = pkgs.linuxPackages_6_18;

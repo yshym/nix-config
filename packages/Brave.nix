@@ -5,10 +5,8 @@ stdenv.mkDerivation rec {
   pname = "Brave";
   version = "1.85.111";
 
+  buildInputs = [ undmg ];
   sourceRoot = ".";
-  unpackPhase = ''
-    ${undmgLzma}/bin/undmg $src
-  '';
   installPhase = ''
     mkdir -p "$out/Applications"
     cp -r Brave\ Browser.app $out/Applications/Brave\ Browser.app

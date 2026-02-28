@@ -3,6 +3,8 @@
 {
   imports = [ ../../platforms/darwin ./home.nix ];
 
+  system = "aarch64-darwin";
+
   user.name = "yshym";
 
   services = {

@@ -5,10 +5,8 @@ stdenv.mkDerivation rec {
   pname = "Brave Nightly";
   version = "1.86.63";
 
+  buildInputs = [ undmg ];
   sourceRoot = ".";
-  unpackPhase = ''
-    ${undmgLzma}/bin/undmg $src
-  '';
   installPhase = ''
     mkdir -p "$out/Applications"
     cp -r Brave\ Browser\ Nightly.app $out/Applications/Brave\ Browser\ Nightly.app

@@ -1,6 +1,8 @@
-{ inputs, lib, ... }:
+{ self, inputs, lib, ... }:
 
-with lib; rec {
+with builtins;
+with lib;
+rec {
   isDarwin = system: strings.hasSuffix "darwin" system;
   mkPkgs = system:
     import (if isDarwin system then inputs.nixpkgs else inputs.nixos) {
@@ -9,14 +11,18 @@ with lib; rec {
       overlays = [ (final: prev: { my = inputs.self.packages."${system}"; }) ]
         ++ (attrValues inputs.self.overlays);
     };
-  mkHost = host: system:
+  mkHost = host:
     let
-      pkgs = mkPkgs system;
       hostPath = ../hosts + "/${host}";
+      system = (import hostPath { inherit inputs lib; pkgs = {}; }).system;
+      pkgs = mkPkgs system;
+      lib = inputs.nixpkgs.lib.extend (_: _: {
+        my = self;
+      });
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs."${shortSystemName}".lib."${shortSystemName}System";
       hmModule = inputs.home-manager."${shortSystemName}Modules".home-manager;
-      hostConfig = import hostPath { inherit inputs lib pkgs; };
+      hostConfig = removeAttrs (import hostPath { inherit inputs lib pkgs; }) ["system"];
     in
     systemModule {
       inherit system;

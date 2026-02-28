@@ -30,10 +30,6 @@
         flake-utils.follows = "flake-utils";
       };
     };
-    undmg-lzma = {
-      url = "github:yshym/undmg-lzma/lzma-support";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
     hyprland = {
       url = "github:hyprwm/Hyprland/v0.53.3?submodules=1";
       inputs.nixpkgs.follows = "nixos";
@@ -47,39 +43,23 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, hyprland, ... }:
     let
-      inherit (lib) foldr intersectLists mapAttrs mapAttrsToList zipAttrs;
-      inherit (lib.my) mapModules mkHost;
+      inherit (mylib) mapModules mkHost;
       inherit (flake-utils.lib) eachSystem;
 
-      supportedSystems = [ "aarch64-darwin" "aarch64-linux" "x86_64-darwin" "x86_64-linux" ];
-      # NOTE `<system>` should be replaced with your current host system
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [
-          (final: prev: {
-            undmgLzma = inputs.undmg-lzma.defaultPackage."${system}";
-          })
-        ];
-      };
-      lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib { inherit inputs pkgs; lib = self; };
-      });
-      mapPackages = path: mapAttrs
-        (_: v: foldr (a: b: a // b) { } v)
-        (zipAttrs (mapAttrsToList
-          (name: pkg: foldr (a: b: a // b) { }
-            (map (plat: { ${plat} = { ${name} = pkg; }; })
-              (intersectLists supportedSystems pkg.meta.platforms)))
-          (mapModules path (p: pkgs.callPackage p { }))));
+      supportedSystems = [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "x86_64-linux"
+      ];
+      pkgs = import nixpkgs {};
+      mylib = import ./lib { inherit inputs pkgs; lib = nixpkgs.lib; };
     in
     eachSystem
       supportedSystems
       (system:
       let
-        lib = nixpkgs.lib;
-        pkgs = import inputs.nixpkgs { inherit system; };
-        mylib = import ./lib { inherit inputs lib pkgs; };
+        pkgs = import nixpkgs { inherit system; };
       in
       {
         lib = mylib;
@@ -94,25 +74,25 @@
             export PATH="$(pwd)/home/programs/scripts/bin/h:$PATH"
           '';
         };
+
+        # TODO Filter packages based on a system
+        packages = mapModules ./packages (p: pkgs.callPackage p {});
       }) // {
-      # TODO Consider moving packages to separate overlays
-      packages = mapPackages ./packages;
+        overlays = {
+          emacs = emacs-overlay.overlay;
+          clion = clion.overlay;
+          hyprland = hyprland.overlays.default;
+          hy3 = (final: prev: {
+            hy3 = inputs.hy3.packages."${prev.stdenv.system}".hy3;
+          });
+        };
 
-      overlays = {
-        emacs = emacs-overlay.overlay;
-        clion = clion.overlay;
-        hyprland = hyprland.overlays.default;
-        hy3 = (final: prev: {
-          hy3 = inputs.hy3.packages."${system}".hy3;
-        });
+        darwinConfigurations = { mbp16 = mkHost "mbp16"; };
+
+        nixosConfigurations = {
+          rpi4 = mkHost "rpi4";
+          fl = mkHost "fl";
+          atlas = mkHost "atlas";
+        };
       };
-
-      darwinConfigurations = { mbp16 = mkHost "mbp16" "aarch64-darwin"; };
-
-      nixosConfigurations = {
-        rpi4 = mkHost "rpi4" "aarch64-linux";
-        fl = mkHost "fl" "x86_64-linux";
-        atlas = mkHost "atlas" "aarch64-linux";
-      };
-    };
 }

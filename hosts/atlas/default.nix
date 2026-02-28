@@ -3,6 +3,8 @@
 with lib.my; {
   imports = [ ./hardware.nix ../../platforms/nixos ../../platforms/nixos/graphical ];
 
+  system = "aarch64-linux";
+
   boot = {
     binfmt.emulatedSystems = [ "x86_64-linux" ];
     loader = {

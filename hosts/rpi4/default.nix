@@ -4,6 +4,8 @@
   imports =
     [ inputs.nixos-hardware.nixosModules.raspberry-pi-4 ../../platforms/nixos ./home.nix ];
 
+  system = "aarch64-linux";
+
   boot = {
     loader.raspberryPi.firmwareConfig = ''
       dtparam=audio=on
