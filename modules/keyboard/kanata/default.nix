@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.modules.keyboard.kanata;
+  pkg = pkgs.unstable.kanata;
   # Check system string directly to prevent infinite recursion
   isDarwin = my.isDarwin system;
   port = 10000;
@@ -21,12 +22,12 @@ in
 
   config = mkIf cfg.enable ({
     home.xdg.configFile."kanata/kanata.kbd".source = configFile;
-    user.packages = with pkgs; [ unstable.kanata ];
+    user.packages = [ pkg ];
 
     modules.keyboard.karabiner-dk.enable = true;
   } // (optionalAttrs isDarwin {
     launchd.daemons.kanata = {
-      command = "${pkgs.kanata}/bin/kanata --cfg ${configFile} --port ${toString port}";
+      command = "${pkg}/bin/kanata --cfg ${configFile} --port ${toString port}";
       serviceConfig = {
         RunAtLoad = true;
         KeepAlive = true;
