@@ -20,11 +20,11 @@ self: super:
     dontConfigure = false;
     dontBuild = false;
 
-    # Strip x86_64 cross-compilation flags — Nix's clang wrapper can't
-    # cross-compile and lipo fails when both arches are requested.
-    # Keep arm64 / arm64e for the native aarch64 build.
+    # Strip x86_64 and arm64e cross-compilation flags, but keep arm64
     postPatch = ''
-      substituteInPlace makefile --replace-fail "-arch x86_64" ""
+      substituteInPlace makefile \
+      --replace-fail "-arch x86_64" "" \
+      --replace-fail "-arch arm64e" ""
     '';
 
     nativeInstallCheckInputs = [ ];
