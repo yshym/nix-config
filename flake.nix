@@ -43,7 +43,7 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, hyprland, ... }:
     let
-      inherit (mylib) mapModules mkHost;
+      inherit (lib) mapModules mkHost;
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [
@@ -52,8 +52,12 @@
         "x86_64-darwin"
         "x86_64-linux"
       ];
-      pkgs = import nixpkgs {};
-      mylib = import ./lib { inherit inputs pkgs; lib = nixpkgs.lib; };
+
+      lib = import ./lib {
+        inherit inputs;
+        pkgs = import nixpkgs { };
+        lib = nixpkgs.lib;
+      };
     in
     eachSystem
       supportedSystems
@@ -62,7 +66,7 @@
         pkgs = import nixpkgs { inherit system; };
       in
       {
-        lib = mylib;
+        inherit lib;
 
         apps.default = {
           type = "app";
