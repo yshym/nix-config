@@ -22,7 +22,9 @@ rec {
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs."${shortSystemName}".lib."${shortSystemName}System";
       hmModule = inputs.home-manager."${shortSystemName}Modules".home-manager;
-      hostConfig = removeAttrs (import hostPath { inherit inputs lib pkgs; }) ["system"];
+      hostConfigRaw = import hostPath { inherit inputs lib pkgs; };
+      # Remove custom `system` attr to avoid collision with the default `system` attr
+      hostConfig = removeAttrs hostConfigRaw ["system"];
     in
     systemModule {
       inherit system;
