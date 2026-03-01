@@ -70,7 +70,7 @@
 
         apps.default = {
           type = "app";
-          program = ./home/programs/scripts/bin/h;
+          program = "${./home/programs/scripts/bin/h}";
         };
 
         devShells.default = pkgs.mkShell {
