@@ -2,6 +2,9 @@
 
 with builtins;
 with lib; {
+  # toCSSFile :: path -> path
+  #
+  # Compiles a .sass file to a compressed .css file in the Nix store.
   toCSSFile = file:
     let
       fileName = removeSuffix ".sass" (baseNameOf file);

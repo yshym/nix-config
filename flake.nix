@@ -43,7 +43,7 @@
   outputs =
     inputs@{ self, nixos, nixpkgs, flake-utils, emacs-overlay, clion, hyprland, ... }:
     let
-      inherit (lib) mapModules mkHost;
+      inherit (lib) mapModules mapHosts;
       inherit (flake-utils.lib) eachSystem;
 
       supportedSystems = [
@@ -90,13 +90,5 @@
             hy3 = inputs.hy3.packages."${prev.stdenv.system}".hy3;
           });
         };
-
-        darwinConfigurations = { mbp16 = mkHost "mbp16"; };
-
-        nixosConfigurations = {
-          rpi4 = mkHost "rpi4";
-          fl = mkHost "fl";
-          atlas = mkHost "atlas";
-        };
-      };
+      } // (mapHosts ./hosts);
 }
