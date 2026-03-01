@@ -6,7 +6,7 @@ let
     id mapAttrsToList filterAttrs hasPrefix hasSuffix nameValuePair
     removeSuffix;
   inherit (self.attrs) mapFilterAttrs;
-  inherit (self.hosts) isDarwin mkHost;
+  inherit (self.hosts) getSystem isDarwin mkHost;
 in
 rec {
   # mapModules :: path -> (path -> a) -> attrs
@@ -73,8 +73,9 @@ rec {
         mapFilterAttrs (n: v: v != null && !(hasPrefix "_" n))
           (n: v:
             let path = "${toString dir}/${n}"; in
-            if v == "directory" && pathExists "${path}/default.nix"
-              && pred (import path { inherit inputs lib; config = {}; pkgs = {}; }).system
+            if v == "directory" &&
+               pathExists "${path}/default.nix" &&
+               pred (getSystem path)
             then nameValuePair n (mkHost n)
             else nameValuePair "" null)
           (readDir dir);
