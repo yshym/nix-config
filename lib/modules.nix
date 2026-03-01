@@ -1,4 +1,4 @@
-{ self, inputs, lib, ... }:
+{ self, lib, ... }:
 
 let
   inherit (builtins) attrValues readDir pathExists concatLists;
