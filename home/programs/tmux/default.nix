@@ -21,11 +21,12 @@ in
       {
         plugin = dracula;
         extraConfig = ''
-          set -g @dracula-plugins " "
+          set -g @dracula-plugins        " "
           set -g @dracula-show-powerline false
           set -g @dracula-show-left-icon "#h | #S"
-          set -g @dracula-refresh-rate 10
-          set -g mode-style "bg=#44475A,fg=default"
+          set -g @dracula-refresh-rate   10
+          set -g mode-style              "bg=#44475A,fg=default"
+          set -g prompt-cursor-color     "#F8F8F2"
         '';
       }
       {
