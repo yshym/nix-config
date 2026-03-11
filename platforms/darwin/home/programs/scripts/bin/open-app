@@ -34,7 +34,7 @@ CACHE_FILE="$HOME/.cache/open-app"
 
 # Rebuild cache if it doesn't exist or wasn't modified today
 if ! [ -e "$CACHE_FILE" ] \
-    || [ "$(/bin/date +'%j')" -ne "$(/bin/date -r "$CACHE_FILE" +'%j')" ]; then
+    || [ "$(date +'%j')" -ne "$(date -r "$CACHE_FILE" +'%j')" ]; then
     echo "Rebuilding cache"
     rebuild_cache > "$CACHE_FILE"
 else
