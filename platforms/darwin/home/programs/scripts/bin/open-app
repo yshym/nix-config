@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
+menu() {
+    choose -n 10 -c bd93f9 -b 282a36 -s 22 -f "Fira Code"
+}
 CACHE_FILE="$HOME/.cache/open-app"
 if [ -e "$CACHE_FILE" ] \
-    && [ "$(date +'%j')" -eq "$(date -r "$(stat -f '%m' "$CACHE_FILE")" +'%j')" ]; then
+    && [ "$(date +'%j')" -eq "$(date -d "@$(stat -c '%Y' "$CACHE_FILE")" +'%j')" ]; then
     echo "Reading from cache"
 else
+    echo "Rebuilding cache"
     rm -f "$CACHE_FILE"
     find \
         /System/Applications \
@@ -12,12 +16,21 @@ else
         /System/Library/CoreServices \
         /Applications \
         /Applications/Utilities \
-        $HOME/Applications/Nix \
+        "$HOME/Applications/Nix" \
         -maxdepth 1 -name "*.app" \
-        | sed -e "s/.*\///g" -e "s/\.app//" \
         | sort > "$CACHE_FILE"
 fi
 
-applications="$(cat "$CACHE_FILE")"
-application="$(echo "$applications" | choose -n 10 -c bd93f9 -b 282a36 -s 22 -f "Fira Code")"
-[ "$application" ] && open -a "$application"
+declare -A application_name_to_path
+while IFS= read -r path; do
+    name="$(basename "$path" .app)"
+    application_name_to_path[$name]=$path
+done < "$CACHE_FILE"
+
+application_names=("${!application_name_to_path[@]}")
+echo "App names are ${application_names[@]:0:5}..."
+application_name="$(printf '%s\n' "${application_names[@]}" | menu)"
+application_path="${application_name_to_path[$application_name]}"
+echo "Selected \"$application_name\" -> \"$application_path\""
+
+[ -n "$application_path" ] && open -a "$application_path"
