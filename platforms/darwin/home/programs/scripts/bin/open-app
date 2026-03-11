@@ -3,33 +3,48 @@
 menu() {
     choose -n 10 -c bd93f9 -b 282a36 -s 22 -f "Fira Code"
 }
+
+escape() {
+    echo "${1//\"/\\\"}"
+}
+
+rebuild_cache() {
+    local app_dirs=(
+        /System/Applications
+        /System/Applications/Utilities
+        /System/Library/CoreServices
+        /Applications
+        /Applications/Utilities
+        "$HOME/Applications/Nix"
+    )
+
+    echo 'declare -A application_name_to_path=('
+    for dir in "${app_dirs[@]}"; do
+        [ -d "$dir" ] || continue
+        for app in "$dir"/*.app; do
+            [ -d "$app" ] || continue
+            local name="$(basename "$app" .app)"
+            echo "    [\"$(escape "$name")\"]=\"$(escape "$app")\""
+        done
+    done
+    echo ')'
+}
+
 CACHE_FILE="$HOME/.cache/open-app"
-if [ -e "$CACHE_FILE" ] \
-    && [ "$(date +'%j')" -eq "$(date -d "@$(stat -c '%Y' "$CACHE_FILE")" +'%j')" ]; then
-    echo "Reading from cache"
-else
+
+# Rebuild cache if it doesn't exist or wasn't modified today
+if ! [ -e "$CACHE_FILE" ] \
+    || [ "$(/bin/date +'%j')" -ne "$(/bin/date -r "$CACHE_FILE" +'%j')" ]; then
     echo "Rebuilding cache"
-    rm -f "$CACHE_FILE"
-    find \
-        /System/Applications \
-        /System/Applications/Utilities \
-        /System/Library/CoreServices \
-        /Applications \
-        /Applications/Utilities \
-        "$HOME/Applications/Nix" \
-        -maxdepth 1 -name "*.app" \
-        | sort > "$CACHE_FILE"
+    rebuild_cache > "$CACHE_FILE"
+else
+    echo "Reading from cache"
 fi
 
-declare -A application_name_to_path
-while IFS= read -r path; do
-    name="$(basename "$path" .app)"
-    application_name_to_path[$name]=$path
-done < "$CACHE_FILE"
-
+source "$CACHE_FILE"
 application_names=("${!application_name_to_path[@]}")
 echo "App names are ${application_names[@]:0:5}..."
-application_name="$(printf '%s\n' "${application_names[@]}" | menu)"
+application_name="$(printf '%s\n' "${application_names[@]}" | sort | menu)"
 application_path="${application_name_to_path[$application_name]}"
 echo "Selected \"$application_name\" -> \"$application_path\""
 
