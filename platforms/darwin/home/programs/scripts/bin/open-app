@@ -45,6 +45,7 @@ source "$CACHE_FILE"
 application_names=("${!application_name_to_path[@]}")
 echo "App names are ${application_names[@]:0:5}..."
 application_name="$(printf '%s\n' "${application_names[@]}" | sort | menu)"
+[ -z "$application_name" ] && echo "No app was selected" && exit 0
 application_path="${application_name_to_path[$application_name]}"
 echo "Selected \"$application_name\" -> \"$application_path\""
 
