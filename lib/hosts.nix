@@ -37,8 +37,11 @@ rec {
       hostPath = ../hosts + "/${host}";
       system = getSystem(hostPath);
       pkgs = mkPkgs system;
-      lib = inputs.nixpkgs.lib.extend (_: _: {
-        my = self;
+      lib = pkgs.lib.extend (_: _: {
+        my = import ./. {
+          inherit inputs pkgs;
+          lib = pkgs.lib;
+        };
       });
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs."${shortSystemName}".lib."${shortSystemName}System";
@@ -63,7 +66,7 @@ rec {
         {
           home-manager = {
             extraSpecialArgs = {
-              lib = inputs.nixpkgs.lib.extend
+              lib = pkgs.lib.extend
                 (self: super: inputs.home-manager.lib // lib);
             };
             useUserPackages = true;
