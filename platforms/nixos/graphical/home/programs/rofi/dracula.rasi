@@ -7,30 +7,31 @@ configuration {
 }
 
 * {
-    font: "Jetbrains Mono 12";
-    foreground: #f8f8f2;
-    background-color: #282a36;
-    active-background: #6272a4;
-    urgent-background: #ff5555;
-    urgent-foreground: #282a36;
-    selected-background: @active-background;
+    font:                       "Jetbrains Mono 12";
+    foreground:                 #f8f8f2;
+    background-color:           argb:00000000;
+    active-background:          #6272a4;
+    urgent-background:          #ff5555;
+    urgent-foreground:          #282a36;
+    selected-background:        @active-background;
     selected-urgent-background: @urgent-background;
     selected-active-background: @active-background;
-    separatorcolor: @active-background;
-    bordercolor: @active-background;
-    lines: 10;
+    separatorcolor:             @active-background;
+    bordercolor:                @active-background;
+    lines:                      10;
 }
 
 #window {
-    background-color: @background-color;
+    background-color: argb:cc282a36;
+    transparency:     "real";
     border:           3;
     border-radius:    6;
     border-color:     @bordercolor;
-    padding:          15;
+    padding:          0;
 }
 #mainbox {
-    border:  0;
-    padding: 0;
+    border:           0;
+    padding:          15;
 }
 #message {
     border:       0px;
@@ -53,7 +54,6 @@ configuration {
     padding: 3px ;
 }
 #element.normal.normal {
-    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.normal.urgent {
@@ -77,7 +77,6 @@ configuration {
     text-color:       @foreground;
 }
 #element.alternate.normal {
-    background-color: @background-color;
     text-color:       @foreground;
 }
 #element.alternate.urgent {
@@ -103,24 +102,24 @@ configuration {
     text-color:       @foreground;
 }
 #inputbar {
-    spacing:    0;
-    text-color: @foreground;
-    padding:    1px ;
+    transparency: "real";
+    spacing:      0;
+    text-color:   @foreground;
+    padding:      1px ;
+    children:     [ prompt,textbox-prompt-colon,entry,case-indicator ];
 }
 #case-indicator {
     spacing:    0;
     text-color: @foreground;
 }
 #entry {
-    spacing:    0;
-    text-color: @foreground;
+    transparency:     "real";
+    spacing:          0;
+    text-color:       @foreground;
 }
 #prompt {
     spacing:    0;
     text-color: @foreground;
-}
-#inputbar {
-    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
 }
 #textbox-prompt-colon {
     expand:     false;
@@ -130,5 +129,5 @@ configuration {
 }
 element-text, element-icon {
     background-color: inherit;
-    text-color: inherit;
+    text-color:       inherit;
 }
