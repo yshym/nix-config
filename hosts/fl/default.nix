@@ -2,7 +2,7 @@
 
 with lib;
 with lib.my; {
-  imports = [ ../../platforms/nixos ../../platforms/nixos/graphical ./hardware.nix ];
+  imports = [ ../../platforms/nixos ../../platforms/nixos/graphical ./home ./hardware.nix ];
 
   system = "x86_64-linux";
 
