@@ -5,7 +5,7 @@
     enable = true;
     skhdConfig = ''
       # open application
-      cmd - d : open-app
+      cmd - d : "$HOME/.local/platform/bin/open-app"
 
       # open terminal
       alt - return : alacritty
