@@ -4,10 +4,6 @@ menu() {
     choose -n 10 -c bd93f9 -b 282a36 -s 22 -f "Fira Code"
 }
 
-escape() {
-    echo "${1//\"/\\\"}"
-}
-
 rebuild_cache() {
     local app_dirs=(
         /System/Applications
@@ -23,8 +19,9 @@ rebuild_cache() {
         [ -d "$dir" ] || continue
         for app in "$dir"/*.app; do
             [ -d "$app" ] || continue
-            local name="$(basename "$app" .app)"
-            echo "    [\"$(escape "$name")\"]=\"$(escape "$app")\""
+            name="${app##*/}"   # remove prefix up to and including the last /
+            name="${name%.app}" # remove suffix .app
+            echo "    [\"${name//\"/\\\"}\"]=\"${app//\"/\\\"}\""
         done
     done
     echo ')'
