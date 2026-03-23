@@ -17,7 +17,7 @@
 #define THEME_COLOR_FG      0xF8F8F2
 #define THEME_COLOR_SEL     0x44475A
 #define THEME_COLOR_ACCENT  0xBD93F9
-#define THEME_COLOR_INPUT   0x1E1F2
+#define THEME_COLOR_INPUT   0x1E1F2E
 
 // --- Font sizes ---
 
