@@ -31,5 +31,6 @@
     spotify-player
     my.Spotify
     # nodePackages.webtorrent-cli
+    my.Menu
   ];
 }

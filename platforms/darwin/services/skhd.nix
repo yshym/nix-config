@@ -5,7 +5,7 @@
     enable = true;
     skhdConfig = ''
       # open application
-      cmd - d : "$HOME/.local/platform/bin/open-app"
+      cmd - d : ${pkgs.my.Menu}/bin/Menu --drun --server
 
       # open terminal
       alt - return : alacritty
