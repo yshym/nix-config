@@ -45,7 +45,6 @@
       nil
       openmpi
       plantuml
-      pre-commit
       p7zip
       redis
       # sass

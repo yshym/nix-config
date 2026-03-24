@@ -13,7 +13,6 @@
     chromedriver
     docker
     docker-compose
-    my.Gitify
 
     # security
     gnupg
