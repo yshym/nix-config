@@ -1,11 +1,12 @@
-{ lib, stdenv, apple-sdk_26 }:
+{ lib, stdenv, apple-sdk, swift }:
 
 stdenv.mkDerivation {
   pname = "Menu";
-  version = "0.3.0";
+  version = "0.4.0";
   src = ./.;
 
-  buildInputs = [ apple-sdk_26 ];
+  nativeBuildInputs = [ swift ];
+  buildInputs = [ apple-sdk ];
 
   installPhase = ''
     mkdir -p $out/bin
