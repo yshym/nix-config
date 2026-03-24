@@ -63,48 +63,43 @@ func serverRun() -> Never {
     delegate.reloadApps()
     nsApp.delegate = delegate
 
-    // Accept connections on a background dispatch queue
-    let queue = DispatchQueue(label: "menu.server.accept")
-    queue.async {
-        while true {
-            let clientFd = accept(serverFd, nil, nil)
-            guard clientFd >= 0 else { continue }
+    // Accept connections via GCD event source (runs on main queue)
+    let source = DispatchSource.makeReadSource(fileDescriptor: serverFd, queue: .main)
+    source.setEventHandler {
+        let clientFd = accept(serverFd, nil, nil)
+        guard clientFd >= 0 else { return }
 
-            // Read command
-            var buf = [CChar](repeating: 0, count: 256)
-            let n = read(clientFd, &buf, buf.count - 1)
-            guard n > 0 else { close(clientFd); continue }
-            buf[n] = 0
-            let cmd = String(cString: buf)
+        // Read command
+        var buf = [CChar](repeating: 0, count: 256)
+        let n = read(clientFd, &buf, buf.count - 1)
+        guard n > 0 else { close(clientFd); return }
+        buf[n] = 0
+        let cmd = String(cString: buf)
 
-            // Dispatch to main thread
-            if cmd.hasPrefix(MenuProtocol.cmdDrun) {
-                DispatchQueue.main.async {
-                    delegate.showDrun(clientFd)
-                }
-            } else if cmd.hasPrefix(MenuProtocol.cmdReload) {
-                DispatchQueue.main.async {
-                    delegate.reloadApps()
-                    let resp = MenuProtocol.respOk + "\n"
-                    resp.withCString { _ = write(clientFd, $0, strlen($0)) }
-                    close(clientFd)
-                }
-            } else if cmd.hasPrefix(MenuProtocol.cmdStop) {
-                DispatchQueue.main.async {
-                    let resp = MenuProtocol.respOk + "\n"
-                    resp.withCString { _ = write(clientFd, $0, strlen($0)) }
-                    close(clientFd)
-                    cleanupSocket()
-                    close(serverFd)
-                    NSApp.terminate(nil)
-                }
-            } else {
-                close(clientFd)
-            }
+        if cmd == MenuProtocol.cmdDrun {
+            delegate.showDrun(clientFd)
+        } else if cmd == MenuProtocol.cmdReload {
+            delegate.reloadApps()
+            let resp = MenuProtocol.respOk + "\n"
+            resp.withCString { _ = write(clientFd, $0, strlen($0)) }
+            close(clientFd)
+        } else if cmd == MenuProtocol.cmdStop {
+            let resp = MenuProtocol.respOk + "\n"
+            resp.withCString { _ = write(clientFd, $0, strlen($0)) }
+            close(clientFd)
+            cleanupSocket()
+            close(serverFd)
+            NSApp.terminate(nil)
+        } else {
+            close(clientFd)
         }
     }
+    source.resume()
 
-    // Run the main event loop (never returns)
-    nsApp.run()
+    // Keep source alive for the lifetime of the process
+    withExtendedLifetime(source) {
+        // Run the main event loop (never returns)
+        nsApp.run()
+    }
     exit(0) // unreachable, satisfies Never
 }
