@@ -4,7 +4,7 @@ self: super:
 {
   # Used to always keep yabai up-to-date
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "5bde933ec85a4a601a186163b7db04aa3bf6c3b1";
+    version = "54728ce89a134d3ff83b356b1f0b86fba50b90b5";
 
     src = super.fetchFromGitHub {
       owner = "koekeishiya";
@@ -19,6 +19,7 @@ self: super:
 
     dontConfigure = false;
     dontBuild = false;
+    enableParallelBuilding = false;
 
     # Strip x86_64 and arm64e cross-compilation flags, but keep arm64
     postPatch = ''
