@@ -52,6 +52,12 @@
       "C-k" #'wgrep-abort-changes)
 
 
+;; references
+(map! :map (prog-mode-map eglot-mode-map)
+      :n "g d" #'+lookup/definition
+      :n "g D" #'+lookup/references)
+
+
 ;; <leader>
 (map! :leader
       :desc "Open consult-line"      "S"   'consult-line
