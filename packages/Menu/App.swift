@@ -48,7 +48,17 @@ class AppDelegate: NSObject, NSApplicationDelegate,
     func setupPanel() {
         let screenFrame = NSScreen.main!.frame
         let panelWidth: CGFloat = 600
-        let panelHeight: CGFloat = 400
+
+        // Derive panel height from Theme.lineCount
+        let rowHeight: CGFloat = 28
+        let intercellSpacing: CGFloat = 2
+        let topPadding: CGFloat = 12
+        let searchFieldHeight: CGFloat = 32
+        let searchTableGap: CGFloat = 12
+        let bottomPadding: CGFloat = 12
+        let rowTotal = CGFloat(Theme.lineCount) * (rowHeight + intercellSpacing)
+        let panelHeight = topPadding + searchFieldHeight + searchTableGap + rowTotal + bottomPadding
+
         let panelX = (screenFrame.width - panelWidth) / 2
         let panelY = (screenFrame.height - panelHeight) / 2 + screenFrame.height * 0.1
 
@@ -70,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         // Search field
         switch Theme.inputType {
         case .bezeled:
-            searchField = NSTextField(frame: NSMakeRect(12, panelHeight - 48, panelWidth - 24, 32))
+            searchField = NSTextField(frame: NSMakeRect(12, panelHeight - topPadding - searchFieldHeight, panelWidth - 24, searchFieldHeight))
             searchField.font = .systemFont(ofSize: Theme.fontSizeSearch)
             searchField.textColor = Theme.hex(Theme.colorFG)
             searchField.backgroundColor = Theme.hex(Theme.colorSel)
@@ -83,9 +93,9 @@ class AppDelegate: NSObject, NSApplicationDelegate,
             contentView.addSubview(searchField)
 
         case .simple:
-            let searchY = panelHeight - 48
-            let searchH: CGFloat = 32
-            let tableInternalOffset: CGFloat = 12  // empirical NSTableView internal padding
+            let searchY = panelHeight - topPadding - searchFieldHeight
+            let searchH = searchFieldHeight
+            let tableInternalOffset: CGFloat = 12
             let inputX = 12 + Theme.contentPadding + tableInternalOffset
             let searchContainer = NSView(frame: NSMakeRect(0, searchY, panelWidth, searchH))
             searchContainer.wantsLayer = true
@@ -113,23 +123,26 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         }
 
         // Scroll view + table view
-        scrollView = NSScrollView(frame: NSMakeRect(12, 12, panelWidth - 24, panelHeight - 68))
+        scrollView = NSScrollView(frame: NSMakeRect(12, bottomPadding, panelWidth - 24, rowTotal))
+        scrollView.automaticallyAdjustsContentInsets = false
+        scrollView.contentInsets = NSEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         scrollView.hasVerticalScroller = true
         scrollView.scrollerStyle = .overlay
         scrollView.drawsBackground = false
         scrollView.borderType = .noBorder
 
         tableView = NSTableView(frame: scrollView.bounds)
+        tableView.style = .plain;
         let col = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("name"))
         col.width = panelWidth - 40
         tableView.addTableColumn(col)
         tableView.headerView = nil
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = 28
+        tableView.rowHeight = rowHeight
         tableView.backgroundColor = .clear
         tableView.selectionHighlightStyle = .regular
-        tableView.intercellSpacing = NSMakeSize(0, 2)
+        tableView.intercellSpacing = NSMakeSize(0, intercellSpacing)
 
         scrollView.documentView = tableView
         contentView.addSubview(scrollView)
@@ -333,12 +346,14 @@ class AppDelegate: NSObject, NSApplicationDelegate,
             }
         }
 
+        let cellLeftPadding: CGFloat = 12
+
         let cell = NSTextField(labelWithAttributedString: attrStr)
         cell.drawsBackground = false
         cell.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(cell)
         cell.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        cell.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Theme.contentPadding).isActive = true
+        cell.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Theme.contentPadding + cellLeftPadding).isActive = true
         cell.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Theme.contentPadding).isActive = true
         return container
     }

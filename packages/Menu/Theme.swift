@@ -18,7 +18,6 @@ enum Theme {
 
     static let contentPadding: CGFloat = 8
 
-    // TODO Shrink or extend height to line count
     static let lineCount = 10
 
     static let inputType: InputType = .simple
