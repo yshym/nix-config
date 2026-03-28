@@ -85,7 +85,8 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         case .simple:
             let searchY = panelHeight - 48
             let searchH: CGFloat = 32
-            let inputX: CGFloat = 22  // aligns with entry text (scrollView x=12 + constant:8 + ~2pt NSTextField inset)
+            let tableInternalOffset: CGFloat = 12  // empirical NSTableView internal padding
+            let inputX = 12 + Theme.contentPadding + tableInternalOffset
             let searchContainer = NSView(frame: NSMakeRect(0, searchY, panelWidth, searchH))
             searchContainer.wantsLayer = true
             searchContainer.layer?.backgroundColor = Theme.hex(Theme.colorBG).cgColor
@@ -94,11 +95,12 @@ class AppDelegate: NSObject, NSApplicationDelegate,
             let prompt = NSTextField(labelWithString: ">")
             prompt.font = .systemFont(ofSize: Theme.fontSizeSearch)
             prompt.textColor = Theme.hex(Theme.colorSel)
-            prompt.frame = NSMakeRect(12, 0, inputX - 8, searchH)
+            prompt.frame = NSMakeRect(0, 0, inputX, searchH)
+            prompt.alignment = .center
             prompt.drawsBackground = false
             searchContainer.addSubview(prompt)
 
-            searchField = NSTextField(frame: NSMakeRect(inputX + 10, 0, panelWidth - inputX - 12, searchH))
+            searchField = NSTextField(frame: NSMakeRect(inputX, 0, panelWidth - inputX - 12, searchH))
             searchField.font = .systemFont(ofSize: Theme.fontSizeSearch)
             searchField.textColor = Theme.hex(Theme.colorFG)
             searchField.focusRingType = .none
@@ -336,8 +338,8 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         cell.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(cell)
         cell.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-        cell.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 8).isActive = true
-        cell.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -8).isActive = true
+        cell.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Theme.contentPadding).isActive = true
+        cell.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Theme.contentPadding).isActive = true
         return container
     }
 

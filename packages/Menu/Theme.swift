@@ -16,6 +16,8 @@ enum Theme {
     static let fontSizeSearch: CGFloat = 18
     static let fontSizeList: CGFloat = 14
 
+    static let contentPadding: CGFloat = 8
+
     // TODO Shrink or extend height to line count
     static let lineCount = 10
 
