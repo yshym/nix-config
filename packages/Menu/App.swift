@@ -46,7 +46,6 @@ class AppDelegate: NSObject, NSApplicationDelegate,
     // MARK: - Panel Setup
 
     func setupPanel() {
-        let screenFrame = NSScreen.main!.frame
         let panelWidth: CGFloat = 600
 
         // Derive panel height from Theme.lineCount
@@ -59,15 +58,13 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         let rowTotal = CGFloat(Theme.lineCount) * (rowHeight + intercellSpacing)
         let panelHeight = topPadding + searchFieldHeight + searchTableGap + rowTotal + bottomPadding
 
-        let panelX = (screenFrame.width - panelWidth) / 2
-        let panelY = (screenFrame.height - panelHeight) / 2 + screenFrame.height * 0.1
-
         panel = NSPanel(
-            contentRect: NSMakeRect(panelX, panelY, panelWidth, panelHeight),
+            contentRect: NSMakeRect(0, 0, panelWidth, panelHeight),
             styleMask: [.titled, .fullSizeContentView, .nonactivatingPanel],
             backing: .buffered,
             defer: false
         )
+        centerPanel()
         panel.level = .floating
         panel.titlebarAppearsTransparent = true
         panel.titleVisibility = .hidden
@@ -147,6 +144,15 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         scrollView.documentView = tableView
         contentView.addSubview(scrollView)
 
+        // Recenter panel on display configuration change (server mode)
+        NotificationCenter.default.addObserver(
+            forName: NSApplication.didChangeScreenParametersNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            self?.centerPanel()
+        }
+
         // Keyboard event monitor
         NSEvent.addLocalMonitorForEvents(matching: .keyDown) { [weak self] event in
             guard let self = self else { return event }
@@ -199,6 +205,15 @@ class AppDelegate: NSObject, NSApplicationDelegate,
                 return event
             }
         }
+    }
+
+    // MARK: - Panel Positioning
+
+    func centerPanel() {
+        guard let screen = NSScreen.main else { return }
+        let panelX = (screen.frame.width - panel.frame.width) / 2
+        let panelY = (screen.frame.height - panel.frame.height) / 2 + screen.frame.height * 0.1
+        panel.setFrameOrigin(NSMakePoint(panelX, panelY))
     }
 
     // MARK: - Show / Hide
