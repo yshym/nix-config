@@ -1,14 +1,25 @@
 import Cocoa
 
 enum Theme {
-    static let colorBG     = 0x282A36
-    static let colorFG     = 0xF8F8F2
-    static let colorSel    = 0x44475A
-    static let colorAccent = 0xBD93F9
-    static let colorInput  = 0x1E1F2E
+    enum InputType {
+        case bezeled
+        case simple
+    }
+
+    static let colorBG      = 0x282A36
+    static let colorFG      = 0xF8F8F2
+    static let colorSel     = 0x44475A
+    static let colorAccent  = 0xBD93F9
+    static let colorInput   = 0x1E1F2E
+    static let colorComment = 0x6272A4
 
     static let fontSizeSearch: CGFloat = 18
     static let fontSizeList: CGFloat = 14
+
+    // TODO Shrink or extend height to line count
+    static let lineCount = 10
+
+    static let inputType: InputType = .simple
 
     static func hex(_ value: Int) -> NSColor {
         NSColor(

@@ -68,17 +68,47 @@ class AppDelegate: NSObject, NSApplicationDelegate,
         let contentView = panel.contentView!
 
         // Search field
-        searchField = NSTextField(frame: NSMakeRect(12, panelHeight - 48, panelWidth - 24, 32))
-        searchField.font = .systemFont(ofSize: Theme.fontSizeSearch)
-        searchField.textColor = Theme.hex(Theme.colorFG)
-        searchField.backgroundColor = Theme.hex(Theme.colorSel)
-        searchField.focusRingType = .none
-        searchField.isBordered = false
-        searchField.isBezeled = true
-        searchField.bezelStyle = .roundedBezel
-        searchField.placeholderString = "Search..."
-        searchField.delegate = self
-        contentView.addSubview(searchField)
+        switch Theme.inputType {
+        case .bezeled:
+            searchField = NSTextField(frame: NSMakeRect(12, panelHeight - 48, panelWidth - 24, 32))
+            searchField.font = .systemFont(ofSize: Theme.fontSizeSearch)
+            searchField.textColor = Theme.hex(Theme.colorFG)
+            searchField.backgroundColor = Theme.hex(Theme.colorSel)
+            searchField.focusRingType = .none
+            searchField.isBordered = false
+            searchField.isBezeled = true
+            searchField.bezelStyle = .roundedBezel
+            searchField.placeholderString = "Search..."
+            searchField.delegate = self
+            contentView.addSubview(searchField)
+
+        case .simple:
+            let searchY = panelHeight - 48
+            let searchH: CGFloat = 32
+            let inputX: CGFloat = 22  // aligns with entry text (scrollView x=12 + constant:8 + ~2pt NSTextField inset)
+            let searchContainer = NSView(frame: NSMakeRect(0, searchY, panelWidth, searchH))
+            searchContainer.wantsLayer = true
+            searchContainer.layer?.backgroundColor = Theme.hex(Theme.colorBG).cgColor
+            contentView.addSubview(searchContainer)
+
+            let prompt = NSTextField(labelWithString: ">")
+            prompt.font = .systemFont(ofSize: Theme.fontSizeSearch)
+            prompt.textColor = Theme.hex(Theme.colorSel)
+            prompt.frame = NSMakeRect(12, 0, inputX - 8, searchH)
+            prompt.drawsBackground = false
+            searchContainer.addSubview(prompt)
+
+            searchField = NSTextField(frame: NSMakeRect(inputX + 10, 0, panelWidth - inputX - 12, searchH))
+            searchField.font = .systemFont(ofSize: Theme.fontSizeSearch)
+            searchField.textColor = Theme.hex(Theme.colorFG)
+            searchField.focusRingType = .none
+            searchField.isBordered = false
+            searchField.isBezeled = false
+            searchField.drawsBackground = false
+            searchField.placeholderString = "Search..."
+            searchField.delegate = self
+            searchContainer.addSubview(searchField)
+        }
 
         // Scroll view + table view
         scrollView = NSScrollView(frame: NSMakeRect(12, 12, panelWidth - 24, panelHeight - 68))
