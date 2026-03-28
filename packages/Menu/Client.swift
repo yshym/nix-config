@@ -8,8 +8,9 @@ func clientConnect() -> Int32 {
 
     var addr = sockaddr_un()
     addr.sun_family = sa_family_t(AF_UNIX)
+    let maxLen = MemoryLayout.size(ofValue: addr.sun_path) - 1
     _ = withUnsafeMutablePointer(to: &addr.sun_path.0) { ptr in
-        path.withCString { strcpy(ptr, $0) }
+        path.withCString { strncpy(ptr, $0, maxLen) }
     }
 
     let result = withUnsafePointer(to: &addr) { ptr in
