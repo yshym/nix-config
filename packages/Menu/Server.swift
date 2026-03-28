@@ -15,9 +15,10 @@ func serverRun() -> Never {
         perror("unlink")
     }
 
-    // Install signal handlers for clean shutdown
+    // Install signal handlers
     signal(SIGTERM) { _ in cleanupSocket(); _exit(0) }
     signal(SIGINT) { _ in cleanupSocket(); _exit(0) }
+    signal(SIGPIPE, SIG_IGN)  // ignore SIGPIPE from closed client connections
     atexit { cleanupSocket() }
 
     // Create Unix domain socket
