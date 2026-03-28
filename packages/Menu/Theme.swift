@@ -10,8 +10,6 @@ enum Theme {
     static let colorFG      = 0xF8F8F2
     static let colorSel     = 0x44475A
     static let colorAccent  = 0xBD93F9
-    static let colorInput   = 0x1E1F2E
-    static let colorComment = 0x6272A4
 
     static let fontSizeSearch: CGFloat = 18
     static let fontSizeList: CGFloat = 14
