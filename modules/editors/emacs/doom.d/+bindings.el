@@ -53,7 +53,8 @@
 
 
 ;; references
-(map! :map (prog-mode-map eglot-mode-map)
+(map! :after eglot
+      :map (prog-mode-map eglot-mode-map)
       :n "g d" #'+lookup/definition
       :n "g D" #'+lookup/references)
 
