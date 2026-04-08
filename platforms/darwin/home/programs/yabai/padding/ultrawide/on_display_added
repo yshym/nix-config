@@ -11,10 +11,10 @@ function display_id_to_uuid() {
 }
 
 YABAI_DISPLAY_UUID=""
-[ -n $YABAI_DISPLAY_ID ] && YABAI_DISPLAY_UUID=$(display_id_to_uuid $YABAI_DISPLAY_ID)
+[ -n "$YABAI_DISPLAY_ID" ] && YABAI_DISPLAY_UUID=$(display_id_to_uuid "$YABAI_DISPLAY_ID")
 
-if [ -n $YABAI_DISPLAY_UUID ]; then
-    echo $YABAI_DISPLAY_UUID > "$DISPLAY_UUID_FILE"
+if [ -n "$YABAI_DISPLAY_UUID" ]; then
+    echo "$YABAI_DISPLAY_UUID" > "$DISPLAY_UUID_FILE"
 fi
 
 case $YABAI_DISPLAY_UUID in

@@ -2,7 +2,7 @@
 
 source "$HOME/.config/yabai/padding/padding.env"
 
-spece_id="$YABAI_SPACE_ID"
+space_id="$YABAI_SPACE_ID"
 if [ -z "$YABAI_SPACE_ID" ]; then
     space_id=$1
 fi

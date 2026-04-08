@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Change padding when a display was added
+# Change padding when a display was removed
 #
 
 source "$HOME/.config/yabai/padding/padding.env"
