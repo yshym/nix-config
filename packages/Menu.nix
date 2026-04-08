@@ -3,7 +3,7 @@
 with pkgs;
 stdenv.mkDerivation rec {
   pname = "Menu";
-  version = "0.0.3";
+  version = "0.0.4";
 
   phases = ["installPhase"];
   installPhase = ''
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     name = "Menu-${version}";
     url =
       "https://github.com/yshym/Menu/releases/download/v${version}/Menu";
-    sha256 = "sha256-3HL0eZKX1C4i/xPCBdR1/mmNx72xF8YwAdYFJ2U6POQ=";
+    sha256 = "sha256-WdMQ+ewEs/c8N47Mvp78gIIGG7N0UnCypZHBQthXlzw=";
   };
 
   meta = with lib; {
