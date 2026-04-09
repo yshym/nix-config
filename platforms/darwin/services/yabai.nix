@@ -59,6 +59,7 @@ in
       yabai -m rule --add app="^Transmission$"    space=media
       yabai -m rule --add app="^Spotify$"         space=media manage=on
       yabai -m rule --add app="^mpv$"             space=media manage=on
+      yabai -m rule --add app="^IINA$"            space=media manage=on
       yabai -m rule --add app="^Finder$"          title="(Co(py|nnect)|Move|Info|Pref)" manage=off
       yabai -m rule --add app="^Spotlight$"       layer=above manage=off
       yabai -m rule --add app="^Steam$"           manage=off

@@ -84,7 +84,7 @@
       inetutils
 
       # entertainment
-      mpv
+      # mpv
       # portaudio
       # spotifyd
       streamlink
