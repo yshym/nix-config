@@ -27,18 +27,19 @@
 (after! doom-themes
   (setq doom-modeline-major-mode-icon t)
 
-  ;; Customize cursor shape and color
-  ;; (setq evil-default-cursor `(t ,cursor-color)
-  ;;       evil-normal-state-cursor `(box ,cursor-color)
-  ;;       evil-insert-state-cursor `(bar ,cursor-color)
-  ;;       evil-visual-state-cursor `(hollow ,cursor-color)
-  ;;       evil-operator-state-cursor `(evil-half-cursor ,cursor-color))
-
   (custom-set-faces!
-    ;; Cursor
-    `(cursor :background ,(doom-color 'orange))
     ;; Corfu
     `(corfu-current :background ,(doom-color 'base3) :extend t)))
+
+;; Customize cursor shape and color
+(add-hook! 'doom-load-theme-hook
+  (let ((cursor-color (doom-color 'orange)))
+    (setq evil-default-cursor `(t ,cursor-color)
+          evil-normal-state-cursor `(box ,cursor-color)
+          evil-insert-state-cursor `(bar ,cursor-color)
+          evil-visual-state-cursor `(hollow ,cursor-color)
+          evil-operator-state-cursor `(evil-half-cursor ,cursor-color))))
+
 
 
 ;; consult
