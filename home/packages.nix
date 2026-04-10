@@ -68,7 +68,7 @@
       tmate
 
       # monitoring
-      neofetch
+      fastfetch
       speedtest-cli
 
       # passwords & security
