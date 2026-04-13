@@ -2,18 +2,20 @@
 
 #
 # Change padding when a display was removed
+# Filter out the removed display before checking remaining state
 #
 
 source "$HOME/.config/yabai/padding/padding.env"
 
-YABAI_DISPLAY_UUID=$(cat "$DISPLAY_UUID_FILE")
-echo "" > "$DISPLAY_UUID_FILE"
+DISPLAYS=$(yabai -m query --displays)
+REMAINING=$(echo "$DISPLAYS" | jq "[.[] | select(.id != $YABAI_DISPLAY_ID)]")
+HAS_INTERNAL=$(echo "$REMAINING" | jq -r "[.[].uuid] | any(. == \"$INTERNAL_DISPLAY_UUID\")")
+HAS_ULTRAWIDE=$(echo "$REMAINING" | jq -r "[.[].uuid] | any(. == \"$ULTRAWIDE_DISPLAY_UUID\")")
 
-case $YABAI_DISPLAY_UUID in
-    $INTERNAL_DISPLAY_UUID)  "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING" ;;
-    $ULTRAWIDE_DISPLAY_UUID) "$SET_HORIZONTAL_PADDING" "$PADDING" ;;
-    *)                       "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING" ;;
-esac
-
-echo "Removed $YABAI_DISPLAY_ID -> $YABAI_DISPLAY_UUID" \
-    >> ~/yabailogs.txt
+if [ "$HAS_INTERNAL" = "true" ]; then
+    "$SET_HORIZONTAL_PADDING" "$PADDING"
+elif [ "$HAS_ULTRAWIDE" = "true" ]; then
+    "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING"
+else
+    "$SET_HORIZONTAL_PADDING" "$PADDING"
+fi

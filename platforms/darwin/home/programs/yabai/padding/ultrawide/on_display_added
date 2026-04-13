@@ -2,26 +2,19 @@
 
 #
 # Change padding when a display was added
+# If internal display is connected, use normal padding
 #
 
 source "$HOME/.config/yabai/padding/padding.env"
 
-function display_id_to_uuid() {
-    echo $(yabai -m query --displays --display $1 | jq -r ".uuid")
-}
+DISPLAYS=$(yabai -m query --displays)
+HAS_INTERNAL=$(echo "$DISPLAYS" | jq -r "[.[].uuid] | any(. == \"$INTERNAL_DISPLAY_UUID\")")
+HAS_ULTRAWIDE=$(echo "$DISPLAYS" | jq -r "[.[].uuid] | any(. == \"$ULTRAWIDE_DISPLAY_UUID\")")
 
-YABAI_DISPLAY_UUID=""
-[ -n "$YABAI_DISPLAY_ID" ] && YABAI_DISPLAY_UUID=$(display_id_to_uuid "$YABAI_DISPLAY_ID")
-
-if [ -n "$YABAI_DISPLAY_UUID" ]; then
-    echo "$YABAI_DISPLAY_UUID" > "$DISPLAY_UUID_FILE"
+if [ "$HAS_INTERNAL" = "true" ]; then
+    "$SET_HORIZONTAL_PADDING" "$PADDING"
+elif [ "$HAS_ULTRAWIDE" = "true" ]; then
+    "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING"
+else
+    "$SET_HORIZONTAL_PADDING" "$PADDING"
 fi
-
-case $YABAI_DISPLAY_UUID in
-    $INTERNAL_DISPLAY_UUID)  "$SET_HORIZONTAL_PADDING" "$PADDING" ;;
-    $ULTRAWIDE_DISPLAY_UUID) "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING" ;;
-    *)                       "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING" ;;
-esac
-
-echo "Added $YABAI_DISPLAY_ID -> $YABAI_DISPLAY_UUID" \
-    >> ~/yabailogs.txt

@@ -6,13 +6,18 @@
 
 source "$HOME/.config/yabai/padding/padding.env"
 
-DISPLAY_UUID=$(yabai -m query --displays | jq -r ".[0].uuid")
+DISPLAYS=$(yabai -m query --displays)
+HAS_INTERNAL=$(echo "$DISPLAYS" | jq -r "[.[].uuid] | any(. == \"$INTERNAL_DISPLAY_UUID\")")
+HAS_ULTRAWIDE=$(echo "$DISPLAYS" | jq -r "[.[].uuid] | any(. == \"$ULTRAWIDE_DISPLAY_UUID\")")
 
-if [ "$DISPLAY_UUID" = "$ULTRAWIDE_DISPLAY_UUID" ]; then
-    echo "Ultrawide display detected"
+if [ "$HAS_INTERNAL" = "true" ]; then
+    echo "Internal display connected"
+    "$SET_HORIZONTAL_PADDING" "$PADDING"
+elif [ "$HAS_ULTRAWIDE" = "true" ]; then
+    echo "Ultrawide display connected without internal"
     "$SET_HORIZONTAL_PADDING" "$ULTRAWIDE_PADDING"
 else
-    echo "No ultrawide display detected"
+    echo "No known display detected"
     "$SET_HORIZONTAL_PADDING" "$PADDING"
 fi
 

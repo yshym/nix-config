@@ -2,10 +2,7 @@
 
 source "$HOME/.config/yabai/padding/padding.env"
 
-DISPLAY_UUID=$(yabai -m query --displays | jq -r ".[0].uuid")
+DISPLAYS=$(yabai -m query --displays)
+HAS_ULTRAWIDE=$(echo "$DISPLAYS" | jq -r "[.[].uuid] | any(. == \"$ULTRAWIDE_DISPLAY_UUID\")")
 
-if [ "$DISPLAY_UUID" = "$ULTRAWIDE_DISPLAY_UUID" ]; then
-    echo "true"
-else
-    echo "false"
-fi
+echo "$HAS_ULTRAWIDE"
