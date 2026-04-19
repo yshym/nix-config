@@ -30,7 +30,10 @@ with lib.my; {
 
   modules = {
     keyboard.kanata.enable = true;
-    shell.opencode.enable = true;
+    shell = {
+      opencode.enable = true;
+      pi.enable = true;
+    };
   };
 
   system = {
