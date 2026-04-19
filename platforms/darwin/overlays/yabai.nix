@@ -4,13 +4,13 @@ self: super:
 {
   # Used to always keep yabai up-to-date
   yabai = super.yabai.overrideAttrs (o: rec {
-    version = "v7.1.18";
+    version = "v7.1.22";
 
     src = super.fetchFromGitHub {
       owner = "koekeishiya";
       repo = "yabai";
       rev = version;
-      sha256 = "sha256-go3CsFxJCHpEJ8EGv9B5pXt/1AifGLM8S5TIXkhKgDc=";
+      sha256 = "sha256-T3sZhJpoZJKQhZpGDyEhpw+dMXoaFO9PEd0g0jDcihc=";
     };
 
     nativeBuildInputs = o.nativeBuildInputs ++ [ super.xxd ];

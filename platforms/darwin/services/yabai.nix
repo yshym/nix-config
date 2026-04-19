@@ -18,6 +18,7 @@ in
       focus_follows_mouse = "autoraise";
       window_animation_duration = 0;
       window_animation_easing = "ease_out_quint";
+      skip_window_focus_animation = "off";
       window_shadow = "off";
       window_placement = "second_child";
       insert_feedback_color = "0xaa7c5c9c";
