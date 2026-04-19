@@ -59,6 +59,10 @@ in
       set -g default-terminal "tmux-256color"
       set -sa terminal-overrides ",*:RGB"
 
+      # Enable CSI u-style key encoding
+      set -g extended-keys on
+      set -g extended-keys-format csi-u
+
       # Renumber window after one is closed
       set -g renumber-windows on
 
