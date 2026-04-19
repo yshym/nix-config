@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.modules.shell.git;
+let cfg = config.modules.shell.opencode;
 in
 {
   options.modules.shell.opencode = {
