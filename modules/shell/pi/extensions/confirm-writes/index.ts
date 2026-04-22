@@ -175,15 +175,23 @@ function openDialog(
     let scroll = state.scroll;
 
     /**
-     * The vendor diff renderer (renderEditDiffResult) already emits each
-     * line fully padded to the requested width and wrapped in its own row
-     * background. Its `stabilizeBackgroundResets` pass keeps the row bg
-     * alive across inline fg resets, so the output is already a
-     * self-contained, full-width, bg-correct row. We pass it through
-     * verbatim — no customBgFn, no leading `\x1b[0m`, no post-processing.
+     * Vendor emits add/remove rows with a painted rowBg, but **context
+     * rows have no rowBg at all** (see getLineRowBackground). When rows
+     * are concatenated (join("\n") in collapsed mode, or successive rows
+     * in the viewport), a bgless context row inherits the previous row's
+     * still-active rowBg → context appears green-tinted under an add row,
+     * red under a remove row. Prepending `\x1b[0m` per row guarantees a
+     * clean SGR starting state so bgless rows render with no bg.
+     *
+     * Safe: a leading `\x1b[0m` does not disturb vendor's carefully
+     * balanced mid-row SGR — it only cancels state leaked *in* from
+     * above. The earlier scroll flicker was caused by `truncateToWidth(_,
+     * pad=true)` injecting `\x1b[0m` *inside* rows, which is different.
      */
-    const diffText = new Text("", 0, 0);
-    const stickyHead = new Text("", 0, 0);
+    const cleanStart = (line: string) => `\x1b[0m${line}`;
+
+    const diffText = new Text("", 0, 0, cleanStart);
+    const stickyHead = new Text("", 0, 0, cleanStart);
     const hintText = new Text("", 1, 0);
 
     /**
@@ -253,11 +261,10 @@ function openDialog(
                 ? theme.fg("accent", "█")
                 : theme.fg("dim", "│"))
             : " ";
-          // Vendor line owns its own bg/fg lifecycle (opens with rowBg,
-          // keeps it alive across inline resets). Bar is appended after
-          // the vendor's trailing state — intentionally unwrapped so we
-          // add zero extra escape sequences to what vendor produced.
-          out.push(`${body}${bar}`);
+          // Leading `\x1b[0m` prevents the previous row's rowBg from
+          // bleeding into this row — critical for context rows which
+          // vendor emits without any bg of their own.
+          out.push(`\x1b[0m${body}${bar}`);
         }
         return out;
       }
@@ -281,10 +288,18 @@ function openDialog(
       // `\x1b[0m` resets mid-line and break the vendor's row-bg invariants).
       const allLines = getAllLines(contentCols);
       const total = allLines.length;
-      if (total <= COLLAPSED_LINES) return allLines.join("\n");
-      const slice = allLines.slice(0, COLLAPSED_LINES);
-      slice.push(theme.fg("dim", `   … ${total - COLLAPSED_LINES} more lines (tab to expand)`));
-      return slice.join("\n");
+      const visible = total <= COLLAPSED_LINES
+        ? allLines
+        : [
+            ...allLines.slice(0, COLLAPSED_LINES),
+            theme.fg("dim", `   … ${total - COLLAPSED_LINES} more lines (tab to expand)`),
+          ];
+      // Append `\x1b[0m` to each line so pi-tui's AnsiCodeTracker (in
+      // wrapTextWithAnsi) sees the row's SGR state fully closed at the
+      // newline. Without this, vendor's context rows — which have no bg of
+      // their own — inherit the previous add/remove row's bg when pi-tui
+      // re-prepends still-active codes across line boundaries.
+      return visible.map((l) => `${l}\x1b[0m`).join("\n");
     }
 
     function computeExpandedViewport(): void {
@@ -312,8 +327,11 @@ function openDialog(
       if (scroll > maxScroll) scroll = maxScroll;
       if (scroll < 0) scroll = 0;
 
-      // Sticky head: vendor lines verbatim, joined with newlines.
-      stickyHead.setText(headLines.join("\n"));
+      // Sticky head: vendor lines verbatim, joined with newlines. Append
+      // `\x1b[0m` per line for the same reason as computeCollapsedText—
+      // pi-tui's AnsiCodeTracker preserves active SGR across `\n`, which
+      // would let add/remove row bg bleed into a following context row.
+      stickyHead.setText(headLines.map((l) => `${l}\x1b[0m`).join("\n"));
     }
 
     function updateHint() {
