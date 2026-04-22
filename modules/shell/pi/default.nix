@@ -6,7 +6,7 @@ let
   settings = {
     lastChangelogVersion = pkgs.unstable.pi-coding-agent.version;
     defaultProvider = "openrouter";
-    defaultModel = "anthropic/claude-opus-4.6";
+    defaultModel = "anthropic/claude-opus-4.7";
     terminal = { clearOnShrink = true; };
   };
 in
