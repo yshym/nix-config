@@ -57,11 +57,17 @@ in
     extraConfig = ''
       # Enable 256-color and truecolor support
       set -g default-terminal "tmux-256color"
-      set -sa terminal-overrides ",*:RGB"
+      set -as terminal-features ",*:RGB:sync:clipboard:hyperlinks:focus"
 
       # Enable CSI u-style key encoding
       set -g extended-keys on
       set -g extended-keys-format csi-u
+
+      # Eliminate tmux's 500ms ESC-detection delay
+      set -sg escape-time 0
+
+      # Forward raw escape sequences
+      set -g allow-passthrough on
 
       # Renumber window after one is closed
       set -g renumber-windows on
