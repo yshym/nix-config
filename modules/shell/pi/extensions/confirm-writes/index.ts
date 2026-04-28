@@ -1,8 +1,11 @@
 /**
  * Confirm Writes Extension
  *
- * Prompts for confirmation before any edit or write tool call,
- * showing a diff preview with intra-line change highlighting.
+ * Prompts for confirmation before any mutating tool call:
+ *   - edit / write:    diff preview with intra-line change highlighting
+ *   - bash (mutating): command preview with yes/no prompt
+ *
+ * Read-only bash commands are auto-approved via `./bash-classifier`.
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
@@ -21,6 +24,7 @@ import { execFileSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { renderEditDiffResult } from "./vendor/diff-renderer.js";
 import { DEFAULT_TOOL_DISPLAY_CONFIG } from "./vendor/types.js";
+import { isReadOnlyBash } from "./bash-classifier.js";
 
 /**
  * Maximum number of diff lines shown in the collapsed (inline) view before
@@ -439,6 +443,11 @@ function openDialog(
           }
           // Still allow esc to cancel while expanded
           if (matchesKey(data, "escape")) { selectList.handleInput(data); return; }
+          // Enter confirms the edit/write while in expanded diff view.
+          if (matchesKey(data, "return") || matchesKey(data, "enter")) {
+            done("yes");
+            return;
+          }
           // Swallow everything else (don't route to hidden select list)
           return;
         }
@@ -470,32 +479,48 @@ function openDialog(
 
 export default function (pi: ExtensionAPI) {
   pi.on("tool_call", async (event, ctx) => {
-    if (event.toolName !== "edit" && event.toolName !== "write") return;
-    if (!ctx.hasUI) return { block: true, reason: "Write blocked (no UI)" };
+    const toolName = event.toolName;
 
-    const filePath = event.input.path as string;
-    const absPath = resolve(ctx.cwd, filePath);
+    if (toolName === "edit" || toolName === "write") {
+      if (!ctx.hasUI) return { block: true, reason: "Write blocked (no UI)" };
 
-    let original = "";
-    try {
-      original = await readFile(absPath, "utf8");
-    } catch {
-      // New file
+      const filePath = event.input.path as string;
+      const absPath = resolve(ctx.cwd, filePath);
+
+      let original = "";
+      try {
+        original = await readFile(absPath, "utf8");
+      } catch {
+        // New file
+      }
+
+      let newContent: string;
+      if (toolName === "edit") {
+        const edits = (event.input.edits as Edit[]) ?? [];
+        newContent = applyEdits(original, edits);
+      } else {
+        newContent = event.input.content as string;
+      }
+
+      const patch = await buildPatch(filePath, original, newContent);
+      const ok = await showDiffConfirm(ctx, toolName, filePath, patch);
+      if (!ok) return { block: true, reason: "Blocked by user" };
+      return;
     }
 
-    let newContent: string;
-    if (event.toolName === "edit") {
-      const edits = (event.input.edits as Edit[]) ?? [];
-      newContent = applyEdits(original, edits);
-    } else {
-      newContent = event.input.content as string;
-    }
+    if (toolName === "bash") {
+      const command = (event.input.command as string | undefined) ?? "";
+      if (isReadOnlyBash(command)) return; // auto-approve pure reads
 
-    const patch = await buildPatch(filePath, original, newContent);
-    const result = await showDiffConfirm(ctx, event.toolName, filePath, patch);
-
-    if (!result) {
-      return { block: true, reason: "Blocked by user" };
+      if (!ctx.hasUI) return { block: true, reason: "Bash blocked (no UI)" };
+      const description = (event.input.description as string | undefined) ?? "";
+      const message = [
+        description ? `Description: ${description}` : undefined,
+        `$ ${command}`,
+      ].filter(Boolean).join("\n\n");
+      const ok = await ctx.ui.confirm("Run bash command?", message);
+      if (!ok) return { block: true, reason: "Blocked by user" };
+      return;
     }
   });
 }

@@ -118,11 +118,15 @@ const DIFF_WIDTH_OPS = {
 };
 
 function clampDiffLineToWidth(text: string, width: number): string {
-	return stabilizeBackgroundResets(clampRenderedLineToWidth(text, width, DIFF_WIDTH_OPS));
+	// Preserve \x1b[49m codes at the outer row stage so that cell-boundary
+	// background-off markers (emitted by renderSplitDivider and
+	// renderSplitBlankCell to stop the left-cell row-bg from bleeding across
+	// the split-view separator) survive this final stabilization pass.
+	return stabilizeBackgroundResets(clampRenderedLineToWidth(text, width, DIFF_WIDTH_OPS), { preserveBgOff: true });
 }
 
 function clampDiffLinesToWidth(lines: string[], width: number): string[] {
-	return clampRenderedLinesToWidth(lines, width, DIFF_WIDTH_OPS).map((line) => stabilizeBackgroundResets(line));
+	return clampRenderedLinesToWidth(lines, width, DIFF_WIDTH_OPS).map((line) => stabilizeBackgroundResets(line, { preserveBgOff: true }));
 }
 
 function normalizeCodeWhitespace(text: string): string {
@@ -218,15 +222,25 @@ function stripBackgroundResetParams(params: number[]): number[] {
 	return sanitized;
 }
 
-function stabilizeBackgroundResets(text: string): string {
+interface StabilizeOptions {
+	// When true, any \x1b[49m (bg off) sequences in the input are preserved
+	// verbatim. Used at the final row-concat stage so cell-boundary BG_OFF
+	// markers (from renderSplitDivider / renderSplitBlankCell) survive.
+	preserveBgOff?: boolean;
+}
+
+function stabilizeBackgroundResets(text: string, options: StabilizeOptions = {}): string {
 	if (!text || !text.includes("\x1b[")) {
 		return text;
 	}
 
-	return text.replace(ANSI_SGR_PATTERN, (_sequence, rawParams: string) => {
+	return text.replace(ANSI_SGR_PATTERN, (sequence, rawParams: string) => {
 		const parsed = toSgrParams(rawParams);
 		if (parsed.length === 0) {
 			return "";
+		}
+		if (options.preserveBgOff && parsed.length === 1 && parsed[0] === 49) {
+			return sequence;
 		}
 		const sanitized = stripBackgroundResetParams(parsed);
 		if (sanitized.length === 0) {
@@ -1611,7 +1625,11 @@ function renderSplitBlankCell(
 	const prefix = renderLinePrefix("context", " ".repeat(lineNumberWidth), theme, undefined, indicatorMode, true);
 	const divider = renderCodeDivider(theme, undefined, indicatorMode);
 	const contentPrefix = renderLineContentIndicatorPrefix("context", theme, undefined, indicatorMode, true);
-	return stabilizeBackgroundResets(`${prefix}${divider}${contentPrefix}${" ".repeat(codeWidth)}`);
+	// Bracket with bg resets (outside stabilization, which strips 49) so that
+	// when this blank cell sits on the right of a pure-removal row, the
+	// remove-row red bg doesn't bleed across the divider into the blank.
+	const BG_OFF = "\x1b[49m";
+	return `${BG_OFF}${stabilizeBackgroundResets(`${prefix}${divider}${contentPrefix}${" ".repeat(codeWidth)}`)}${BG_OFF}`;
 }
 
 function renderSplitCell(
@@ -1657,13 +1675,19 @@ function renderSplitDivider(
 	separatorText: string = SPLIT_SEPARATOR,
 ): string {
 	const dimAnsi = readThemeAnsi(theme, "fg", "dim");
+	// Bracket the divider with bg resets that bypass stabilizeBackgroundResets
+	// (which strips 49 codes). Without these, the left cell's row-bg (e.g.
+	// remove-row red) stays active across the separator and bleeds into the
+	// right cell — visibly as red behind " │ " and, when the right cell is
+	// a blank (pure-removal row), across the entire right column.
+	const BG_OFF = "\x1b[49m";
 	if (!containerBgAnsi) {
-		return stabilizeBackgroundResets(theme.fg("dim", separatorText));
+		return `${BG_OFF}${stabilizeBackgroundResets(theme.fg("dim", separatorText))}${BG_OFF}`;
 	}
 	if (!dimAnsi) {
-		return stabilizeBackgroundResets(`${containerBgAnsi}${theme.fg("dim", separatorText)}${containerBgAnsi}`);
+		return `${BG_OFF}${stabilizeBackgroundResets(`${containerBgAnsi}${theme.fg("dim", separatorText)}${containerBgAnsi}`)}${BG_OFF}`;
 	}
-	return stabilizeBackgroundResets(`${containerBgAnsi}${dimAnsi}${separatorText}\x1b[39m${containerBgAnsi}`);
+	return `${BG_OFF}${stabilizeBackgroundResets(`${containerBgAnsi}${dimAnsi}${separatorText}\x1b[39m${containerBgAnsi}`)}${BG_OFF}`;
 }
 
 function renderSplitTopBorderCell(
