@@ -7,6 +7,7 @@ let
     lastChangelogVersion = pkgs.unstable.pi-coding-agent.version;
     defaultProvider = "openrouter";
     defaultModel = "anthropic/claude-opus-4.7";
+    theme = "dracula";
     terminal = { clearOnShrink = true; };
   };
 in
