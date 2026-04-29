@@ -8,8 +8,15 @@
  * Read-only bash commands are auto-approved via `./bash-classifier`.
  */
 
-import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { DynamicBorder } from "@mariozechner/pi-coding-agent";
+import type {
+  EditToolDetails,
+  ExtensionAPI,
+} from "@mariozechner/pi-coding-agent";
+import {
+  createEditTool,
+  createWriteTool,
+  DynamicBorder,
+} from "@mariozechner/pi-coding-agent";
 import {
   Container,
   SelectList,
@@ -25,6 +32,18 @@ import { tmpdir } from "node:os";
 import { renderEditDiffResult } from "./vendor/diff-renderer.js";
 import { DEFAULT_TOOL_DISPLAY_CONFIG } from "./vendor/types.js";
 import { isReadOnlyBash } from "./bash-classifier.js";
+
+/**
+ * Per-tool-call cache of the unified diff patch computed by the `tool_call`
+ * handler. Reused by the `edit`/`write` renderResult overrides so the
+ * post-execution display uses the same vendored split-diff renderer as the
+ * confirm dialog (matching opencode-style visuals).
+ *
+ * For `edit` we could also read `details.diff` from the built-in tool
+ * (EditToolDetails.diff), but the `write` built-in doesn't emit a diff in
+ * its details, so we stash from the pre-execute handler for consistency.
+ */
+const patchCache = new Map<string, { filePath: string; patch: string }>();
 
 /**
  * Maximum number of diff lines shown in the collapsed (inline) view before
@@ -503,8 +522,13 @@ export default function (pi: ExtensionAPI) {
       }
 
       const patch = await buildPatch(filePath, original, newContent);
+      // Stash so the renderResult override can reuse the exact same patch.
+      patchCache.set(event.toolCallId, { filePath, patch });
       const ok = await showDiffConfirm(ctx, toolName, filePath, patch);
-      if (!ok) return { block: true, reason: "Blocked by user" };
+      if (!ok) {
+        patchCache.delete(event.toolCallId);
+        return { block: true, reason: "Blocked by user" };
+      }
       return;
     }
 
@@ -523,4 +547,176 @@ export default function (pi: ExtensionAPI) {
       return;
     }
   });
+
+  // ---------------------------------------------------------------------
+  // Tool renderer overrides for edit / write.
+  //
+  // We inherit execution from the built-in tools and only provide
+  // renderResult so the post-execution tool row shows the same
+  // split-layout diff used in the confirm dialog (vendored
+  // renderEditDiffResult from pi-tool-display, opencode-style).
+  //
+  // renderCall is left undefined so the built-in header (`edit path/to/f`)
+  // is used as-is.
+  // ---------------------------------------------------------------------
+  const cwd = process.cwd();
+  const originalEdit = createEditTool(cwd);
+  pi.registerTool({
+    name: "edit",
+    label: "edit",
+    description: originalEdit.description,
+    parameters: originalEdit.parameters,
+    async execute(toolCallId, params, signal, onUpdate) {
+      return originalEdit.execute(toolCallId, params, signal, onUpdate);
+    },
+    renderResult(result, { isPartial, expanded }, theme, context) {
+      if (isPartial) return new Text(theme.fg("warning", "Editing..."), 0, 0);
+      const content = result.content[0];
+      if (content?.type === "text" && content.text.startsWith("Error")) {
+        return new Text(theme.fg("error", content.text.split("\n")[0]), 0, 0);
+      }
+      const details = result.details as EditToolDetails | undefined;
+      const cached = patchCache.get(context.toolCallId);
+      const patch = details?.diff ?? cached?.patch ?? "";
+      const filePath = cached?.filePath ?? (context.args as { path?: string }).path ?? "";
+      // Keep cached entry around until the tool row is destroyed so
+      // re-renders (resize/expand toggle) reuse the same patch.
+      if (!patch.trim()) {
+        return new Text(theme.fg("muted", "↳ no changes"), 0, 0);
+      }
+      return buildDiffComponent(patch, filePath, theme, expanded);
+    },
+  });
+
+  const originalWrite = createWriteTool(cwd);
+  pi.registerTool({
+    name: "write",
+    label: "write",
+    description: originalWrite.description,
+    parameters: originalWrite.parameters,
+    async execute(toolCallId, params, signal, onUpdate) {
+      return originalWrite.execute(toolCallId, params, signal, onUpdate);
+    },
+    renderResult(result, { isPartial, expanded }, theme, context) {
+      if (isPartial) return new Text(theme.fg("warning", "Writing..."), 0, 0);
+      const content = result.content[0];
+      if (content?.type === "text" && content.text.startsWith("Error")) {
+        return new Text(theme.fg("error", content.text.split("\n")[0]), 0, 0);
+      }
+      const cached = patchCache.get(context.toolCallId);
+      const patch = cached?.patch ?? "";
+      const filePath = cached?.filePath ?? (context.args as { path?: string }).path ?? "";
+      if (!patch.trim()) {
+        return new Text(theme.fg("success", "Written"), 0, 0);
+      }
+      return buildDiffComponent(patch, filePath, theme, expanded);
+    },
+  });
+}
+
+/**
+ * Build a diff component using the vendored pi-tool-display renderer with
+ * the same theme proxy + config as the confirm dialog.
+ *
+ * Three adjustments over a naive call to renderEditDiffResult:
+ *
+ * 1. **Hide container background slots** (toolSuccessBg/etc.) so the
+ *    renderer doesn't mix its own row backgrounds with pi's outer row tint.
+ *    We still need (2) because pi's outer Box paints the tint ANYWAY via
+ *    its own bgFn—this proxy only stops the inner renderer from re-painting
+ *    over it.
+ *
+ * 2. **Strip unified-diff chrome lines** (`--- path`, `+++ path`, `@@ hunk`)
+ *    from the patch text before parsing. These add no information for a
+ *    single-file in-line diff and render as unstyled context rows that
+ *    inherit the outer green tint, producing a visually distinct top band.
+ *
+ * 3. **Cancel the outer toolSuccessBg per line** by prepending `\x1b[49m` to
+ *    each rendered line. pi's Box.bgFn wraps our entire line as
+ *    `\x1b[42m{line}\x1b[49m`; our leading `\x1b[49m` immediately cancels
+ *    the `\x1b[42m` so cells that the vendor renderer leaves un-painted
+ *    show the terminal's default background instead of the success green.
+ */
+function buildDiffComponent(
+  patch: string,
+  filePath: string,
+  theme: any,
+  expanded: boolean,
+): Component {
+  const diffTheme: any = new Proxy(theme, {
+    get(target: any, prop: string | symbol) {
+      if (prop === "getBgAnsi") {
+        return (color: string) => {
+          if (
+            color === "toolSuccessBg" ||
+            color === "toolPendingBg" ||
+            color === "toolErrorBg" ||
+            color === "userMessageBg"
+          ) {
+            return "";
+          }
+          return target.getBgAnsi(color);
+        };
+      }
+      const v = target[prop];
+      return typeof v === "function" ? v.bind(target) : v;
+    },
+  });
+
+  const stripped = stripUnifiedChrome(patch);
+  const inner = renderEditDiffResult(
+    { diff: stripped },
+    { expanded, filePath },
+    { ...DEFAULT_TOOL_DISPLAY_CONFIG, diffInlineEmphasis: false },
+    diffTheme,
+    "",
+  );
+
+  // Adapter component: prepend `\x1b[49m` to every line so pi's outer
+  // toolSuccessBg is cancelled for cells that our inner renderer doesn't
+  // paint itself.
+  return {
+    render(width: number): string[] {
+      return inner.render(width).map((line) => `\x1b[49m${line}`);
+    },
+    invalidate(): void {
+      inner.invalidate?.();
+    },
+  };
+}
+
+/**
+ * Strip unified-diff file metadata lines. Input `patch` is what `diff -u`
+ * produced for a single file; we drop:
+ *   - `--- path` / `+++ path`    (file meta — file path is already in the
+ *                                  tool's renderCall header)
+ *   - `diff --git ...`, `index ...`, `rename from/to`, `new file mode`,
+ *     `deleted file mode` (extended git meta, unlikely from `diff -u` but
+ *     harmless to filter)
+ *
+ * We deliberately **keep `@@ hunk @@` lines** — the vendored renderer
+ * parses them to assign old/new line numbers to each diff row. Dropping
+ * them would produce `▌     │ foo` rows with empty line-number columns.
+ * The vendor renders hunk headers as a subtle muted line; see
+ * `formatMetaEntryRows` in vendor/diff-renderer.ts.
+ */
+function stripUnifiedChrome(patch: string): string {
+  const lines = patch.split("\n");
+  const out: string[] = [];
+  for (const line of lines) {
+    if (
+      line.startsWith("--- ") ||
+      line.startsWith("+++ ") ||
+      line.startsWith("diff --git") ||
+      line.startsWith("index ") ||
+      line.startsWith("rename from ") ||
+      line.startsWith("rename to ") ||
+      line.startsWith("new file mode ") ||
+      line.startsWith("deleted file mode ")
+    ) {
+      continue;
+    }
+    out.push(line);
+  }
+  return out.join("\n");
 }
