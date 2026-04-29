@@ -7,6 +7,7 @@
 ;; org
 (after! org
   (setq org-directory "~/dev/org"
+        org-startup-folded t
         org-latex-packages-alist '(("AUTO" "babel" t)
                                    ("T2A" "fontenc" t))
         +org-msg-accent-color "#282a36"
