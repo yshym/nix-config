@@ -31,6 +31,7 @@ import {
   matchesKey,
   type Component,
   type SelectItem,
+  type TUI,
 } from "@mariozechner/pi-tui";
 import {
   DEFAULT_TOOL_DISPLAY_CONFIG,
@@ -81,10 +82,14 @@ function openDialog(
   state: { expanded: boolean; scroll: number },
 ): Promise<DialogOutcome> {
   const useOverlay = state.expanded;
+  // Hoisted so `overlayOptions` (evaluated outside the factory by
+  // showExtensionCustom) can read live terminal dimensions. Assigned
+  // synchronously when the factory runs, before showOverlay calls
+  // overlayOptions.
+  let capturedTui: TUI | null = null;
   return ctx.ui.custom<DialogOutcome>(
     (tui, theme, _kb, done) => {
-      // Capture tui for use in overlayOptions so sizing stays live on resize.
-      const liveTui = tui;
+      capturedTui = tui;
       const selectList = new SelectList(
         [
           { value: "yes", label: "Yes, apply" },
@@ -420,8 +425,8 @@ function openDialog(
           // Expanded: full-screen overlay anchored bottom-left so it
           // covers the spinner and chat scrollback entirely.
           overlayOptions: () => {
-            const cols = (liveTui.terminal.columns as number | undefined) ?? 80;
-            const rows = (liveTui.terminal.rows as number | undefined) ?? 40;
+            const cols = (capturedTui?.terminal.columns as number | undefined) ?? 80;
+            const rows = (capturedTui?.terminal.rows as number | undefined) ?? 40;
             return {
               anchor: "bottom-left" as const,
               width: cols,

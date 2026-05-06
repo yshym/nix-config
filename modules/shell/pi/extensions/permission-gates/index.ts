@@ -52,24 +52,6 @@ function applyEdits(original: string, edits: Edit[]): string {
 }
 
 /**
- * Validate edit list for duplicate oldText entries. If detected, the edit
- * tool would silently apply only the first occurrence, making our preview
- * diff diverge from the actual write — reject early so the user sees the
- * mismatch and the agent can fix its edits.
- */
-function validateEdits(edits: Edit[]): string | null {
-  const seen = new Set<string>();
-  for (const edit of edits) {
-    if (edit.oldText === "") continue;
-    if (seen.has(edit.oldText)) {
-      return `Duplicate edit oldText: ${edit.oldText.slice(0, 128).replace(/\n/g, "\\n")}`;
-    }
-    seen.add(edit.oldText);
-  }
-  return null;
-}
-
-/**
  * Shell out to system `diff -u` to produce a unified diff. We use a
  * tmpdir + two temp files rather than in-process diff so the output
  * matches exactly what `git diff` / opencode render, and so we don't
@@ -153,10 +135,6 @@ export default function (pi: ExtensionAPI) {
       let newContent: string;
       if (toolName === "edit") {
         const edits = (event.input.edits as Edit[]) ?? [];
-        const validationError = validateEdits(edits);
-        if (validationError) {
-          return { block: true, reason: validationError };
-        }
         newContent = applyEdits(original, edits);
       } else {
         newContent = event.input.content as string;
