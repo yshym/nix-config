@@ -28,6 +28,7 @@ import {
   createWriteTool,
 } from "@mariozechner/pi-coding-agent";
 import { Text } from "@mariozechner/pi-tui";
+import { appendFileSync } from "node:fs";
 import { buildDiffComponent } from "./diff-component.js";
 import { patchCache } from "./patch-cache.js";
 
@@ -56,6 +57,10 @@ export default function (pi: ExtensionAPI) {
     parameters: originalEdit.parameters,
     async execute(toolCallId, params, signal, onUpdate) {
       return originalEdit.execute(toolCallId, params, signal, onUpdate);
+    },
+    renderCall(args, theme, context) {
+      const path = (args as { path?: string })?.path ?? "";
+      return new Text(`${theme.fg("toolTitle", theme.bold("edit"))} ${theme.fg("accent", path)}`, 0, 0);
     },
     renderResult(result, { isPartial, expanded }, theme, context) {
       if (isPartial) return new Text(theme.fg("warning", "Editing..."), 0, 0);
