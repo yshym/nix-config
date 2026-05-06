@@ -8,6 +8,7 @@ let
     defaultProvider = "openrouter";
     defaultModel = "anthropic/claude-opus-4.7";
     theme = "dracula";
+    quietStartup = true;
     terminal = { clearOnShrink = true; };
   };
 in
@@ -25,7 +26,11 @@ in
         "pi/extensions".source = ./extensions;
         "pi/settings.json".text = builtins.toJSON settings;
       };
-      home.sessionVariables.PI_CODING_AGENT_DIR = "~/.config/pi";
+      home.sessionVariables = {
+        PI_CODING_AGENT_DIR = "~/.config/pi";
+        # Skip the "update available" banner on startup
+        PI_SKIP_VERSION_CHECK = "1";
+      };
     };
   };
 }
