@@ -46,11 +46,10 @@ const DESTRUCTIVE_PATTERNS: RegExp[] = [
   //   - `>foo` / `> foo`        (but not `>>`, handled separately, and
   //                              not heredoc/herestring `<<` tails)
   //   - `>>foo`
-  // We deliberately do NOT match `>` to /dev/null or `>&N` fd-dup here
-  // because that would require a parser; any `>` at all is a prompt
-  // trigger. If the command is truly harmless, the user can approve once.
-  /(^|[^<])>(?!>)/,
-  />>/,
+  // We deliberately do NOT match `>` to /dev/null or `>&N` fd-dup
+  // because redirecting to /dev/null or duplicating fds is harmless.
+  /(^|[^<])>(?!>)(?!\s*\/dev\/null)(?!>&)(?!&\d)/,
+  />>(?!\s*\/dev\/null)/,
 
   // Package managers (install / remove / publish mutate state).
   /\bnpm\s+(install|uninstall|update|ci|link|publish)\b/i,
