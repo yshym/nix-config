@@ -65,8 +65,15 @@ export function buildDiffComponent(
       // Pad is a plain space emitted BEFORE `\x1b[49m` so it stays on the
       // outer Box's bg (toolSuccessBg / toolErrorBg); the reset only
       // applies to the diff content that follows.
+      //
+      // Prepend a blank line so there's a visual gap between the
+      // `edit <path>` / `write <path>` header and the diff grid. The
+      // blank is a bare empty string — pi's outer Box.bgFn wraps every
+      // child line (including this one) with the tool-row success /
+      // error tint, so it renders as a solid strip of bg.
       const innerWidth = Math.max(1, width - 1);
-      return inner.render(innerWidth).map((line) => `\x1b[49m${line}`);
+      const lines = inner.render(innerWidth).map((line) => `\x1b[49m${line}`);
+      return ["", ...lines];
     },
     invalidate(): void {
       inner.invalidate?.();
