@@ -36,6 +36,12 @@ export { DEFAULT_TOOL_DISPLAY_CONFIG } from "./vendor/types.js";
  *    `\x1b[42m{line}\x1b[49m`; a leading `\x1b[49m` immediately cancels the
  *    `\x1b[42m` so cells the vendor renderer leaves un-painted show the
  *    terminal's default background instead of the tool-row's success green.
+ *
+ * 4. **Add a 1-col left pad BEFORE the bg reset** so the pad itself
+ *    inherits the outer tool-row bg (success green / error red). This
+ *    aligns the diff block with the `edit <path>` / `write <path>`
+ *    header (which has its own `paddingX=1`) while keeping the diff
+ *    content area on the terminal's default bg.
  */
 export function buildDiffComponent(
   patch: string,
@@ -55,7 +61,12 @@ export function buildDiffComponent(
 
   return {
     render(width: number): string[] {
-      return inner.render(width).map((line) => `\x1b[49m${line}`);
+      // Render vendor at width - 1 to reserve a column for our left pad.
+      // Pad is a plain space emitted BEFORE `\x1b[49m` so it stays on the
+      // outer Box's bg (toolSuccessBg / toolErrorBg); the reset only
+      // applies to the diff content that follows.
+      const innerWidth = Math.max(1, width - 1);
+      return inner.render(innerWidth).map((line) => `\x1b[49m${line}`);
     },
     invalidate(): void {
       inner.invalidate?.();

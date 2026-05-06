@@ -55,18 +55,40 @@ export default function (pi: ExtensionAPI) {
     label: "edit",
     description: originalEdit.description,
     parameters: originalEdit.parameters,
+    // Built-in `edit` declares `renderShell: "self"` so it can draw its
+    // own framed preview box. We only override `renderCall` /
+    // `renderResult` and still want pi's default tool-row chrome
+    // (success/error/pending bg painted by `contentBox.bgFn`). If we
+    // leave this unset the renderer falls back to the built-in's
+    // `"self"` and our Text children get no bg wrapping at all.
+    renderShell: "default",
     async execute(toolCallId, params, signal, onUpdate) {
       return originalEdit.execute(toolCallId, params, signal, onUpdate);
     },
     renderCall(args, theme, context) {
       const path = (args as { path?: string })?.path ?? "";
-      return new Text(`${theme.fg("toolTitle", theme.bold("edit"))} ${theme.fg("accent", path)}`, 0, 0);
+      // No `customBgFn` here — the outer `contentBox.bgFn` (set by pi's
+      // `ToolExecutionComponent.updateDisplay` to pending / success /
+      // error) paints the row bg for us.
+      return new Text(
+        `${theme.fg("toolTitle", theme.bold("edit"))} ${theme.fg("accent", path)}`,
+        0,
+        0,
+      );
     },
     renderResult(result, { isPartial, expanded }, theme, context) {
       if (isPartial) return new Text(theme.fg("warning", "Editing..."), 0, 0);
       const content = result.content[0];
-      if (content?.type === "text" && content.text.startsWith("Error")) {
-        return new Text(theme.fg("error", content.text.split("\n")[0]), 0, 0);
+      const resultText = content?.type === "text" ? content.text : "";
+      const isErr =
+        result.isError === true
+        || resultText.startsWith("Error")
+        || resultText.startsWith("Could not find")
+        || resultText.startsWith("Found ");
+      // Error-like results (edit returns plain text when it can't find
+      // or disambiguate the target). Render them with error color.
+      if (isErr) {
+        return new Text(theme.fg("error", resultText), 0, 0);
       }
       // `edit` tool's details carry a `diff` string. Prefer a
       // pre-computed patch from `patchCache` (populated by
@@ -91,6 +113,9 @@ export default function (pi: ExtensionAPI) {
     label: "write",
     description: originalWrite.description,
     parameters: originalWrite.parameters,
+    // See comment on `edit` above — force the default shell so pi paints
+    // pending/success/error bg on the tool row.
+    renderShell: "default",
     async execute(toolCallId, params, signal, onUpdate) {
       return originalWrite.execute(toolCallId, params, signal, onUpdate);
     },
@@ -114,8 +139,13 @@ export default function (pi: ExtensionAPI) {
     renderResult(result, { isPartial, expanded }, theme, context) {
       if (isPartial) return new Text(theme.fg("warning", "Writing..."), 0, 0);
       const content = result.content[0];
-      if (content?.type === "text" && content.text.startsWith("Error")) {
-        return new Text(theme.fg("error", content.text.split("\n")[0]), 0, 0);
+      const resultText = content?.type === "text" ? content.text : "";
+      const isErr =
+        result.isError === true
+        || resultText.startsWith("Error")
+        || resultText.startsWith("Could not");
+      if (isErr) {
+        return new Text(theme.fg("error", resultText), 0, 0);
       }
       // `write` tool's built-in details do NOT include a diff, so we
       // depend entirely on `patchCache` being populated upstream. If

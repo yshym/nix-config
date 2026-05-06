@@ -115,9 +115,12 @@ function openDialog(
       // own collapsed-mode truncation with a footer — the vendor's
       // built-in collapsed-mode hint is tuned for tool rows, not for a
       // tab-expandable confirm dialog.
+      //
+      // Strip unified-diff chrome (`--- a/path`, `+++ b/path`)
       const diffTheme = makeDiffTheme(theme);
+      const strippedPatch = stripUnifiedChrome(patch);
       const diffComponent = renderEditDiffResult(
-        { diff: patch },
+        { diff: strippedPatch },
         { expanded: true, filePath },
         { ...DEFAULT_TOOL_DISPLAY_CONFIG, diffInlineEmphasis: false },
         diffTheme,
@@ -132,8 +135,7 @@ function openDialog(
         // no re-pad, no reset injection — because any of those would
         // inject stray `\x1b[0m` mid-row and break vendor's row-bg.
         if (cachedAllWidth !== contentCols) {
-          const rawLines = diffComponent.render(contentCols);
-          cachedAllLines = stripUnifiedChrome(rawLines.join("\n")).split("\n");
+          cachedAllLines = diffComponent.render(contentCols);
           cachedAllWidth = contentCols;
         }
         return cachedAllLines;
@@ -152,7 +154,7 @@ function openDialog(
 
       const diffText = new Text("", 0, 0, cleanStart);
       const stickyHead = new Text("", 0, 0, cleanStart);
-      const hintText = new Text("", 1, 0);
+      const hintText = new Text("", 0, 0);
 
       /**
        * Scrolling viewport for the diff body with a scrollbar in the
@@ -313,7 +315,7 @@ function openDialog(
       const titleText = new Text(
         theme.fg("accent", theme.bold(`${toolName}: `)) +
           theme.fg("text", filePath),
-        1,
+        0,
         0,
       );
       const titleBorder = new DynamicBorder((s: string) =>
