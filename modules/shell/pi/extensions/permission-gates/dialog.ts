@@ -36,6 +36,7 @@ import {
   DEFAULT_TOOL_DISPLAY_CONFIG,
   makeDiffTheme,
   renderEditDiffResult,
+  stripUnifiedChrome,
 } from "../rich-diff/diff-component.js";
 
 /** Max lines shown inline before the "... N more" truncation footer. */
@@ -54,15 +55,21 @@ export async function showDiffConfirm(
   filePath: string,
   patch: string,
 ): Promise<boolean> {
-  const state = { expanded: false, scroll: 0 };
+  // Track the last expanded scroll position so it survives tab-toggle.
+  const state = { expanded: false, scroll: 0, lastExpandedScroll: 0 };
   while (true) {
     const outcome = await openDialog(ctx, toolName, filePath, patch, state);
     if (outcome === "yes") return true;
     if (outcome === "no") return false;
     // tab pressed: flip the expanded state and reopen in the other
-    // overlay mode. Scroll resets since the layout is different.
+    // overlay mode. Restore the expanded scroll position when expanding,
+    // collapse scroll to 0 when collapsing.
     state.expanded = !state.expanded;
-    state.scroll = 0;
+    if (state.expanded) {
+      state.scroll = state.lastExpandedScroll;
+    } else {
+      state.scroll = 0;
+    }
   }
 }
 
@@ -76,6 +83,8 @@ function openDialog(
   const useOverlay = state.expanded;
   return ctx.ui.custom<DialogOutcome>(
     (tui, theme, _kb, done) => {
+      // Capture tui for use in overlayOptions so sizing stays live on resize.
+      const liveTui = tui;
       const selectList = new SelectList(
         [
           { value: "yes", label: "Yes, apply" },
@@ -109,16 +118,6 @@ function openDialog(
         diffTheme,
         "",
       );
-      const stripAnsi = (s: string) => s.replace(/\x1b\[[0-9;]*m/g, "");
-      function stripChrome(lines: string[]): string[] {
-        return lines.filter((line) => {
-          const bare = stripAnsi(line).trim();
-          if (bare.startsWith("--- ") || bare.startsWith("+++ ")) return false;
-          if (bare.startsWith("@@")) return false;
-          return true;
-        });
-      }
-
       let cachedAllLines: string[] = [];
       let cachedAllWidth = -1;
       function getAllLines(contentCols: number): string[] {
@@ -128,7 +127,8 @@ function openDialog(
         // no re-pad, no reset injection — because any of those would
         // inject stray `\x1b[0m` mid-row and break vendor's row-bg.
         if (cachedAllWidth !== contentCols) {
-          cachedAllLines = stripChrome(diffComponent.render(contentCols));
+          const rawLines = diffComponent.render(contentCols);
+          cachedAllLines = stripUnifiedChrome(rawLines.join("\n")).split("\n");
           cachedAllWidth = contentCols;
         }
         return cachedAllLines;
@@ -372,6 +372,8 @@ function openDialog(
         },
         handleInput(data: string) {
           if (matchesKey(data, "tab")) {
+            // Save expanded scroll so it survives toggle back to collapsed.
+            if (expanded) state.lastExpandedScroll = scroll;
             done("toggle");
             return;
           }
@@ -418,8 +420,8 @@ function openDialog(
           // Expanded: full-screen overlay anchored bottom-left so it
           // covers the spinner and chat scrollback entirely.
           overlayOptions: () => {
-            const cols = (process.stdout.columns as number | undefined) ?? 80;
-            const rows = (process.stdout.rows as number | undefined) ?? 40;
+            const cols = (liveTui.terminal.columns as number | undefined) ?? 80;
+            const rows = (liveTui.terminal.rows as number | undefined) ?? 40;
             return {
               anchor: "bottom-left" as const,
               width: cols,

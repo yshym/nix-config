@@ -86,6 +86,10 @@ const DESTRUCTIVE_PATTERNS: RegExp[] = [
   /\bservice\s+\S+\s+(start|stop|restart)\b/i,
   /\blaunchctl\s+(load|unload|kickstart|bootstrap|bootout)\b/i,
 
+  // Network file download (fetches data to disk).
+  /\bcurl\b/i,
+  /\bwget\b/i,
+
   // Interactive editors (they can write files and the agent can't
   // interact with them usefully anyway).
   /\b(vim?|nano|emacs|code|subl)\b/i,
@@ -206,8 +210,6 @@ const SAFE_PATTERNS: RegExp[] = [
   /^\s*nix\s+(show-config|show-derivation|eval|derivation|path-info|hash|search|why-depends)\b/i,
   /^\s*node\s+--version\b/i,
   /^\s*python\s+--version\b/i,
-  /^\s*curl\s/i,
-  /^\s*wget\s+-O\s*-/i,
 ];
 
 /**

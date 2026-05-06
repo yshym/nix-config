@@ -25,7 +25,7 @@
  */
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
-import { execFileSync } from "node:child_process";
+import { execFile } from "node:child_process";
 import { readFile, writeFile, mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
@@ -52,10 +52,31 @@ function applyEdits(original: string, edits: Edit[]): string {
 }
 
 /**
+ * Validate edit list for duplicate oldText entries. If detected, the edit
+ * tool would silently apply only the first occurrence, making our preview
+ * diff diverge from the actual write — reject early so the user sees the
+ * mismatch and the agent can fix its edits.
+ */
+function validateEdits(edits: Edit[]): string | null {
+  const seen = new Set<string>();
+  for (const edit of edits) {
+    if (edit.oldText === "") continue;
+    if (seen.has(edit.oldText)) {
+      return `Duplicate edit oldText: ${edit.oldText.slice(0, 128).replace(/\n/g, "\\n")}`;
+    }
+    seen.add(edit.oldText);
+  }
+  return null;
+}
+
+/**
  * Shell out to system `diff -u` to produce a unified diff. We use a
  * tmpdir + two temp files rather than in-process diff so the output
  * matches exactly what `git diff` / opencode render, and so we don't
  * re-implement the standard unified-diff format.
+ *
+ * Uses `execFile` (async) instead of `execFileSync` to avoid blocking
+ * the Node.js event loop during tool execution.
  */
 async function buildPatch(
   filePath: string,
@@ -68,20 +89,40 @@ async function buildPatch(
   try {
     await writeFile(oldFile, original);
     await writeFile(newFile, newContent);
-    const result = execFileSync("diff", [
-      "-u",
-      "--label",
-      `a/${filePath}`,
-      "--label",
-      `b/${filePath}`,
-      oldFile,
-      newFile,
-    ]);
-    return result.toString();
+    const { stdout, stderr } = await new Promise<{
+      stdout: string;
+      stderr: string;
+    }>((resolve, reject) => {
+      const child = execFile("diff", [
+        "-u",
+        "--label",
+        `a/${filePath}`,
+        "--label",
+        `b/${filePath}`,
+        oldFile,
+        newFile,
+      ]);
+      let stdout = "";
+      let stderr = "";
+      child.stdout?.on("data", (d) => (stdout += d));
+      child.stderr?.on("data", (d) => (stderr += d));
+      child.on("error", (e) => reject(e));
+      child.on("close", (code) => {
+        if (code === 0) {
+          resolve({ stdout, stderr });
+        } else {
+          // `diff -u` exits non-zero when files differ — the diff is on
+          // stdout. We reject so the caller can handle the patch.
+          reject({ stdout, stderr });
+        }
+      });
+    });
+    return stdout;
   } catch (e: any) {
-    // `diff -u` exits non-zero when the files differ — the patch is
-    // still on stdout, which execFileSync attaches to the error object.
-    return e.stdout?.toString() ?? "";
+    // diff exited non-zero (files differ) — the patch is on stdout.
+    // If it's our own rejection shape, use stdout; otherwise return "".
+    if (e.stdout) return e.stdout;
+    return "";
   } finally {
     await rm(dir, { recursive: true, force: true });
   }
@@ -109,10 +150,17 @@ export default function (pi: ExtensionAPI) {
         // New file — original remains "".
       }
 
-      const newContent =
-        toolName === "edit"
-          ? applyEdits(original, (event.input.edits as Edit[]) ?? [])
-          : (event.input.content as string);
+      let newContent: string;
+      if (toolName === "edit") {
+        const edits = (event.input.edits as Edit[]) ?? [];
+        const validationError = validateEdits(edits);
+        if (validationError) {
+          return { block: true, reason: validationError };
+        }
+        newContent = applyEdits(original, edits);
+      } else {
+        newContent = event.input.content as string;
+      }
 
       const patch = await buildPatch(filePath, original, newContent);
       // Stash so rich-diff's renderResult override reuses the exact
