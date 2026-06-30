@@ -53,6 +53,7 @@ with lib.my;
     };
 
     modules = {
+      h.enable = true;
       dev = {
         python = {
           enable = true;
