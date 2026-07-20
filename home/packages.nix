@@ -64,7 +64,6 @@
 
       # communication
       isync
-      mu
       tmate
 
       # monitoring

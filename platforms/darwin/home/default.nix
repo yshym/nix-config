@@ -4,9 +4,6 @@
   system = {
     primaryUser = config.user.name;
     activationScripts.applications.text = pkgs.lib.mkAfter ''
-      # Disable the creation of desktop service store files
-      defaults write com.apple.desktopservices DSDontWriteNetworkStores true
-
       # Create Proton Drive symlink
       ln -snf $HOME/Library/CloudStorage/ProtonDrive-yshym@pm.me-folder $HOME/ProtonDrive
 

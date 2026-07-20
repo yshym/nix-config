@@ -11,7 +11,7 @@
 
     # development
     chromedriver
-    docker
+    docker_29
     docker-compose
 
     # security
@@ -28,7 +28,6 @@
 
     # entertainment
     iina
-    spotify-player
     my.Spotify
     # nodePackages.webtorrent-cli
     my.Menu

@@ -8,7 +8,7 @@
     ./exa.nix
     ./firefox
     ./go.nix
-    ./ncspot
+    # ./ncspot
     ./password-store.nix
     ./scripts
     ./tmux
