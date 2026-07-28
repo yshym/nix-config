@@ -23,10 +23,10 @@
       alt - e : doom everywhere
 
       # focus bsp windows
-      alt - h : "$HOME/.config/yabai/focus_west.sh"
-      alt - j : "$HOME/.config/yabai/focus_south.sh"
-      alt - k : "$HOME/.config/yabai/focus_north.sh"
-      alt - l : "$HOME/.config/yabai/focus_east.sh"
+      alt - h : "$HOME/.config/yabai/focus.sh" west
+      alt - j : "$HOME/.config/yabai/focus.sh" south
+      alt - k : "$HOME/.config/yabai/focus.sh" north
+      alt - l : "$HOME/.config/yabai/focus.sh" east
 
       # swap window
       shift + alt - h : yabai -m window --swap west
@@ -40,17 +40,17 @@
       shift + cmd - k : yabai -m window --warp north
       shift + cmd - l : yabai -m window --warp east
 
-      # focus desktops
-      alt - 1 : yabai -m space --focus 1
-      alt - 2 : yabai -m space --focus 2
-      alt - 3 : yabai -m space --focus 3
-      alt - 4 : yabai -m space --focus 4
-      alt - 5 : yabai -m space --focus 5
-      alt - 6 : yabai -m space --focus 6
-      alt - 7 : yabai -m space --focus 7
-      alt - 8 : yabai -m space --focus 8
-      alt - 9 : yabai -m space --focus 9
-      alt - 0 : yabai -m space --focus 10
+      # focus space
+      alt - 1 : "$HOME/.config/yabai/focus_space.sh" 1
+      alt - 2 : "$HOME/.config/yabai/focus_space.sh" 2
+      alt - 3 : "$HOME/.config/yabai/focus_space.sh" 3
+      alt - 4 : "$HOME/.config/yabai/focus_space.sh" 4
+      alt - 5 : "$HOME/.config/yabai/focus_space.sh" 5
+      alt - 6 : "$HOME/.config/yabai/focus_space.sh" 6
+      alt - 7 : "$HOME/.config/yabai/focus_space.sh" 7
+      alt - 8 : "$HOME/.config/yabai/focus_space.sh" 8
+      alt - 9 : "$HOME/.config/yabai/focus_space.sh" 9
+      alt - 0 : "$HOME/.config/yabai/focus_space.sh" 10
 
       # send window to desktop and follow focus
       shift + alt - x : yabai -m window --space recent && yabai -m space --focus recent

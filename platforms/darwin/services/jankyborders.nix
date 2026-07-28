@@ -12,6 +12,7 @@ in {
     width = 5.0;
     hidpi = false;
     order = "above";
+    ax_focus = true;
     blacklist = [ "choose" ];
   };
 }
