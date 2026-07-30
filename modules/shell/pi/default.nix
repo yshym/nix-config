@@ -6,7 +6,8 @@ let
   settings = {
     lastChangelogVersion = pkgs.unstable.pi-coding-agent.version;
     defaultProvider = "openrouter";
-    defaultModel = "anthropic/claude-opus-4.7";
+    defaultModel = "z-ai/glm-5.2";
+    defaultThinkingLevel = "off";
     theme = "dracula";
     quietStartup = true;
     terminal = { clearOnShrink = true; };
