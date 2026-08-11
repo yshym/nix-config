@@ -5,7 +5,7 @@
     # core
     nixos.url = "github:yshym/nixpkgs/nixos-25.11";
     nixpkgs.url = "github:yshym/nixpkgs/nixpkgs-25.11-darwin";
-    nixpkgs-unstable.url = "github:yshym/nixpkgs/nixpkgs-unstable";
+    multiverse.url = "github:fzakaria/nixpkgs-multiverse";
     darwin = {
       url = "github:yshym/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";

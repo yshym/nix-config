@@ -4,6 +4,6 @@
   home = {
     file.".local/share/TelegramDesktop/tdata/shortcuts-custom.json".source =
       ./shortcuts-custom.json;
-    packages = [ pkgs.unstable.telegram-desktop ];
+    packages = [ mv.versions.telegram-desktop."7.0.2" ];
   };
 }

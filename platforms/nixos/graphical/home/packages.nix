@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, mv, ... }:
 
 {
   home.packages = with pkgs; [
@@ -16,7 +16,7 @@
     slack
 
     # security
-    unstable.paretosecurity
+    mv.versions.paretosecurity."0.3.21"
     pinentry-curses
     yubikey-manager
 

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, mv, ... }:
 
 let
   darkBlue = "6272a4";
@@ -6,7 +6,7 @@ let
 in {
   services.jankyborders = {
     enable = true;
-    package = pkgs.unstable.jankyborders;
+    package = mv.versions.jankyborders."1.9.0";
     active_color = "0xff${darkBlue}";
     inactive_color = "0xff${darkGrey}";
     width = 5.0;

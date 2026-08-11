@@ -1,9 +1,9 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, mv, ... }:
 
 with pkgs; {
   programs.alacritty = {
     enable = true;
-    package = pkgs.unstable.alacritty;
+    package = mv.versions.alacritty."0.17.0";
     settings = {
       window = {
         decorations = if stdenv.isDarwin then "buttonless" else "none";

@@ -45,6 +45,10 @@ rec {
       });
       shortSystemName = if isDarwin system then "darwin" else "nixos";
       systemModule = inputs."${shortSystemName}".lib."${shortSystemName}System";
+      mv = inputs.multiverse.lib.mkMultiverse {
+        inherit system;
+        config.allowUnfree = true;
+      };
       hmModule = inputs.home-manager."${shortSystemName}Modules".home-manager;
       hostConfigRaw = import hostPath { inherit inputs lib pkgs; };
       # Remove custom `system` attr to avoid collision with the default `system` attr
@@ -52,7 +56,7 @@ rec {
     in
     systemModule {
       inherit system;
-      specialArgs = { inherit lib inputs system; };
+      specialArgs = { inherit lib inputs system mv; };
       modules = [
         {
           nixpkgs =
@@ -66,6 +70,7 @@ rec {
         {
           home-manager = {
             extraSpecialArgs = {
+              inherit mv;
               lib = pkgs.lib.extend
                 (self: super: inputs.home-manager.lib // lib);
             };

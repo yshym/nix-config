@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, mv, ... }:
 
 with lib;
 let cfg = config.modules.shell.opencode;
@@ -12,7 +12,7 @@ in
     home = {
       programs.opencode = {
         enable = true;
-        package = pkgs.unstable.opencode;
+        package = mv.versions.opencode."1.18.13";
         settings = {
           default_agent = "plan";
           agent = {

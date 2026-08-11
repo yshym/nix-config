@@ -1,9 +1,9 @@
-{ config, lib, pkgs, system, ... }:
+{ config, lib, pkgs, system, mv, ... }:
 
 with lib;
 let
   cfg = config.modules.keyboard.kanata;
-  pkg = pkgs.unstable.kanata;
+  pkg = mv.versions.kanata."1.12.0";
   # Check system string directly to prevent infinite recursion
   isDarwin = my.isDarwin system;
   port = 10000;

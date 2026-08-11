@@ -23,7 +23,7 @@
     wireguard-tools
 
     # communication
-    unstable.discord
+    discord
     slack
 
     # entertainment
