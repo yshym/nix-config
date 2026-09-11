@@ -30,16 +30,14 @@
 (defcmd help []
   (print (help)))
 
-(defcmd build [&opt rest]
-  (default rest @[])
+(defcmd build [& rest]
   ($ nix build ,;rest))
 
 (defcmd check [&opt path --impure impure?]
   ($ nix flake check ,(or path (flake-path))
         ,;(if impure? ["--impure"] [])))
 
-(defcmd rebuild [&opt rest]
-  (default rest @[])
+(defcmd rebuild [& rest]
   ($ sudo ,(nixos-rebuild) switch --flake
           ,(string (flake-path) "#" (hostname))
           ,;rest))
@@ -50,8 +48,7 @@
 (defcmd shell [package]
   ($ nix shell ,(string "nixpkgs#" package)))
 
-(defcmd update [&opt rest]
-  (default rest @[])
+(defcmd update [& rest]
   ($ nix flake update ,;rest))
 
 (defn main [& args]
