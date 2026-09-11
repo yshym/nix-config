@@ -3,7 +3,7 @@
 with lib;
 let
   cfg = config.modules.shell.pi;
-  pkg = mv.versions.pi-coding-agent."0.84.0";
+  pkg = mv.versions.pi-coding-agent."0.85.1";
   settings = {
     lastChangelogVersion = pkg.version;
     defaultProvider = "openrouter";
