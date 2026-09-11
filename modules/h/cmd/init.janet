@@ -27,7 +27,8 @@
   (string/has-prefix? "-" arg))
 
 (defn special-name? [arg]
-  (= (string arg) "&opt"))
+  (def s (string arg))
+  (or (= s "&opt") (= s "&")))
 
 (defn argument-name [arg]
   (if (tuple? arg) (first arg) arg))
@@ -40,9 +41,10 @@
 (defn bool-name? [arg]
   (string/has-suffix? "?" arg))
 
-(defn make-arg [name optional? &opt type]
+(defn make-arg [name optional? &opt type variadic?]
   (default type :string)
-  {:name name :optional? optional? :type type})
+  (default variadic? false)
+  {:name name :optional? optional? :type type :variadic? variadic?})
 
 (defn make-opt [optional? &opt type]
   (default type :string)
@@ -58,15 +60,20 @@
 # :opts - @{<option-name> -> <requires-value>}
 # :args - @[{:name <arg-name> :optional? <optional?>}]
 (defmacro build-argspec [args]
-  (with-syms [$argspec $cur-opt $after-opt?]
+  (with-syms [$argspec $cur-opt $after-opt? $variadic?]
     (def processed-args (map |(if (tuple? $) $ [$ nil]) args))
     ~(let [,$argspec ,(struct :opts @{} :args @[])]
        (var ,$cur-opt nil)
        (var ,$after-opt? false)
+       (var ,$variadic? false)
        (each [arg arg-type] ',processed-args
          (cond
-           # &opt -> skip token
+           # &opt -> following args are optional
            (= arg '&opt) (set ,$after-opt? true)
+           # & -> next arg is the variadic collector (only one allowed)
+           (= arg '&) (if ,$variadic?
+                         (error "Multiple variadic collectors not allowed")
+                         (set ,$variadic? true))
            # option -> remember option
            (option-name? arg) (set ,$cur-opt arg)
            # argument ->
@@ -77,7 +84,9 @@
                                                                                     (if (bool-name? arg) :bool arg-type)))
                                       (set ,$cur-opt nil))
              # push argument to the list of arguments
-             (array/push (get ,$argspec :args) (make-arg arg ,$after-opt? arg-type)))))
+             (do
+               (when ,$variadic? (set ,$after-opt? true))
+               (array/push (get ,$argspec :args) (make-arg arg ,$after-opt? arg-type ,$variadic?))))))
        ,$argspec)))
 
 (defn get-required-args [args]
@@ -108,6 +117,11 @@
   (var pos-arg-i 0)
   (var cur-opt nil)
 
+  # Pre-initialize the variadic collector to an empty array
+  (each spec (get argspec :args)
+    (when (get spec :variadic?)
+      (put pos-args (symbol (get spec :name)) @[])))
+
   (each arg args
     (cond
       # &opt -> the following arguments are optional
@@ -126,9 +140,15 @@
         # add positional argument
         (do
           (def pos-arg (get (get argspec :args) pos-arg-i))
+          (def arg-name (symbol (get pos-arg :name)))
           (def arg-type (get pos-arg :type))
-          (put pos-args (symbol (get pos-arg :name)) (convert-to arg arg-type))
-          (++ pos-arg-i))
+          (def variadic? (get pos-arg :variadic?))
+          (if variadic?
+            # variadic: collect this and all remaining args into an array
+            (array/push (get pos-args arg-name) (convert-to arg arg-type))
+            (do
+              (put pos-args arg-name (convert-to arg arg-type))
+              (++ pos-arg-i))))
         # set option value
         (do
           (def opt-type (get-in argspec [:opts (symbol cur-opt) :type]))

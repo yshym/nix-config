@@ -4,7 +4,7 @@
 #   hello
 #   add
 
-(use ./cmd)
+(use .)
 
 (defcmd hello [world &opt other --bye bye? --ciao ciao? -d dup?]
   (default other "Other name")

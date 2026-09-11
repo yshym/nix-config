@@ -1,23 +1,30 @@
 (use judge)
-(use ./cmd)
+(use .)
 
 (deftest macros
   (test-macro (build-argspec [hello --bye bye?])
     (let [<1> {:args @[] :opts @{}}]
       (var <2> nil)
       (var <3> false)
-      (each arg
-        (quote [hello --bye bye?])
-        (def [arg arg-type] (if (tuple? arg) [(splice arg)] [arg nil]))
+      (var <4> false)
+      (each [arg arg-type]
+        (quote @[(hello nil) (--bye nil) (bye? nil)])
         (cond (= arg (quote &opt))
           (set <3> true)
+          (= arg (quote &))
+          (if <4>
+            (error "Multiple variadic collectors not allowed")
+            (set <4> true))
           (option-name? arg)
           (set <2> arg)
           (cond (not (nil? <2>))
             (do
               (put-in <1> [:opts <2>] (make-opt (or (bool-name? arg) <3>) (if (bool-name? arg) :bool arg-type)))
               (set <2> nil))
-            (array/push (get <1> :args) (make-arg arg <3> arg-type)))))
+            (do
+              (when <4>
+                (set <3> true))
+              (array/push (get <1> :args) (make-arg arg <3> arg-type <4>))))))
       <1>))
 
   (test-macro (defcmd hello [world universe]
@@ -49,35 +56,60 @@
   (test (build-argspec [hello --bye bye?])
     {:args @[{:name hello
               :optional? false
-              :type :string}]
+              :type :string
+              :variadic? false}]
      :opts @{--bye {:optional? true :type :bool}}})
   (test (build-argspec [--foo foo bar --on on?])
     {:args @[{:name bar
               :optional? false
-              :type :string}]
+              :type :string
+              :variadic? false}]
      :opts @{--foo {:optional? false :type :string}
              --on {:optional? true :type :bool}}})
   (test (build-argspec [--foo foo? --bar bar baz --on on?])
     {:args @[{:name baz
               :optional? false
-              :type :string}]
+              :type :string
+              :variadic? false}]
      :opts @{--bar {:optional? false :type :string}
              --foo {:optional? true :type :bool}
              --on {:optional? true :type :bool}}})
   (test (build-argspec [foo &opt bar --baz baz])
     {:args @[{:name foo
               :optional? false
-              :type :string}
+              :type :string
+              :variadic? false}
              {:name bar
               :optional? true
-              :type :string}]
+              :type :string
+              :variadic? false}]
      :opts @{--baz {:optional? true :type :string}}})
   (test (build-argspec [foo [bar :int] --baz [baz :int]])
     {:args @[{:name foo
               :optional? false
-              :type :string}
-             {:name bar :optional? false :type :int}]
-     :opts @{--baz {:optional? false :type :int}}}))
+              :type :string
+              :variadic? false}
+             {:name bar
+              :optional? false
+              :type :int
+              :variadic? false}]
+     :opts @{--baz {:optional? false :type :int}}})
+  (test (build-argspec [foo & rest])
+    {:args @[{:name foo
+              :optional? false
+              :type :string
+              :variadic? false}
+             {:name rest
+              :optional? true
+              :type :string
+              :variadic? true}]
+     :opts @{}})
+  (test (build-argspec [& rest])
+    {:args @[{:name rest
+              :optional? true
+              :type :string
+              :variadic? true}]
+     :opts @{}}))
 
 (deftest required-args
   (test (get-required-args (get (build-argspec [foo bar &opt baz --qux qux]) :args)) @[foo bar]))
@@ -93,6 +125,19 @@
     {:args @{baz "baz"}
      :opts @{--bar "bar" --foo true --on true}}))
 
+(deftest parse-args-variadic
+  (test (parse-args (build-argspec [foo & rest]) ["foo" "a" "b" "c"])
+        {:args @{foo "foo" rest @["a" "b" "c"]}
+         :opts @{}})
+  (test (parse-args (build-argspec [& rest]) ["a" "b"])
+        {:args @{rest @["a" "b"]}
+         :opts @{}})
+  (test (parse-args (build-argspec [& rest]) [])
+    {:args @{rest @[]} :opts @{}})
+  (test (parse-args (build-argspec [name & rest]) ["hello"])
+    {:args @{name "hello" rest @[]}
+     :opts @{}}))
+
 (deftest runcmd
   (defcmd hello [name]
     (printf "Hello, %s!" name))
@@ -100,12 +145,13 @@
   (test (cmd 'hello)
     {:argspec {:args @[{:name name
                         :optional? false
-                        :type :string}]
+                        :type :string
+                        :variadic? false}]
                :opts @{}}
      :fn "<function 0x1>"
      :name hello})
 
-  (with-dyns [:args ["<bin>" "World"]]
+  (with-dyns [:args ["<bin>" "hello" "World"]]
     (test-stdout (runcmd 'hello) `
       Hello, World!
     `)))
@@ -117,15 +163,44 @@
   (test (cmd 'multi-hello)
     {:argspec {:args @[{:name name
                         :optional? false
-                        :type :string}
+                        :type :string
+                        :variadic? false}
                        {:name name2
                         :optional? true
-                        :type :string}]
+                        :type :string
+                        :variadic? false}]
                :opts @{}}
      :fn "<function 0x1>"
      :name multi-hello})
 
-  (with-dyns [:args ["<bin>" "World" "World2"]]
+  (with-dyns [:args ["<bin>" "multi-hello" "World" "World2"]]
     (test-stdout (runcmd 'multi-hello) `
       Hello, World and World2!
+    `)))
+
+(deftest runcmd-variadic
+  (defcmd vari-hello [name & rest]
+    (printf "Hello, %s! (%p)" name rest))
+
+  (test (cmd 'vari-hello)
+    {:argspec {:args @[{:name name
+                        :optional? false
+                        :type :string
+                        :variadic? false}
+                       {:name rest
+                        :optional? true
+                        :type :string
+                        :variadic? true}]
+               :opts @{}}
+     :fn "<function 0x1>"
+     :name vari-hello})
+
+  (with-dyns [:args ["<bin>" "vari-hello" "World" "a" "b" "c"]]
+    (test-stdout (runcmd 'vari-hello) `
+      Hello, World! (@["a" "b" "c"])
+    `))
+
+  (with-dyns [:args ["<bin>" "vari-hello" "World"]]
+    (test-stdout (runcmd 'vari-hello) `
+      Hello, World! (@[])
     `)))
