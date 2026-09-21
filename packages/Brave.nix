@@ -3,7 +3,7 @@
 with pkgs;
 stdenv.mkDerivation rec {
   pname = "Brave";
-  version = "1.92.140";
+  version = "1.95.104";
 
   buildInputs = [ undmg ];
   sourceRoot = ".";
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     name = "Brave-${version}.dmg";
     url =
       "https://github.com/brave/brave-browser/releases/download/v${version}/Brave-Browser-universal.dmg";
-    sha256 = "sha256-BOLha88KglbYgjnRt276w/fBu9hlHlLKWvuqtSy3EN4=";
+    sha256 = "sha256-MKWB+auUXPSCS7WQwrFrnFBoFVA5LPvepdtmpUrLdL8=";
   };
 
   meta = with lib; {
