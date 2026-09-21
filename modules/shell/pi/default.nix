@@ -7,8 +7,9 @@ let
   settings = {
     lastChangelogVersion = pkg.version;
     defaultProvider = "openrouter";
-    defaultModel = "z-ai/glm-5.2";
+    defaultModel = "deepseek/deepseek-v4.1-flash";
     defaultThinkingLevel = "off";
+    hideThinkingBlock = true;
     theme = "dracula";
     quietStartup = true;
     terminal = { clearOnShrink = true; };
