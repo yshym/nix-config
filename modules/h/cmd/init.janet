@@ -1,14 +1,12 @@
-# TODO Fix macro hygiene
-(defmacro help []
+# Reads the leading run of `#` comment lines from the calling script's source.
+(defn read-help [file]
   (def peg (peg/compile '(* "#" (between 0 1 " "))))
-  (def current-file (dyn :current-file))
-  (if (nil? current-file)
+  (if (nil? file)
     ""
-    (let [f (file/open current-file :rn)]
-      (def ,$f (file/open current-file :rn))
+    (let [f (file/open file :rn)]
       (var line (file/read f :line))
       (unless (string/has-prefix? "#!/" line)
-        (errorf "Not a script: %s" current-file))
+        (errorf "Not a script: %s" file))
       # Skip shebang — don't include it in help output.
       (set line (file/read f :line))
       (def lines @[])
@@ -19,6 +17,11 @@
         (set line (file/read f :line)))
       (file/close f)
       (string/trim (string/join lines)))))
+
+# Wraps `read-help` and calls it at compile time, baking the result into the
+# compiled binary as a string.
+(defmacro help []
+  (read-help (dyn :current-file)))
 
 (def- *commands* @{})
 (setdyn :parsed-args {:args @{} :opts @{}})
