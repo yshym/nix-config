@@ -148,6 +148,8 @@
                              (unless (= pending-type :bool)
                                (errorf "Option \"%s\" requires a value" cur-opt)))
                            (def opt (get-in argspec [:opts (symbol arg)]))
+                           (unless opt
+                             (errorf "Unknown option \"%s\"" arg))
                            (if (get opt :optional?)
                              (do
                                (def value (if (= (get opt :type) :bool) true nil))

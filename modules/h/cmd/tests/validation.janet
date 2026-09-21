@@ -24,6 +24,18 @@
   (test-error (convert-to "2" :bool) "Invalid boolean value \"2\"")
   (test-error (convert-to "maybe" :bool) "Invalid boolean value \"maybe\""))
 
+# An option that is not declared in the spec is rejected by name, rather
+# than swallowed or reported as a missing value for a declared option.
+(deftest parse-args-unknown-option
+  (test-error (parse-args (build-argspec [--name name]) ["--nope" "x"])
+              "Unknown option \"--nope\"")
+  # A trailing undeclared option is still unknown, not a missing value.
+  (test-error (parse-args (build-argspec [--name name]) ["--nope"])
+              "Unknown option \"--nope\"")
+  # An undeclared option after a boolean option is rejected.
+  (test-error (parse-args (build-argspec [--verbose verbose?]) ["--verbose" "--nope"])
+              "Unknown option \"--nope\""))
+
 # A value-requiring option must not swallow a following option as its
 # value; that is a missing-value error, not a silent assignment.
 (deftest parse-args-option-does-not-swallow-option
