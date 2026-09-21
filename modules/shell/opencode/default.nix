@@ -17,16 +17,14 @@ in
           default_agent = "plan";
           agent = {
             build.permission.edit = "ask";
-            default = {
-              model = "openrouter/z-ai/glm-5.2";
-              disable_reasoning = true;
-            };
+            default.model = "openrouter/deepseek/deepseek-v4.1-flash";
           };
           theme = "dracula";
           autoupdate = false;
-          provider.openrouter.models = {
-            "anthropic/claude-opus-5".reasoning = false;
-            "z-ai/glm-5.2".reasoning = false;
+          tui.display_thinking = "none";
+          provider.amazon-bedrock.options = {
+            region = "us-west-2";
+            profile = "claude-code-bedrock-sso";
           };
         };
       };
