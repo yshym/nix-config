@@ -1,22 +1,28 @@
-# Reads the leading run of `#` comment lines from the calling script's source.
+# Matches a leading `#` and at most one following space, so help comments can
+# be written either as `# text` or `#text`.
+(def- help-comment-peg (peg/compile '(* "#" (between 0 1 " "))))
+
+# Reads the leading run of `#` comment lines from a script's source.
 (defn read-help [file]
-  (def peg (peg/compile '(* "#" (between 0 1 " "))))
   (if (nil? file)
     ""
     (let [f (file/open file :rn)]
-      (var line (file/read f :line))
-      (unless (string/has-prefix? "#!/" line)
-        (errorf "Not a script: %s" file))
-      # Skip shebang — don't include it in help output.
-      (set line (file/read f :line))
-      (def lines @[])
-      (while line
-        (if (string/has-prefix? "#" line)
-          (array/push lines (peg/replace peg "" line))
-          (break))
-        (set line (file/read f :line)))
-      (file/close f)
-      (string/trim (string/join lines)))))
+      (defer (file/close f)
+        (var line (file/read f :line))
+        (if (nil? line)
+          ""
+          (do
+            (unless (string/has-prefix? "#!/" line)
+              (errorf "Not a script: %s" file))
+            # Skip shebang — don't include it in help output.
+            (set line (file/read f :line))
+            (def lines @[])
+            (while line
+              (if (string/has-prefix? "#" line)
+                (array/push lines (peg/replace help-comment-peg "" line))
+                (break))
+              (set line (file/read f :line)))
+            (string/trim (string/join lines))))))))
 
 # Wraps `read-help` and calls it at compile time, baking the result into the
 # compiled binary as a string.
@@ -56,7 +62,11 @@
 (defn convert-to [value type]
   (case type
     :int  (int/s64 value)
-    :bool (not (nil? (find |(= $ (string/ascii-lower value)) ["true" "1" "on"])))
+    :bool (let [v (string/ascii-lower value)]
+            (cond
+              (find |(= $ v) ["true" "1" "on" "yes"]) true
+              (find |(= $ v) ["false" "0" "off" "no"]) false
+              (errorf "Invalid boolean value \"%s\"" value)))
     value))
 
 # Builds argspec struct based on argument list
@@ -99,18 +109,17 @@
     (array/push required-args (get arg :name)))
   required-args)
 
-(defn- validate-args [argspec]
-  (def parsed-args (dyn :parsed-args))
+(defn- validate-args [argspec parsed-args]
   (def required-args (get-required-args (get argspec :args)))
 
-  (def parsed-arg-len (length (filter |(not (nil? (get-in parsed-args [:args $])))
-                                      required-args)))
-  (def expected-arg-len (length required-args))
+  # Name the first required argument that did not receive a value.
+  (def missing-arg
+    (find |(nil? (get-in parsed-args [:args $])) required-args))
+  (when missing-arg
+    (errorf "Missing required argument \"%s\"" missing-arg))
 
-  (if (< parsed-arg-len expected-arg-len)
-    (errorf "Expected %d arguments, but passed %d" expected-arg-len parsed-arg-len))
   (eachp [name opt] (get argspec :opts)
-    (def value (get-in parsed-args [:opts opt]))
+    (def value (get-in parsed-args [:opts name]))
     (if (and (not (get opt :optional?)) (nil? value))
       (errorf "No value provided for option \"%s\"" name))))
 
@@ -132,6 +141,12 @@
       # option -> remember option if requires value
       #           otherwise set it to either `true` or `nil` depending on the type
       (option-name? arg) (do
+                           # A pending value-requiring option cannot take another
+                           # option as its value.
+                           (when cur-opt
+                             (def pending-type (get-in argspec [:opts (symbol cur-opt) :type]))
+                             (unless (= pending-type :bool)
+                               (errorf "Option \"%s\" requires a value" cur-opt)))
                            (def opt (get-in argspec [:opts (symbol arg)]))
                            (if (get opt :optional?)
                              (do
@@ -143,6 +158,8 @@
         # add positional argument
         (do
           (def pos-arg (get (get argspec :args) pos-arg-i))
+          (unless pos-arg
+            (errorf "Too many arguments, unexpected \"%s\"" arg))
           (def arg-name (symbol (get pos-arg :name)))
           (def arg-type (get pos-arg :type))
           (def variadic? (get pos-arg :variadic?))
@@ -158,11 +175,17 @@
           (put opts (symbol cur-opt) (convert-to arg opt-type))
           (set cur-opt nil)))))
 
-  # Handle option as last argument
-  (if (not (nil? cur-opt))
-    (put opts (symbol cur-opt) true))
+  # Handle option as last argument: only boolean options can stand alone,
+  # a value-requiring option left without a value is an error.
+  (when cur-opt
+    (def opt-type (get-in argspec [:opts (symbol cur-opt) :type]))
+    (if (= opt-type :bool)
+      (put opts (symbol cur-opt) true)
+      (errorf "Option \"%s\" requires a value" cur-opt)))
 
-  {:args pos-args :opts opts})
+  (def parsed {:args pos-args :opts opts})
+  (validate-args argspec parsed)
+  parsed)
 
 (defn filter-pos-arg-names [args]
   (def arg-names @[])
@@ -208,25 +231,34 @@
 (defn cmd [name]
   (get *commands* name))
 
-(defn cmd-alias [&opt offset]
+# (dyn :args) is [program alias arg...]: index 1 is the command alias and
+# command arguments start at index 2. These offsets are derived from one place
+# so the alias lookup and the argument slice can never drift apart.
+(def- alias-index 1)
+(def- args-index 2)
+
+(defn cmd-alias [&opt offset args]
   (default offset 0)
-  (def alias-i 1)
-  (get (dyn :args) (+ alias-i offset)))
+  (default args (dyn :args))
+  (get args (+ alias-index offset)))
 
-(defn cmd-args []
-  (def skip-args-n 2)
-  (array/slice (dyn :args) skip-args-n))
+(defn cmd-args [&opt args]
+  (default args (dyn :args))
+  (array/slice args args-index))
 
-(defn runcmd [name]
-  (def argspec (get (cmd name) :argspec))
-  (setdyn :parsed-args (parse-args argspec (cmd-args)))
-  (validate-args argspec)
-  ((get (cmd name) :fn)))
+(defn runcmd [name &opt args]
+  (default args (dyn :args))
+  (def cmd-entry (cmd name))
+  (unless cmd-entry
+    (errorf "Unknown command \"%s\"" name))
+  (def argspec (get cmd-entry :argspec))
+  (setdyn :parsed-args (parse-args argspec (cmd-args args)))
+  ((get cmd-entry :fn)))
 
 (defn commands []
   *commands*)
 
-(defn tuple/split [tup n]
+(defn- chunk [tup n]
   (var chunks @[])
   (var start 0)
   (def len (length tup))
@@ -236,11 +268,12 @@
     (set start (+ start n)))
   chunks)
 
-(defn dispatch [rules args]
+(defn dispatch [&opt rules args]
+  (default args (dyn :args))
   (def alias-to-cmd (struct ;(mapcat (fn [[aliases cmd]] (mapcat |(tuple $ cmd) aliases))
-                                     (tuple/split rules 2))))
-  (def alias (keyword (cmd-alias)))
+                                     (chunk rules 2))))
+  (def alias (keyword (cmd-alias 0 args)))
   (def cmd-name (get-in alias-to-cmd [(keyword alias) :name]))
   (if (nil? cmd-name)
     (errorf "Unknown command \"%s\"" alias))
-  (runcmd (symbol cmd-name)))
+  (runcmd (symbol cmd-name) args))
