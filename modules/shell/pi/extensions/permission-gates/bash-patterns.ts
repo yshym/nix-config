@@ -42,6 +42,11 @@ const DESTRUCTIVE_PATTERNS: RegExp[] = [
   /\bdd\b/i,
   /\bshred\b/i,
 
+  // In-place text edits (write back to the same file). `sed` is otherwise
+  // treated as read-only, so its mutating flag must be caught explicitly.
+  /\bsed\b[^\n]*\s-i(\b|['"])/i,
+  /\bperl\b[^\n]*\s-[a-z]*i[a-z]*\b/i,
+
   // Output redirection (writes to a file).
   //   - `>foo` / `> foo`        (but not `>>`, handled separately, and
   //                              not heredoc/herestring `<<` tails)
@@ -125,6 +130,13 @@ const SAFE_PATTERNS: RegExp[] = [
   /^\s*realpath\b/,
   /^\s*file\b/,
   /^\s*stat\b/,
+  /^\s*nl\b/,
+  /^\s*xxd\b/,
+  /^\s*hexdump\b/,
+  /^\s*od\b/,
+  /^\s*strings\b/,
+  /^\s*base64\b/,
+  /^\s*iconv\b/,
 
   // Searching
   /^\s*grep\b/i,
@@ -149,7 +161,7 @@ const SAFE_PATTERNS: RegExp[] = [
   // Text processing
   /^\s*awk\b/,
   /^\s*gawk\b/,
-  /^\s*sed\s+-n\b/i, // `sed -n` is read-only-ish (no in-place writes).
+  /^\s*sed\b/i, // `sed -i` is caught by DESTRUCTIVE_PATTERNS below.
   /^\s*cut\b/,
   /^\s*sort\b/,
   /^\s*uniq\b/,
@@ -159,10 +171,15 @@ const SAFE_PATTERNS: RegExp[] = [
   /^\s*column\b/,
   /^\s*paste\b/,
   /^\s*fold\b/,
+  /^\s*fmt\b/,
   /^\s*wc\b/,
   /^\s*jq\b/,
   /^\s*yq\b/,
   /^\s*xmllint\b/,
+  /^\s*bc\b/,
+  /^\s*expr\b/,
+  /^\s*test\b/,
+  /^\s*\[/,
 
   // Info / environment
   /^\s*echo\b/,
@@ -190,6 +207,17 @@ const SAFE_PATTERNS: RegExp[] = [
   /^\s*man\b/,
   /^\s*info\b/,
   /^\s*apropos\b/,
+
+  // Shell navigation / environment decoration. These are safe heads because
+  // DESTRUCTIVE_PATTERNS scan the whole command string unanchored, so
+  // `cd x && rm y` still matches `\brm\b` and is rejected. `cd` with a write
+  // redirect (`cd x > f`) is likewise caught by the redirect patterns.
+  /^\s*cd\b/,
+  /^\s*export\b/,
+  /^\s*set\b/,
+  /^\s*unset\b/,
+  // Leading `VAR=value` assignment(s) before the real command head.
+  /^\s*[A-Za-z_][A-Za-z0-9_]*=\S*\s/,
 
   // Process info (no signals)
   /^\s*ps\b/,
