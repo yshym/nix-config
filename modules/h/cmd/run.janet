@@ -25,7 +25,7 @@
 # (pp (cmd 'hello))
 
 (defn main [& args]
-  (dispatch [[:hello :h] (cmd 'hello)
+  (dispatch [[:hello] (cmd 'hello)
              [:add :a]   (cmd 'add)
              [:help :h]  (cmd 'help)]
             args))
