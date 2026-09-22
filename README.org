@@ -5,5 +5,5 @@
 ./install.sh \
     --root /mnt \
     --flake /mnt/etc/nix-config \
-    --host "$HOST" \
+    --host "$HOST"
 #+end_src
