@@ -31,6 +31,7 @@
     ;; Corfu
     `(corfu-current :background ,(doom-color 'base3) :extend t)))
 
+
 ;; Customize cursor shape and color
 (add-hook! 'doom-load-theme-hook
   (let ((cursor-color (doom-color 'orange)))
@@ -41,11 +42,19 @@
           evil-operator-state-cursor `(evil-half-cursor ,cursor-color))))
 
 
+;; nav-flash
+(custom-set-faces!
+  `(nav-flash-face
+    :background ,(doom-blend 'violet 'base1 0.30)
+    :foreground ,(doom-color 'base8)
+    :extend t))
+
 
 ;; consult
 (custom-set-faces!
   `(consult-file :foreground ,(doom-color `base5))
   `(consult-highlight-match :foreground ,(doom-color `violet) :background ,(doom-color `base3)))
+
 
 ;; Modeline
 ;; Override modeline buffer id behaviour
@@ -57,6 +66,7 @@
                                    ((+modeline-active)  'mode-line-buffer-id))
                        'help-echo (or +modeline--buffer-id-cache (buffer-name))))
                      (buffer-read-only (:propertize " RO" face warning))))
+
 
 ;; Local Variables:
 ;; byte-compile-warnings: (not free-vars unresolved)
