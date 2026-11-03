@@ -104,7 +104,9 @@ export default function (pi: ExtensionAPI) {
       if (!patch.trim()) {
         return new Text(theme.fg("muted", "↳ no changes"), 0, 0);
       }
-      return buildDiffComponent(patch, filePath, theme, expanded);
+      // Only success reaches here: partial and error results return a plain
+      // Text above, so the row bg is always toolSuccessBg.
+      return buildDiffComponent(patch, filePath, theme, expanded, "toolSuccessBg");
     },
   });
 
@@ -159,7 +161,9 @@ export default function (pi: ExtensionAPI) {
       if (!patch.trim()) {
         return new Text(theme.fg("success", "Written"), 0, 0);
       }
-      return buildDiffComponent(patch, filePath, theme, expanded);
+      // Only success reaches here: partial and error results return a plain
+      // Text above, so the row bg is always toolSuccessBg.
+      return buildDiffComponent(patch, filePath, theme, expanded, "toolSuccessBg");
     },
   });
 }

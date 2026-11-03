@@ -6,8 +6,15 @@
  */
 
 import type { Component } from "@mariozechner/pi-tui";
+import { visibleWidth } from "@mariozechner/pi-tui";
 import { renderEditDiffResult } from "./vendor/diff-renderer.js";
 import { DEFAULT_TOOL_DISPLAY_CONFIG } from "./vendor/types.js";
+
+/** Right-pad an ANSI string with spaces to an exact display width. */
+export function padToWidth(line: string, width: number): string {
+  const w = visibleWidth(line);
+  return w >= width ? line : line + " ".repeat(width - w);
+}
 
 export { renderEditDiffResult } from "./vendor/diff-renderer.js";
 export { DEFAULT_TOOL_DISPLAY_CONFIG } from "./vendor/types.js";
@@ -48,6 +55,7 @@ export function buildDiffComponent(
   filePath: string,
   theme: any,
   expanded: boolean,
+  statusBg: "toolSuccessBg" | "toolErrorBg" | "toolPendingBg" = "toolSuccessBg",
 ): Component {
   const diffTheme = makeDiffTheme(theme);
   const stripped = stripUnifiedChrome(patch);
@@ -58,21 +66,37 @@ export function buildDiffComponent(
     diffTheme,
     "",
   );
+  // Vendor rows right-pad with their own diff row-bg still active, so the diff
+  // grid spans the full content width (through the gap column). We then reset
+  // that bg and re-assert the tool-row bg, so pi's Box right-pad column — the
+  // one immediately before the fullscreen scrollbar — is tinted like the rest
+  // of the tool row instead of staying diff-bg.
+  const statusBgAnsi = theme.getBgAnsi(statusBg);
 
   return {
     render(width: number): string[] {
-      // Render vendor at width - 1 to reserve a column for our left pad.
-      // Pad is a plain space emitted BEFORE `\x1b[49m` so it stays on the
-      // outer Box's bg (toolSuccessBg / toolErrorBg); the reset only
-      // applies to the diff content that follows.
+      // Render the vendor at the full content width pi hands us. Body rows fill
+      // that width with the diff row-bg, so the grid (including the column just
+      // before the scrollbar) stays diff-bg. Header rows are returned short
+      // (the vendor does not bg-fill them), so pad them out to the full width
+      // too — otherwise pi's Box bg would start right after the header text
+      // instead of only in its right-pad column.
+      //
+      // The trailing reset + re-asserted status bg makes pi's Box padding
+      // column — the one immediately before the fullscreen scrollbar — show the
+      // tool-row tint.
       //
       // Prepend a blank line so there's a visual gap between the
       // `edit <path>` / `write <path>` header and the diff grid. The
       // blank is a bare empty string — pi's outer Box.bgFn wraps every
       // child line (including this one) with the tool-row success /
       // error tint, so it renders as a solid strip of bg.
-      const innerWidth = Math.max(1, width - 1);
-      const lines = inner.render(innerWidth).map((line) => `\x1b[49m${line}`);
+      const lines = inner
+        .render(width)
+        .map(
+          (line) =>
+            `\x1b[49m${padToWidth(line, width)}\x1b[49m${statusBgAnsi}`,
+        );
       return ["", ...lines];
     },
     invalidate(): void {
