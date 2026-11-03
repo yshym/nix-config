@@ -4,6 +4,10 @@ with lib;
 let
   cfg = config.modules.shell.pi;
   pkg = mv.versions.pi-coding-agent."1.1.0";
+  pi-subagents = import ./_pi-subagents.nix {
+    inherit lib;
+    inherit (pkgs) buildNpmPackage fetchFromGitHub;
+  };
   settings = {
     lastChangelogVersion = pkg.version;
     defaultProvider = "openrouter";
@@ -27,7 +31,13 @@ in
       xdg.configFile = {
         "pi/themes/dracula.json".source = ./dracula.json;
         "pi/extensions".source = ./extensions;
-        "pi/settings.json".text = builtins.toJSON settings;
+        "pi/settings.json".text = builtins.toJSON (settings // {
+          packages = [
+            # Vendored via Nix: the published package needs its runtime deps
+            # (croner, nanoid) present, which pi does not install for local sources.
+            "${pi-subagents}/lib/node_modules/@tintinweb/pi-subagents"
+          ];
+        });
       };
       home.sessionVariables = {
         PI_CODING_AGENT_DIR = "~/.config/pi";
