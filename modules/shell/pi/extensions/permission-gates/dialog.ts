@@ -29,6 +29,7 @@ import {
   SelectList,
   Text,
   matchesKey,
+  truncateToWidth,
   type Component,
   type SelectItem,
   type TUI,
@@ -36,6 +37,7 @@ import {
 import {
   DEFAULT_TOOL_DISPLAY_CONFIG,
   makeDiffTheme,
+  padToWidth,
   renderEditDiffResult,
   stripUnifiedChrome,
 } from "../rich-diff/diff-component.js";
@@ -208,15 +210,19 @@ function openDialog(
           }
 
           const slice = bodyLines.slice(scrollPos, scrollPos + visibleRows);
-          const emptyPad = " ".repeat(contentCols);
           const out: string[] = [];
           for (let i = 0; i < visibleRows; i++) {
             const raw = slice[i];
-            const body = raw !== undefined ? raw : emptyPad;
+            // Pad or truncate to contentCols by *display* width, so wide
+            // chars/emoji can't push the scrollbar out of its column.
+            const body =
+              raw === undefined
+                ? " ".repeat(contentCols)
+                : padToWidth(truncateToWidth(raw, contentCols, ""), contentCols);
             const bar = needBar
               ? i >= thumbStart && i < thumbEnd
-                ? theme.fg("accent", "█")
-                : theme.fg("dim", "│")
+                ? theme.fg("scrollbarThumb", "█")
+                : theme.fg("scrollbarTrack", "│")
               : " ";
             out.push(`\x1b[0m${body}${bar}`);
           }
